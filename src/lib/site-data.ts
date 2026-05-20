@@ -117,12 +117,14 @@ export type SiteData = {
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "o10sbz2i";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-05-20";
+const readToken = process.env.SANITY_API_READ_TOKEN;
 
 const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true,
+  token: readToken,
+  useCdn: !readToken,
 });
 
 const siteQuery = /* groq */ `{

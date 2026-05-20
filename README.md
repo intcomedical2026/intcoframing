@@ -81,7 +81,13 @@ NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-05-20
 ```
 
-Only local/import jobs need:
+If the Sanity dataset is private, also add a Viewer token:
+
+```text
+SANITY_API_READ_TOKEN=sk...
+```
+
+Only local/import jobs need the write token:
 
 ```text
 SANITY_API_TOKEN=sk...
