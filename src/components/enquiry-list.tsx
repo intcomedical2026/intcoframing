@@ -36,7 +36,7 @@ export function EnquiryList({ locale }: { locale: Locale }) {
         <div className="mt-8 space-y-4">
           {items.length ? (
             items.map((item) => (
-              <div key={item.slug} className="grid gap-4 border border-neutral-200 p-4 sm:grid-cols-[96px_1fr_auto] sm:items-center">
+              <div key={item.slug} className="grid gap-4 border border-neutral-200 p-4 transition-transform duration-300 hover:-translate-y-1 sm:grid-cols-[96px_1fr_auto] sm:items-center">
                 <div className="relative aspect-square bg-neutral-100">
                   {item.imageUrl ? <Image src={item.imageUrl} alt={item.title} fill className="object-cover" sizes="96px" /> : null}
                 </div>
@@ -48,7 +48,7 @@ export function EnquiryList({ locale }: { locale: Locale }) {
                     {t(locale, "quantity")}: {item.quantity}
                   </p>
                 </div>
-                <Link href={localizePath(locale, "/contact")} className="rounded bg-emerald-700 px-5 py-3 text-sm font-bold text-white">
+                <Link href={localizePath(locale, "/contact")} className="rounded bg-emerald-700 px-5 py-3 text-sm font-bold text-white transition-colors duration-200 hover:bg-neutral-950">
                   {t(locale, "quote")}
                 </Link>
               </div>
@@ -60,7 +60,7 @@ export function EnquiryList({ locale }: { locale: Locale }) {
           )}
         </div>
         {items.length ? (
-          <button type="button" onClick={clear} className="mt-6 border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700">
+          <button type="button" onClick={clear} className="mt-6 border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700 transition-colors duration-200 hover:border-neutral-950 hover:text-neutral-950">
             Clear
           </button>
         ) : null}

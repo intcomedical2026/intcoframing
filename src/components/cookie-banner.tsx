@@ -22,7 +22,7 @@ export function CookieBanner({ locale }: { locale: Locale }) {
   }
 
   return (
-    <div className="fixed inset-x-4 bottom-4 z-[70] mx-auto max-w-4xl bg-white p-5 shadow-2xl ring-1 ring-black/10">
+    <div className="intco-cookie-enter fixed inset-x-4 bottom-4 z-[70] mx-auto max-w-4xl bg-white p-5 shadow-2xl ring-1 ring-black/10">
       <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
         <div>
           <h2 className="text-lg font-semibold text-neutral-950">{t(locale, "privacyTitle")}</h2>
@@ -32,14 +32,14 @@ export function CookieBanner({ locale }: { locale: Locale }) {
           <button
             type="button"
             onClick={() => choose("reject")}
-            className="rounded border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700"
+            className="rounded border border-neutral-300 px-5 py-3 text-sm font-semibold text-neutral-700 transition-colors duration-200 hover:border-neutral-950 hover:text-neutral-950"
           >
             {t(locale, "reject")}
           </button>
           <button
             type="button"
             onClick={() => choose("accept")}
-            className="rounded bg-emerald-700 px-5 py-3 text-sm font-semibold text-white"
+            className="rounded bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition-colors duration-200 hover:bg-neutral-950"
           >
             {t(locale, "accept")}
           </button>

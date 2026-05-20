@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
+import { FloatingActions } from "@/components/floating-actions";
+import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
 import type { ProductCategory, SiteSettings } from "@/lib/site-data";
 
@@ -16,9 +18,11 @@ type ChromeProps = {
 export function SiteChrome({ settings, categories, locale, currentPath, children }: ChromeProps) {
   return (
     <div lang={locale}>
+      <RevealRuntime />
       <Header settings={settings} categories={categories} locale={locale} currentPath={currentPath} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
+      <FloatingActions settings={settings} locale={locale} />
       <CookieBanner locale={locale} />
     </div>
   );
@@ -40,7 +44,7 @@ function Header({
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur">
-      <div className="bg-neutral-950 text-white">
+      <div className="hidden bg-neutral-950 text-white lg:block">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2 text-xs sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
             <span className="inline-flex items-center gap-2">
@@ -80,17 +84,20 @@ function Header({
         <nav className="hidden items-center gap-7 text-sm font-semibold uppercase tracking-wide text-neutral-700 lg:flex">
           {(settings.navigation || []).map((item) => (
             <div key={item.path} className="group relative py-7">
-              <Link href={href(item.path)} className="transition hover:text-emerald-700">
+              <Link
+                href={href(item.path)}
+                className="relative block transition-colors duration-200 after:absolute after:left-0 after:-bottom-2 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-neutral-700 after:transition-transform after:duration-200 hover:text-emerald-700 group-hover:after:scale-x-100"
+              >
                 {item.label}
               </Link>
               {item.path === "/products" ? (
-                <div className="pointer-events-none absolute left-1/2 top-full w-[760px] -translate-x-1/2 translate-y-2 opacity-0 shadow-2xl transition group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100">
+                <div className="pointer-events-none absolute left-1/2 top-full w-[760px] origin-top -translate-x-1/2 translate-y-2 scale-y-95 opacity-0 shadow-2xl transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:scale-y-100 group-hover:opacity-100">
                   <div className="grid grid-cols-5 gap-0 bg-white p-3">
                     {parents.map((category) => (
                       <Link
                         key={category.slug}
                         href={href(category.path)}
-                        className="group/card border-r border-neutral-100 p-3 last:border-r-0"
+                        className="group/card border-r border-neutral-100 p-3 transition-transform duration-200 hover:-translate-y-0.5 last:border-r-0"
                       >
                         <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
                           {category.navImageUrl || category.imageUrl ? (
@@ -98,7 +105,7 @@ function Header({
                               src={category.navImageUrl || category.imageUrl || ""}
                               alt={category.title}
                               fill
-                              className="object-cover transition duration-500 group-hover/card:scale-105"
+                              className="object-cover transition-transform duration-500 group-hover/card:scale-110"
                               sizes="160px"
                             />
                           ) : null}

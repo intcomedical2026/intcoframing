@@ -45,7 +45,7 @@ export function ProductQuotePanel({
         <button
           type="button"
           onClick={() => setQuantity((value) => Math.max(1, value - 1))}
-          className="size-11 border border-neutral-300 bg-white text-xl"
+          className="size-11 border border-neutral-300 bg-white text-xl transition-colors duration-200 hover:bg-neutral-950 hover:text-white"
           aria-label="Decrease quantity"
         >
           -
@@ -59,7 +59,7 @@ export function ProductQuotePanel({
         <button
           type="button"
           onClick={() => setQuantity((value) => value + 1)}
-          className="size-11 border border-neutral-300 bg-white text-xl"
+          className="size-11 border border-neutral-300 bg-white text-xl transition-colors duration-200 hover:bg-neutral-950 hover:text-white"
           aria-label="Increase quantity"
         >
           +
@@ -68,7 +68,7 @@ export function ProductQuotePanel({
       <button
         type="button"
         onClick={addToCart}
-        className="mt-4 w-full rounded bg-emerald-700 px-5 py-3 text-sm font-bold uppercase tracking-wide text-white"
+        className="mt-4 w-full rounded bg-emerald-700 px-5 py-3 text-sm font-bold uppercase tracking-wide text-white transition duration-200 hover:-translate-y-0.5 hover:bg-neutral-950"
       >
         {t(locale, "addToCart")}
       </button>
