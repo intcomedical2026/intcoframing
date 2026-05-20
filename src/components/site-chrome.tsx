@@ -1,26 +1,42 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, Search } from "lucide-react";
+import { CookieBanner } from "@/components/cookie-banner";
+import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
 import type { ProductCategory, SiteSettings } from "@/lib/site-data";
 
 type ChromeProps = {
   settings: SiteSettings;
   categories: ProductCategory[];
+  locale: Locale;
+  currentPath: string;
   children: React.ReactNode;
 };
 
-export function SiteChrome({ settings, categories, children }: ChromeProps) {
+export function SiteChrome({ settings, categories, locale, currentPath, children }: ChromeProps) {
   return (
-    <>
-      <Header settings={settings} categories={categories} />
+    <div lang={locale}>
+      <Header settings={settings} categories={categories} locale={locale} currentPath={currentPath} />
       <main className="flex-1">{children}</main>
-      <Footer settings={settings} categories={categories} />
-    </>
+      <Footer settings={settings} categories={categories} locale={locale} />
+      <CookieBanner locale={locale} />
+    </div>
   );
 }
 
-function Header({ settings, categories }: { settings: SiteSettings; categories: ProductCategory[] }) {
+function Header({
+  settings,
+  categories,
+  locale,
+  currentPath,
+}: {
+  settings: SiteSettings;
+  categories: ProductCategory[];
+  locale: Locale;
+  currentPath: string;
+}) {
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
+  const href = (path: string) => localizePath(locale, path);
 
   return (
     <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur">
@@ -36,13 +52,18 @@ function Header({ settings, categories }: { settings: SiteSettings; categories: 
               {settings.email}
             </span>
           </div>
-          <Link href="/contact" className="font-medium text-emerald-200 transition hover:text-white">
-            Looking for the Perfect Solution?
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href={href("/enquiry-list")} className="font-medium text-emerald-200 transition hover:text-white">
+              {t(locale, "myCart")}
+            </Link>
+            <Link href={href("/contact")} className="font-medium text-emerald-200 transition hover:text-white">
+              {t(locale, "perfectSolution")}
+            </Link>
+          </div>
         </div>
       </div>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3" aria-label="INTCO Framing home">
+        <Link href={href("/")} className="flex items-center gap-3" aria-label="INTCO Framing home">
           {settings.logoUrl ? (
             <Image
               src={settings.logoUrl}
@@ -59,7 +80,7 @@ function Header({ settings, categories }: { settings: SiteSettings; categories: 
         <nav className="hidden items-center gap-7 text-sm font-semibold uppercase tracking-wide text-neutral-700 lg:flex">
           {(settings.navigation || []).map((item) => (
             <div key={item.path} className="group relative py-7">
-              <Link href={item.path} className="transition hover:text-emerald-700">
+              <Link href={href(item.path)} className="transition hover:text-emerald-700">
                 {item.label}
               </Link>
               {item.path === "/products" ? (
@@ -68,7 +89,7 @@ function Header({ settings, categories }: { settings: SiteSettings; categories: 
                     {parents.map((category) => (
                       <Link
                         key={category.slug}
-                        href={category.path}
+                        href={href(category.path)}
                         className="group/card border-r border-neutral-100 p-3 last:border-r-0"
                       >
                         <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
@@ -91,12 +112,53 @@ function Header({ settings, categories }: { settings: SiteSettings; categories: 
             </div>
           ))}
         </nav>
+        <form action={href("/index.php")} className="hidden w-44 items-center border border-neutral-200 px-3 py-2 xl:flex">
+          <Search size={16} className="text-neutral-500" />
+          <input
+            name="keyword"
+            aria-label={t(locale, "search")}
+            placeholder={t(locale, "search")}
+            className="ml-2 min-w-0 flex-1 bg-transparent text-sm outline-none"
+          />
+        </form>
+        <details className="relative hidden lg:block">
+          <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-wide text-neutral-700">
+            {localeLabels[locale]}
+          </summary>
+          <div className="absolute right-0 top-8 w-44 bg-white p-2 shadow-xl ring-1 ring-black/10">
+            {locales.map((item) => (
+              <Link
+                key={item}
+                href={localizePath(item, currentPath)}
+                className="block px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
+              >
+                {localeLabels[item]}
+              </Link>
+            ))}
+          </div>
+        </details>
         <div className="flex items-center gap-2 lg:hidden">
-          <Link href="/products" className="rounded border border-neutral-300 px-3 py-2 text-sm font-semibold">
+          <details className="relative">
+            <summary className="cursor-pointer list-none rounded border border-neutral-300 px-3 py-2 text-sm font-semibold">
+              {localeLabels[locale]}
+            </summary>
+            <div className="absolute right-0 top-12 z-50 w-44 bg-white p-2 shadow-xl ring-1 ring-black/10">
+              {locales.map((item) => (
+                <Link
+                  key={item}
+                  href={localizePath(item, currentPath)}
+                  className="block px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
+                >
+                  {localeLabels[item]}
+                </Link>
+              ))}
+            </div>
+          </details>
+          <Link href={href("/products")} className="rounded border border-neutral-300 px-3 py-2 text-sm font-semibold">
             Products
           </Link>
-          <Link href="/contact" className="rounded bg-emerald-700 px-3 py-2 text-sm font-semibold text-white">
-            Contact
+          <Link href={href("/contact")} className="rounded bg-emerald-700 px-3 py-2 text-sm font-semibold text-white">
+            {t(locale, "contactUs")}
           </Link>
         </div>
       </div>
@@ -104,25 +166,26 @@ function Header({ settings, categories }: { settings: SiteSettings; categories: 
   );
 }
 
-function Footer({ settings, categories }: { settings: SiteSettings; categories: ProductCategory[] }) {
+function Footer({ settings, categories, locale }: { settings: SiteSettings; categories: ProductCategory[]; locale: Locale }) {
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
+  const href = (path: string) => localizePath(locale, path);
 
   return (
     <footer className="bg-neutral-950 text-white">
       <section className="border-b border-white/10">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:px-8">
           <div>
-            <p className="text-sm uppercase tracking-[0.26em] text-emerald-300">Looking for the Perfect Solution?</p>
+            <p className="text-sm uppercase tracking-[0.26em] text-emerald-300">{t(locale, "perfectSolution")}</p>
             <h2 className="mt-3 max-w-2xl text-3xl font-semibold sm:text-4xl">
-              Contact us today for your decor solution needs.
+              {t(locale, "contactToday")}
             </h2>
           </div>
           <div className="flex items-center lg:justify-end">
             <Link
-              href="/contact"
+              href={href("/contact")}
               className="inline-flex items-center justify-center rounded bg-emerald-600 px-7 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-emerald-500"
             >
-              Contact Us
+              {t(locale, "contactUs")}
             </Link>
           </div>
         </div>
@@ -153,14 +216,18 @@ function Footer({ settings, categories }: { settings: SiteSettings; categories: 
             </p>
           </div>
         </div>
-        <FooterColumn title="Product" links={parents.map((item) => ({ label: item.title, path: item.path }))} />
+        <FooterColumn title={t(locale, "product")} links={parents.map((item) => ({ label: item.title, path: href(item.path) }))} />
         {(settings.footerColumns || []).slice(1).map((column) => (
-          <FooterColumn key={column.title} title={column.title} links={column.links || []} />
+          <FooterColumn
+            key={column.title}
+            title={column.title}
+            links={(column.links || []).map((link) => ({ ...link, path: href(link.path) }))}
+          />
         ))}
         <div>
-          <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white">Newsletter</h3>
+          <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white">{t(locale, "newsletter")}</h3>
           <p className="mt-4 text-sm leading-6 text-neutral-300">
-            Premier interior decoration manufacturing updates, category launches and solution insights.
+            {t(locale, "newsletterText")}
           </p>
         </div>
       </div>

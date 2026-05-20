@@ -12,12 +12,16 @@ import {
   SiteData,
   Solution,
 } from "@/lib/site-data";
+import { Locale, localizePath, t } from "@/lib/i18n";
+import { ProductQuotePanel } from "@/components/product-quote-panel";
+import { EnquiryList } from "@/components/enquiry-list";
 
-export function HomeView({ data }: { data: SiteData }) {
+export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
   const { homePage, productCategories, products, solutions, projects, blogPosts } = data;
   const hero = homePage.heroSlides?.[0];
   const parentCategories = productCategories.filter((category) => !category.parentSlug).slice(0, 5);
   const latestPosts = blogPosts.slice(0, 6);
+  const href = (path: string) => localizePath(locale, path);
 
   return (
     <>
@@ -32,18 +36,18 @@ export function HomeView({ data }: { data: SiteData }) {
             <h1 className="mt-5 text-5xl font-bold leading-none sm:text-7xl lg:text-8xl">{hero?.title || homePage.title}</h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-white/85">{hero?.subtitle}</p>
             <div className="mt-9 flex flex-wrap gap-4">
-              {hero?.primaryCta ? <PrimaryLink href={hero.primaryCta.path}>{hero.primaryCta.label}</PrimaryLink> : null}
-              {hero?.secondaryCta ? <SecondaryLink href={hero.secondaryCta.path}>{hero.secondaryCta.label}</SecondaryLink> : null}
+              {hero?.primaryCta ? <PrimaryLink href={href(hero.primaryCta.path)}>{hero.primaryCta.label}</PrimaryLink> : null}
+              {hero?.secondaryCta ? <SecondaryLink href={href(hero.secondaryCta.path)}>{hero.secondaryCta.label}</SecondaryLink> : null}
             </div>
           </div>
         </div>
       </section>
 
       <section className="bg-white py-16">
-        <SectionTitle eyebrow="Featured Products" title="Category depth for retail programs" />
+        <SectionTitle eyebrow={t(locale, "featuredProducts")} title="Category depth for retail programs" />
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
           {parentCategories.map((category) => (
-            <CategoryCard key={category.slug} category={category} />
+            <CategoryCard key={category.slug} category={category} locale={locale} />
           ))}
         </div>
       </section>
@@ -87,13 +91,13 @@ export function HomeView({ data }: { data: SiteData }) {
 
       <section className="bg-white py-16">
         <SectionTitle
-          eyebrow="Solutions"
+          eyebrow={t(locale, "solutions")}
           title="Turnkey service from insight to delivery"
           description="We are committed to offering you retail solutions custom tailored to fulfill all your needs."
         />
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
           {solutions.map((solution, index) => (
-            <FeatureCard key={solution.slug} item={solution} iconIndex={index} href={solution.path} />
+            <FeatureCard key={solution.slug} item={solution} iconIndex={index} href={href(solution.path)} locale={locale} />
           ))}
         </div>
       </section>
@@ -107,7 +111,7 @@ export function HomeView({ data }: { data: SiteData }) {
         />
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
           {projects.slice(0, 4).map((project) => (
-            <ImageCard key={project.slug} href={project.path} title={project.title} label={project.category} imageUrl={project.imageUrl} />
+            <ImageCard key={project.slug} href={href(project.path)} title={project.title} label={project.category} imageUrl={project.imageUrl} alt={project.imageAlt} />
           ))}
         </div>
       </section>
@@ -116,16 +120,16 @@ export function HomeView({ data }: { data: SiteData }) {
         <SectionTitle eyebrow="Blog" title="Interior decor expertise" description={homePage.blogIntro?.description} />
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
           {latestPosts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
+            <BlogCard key={post.slug} post={post} locale={locale} />
           ))}
         </div>
       </section>
 
       <section className="bg-neutral-100 py-16">
-        <SectionTitle eyebrow="Latest Products" title="Recently captured from the original catalog" />
+        <SectionTitle eyebrow={t(locale, "latestProducts")} title="Recently captured from the original catalog" />
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
           {products.slice(0, 8).map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard key={product.slug} product={product} locale={locale} />
           ))}
         </div>
       </section>
@@ -139,12 +143,14 @@ export function ProductListingView({
   products,
   categories,
   heroImage,
+  locale,
 }: {
   title: string;
   description?: string;
   products: Product[];
   categories?: ProductCategory[];
   heroImage?: string;
+  locale: Locale;
 }) {
   return (
     <>
@@ -153,7 +159,7 @@ export function ProductListingView({
         <section className="bg-white py-12">
           <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
             {categories.map((category) => (
-              <CategoryCard key={category.slug} category={category} />
+              <CategoryCard key={category.slug} category={category} locale={locale} />
             ))}
           </div>
         </section>
@@ -161,7 +167,7 @@ export function ProductListingView({
       <section className="bg-neutral-100 py-14">
         <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
           {products.map((product) => (
-            <ProductCard key={product.slug} product={product} />
+            <ProductCard key={product.slug} product={product} locale={locale} />
           ))}
         </div>
       </section>
@@ -169,7 +175,7 @@ export function ProductListingView({
   );
 }
 
-export function SolutionsListingView({ solutions }: { solutions: Solution[] }) {
+export function SolutionsListingView({ solutions, locale }: { solutions: Solution[]; locale: Locale }) {
   return (
     <>
       <PageHero
@@ -179,7 +185,7 @@ export function SolutionsListingView({ solutions }: { solutions: Solution[] }) {
       <section className="bg-white py-14">
         <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
           {solutions.map((solution, index) => (
-            <FeatureCard key={solution.slug} item={solution} iconIndex={index} href={solution.path} />
+            <FeatureCard key={solution.slug} item={solution} iconIndex={index} href={localizePath(locale, solution.path)} locale={locale} />
           ))}
         </div>
       </section>
@@ -187,8 +193,8 @@ export function SolutionsListingView({ solutions }: { solutions: Solution[] }) {
   );
 }
 
-export function ProjectsListingView({ projects, category }: { projects: Project[]; category?: string }) {
-  const filtered = category ? projects.filter((project) => project.category === category) : projects;
+export function ProjectsListingView({ projects, category, locale }: { projects: Project[]; category?: string; locale: Locale }) {
+  const filtered = category ? projects.filter((project) => (project.categoryKey || project.category) === category) : projects;
 
   return (
     <>
@@ -199,7 +205,7 @@ export function ProjectsListingView({ projects, category }: { projects: Project[
       <section className="bg-white py-14">
         <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
           {filtered.map((project) => (
-            <ImageCard key={project.slug} href={project.path} title={project.title} label={project.category} imageUrl={project.imageUrl} />
+            <ImageCard key={project.slug} href={localizePath(locale, project.path)} title={project.title} label={project.category} imageUrl={project.imageUrl} alt={project.imageAlt} />
           ))}
         </div>
       </section>
@@ -207,8 +213,10 @@ export function ProjectsListingView({ projects, category }: { projects: Project[
   );
 }
 
-export function BlogListingView({ posts }: { posts: BlogPost[] }) {
+export function BlogListingView({ posts, locale, activeCategory }: { posts: BlogPost[]; locale: Locale; activeCategory?: string }) {
   const categories = Array.from(new Set(posts.map((post) => post.category).filter(Boolean)));
+  const filteredPosts = activeCategory ? posts.filter((post) => post.category === activeCategory) : posts;
+  const visiblePosts = filteredPosts.length ? filteredPosts : posts;
   return (
     <>
       <PageHero
@@ -217,17 +225,25 @@ export function BlogListingView({ posts }: { posts: BlogPost[] }) {
       />
       <section className="bg-white py-8">
         <div className="mx-auto flex max-w-7xl flex-wrap gap-3 px-4 sm:px-6 lg:px-8">
-          {["All", ...categories].map((category) => (
-            <span key={category} className="border border-neutral-200 px-4 py-2 text-sm font-semibold text-neutral-700">
+          {[t(locale, "all"), ...categories].map((category) => (
+            <Link
+              key={category}
+              href={category === t(locale, "all") ? localizePath(locale, "/blog") : `${localizePath(locale, "/blog")}?category=${encodeURIComponent(category || "")}`}
+              className={`border px-4 py-2 text-sm font-semibold ${
+                (category === t(locale, "all") && !activeCategory) || category === activeCategory
+                  ? "border-emerald-700 bg-emerald-700 text-white"
+                  : "border-neutral-200 text-neutral-700"
+              }`}
+            >
               {category}
-            </span>
+            </Link>
           ))}
         </div>
       </section>
       <section className="bg-neutral-100 py-14">
         <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-          {posts.map((post) => (
-            <BlogCard key={post.slug} post={post} />
+          {visiblePosts.map((post) => (
+            <BlogCard key={post.slug} post={post} locale={locale} />
           ))}
         </div>
       </section>
@@ -235,7 +251,17 @@ export function BlogListingView({ posts }: { posts: BlogPost[] }) {
   );
 }
 
-export function DetailView({ item, label }: { item: Product | Solution | Project | BlogPost | ContentPage; label: string }) {
+export function DetailView({
+  item,
+  label,
+  locale,
+  relatedProducts = [],
+}: {
+  item: Product | Solution | Project | BlogPost | ContentPage;
+  label: string;
+  locale: Locale;
+  relatedProducts?: Product[];
+}) {
   const body = "bodyText" in item ? item.bodyText : "";
   const lines = linesFromBody(body, 22);
   const gallery = item.galleryUrls?.filter(Boolean).slice(0, 6) || [];
@@ -248,14 +274,14 @@ export function DetailView({ item, label }: { item: Product | Solution | Project
           <div>
             {item.imageUrl ? (
               <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
-                <Image src={item.imageUrl} alt={item.title} fill className="object-cover" sizes="(min-width: 1024px) 52vw, 100vw" />
+                <Image src={item.imageUrl} alt={item.imageAlt || item.title} fill className="object-cover" sizes="(min-width: 1024px) 52vw, 100vw" />
               </div>
             ) : null}
             {gallery.length > 1 ? (
               <div className="mt-4 grid grid-cols-3 gap-4">
                 {gallery.slice(1).map((image) => (
                   <div key={image} className="relative aspect-square overflow-hidden bg-neutral-100">
-                    <Image src={image} alt={item.title} fill className="object-cover" sizes="180px" />
+                    <Image src={image} alt={item.imageAlt || item.title} fill className="object-cover" sizes="180px" />
                   </div>
                 ))}
               </div>
@@ -272,15 +298,88 @@ export function DetailView({ item, label }: { item: Product | Solution | Project
                 <p key={line}>{line}</p>
               ))}
             </div>
+            {label === "Product" && "slug" in item ? (
+              <ProductQuotePanel
+                locale={locale}
+                product={{ slug: item.slug, title: item.title, path: item.path, imageUrl: item.imageUrl }}
+              />
+            ) : null}
           </article>
         </div>
+        {relatedProducts.length ? (
+          <div className="mx-auto mt-12 max-w-7xl px-4 sm:px-6 lg:px-8">
+            <SectionTitle eyebrow={t(locale, "relatedProducts")} title={t(locale, "aboutThisItem")} />
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+              {relatedProducts.map((product) => (
+                <ProductCard key={product.slug} product={product} locale={locale} />
+              ))}
+            </div>
+          </div>
+        ) : null}
       </section>
     </>
   );
 }
 
-export function ContentPageView({ page }: { page: ContentPage }) {
-  return <DetailView item={page} label="INTCO" />;
+export function EnquiryListView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <PageHero title={t(locale, "myCart")} description={t(locale, "quote")} />
+      <EnquiryList locale={locale} />
+    </>
+  );
+}
+
+export function ContentPageView({ page, locale }: { page: ContentPage; locale: Locale }) {
+  return <DetailView item={page} label="INTCO" locale={locale} />;
+}
+
+export function ContactView({ page, locale }: { page: ContentPage; locale: Locale }) {
+  const contacts = [
+    { title: "Call Now", value: "+86 13371591392", href: "tel:+8613371591392" },
+    { title: "Live Chat", value: "+86 17753315610", href: "tel:+8617753315610" },
+    { title: "Email Us", value: "info@intcoframing-us.com", href: "mailto:info@intcoframing-us.com" },
+    { title: "Order A SAMPLE", value: t(locale, "quote"), href: localizePath(locale, "/enquiry-list") },
+  ];
+  return (
+    <>
+      <PageHero title={page.title} description={page.description} imageUrl={page.imageUrl} label="INTCO" />
+      <section className="bg-white py-14">
+        <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+          {contacts.map((item) => (
+            <Link key={item.title} href={item.href} className="block bg-neutral-50 p-6 ring-1 ring-black/5 transition hover:bg-neutral-950 hover:text-white">
+              <div className="text-sm font-bold uppercase tracking-[0.22em] text-emerald-700">{item.title}</div>
+              <div className="mt-4 text-xl font-semibold">{item.value}</div>
+            </Link>
+          ))}
+        </div>
+        <div className="mx-auto mt-10 grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
+          <div className="bg-neutral-950 p-8 text-white">
+            <h2 className="text-3xl font-semibold">{t(locale, "perfectSolution")}</h2>
+            <div className="mt-6 space-y-4 text-sm leading-7 text-white/75">
+              {linesFromBody(page.bodyText, 8).map((line) => (
+                <p key={line}>{line}</p>
+              ))}
+            </div>
+          </div>
+          <form className="grid gap-4 bg-neutral-100 p-6">
+            <div className="grid gap-4 sm:grid-cols-2">
+              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder="Name" />
+              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder="Email" />
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder="Phone" />
+              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder="Company" />
+            </div>
+            <textarea className="min-h-36 border border-neutral-200 bg-white p-4 text-sm outline-none" placeholder={t(locale, "quote")} />
+            <button type="button" className="w-fit rounded bg-emerald-700 px-7 py-3 text-sm font-bold uppercase tracking-wide text-white">
+              {t(locale, "contactUs")}
+            </button>
+          </form>
+        </div>
+      </section>
+    </>
+  );
 }
 
 function PageHero({ title, description, imageUrl, label }: { title: string; description?: string; imageUrl?: string; label?: string }) {
@@ -334,14 +433,14 @@ function SecondaryLink({ href, children }: { href: string; children: React.React
   );
 }
 
-function CategoryCard({ category }: { category: ProductCategory }) {
+function CategoryCard({ category, locale }: { category: ProductCategory; locale: Locale }) {
   return (
-    <Link href={category.path} className="group block overflow-hidden bg-white shadow-sm ring-1 ring-black/5">
+    <Link href={localizePath(locale, category.path)} className="group block overflow-hidden bg-white shadow-sm ring-1 ring-black/5">
       <div className="relative aspect-[5/4] bg-neutral-100">
         {category.imageUrl || category.navImageUrl ? (
           <Image
             src={category.imageUrl || category.navImageUrl || ""}
-            alt={category.title}
+            alt={category.imageAlt || category.title}
             fill
             className="object-cover transition duration-500 group-hover:scale-105"
             sizes="(min-width: 1024px) 20vw, 50vw"
@@ -352,19 +451,19 @@ function CategoryCard({ category }: { category: ProductCategory }) {
         <h3 className="text-xl font-semibold text-neutral-950">{category.title}</h3>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-neutral-600">{category.description}</p>
         <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-emerald-700">
-          Explore More <ArrowRight size={16} />
+          {t(locale, "exploreMore")} <ArrowRight size={16} />
         </span>
       </div>
     </Link>
   );
 }
 
-function ProductCard({ product }: { product: Product }) {
+function ProductCard({ product, locale }: { product: Product; locale: Locale }) {
   return (
-    <Link href={product.path} className="group block bg-white shadow-sm ring-1 ring-black/5">
+    <Link href={localizePath(locale, product.path)} className="group block bg-white shadow-sm ring-1 ring-black/5">
       <div className="relative aspect-square overflow-hidden bg-neutral-100">
         {product.imageUrl ? (
-          <Image src={product.imageUrl} alt={product.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 25vw, 50vw" />
+          <Image src={product.imageUrl} alt={product.imageAlt || product.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 25vw, 50vw" />
         ) : (
           <div className="flex h-full items-center justify-center p-8 text-center text-sm font-semibold text-neutral-400">{product.title}</div>
         )}
@@ -377,7 +476,7 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-function FeatureCard({ item, iconIndex, href }: { item: Solution; iconIndex: number; href: string }) {
+function FeatureCard({ item, iconIndex, href, locale }: { item: Solution; iconIndex: number; href: string; locale: Locale }) {
   const icons = [Search, Layers, Factory, Truck, Leaf, ArrowRight];
   const Icon = icons[iconIndex % icons.length];
   return (
@@ -388,16 +487,16 @@ function FeatureCard({ item, iconIndex, href }: { item: Solution; iconIndex: num
       <h3 className="mt-6 text-xl font-semibold">{item.title}</h3>
       <p className="mt-4 line-clamp-4 text-sm leading-7 text-neutral-600 transition group-hover:text-white/70">{item.description}</p>
       <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-emerald-700 transition group-hover:text-emerald-300">
-        Explore More <ArrowRight size={16} />
+        {t(locale, "exploreMore")} <ArrowRight size={16} />
       </span>
     </Link>
   );
 }
 
-function ImageCard({ href, title, label, imageUrl }: { href: string; title: string; label?: string; imageUrl?: string }) {
+function ImageCard({ href, title, label, imageUrl, alt }: { href: string; title: string; label?: string; imageUrl?: string; alt?: string }) {
   return (
     <Link href={href} className="group relative block aspect-[4/5] overflow-hidden bg-neutral-800">
-      {imageUrl ? <Image src={imageUrl} alt={title} fill className="object-cover opacity-75 transition duration-500 group-hover:scale-105 group-hover:opacity-90" sizes="(min-width: 1024px) 25vw, 50vw" /> : null}
+      {imageUrl ? <Image src={imageUrl} alt={alt || title} fill className="object-cover opacity-75 transition duration-500 group-hover:scale-105 group-hover:opacity-90" sizes="(min-width: 1024px) 25vw, 50vw" /> : null}
       <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 p-5 text-white">
         {label ? <p className="text-xs font-bold uppercase tracking-[0.22em] text-emerald-300">{label}</p> : null}
@@ -407,12 +506,12 @@ function ImageCard({ href, title, label, imageUrl }: { href: string; title: stri
   );
 }
 
-function BlogCard({ post }: { post: BlogPost }) {
+function BlogCard({ post, locale }: { post: BlogPost; locale: Locale }) {
   return (
-    <Link href={post.path} className="group block bg-white shadow-sm ring-1 ring-black/5">
+    <Link href={localizePath(locale, post.path)} className="group block bg-white shadow-sm ring-1 ring-black/5">
       <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
         {post.imageUrl ? (
-          <Image src={post.imageUrl} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 33vw, 50vw" />
+          <Image src={post.imageUrl} alt={post.imageAlt || post.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 33vw, 50vw" />
         ) : null}
       </div>
       <div className="p-6">

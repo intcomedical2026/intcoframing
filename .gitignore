@@ -24,6 +24,8 @@
 # misc
 .DS_Store
 *.pem
+sanity/seed/.translation-cache.json
+.omx/
 
 # debug
 npm-debug.log*

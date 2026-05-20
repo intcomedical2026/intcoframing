@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "crawl:intco": "py -3 scripts/crawl-intco-site.py",
+    "i18n:generate": "py -3 scripts/generate-localized-seed.py",
     "sanity:dev": "sanity dev",
     "sanity:deploy": "sanity deploy",
     "sanity:import": "node scripts/import-to-sanity.mjs"

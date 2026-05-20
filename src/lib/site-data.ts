@@ -1,5 +1,7 @@
 import { createClient } from "next-sanity";
 import seed from "../../sanity/seed/intcoframing.seed.json";
+import localizedSeed from "../../sanity/seed/intcoframing.localized.json";
+import type { Locale } from "./i18n";
 
 export type LinkItem = {
   label: string;
@@ -10,6 +12,7 @@ export type ImageLike = {
   imageUrl?: string;
   navImageUrl?: string;
   galleryUrls?: string[];
+  imageAlt?: string;
 };
 
 export type SiteSettings = {
@@ -44,6 +47,8 @@ export type Product = ImageLike & {
   description?: string;
   bodyText?: string;
   sourceUrl?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type Solution = ImageLike & {
@@ -53,6 +58,8 @@ export type Solution = ImageLike & {
   description?: string;
   bodyText?: string;
   order?: number;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type Project = ImageLike & {
@@ -60,8 +67,11 @@ export type Project = ImageLike & {
   slug: string;
   path: string;
   category?: string;
+  categoryKey?: string;
   description?: string;
   bodyText?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type BlogPost = ImageLike & {
@@ -73,6 +83,8 @@ export type BlogPost = ImageLike & {
   bodyText?: string;
   imageUrl?: string;
   publishedAt?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type ContentPage = ImageLike & {
@@ -81,6 +93,8 @@ export type ContentPage = ImageLike & {
   path: string;
   description?: string;
   bodyText?: string;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type HomePage = {
@@ -181,14 +195,15 @@ const siteQuery = /* groq */ `{
 }`;
 
 export const fallbackData = seed as SiteData;
+const localizedFallback = localizedSeed as Partial<Record<Exclude<Locale, "en">, SiteData>>;
 
-export async function getSiteData(): Promise<SiteData> {
+export async function getSiteData(locale: Locale = "en"): Promise<SiteData> {
   try {
     const data = await client.fetch<Partial<SiteData>>(siteQuery, {}, { next: { revalidate: 60 } });
     if (!data?.siteSettings || !data?.homePage) {
-      return fallbackData;
+      return localizeSiteData(fallbackData, locale);
     }
-    return {
+    return localizeSiteData({
       siteSettings: data.siteSettings,
       homePage: data.homePage,
       productCategories: data.productCategories?.length ? data.productCategories : fallbackData.productCategories,
@@ -197,10 +212,45 @@ export async function getSiteData(): Promise<SiteData> {
       projects: data.projects?.length ? data.projects : fallbackData.projects,
       blogPosts: data.blogPosts?.length ? data.blogPosts : fallbackData.blogPosts,
       pages: data.pages?.length ? data.pages : fallbackData.pages,
-    };
+    }, locale);
   } catch {
-    return fallbackData;
+    return localizeSiteData(fallbackData, locale);
   }
+}
+
+function localizeSiteData(data: SiteData, locale: Locale): SiteData {
+  if (locale === "en") return data;
+  const localized = localizedFallback[locale];
+  if (!localized) return data;
+  const homePage = { ...(localized.homePage || data.homePage) };
+  if (homePage.heroSlides?.[0] && data.homePage.heroSlides?.[0]) {
+    homePage.heroSlides = [...homePage.heroSlides];
+    homePage.heroSlides[0] = { ...homePage.heroSlides[0], title: data.homePage.heroSlides[0].title };
+  }
+
+  return {
+    siteSettings: { ...(localized.siteSettings || data.siteSettings), title: data.siteSettings.title },
+    homePage: { ...homePage, title: data.homePage.title },
+    productCategories: mergeBySlug(data.productCategories, localized.productCategories),
+    products: mergeBySlug(data.products, localized.products),
+    solutions: mergeBySlug(data.solutions, localized.solutions),
+    projects: mergeBySlug(data.projects, localized.projects),
+    blogPosts: mergeBySlug(data.blogPosts, localized.blogPosts),
+    pages: mergeBySlug(data.pages, localized.pages),
+  };
+}
+
+function mergeBySlug<T extends { slug: string }>(base: T[], localized: T[] = []) {
+  const bySlug = new Map(localized.map((item) => [item.slug, item]));
+  return base.map((item) => {
+    const translated = bySlug.get(item.slug);
+    if (!translated) return item;
+    const merged = { ...item, ...translated };
+    if ("category" in item && item.category) {
+      return { ...merged, categoryKey: item.category };
+    }
+    return merged;
+  });
 }
 
 export function cleanPath(path: string) {

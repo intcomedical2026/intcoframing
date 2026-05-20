@@ -33,6 +33,14 @@ Refresh the crawl:
 npm run crawl:intco
 ```
 
+Generate the local multilingual content bundle used by the independent language URLs:
+
+```bash
+npm run i18n:generate
+```
+
+The public routing rule is English without a prefix, with localized mirrors under `/es`, `/pt`, `/fr`, `/de`, and `/ja`. Each page emits a self canonical URL and a full set of hreflang alternates.
+
 Import the seed into Sanity:
 
 ```powershell
@@ -79,9 +87,10 @@ Set these in Vercel:
 NEXT_PUBLIC_SANITY_PROJECT_ID=o10sbz2i
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-05-20
+NEXT_PUBLIC_SITE_URL=https://your-production-domain.com
 ```
 
-If the Sanity dataset is private, also add a Viewer token:
+Set `NEXT_PUBLIC_SITE_URL` to the final public production domain so canonical and hreflang never point at a preview/staging deployment. If the Sanity dataset is private, also add a Viewer token:
 
 ```text
 SANITY_API_READ_TOKEN=sk...
