@@ -3,13 +3,17 @@ import { notFound } from "next/navigation";
 import { SiteChrome } from "@/components/site-chrome";
 import {
   BlogListingView,
+  BlogPostView,
   ContactView,
   ContentPageView,
-  DetailView,
   EnquiryListView,
   HomeView,
+  ProductDetailView,
   ProductListingView,
+  ProductsLandingView,
+  ProjectDetailView,
   ProjectsListingView,
+  SolutionDetailView,
   SolutionsListingView,
 } from "@/components/site-views";
 import { getSiteData, type BlogPost, type Product } from "@/lib/site-data";
@@ -66,40 +70,38 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
   if (path === "/") return <HomeView data={data} locale={locale} />;
 
   if (path === "/products") {
-    const parents = data.productCategories.filter((category) => !category.parentSlug);
     return (
-      <ProductListingView
-        title="Products"
-        description="Mirror, picture frame, art, furniture and memo board categories captured from the original INTCO Framing catalog."
+      <ProductsLandingView
+        page={data.pages.find((item) => item.path === "/products")}
         products={data.products}
-        categories={parents}
-        heroImage={parents[0]?.imageUrl}
+        categories={data.productCategories}
+        projects={data.projects}
         locale={locale}
       />
     );
   }
 
-  if (path === "/solutions") return <SolutionsListingView solutions={data.solutions} locale={locale} />;
+  if (path === "/solutions") return <SolutionsListingView solutions={data.solutions} page={data.pages.find((item) => item.path === "/solutions")} products={data.products} projects={data.projects} locale={locale} />;
   const solution = data.solutions.find((item) => item.path === path || path.endsWith(`/${item.slug}`));
-  if (solution) return <DetailView item={solution} label="Solution" locale={locale} />;
+  if (solution) return <SolutionDetailView solution={solution} products={data.products} projects={data.projects} locale={locale} />;
 
-  if (path === "/projects") return <ProjectsListingView projects={data.projects} locale={locale} />;
-  if (path === "/projects/residential") return <ProjectsListingView projects={data.projects} category="Residential" locale={locale} />;
-  if (path === "/projects/commercial") return <ProjectsListingView projects={data.projects} category="Commercial" locale={locale} />;
+  if (path === "/projects") return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
+  if (path === "/projects/residential") return <ProjectsListingView projects={data.projects} category="Residential" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
+  if (path === "/projects/commercial") return <ProjectsListingView projects={data.projects} category="Commercial" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
   const project = data.projects.find((item) => item.path === path || path === `/projects/${item.slug}`);
-  if (project) return <DetailView item={project} label={project.category || "Project"} locale={locale} />;
+  if (project) return <ProjectDetailView project={project} products={data.products} projects={data.projects} locale={locale} />;
 
-  if (path === "/blog") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory={query.category} />;
-  if (path === "/inspiration") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory="Inspiration" />;
+  if (path === "/blog") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory={query.category} page={data.pages.find((item) => item.path === "/blog")} />;
+  if (path === "/inspiration") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory="Inspiration" page={data.pages.find((item) => item.path === "/blog")} />;
   const post = data.blogPosts.find((item) => item.path === path || path === `/news/${item.slug}`);
-  if (post) return <DetailView item={post} label={post.category || "Blog"} locale={locale} />;
+  if (post) return <BlogPostView post={post} posts={data.blogPosts} locale={locale} />;
 
   if (path === "/index.php") {
     const keyword = query.keyword || "";
     const lowered = keyword.toLowerCase();
     const products = data.products.filter((item) => `${item.title} ${item.description}`.toLowerCase().includes(lowered));
     const posts = data.blogPosts.filter((item) => `${item.title} ${item.excerpt}`.toLowerCase().includes(lowered));
-    return <BlogListingView posts={[...posts, ...products.slice(0, 12).map(productToPost)]} locale={locale} />;
+    return <BlogListingView posts={[...posts, ...products.slice(0, 12).map(productToPost)]} locale={locale} page={data.pages.find((item) => item.path === "/blog")} />;
   }
 
   if (path === "/enquiry-list") return <EnquiryListView locale={locale} />;
@@ -119,13 +121,14 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
         products={products}
         categories={children}
         heroImage={category.imageUrl || category.navImageUrl}
+        category={category}
         locale={locale}
       />
     );
   }
 
   const product = data.products.find((item) => item.path === path || path.endsWith(`/${item.slug}`));
-  if (product) return <DetailView item={product} label="Product" locale={locale} relatedProducts={data.products.filter((item) => item.slug !== product.slug && item.categorySlugs?.some((slug) => product.categorySlugs?.includes(slug))).slice(0, 4)} />;
+  if (product) return <ProductDetailView product={product} locale={locale} relatedProducts={data.products.filter((item) => item.slug !== product.slug && item.categorySlugs?.some((slug) => product.categorySlugs?.includes(slug))).slice(0, 8)} />;
 
   notFound();
 }
