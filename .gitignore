@@ -26,6 +26,7 @@
 *.pem
 sanity/seed/.translation-cache.json
 .omx/
+/reports/intco-parity/screenshots/
 
 # debug
 npm-debug.log*

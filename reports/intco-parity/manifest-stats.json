@@ -1,0 +1,10 @@
+{
+  "semanticEntries": 247,
+  "uniqueCanonicalUrls": 244,
+  "localizedRouteChecks": 1482,
+  "duplicateSemanticUrls": [
+    "/blog",
+    "/projects",
+    "/solutions"
+  ]
+}

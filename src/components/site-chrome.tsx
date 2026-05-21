@@ -149,7 +149,7 @@ function Header({
             <summary className="cursor-pointer list-none rounded border border-neutral-300 px-3 py-2 text-sm font-semibold">
               {localeLabels[locale]}
             </summary>
-            <div className="absolute right-0 top-12 z-50 w-44 bg-white p-2 shadow-xl ring-1 ring-black/10">
+            <div className="absolute left-0 top-12 z-50 w-44 bg-white p-2 shadow-xl ring-1 ring-black/10">
               {locales.map((item) => (
                 <Link
                   key={item}

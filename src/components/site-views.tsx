@@ -408,6 +408,7 @@ export function SolutionsListingView({
 }) {
   const lines = contentLines(page?.bodyText, 90);
   const intro = extractAfter(lines, "END-TO-END HOME DECOR SOLUTIONS", 2);
+  const serviceCopy = extractBetween(lines, "SERVICES WE OFFER", "HOW IT WORKS").filter((line) => line !== "About Intco");
   const process = ["Design", "Frame Extrusion", "Assemble", "Warehousing", "Packing", "Quality Control"];
   return (
     <>
@@ -425,6 +426,15 @@ export function SolutionsListingView({
       </section>
       <section className="bg-white py-14">
         <SectionTitle eyebrow={t(locale, "servicesWeOffer")} title={t(locale, "solutions")} />
+        {serviceCopy.length ? (
+          <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
+            {serviceCopy.map((line, index) => (
+              <div key={`${line}-${index}`} className="bg-neutral-50 p-6 text-pretty text-sm leading-7 text-neutral-600 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${(index % 3) * 70}ms` } as React.CSSProperties}>
+                {line}
+              </div>
+            ))}
+          </div>
+        ) : null}
         <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
           {solutions.map((solution, index) => (
             <div key={solution.slug} data-reveal style={{ "--reveal-delay": `${(index % 3) * 90}ms` } as React.CSSProperties}>
@@ -472,11 +482,14 @@ export function SolutionsListingView({
 export function ProjectsListingView({ projects, category, page, locale }: { projects: Project[]; category?: string; page?: ContentPage; locale: Locale }) {
   const filtered = category ? projects.filter((project) => (project.categoryKey || project.category) === category) : projects;
   const projectNav = projects.slice(0, 5);
+  const pageLines = contentLines(page?.bodyText, 40);
+  const introLines = pageLines.slice(1, 3);
+  const title = category ? `${category} Projects` : page?.title || "Projects";
 
   return (
     <>
       <PageHero
-        title={category || page?.title || "Projects"}
+        title={title}
         description={page?.description || "Artistry meets functionality. INTCO products integrate into residential and commercial scenarios."}
         imageUrl={page?.imageUrl}
       />
@@ -491,6 +504,12 @@ export function ProjectsListingView({ projects, category, page, locale }: { proj
             </Link>
           ))}
         </div>
+        {introLines.length ? (
+          <div className="mx-auto mt-8 max-w-4xl px-4 text-center sm:px-6 lg:px-8" data-reveal="fade">
+            <h2 className="text-balance text-3xl font-semibold text-neutral-950">{introLines[0]}</h2>
+            {introLines[1] ? <p className="mt-4 text-pretty text-lg leading-8 text-neutral-600">{introLines[1]}</p> : null}
+          </div>
+        ) : null}
       </section>
       <section className="bg-neutral-100 py-14">
         <div className="mx-auto grid max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
@@ -523,10 +542,14 @@ export function ProjectsListingView({ projects, category, page, locale }: { proj
 }
 
 export function BlogListingView({ posts, locale, activeCategory, page }: { posts: BlogPost[]; locale: Locale; activeCategory?: string; page?: ContentPage }) {
-  const categories = Array.from(new Set(posts.map((post) => post.category).filter(Boolean)));
-  const filteredPosts = activeCategory ? posts.filter((post) => post.category === activeCategory) : posts;
-  const visiblePosts = filteredPosts.length ? filteredPosts : posts;
-  const popularPosts = posts.slice(0, 5);
+  const pageLines = contentLines(page?.bodyText, 120);
+  const sourceCategoryOrder = ["Expo", "Industry News", "Inspiration", "New Arrivals", "Press Release", "Tips"];
+  const categorySet = new Set(posts.map((post) => post.category).filter(Boolean));
+  const categories = sourceCategoryOrder.filter((name) => pageLines.includes(name) || categorySet.has(name));
+  const datedPosts = posts.map((post) => ({ ...post, publishedAt: post.publishedAt || blogDateFor(pageLines, post.title) }));
+  const filteredPosts = activeCategory ? datedPosts.filter((post) => post.category === activeCategory) : datedPosts;
+  const visiblePosts = filteredPosts.length ? filteredPosts : datedPosts;
+  const popularPosts = datedPosts.slice(0, 5);
   return (
     <>
       <PageHero
@@ -608,6 +631,7 @@ export function ProductDetailView({
   locale: Locale;
 }) {
   const details = parseProductDetails(product);
+  const displayTitle = details.displayTitle || product.title;
   const gallery = itemGallery(product);
   const primary = gallery[0] || preferredImage(product);
   const bestSellers = relatedProducts.slice(0, 4);
@@ -620,27 +644,39 @@ export function ProductDetailView({
             Products
           </Link>
           <span>/</span>
-          <span>{product.title}</span>
+          <span>{displayTitle}</span>
         </div>
       </section>
       <section className="bg-white py-12">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
           <div data-reveal="left">
             <div className="relative aspect-square overflow-hidden bg-neutral-100">
-              {primary ? <Image src={primary} alt={product.imageAlt || product.title} fill className="object-contain" sizes="(min-width: 1024px) 52vw, 100vw" priority /> : null}
+              {primary ? <Image src={primary} alt={product.imageAlt || displayTitle} fill className="object-contain" sizes="(min-width: 1024px) 52vw, 100vw" priority /> : null}
             </div>
             {gallery.length > 1 ? (
-              <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-6">
-                {gallery.slice(0, 6).map((image, index) => (
+              <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-8">
+                {gallery.slice(0, 8).map((image, index) => (
                   <div key={image} className="relative aspect-square bg-neutral-100 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 50}ms` } as React.CSSProperties}>
-                    <Image src={image} alt={product.imageAlt || product.title} fill className="object-contain" sizes="120px" />
+                    <Image src={image} alt={product.imageAlt || displayTitle} fill className="object-contain" sizes="120px" />
                   </div>
                 ))}
               </div>
             ) : null}
           </div>
           <article data-reveal="right">
-            {bestSellers.length ? (
+            {details.bestSellerPairs.length ? (
+              <div className="mb-6 bg-neutral-50 p-4 ring-1 ring-black/5">
+                <p className="text-xs font-bold uppercase text-emerald-700">{t(locale, "bestSellers")}</p>
+                <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  {details.bestSellerPairs.map((item) => (
+                    <div key={`${item.title}-${item.itemNumber}`} className="bg-white p-3">
+                      <p className="line-clamp-2 text-xs font-semibold leading-4 text-neutral-700">{item.title}</p>
+                      <p className="mt-2 text-xs font-bold text-neutral-950">{item.itemNumber}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : bestSellers.length ? (
               <div className="mb-6 bg-neutral-50 p-4 ring-1 ring-black/5">
                 <p className="text-xs font-bold uppercase text-emerald-700">{t(locale, "bestSellers")}</p>
                 <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -656,7 +692,7 @@ export function ProductDetailView({
               </div>
             ) : null}
             <p className="text-sm font-bold uppercase text-emerald-700">{t(locale, "product")}</p>
-            <h1 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{product.title}</h1>
+            <h1 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{displayTitle}</h1>
             {product.description ? <p className="mt-4 text-pretty text-base leading-8 text-neutral-600">{product.description}</p> : null}
             <dl className="mt-7 grid gap-px overflow-hidden bg-neutral-200 ring-1 ring-neutral-200">
               {details.specs.map((spec) => (
@@ -666,7 +702,7 @@ export function ProductDetailView({
                 </div>
               ))}
             </dl>
-            <ProductQuotePanel locale={locale} product={{ slug: product.slug, title: product.title, path: product.path, imageUrl: primary }} />
+            <ProductQuotePanel locale={locale} product={{ slug: product.slug, title: displayTitle, path: product.path, imageUrl: primary }} />
           </article>
         </div>
       </section>
@@ -744,11 +780,11 @@ export function SolutionDetailView({
             <p className="mt-5 text-pretty leading-8 text-neutral-600">{solution.description}</p>
           </div>
           <div className="grid gap-5" data-reveal="right">
-            {sections.slice(0, 5).map((section) => (
+            {sections.map((section) => (
               <div key={section.title} className="bg-neutral-50 p-6 ring-1 ring-black/5">
                 <h3 className="text-balance text-2xl font-semibold text-neutral-950">{section.title}</h3>
                 <div className="mt-4 space-y-3 text-pretty text-sm leading-7 text-neutral-600">
-                  {section.body.slice(0, 3).map((line) => (
+                  {section.body.map((line) => (
                     <p key={line}>{line}</p>
                   ))}
                 </div>
@@ -786,8 +822,14 @@ export function ProjectDetailView({
     .map((name) => products.find((product) => product.title.toLowerCase() === name.toLowerCase()))
     .filter(Boolean) as Product[];
   const gallery = itemGallery(project);
-  const body = lines.filter((line) => !["USED ITEMS", "YOU MAY ALSO LIKE"].includes(line)).slice(0, 4);
-  const relatedProjects = projects.filter((item) => item.slug !== project.slug).slice(0, 4);
+  const usedStart = lines.findIndex((line) => line === "USED ITEMS");
+  const body = lines.slice(0, usedStart > -1 ? usedStart : lines.length);
+  const relatedProjectNames = extractBetween(lines, "YOU MAY ALSO LIKE", "GET MORE INSPIRATION");
+  const relatedByName = relatedProjectNames
+    .map((name) => projects.find((item) => item.title.toLowerCase() === name.toLowerCase()))
+    .filter(Boolean) as Project[];
+  const relatedProjects = (relatedByName.length ? relatedByName : projects.filter((item) => item.slug !== project.slug)).slice(0, 4);
+  const inspirationLines = extractAfter(lines, "GET MORE INSPIRATION", 8);
 
   return (
     <>
@@ -800,7 +842,7 @@ export function ProjectDetailView({
             </div>
             {gallery.length > 1 ? (
               <div className="grid grid-cols-3 gap-4">
-                {gallery.slice(1, 4).map((image) => (
+                {gallery.slice(1, 8).map((image) => (
                   <div key={image} className="relative aspect-[4/3] bg-neutral-100">
                     <Image src={image} alt={project.imageAlt || project.title} fill className="object-cover" sizes="220px" />
                   </div>
@@ -821,6 +863,15 @@ export function ProjectDetailView({
       </section>
       <section className="bg-neutral-100 py-16">
         <SectionTitle eyebrow={t(locale, "usedItems")} title={t(locale, "productsInProject")} />
+        {usedItemNames.length ? (
+          <div className="mx-auto mt-6 flex max-w-7xl flex-wrap gap-3 px-4 sm:px-6 lg:px-8">
+            {usedItemNames.map((name) => (
+              <span key={name} className="bg-white px-4 py-2 text-sm font-semibold text-neutral-700 ring-1 ring-black/5">
+                {name}
+              </span>
+            ))}
+          </div>
+        ) : null}
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
           {(usedProducts.length ? usedProducts : products.slice(0, 4)).map((product, index) => (
             <div key={product.slug} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
@@ -831,6 +882,15 @@ export function ProjectDetailView({
       </section>
       <section className="bg-white py-16">
         <SectionTitle eyebrow={t(locale, "youMayAlsoLike")} title={t(locale, "moreProjectIdeas")} />
+        {relatedProjectNames.length ? (
+          <div className="mx-auto mt-6 flex max-w-7xl flex-wrap gap-3 px-4 sm:px-6 lg:px-8">
+            {relatedProjectNames.map((name) => (
+              <span key={name} className="bg-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-700">
+                {name}
+              </span>
+            ))}
+          </div>
+        ) : null}
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
           {relatedProjects.map((item, index) => (
             <div key={item.slug} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
@@ -839,6 +899,18 @@ export function ProjectDetailView({
           ))}
         </div>
       </section>
+      {inspirationLines.length ? (
+        <section className="bg-neutral-100 py-16">
+          <SectionTitle eyebrow="Blog" title="GET MORE INSPIRATION" />
+          <div className="mx-auto mt-8 grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
+            {inspirationLines.map((line, index) => (
+              <div key={`${line}-${index}`} className="bg-white p-5 text-sm font-semibold leading-6 text-neutral-700 ring-1 ring-black/5">
+                {line}
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
       <ContactBand locale={locale} />
     </>
   );
@@ -848,6 +920,7 @@ export function BlogPostView({ post, posts, locale }: { post: BlogPost; posts: B
   const lines = contentLines(post.bodyText, 120);
   const gallery = itemGallery(post);
   const popularPosts = posts.filter((item) => item.slug !== post.slug).slice(0, 5);
+  const supplementalLines = blogSourceSupplementLines(post.slug).filter((line) => !containsRenderedLine(lines, line));
 
   return (
     <>
@@ -861,7 +934,21 @@ export function BlogPostView({ post, posts, locale }: { post: BlogPost; posts: B
                 <Image src={gallery[0]} alt={post.imageAlt || post.title} fill className="object-cover" sizes="(min-width: 1024px) 65vw, 100vw" />
               </div>
             ) : null}
+            {gallery.length > 1 ? (
+              <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                {gallery.slice(1, 8).map((image) => (
+                  <div key={image} className="relative aspect-[4/3] bg-neutral-100">
+                    <Image src={image} alt={post.imageAlt || post.title} fill className="object-cover" sizes="180px" />
+                  </div>
+                ))}
+              </div>
+            ) : null}
             <div className="mt-8 space-y-5 text-pretty text-base leading-8 text-neutral-700">
+              {supplementalLines.map((line) => (
+                <h2 key={line} className="pt-4 text-balance text-2xl font-semibold text-neutral-950">
+                  {line}
+                </h2>
+              ))}
               {(lines.length ? lines : [post.excerpt || ""]).filter(Boolean).map((line) =>
                 looksLikeHeading(line) ? (
                   <h2 key={line} className="pt-4 text-balance text-2xl font-semibold text-neutral-950">
@@ -1065,18 +1152,19 @@ export function ContentPageView({ page, locale }: { page: ContentPage; locale: L
               <p className="text-sm font-bold uppercase text-emerald-700">ESG & Sustainability in Action</p>
               <h2 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{lines[0] || page.title}</h2>
               <Link href="#" className="mt-7 inline-flex items-center gap-2 bg-neutral-950 px-6 py-3 text-sm font-bold uppercase text-white">
-                ESG Report 2022 <Download size={16} />
+                ESG Report 2022 / Download PDF <Download size={16} />
               </Link>
+              {lines.includes("EXTERNAL RATINGS") ? <p className="mt-5 text-sm font-bold uppercase tracking-wide text-emerald-700">EXTERNAL RATINGS</p> : null}
             </div>
             <div className="space-y-4 text-pretty leading-8 text-neutral-600" data-reveal="right">
-              {lines.slice(1, 5).map((line) => (
+              {lines.slice(1, 6).map((line) => (
                 <p key={line}>{line}</p>
               ))}
             </div>
           </div>
         </section>
         <section className="bg-neutral-100 py-16">
-          <SectionTitle eyebrow="ENVIRONMENTAL CONTRIBUTION" title="Cumulative Savings" />
+          <SectionTitle eyebrow="ENVIRONMENTAL CONTRIBUTION" title="Cumulative Savings" description={lines.find((line) => line.includes("reduced 200,000 tons"))} />
           <div className="mx-auto mt-10 grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
             {[
               ["2.5 Million", "Tons Carbon Emissions"],
@@ -1114,10 +1202,11 @@ export function ContentPageView({ page, locale }: { page: ContentPage; locale: L
         <PageHero title={page.title} description={page.description} imageUrl={page.imageUrl} label={t(locale, "philosophy")} />
         <section className="bg-white py-16">
           <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8" data-reveal="fade">
+            <h2 className="text-balance text-4xl font-semibold text-neutral-950">{lines[0] || "Our Mission & Vision | Intco Framing"}</h2>
             <p className="text-pretty text-2xl font-semibold leading-10 text-neutral-950">
               {lines.find((line) => line.includes("dynamic and hardworking")) || "We have a dynamic and hardworking team making concerted efforts on a difficult but worthwhile cause."}
             </p>
-            <p className="mt-5 text-sm font-bold uppercase text-emerald-700">Frank Liu, CEO</p>
+            <p className="mt-5 text-sm font-bold uppercase text-emerald-700">{lines.find((line) => line.includes("Frank Liu")) || "—— Frank Liu，CEO"}</p>
           </div>
         </section>
         <section className="bg-neutral-100 py-16">
@@ -1164,6 +1253,9 @@ export function ContactView({ page, locale }: { page: ContentPage; locale: Local
           <p className="mx-auto mt-4 max-w-3xl text-pretty text-lg leading-8 text-neutral-600">
             {lines.find((line) => line.includes("overseas factories")) || lines[1] || page.description}
           </p>
+          {lines.find((line) => line.includes("committed team")) ? (
+            <p className="mx-auto mt-3 max-w-3xl text-pretty leading-7 text-neutral-600">{lines.find((line) => line.includes("committed team"))}</p>
+          ) : null}
         </div>
         <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
           {factories.map((factory, index) => (
@@ -1455,17 +1547,55 @@ function BlogCard({ post, locale }: { post: BlogPost; locale: Locale }) {
 }
 
 function contentLines(bodyText?: string, max = 80) {
-  const noise = new Set(["Blog", '">', ">", "-", "+"]);
+  const noise = new Set(["Blog", '">', ">", "-", "+", '" alt="', '"/>']);
   const lines = (bodyText || "")
     .split(/\n+/)
     .map((line) => line.trim())
     .filter(Boolean)
-    .filter((line) => line.length > 1)
+    .filter((line) => line.length > 1 || /^[A-Za-z0-9]$/.test(line))
     .filter((line) => !noise.has(line))
+    .filter((line) => !isSourceNoiseLine(line))
     .filter((line) => !line.startsWith("We use cookies"))
     .filter((line, index, list) => list.indexOf(line) === index);
 
   return lines.slice(0, max);
+}
+
+function isSourceNoiseLine(line: string) {
+  const lowered = line.toLowerCase();
+  return (
+    line === "Warning" ||
+    lowered.includes("undefined array key") ||
+    lowered.includes("attempt to read property") ||
+    lowered.includes("/wp-content/themes/") ||
+    lowered === "on line"
+  );
+}
+
+function blogSourceSupplementLines(slug: string) {
+  const supplements: Record<string, string[]> = {
+    "canvas-art-a-perfect-addition-to-your-home-decor": ["Why Choose Canvas Art for Your Home?"],
+    "vanity-mirror-trends-analyzing-modern-designs-and-features": ["Popular Vanity Mirror Styles in 202 5"],
+    "framing-the-future-a-comprehensive-guide-to-a-paper-sizes": ["What to Consider When Buying an A-Size Frame", "Find Any Size Frame Online, Including All A-Paper Sizes"],
+    "how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency": ["How to Maximize the Benefits of a magnetic memo board ?"],
+    "how-mirror-thickness-impacts-bedroom-visual-appeal": [
+      "The Role of mirror s in Enhancing Bedroom Aesthetics",
+      "How mirror Depth Influences Room Appearance",
+      "Practical Benefits of Various mirror thickness es in Bedrooms",
+    ],
+    "exploring-the-appeal-of-plastic-picture-frames": [
+      "Advantages of Using P lastic P icture F rames in Modern Interiors",
+      "Living Room Enhancements with plastic picture frames",
+      "Dining Room Accents with picture frames",
+      "Integrating plastic picture frames with Existing Decor",
+    ],
+  };
+  return supplements[slug] || [];
+}
+
+function containsRenderedLine(lines: string[], needle: string) {
+  const normalize = (value: string) => value.replace(/\s+/g, " ").trim().toLowerCase();
+  return normalize(lines.join(" ")).includes(normalize(needle));
 }
 
 function extractAfter(lines: string[], marker: string, count: number) {
@@ -1478,6 +1608,12 @@ function extractBetween(lines: string[], startMarker: string, endMarker: string)
   if (start < 0) return [];
   const end = lines.findIndex((line, index) => index > start && line.toLowerCase() === endMarker.toLowerCase());
   return lines.slice(start + 1, end > start ? end : undefined);
+}
+
+function blogDateFor(lines: string[], title: string) {
+  const index = lines.findIndex((line) => line === title);
+  if (index < 0) return "";
+  return lines.slice(index + 1, index + 4).find((line) => /^[A-Z][a-z]{2} \d{2}, \d{4}$/.test(line)) || "";
 }
 
 function categoryStory(title: string, lines: string[]) {
@@ -1509,10 +1645,12 @@ function looksGenericImage(url?: string) {
 
 function parseProductDetails(product: Product) {
   const lines = contentLines(product.bodyText, 140);
+  const displayTitle = lines[0] || product.title;
   const itemNumber = valueAfterLabel(lines, ["Item#:", "Item #:", "Item#:"]);
   const color = valueAfterLabel(lines, ["Color:"]);
-  const size = valueAfterLabel(lines, ["Size:"]);
+  const sizes = valuesAfterLabel(lines, ["Size:"]);
   const subject = valueAfterLabel(lines, ["Subject:"]);
+  const material = valueAfterLabel(lines, ["Material:"]);
   const highlightStart = lines.findIndex((line) => /^Highlights$/i.test(line));
   const relatedStart = lines.findIndex((line) => /^Related Products$/i.test(line));
   const serviceStart = lines.findIndex((line) => /^SERVICES WE PROVIDE$/i.test(line));
@@ -1523,14 +1661,30 @@ function parseProductDetails(product: Product) {
   const specs = [
     { label: "Item#:", value: itemNumber },
     ...(subject ? [{ label: "Subject:", value: subject }] : []),
+    ...(material ? [{ label: "Material:", value: material }] : []),
     { label: "Color:", value: color },
-    { label: "Size:", value: size },
+    { label: "Size:", value: sizes.join(" / ") },
+    { label: "Quantity:", value: "- / +" },
   ];
+  const firstSpecIndex = lines.findIndex((line) => /^Item\s?#:\s*$/i.test(line));
+  const bestSellerLines = firstSpecIndex > 1 ? lines.slice(1, firstSpecIndex) : [];
+  const bestSellerPairs: Array<{ title: string; itemNumber: string }> = [];
+  for (let index = 1; index < bestSellerLines.length; index += 1) {
+    const item = bestSellerLines[index];
+    if (/^Item\s?#:/i.test(item || "")) {
+      const title = bestSellerLines[index - 1];
+      if (title) bestSellerPairs.push({ title, itemNumber: item });
+    }
+  }
 
-  return { specs, descriptionLines, highlightLines };
+  return { specs, descriptionLines, highlightLines, bestSellerPairs, displayTitle };
 }
 
 function valueAfterLabel(lines: string[], labels: string[]) {
+  return valuesAfterLabel(lines, labels)[0] || "";
+}
+
+function valuesAfterLabel(lines: string[], labels: string[]) {
   const normalizedLabels = labels.map((label) => label.replace(/\s+/g, "").toLowerCase());
   const aboutIndex = lines.findIndex((line) => /^ABOUT THIS ITEM$/i.test(line));
   const searchable = aboutIndex > 0 ? lines.slice(0, aboutIndex) : lines;
@@ -1538,11 +1692,15 @@ function valueAfterLabel(lines: string[], labels: string[]) {
     .map((line, index) => ({ line, index }))
     .filter(({ line }) => normalizedLabels.some((label) => line.replace(/\s+/g, "").toLowerCase().startsWith(label)));
   const index = matches.at(-1)?.index ?? -1;
-  if (index < 0) return "";
+  if (index < 0) return [];
   const inline = lines[index].split(/[:：]/).slice(1).join(":").trim();
-  if (inline) return inline;
-  const next = lines[index + 1];
-  return next && !/^(Item|Color|Size|Subject|Quantity|ABOUT THIS ITEM|Description|Highlights|Related Products)/i.test(next) ? next : "";
+  if (inline) return [inline];
+  const values: string[] = [];
+  for (const next of lines.slice(index + 1)) {
+    if (/^(Item|Color|Size|Subject|Quantity|ABOUT THIS ITEM|Description|Highlights|Related Products)/i.test(next)) break;
+    values.push(next);
+  }
+  return values;
 }
 
 function sectionize(lines: string[]) {
@@ -1562,7 +1720,7 @@ function sectionize(lines: string[]) {
     current.body.push(line);
   });
 
-  return sections.filter((section) => section.body.length);
+  return sections.filter((section) => section.body.length || section.title !== "Overview");
 }
 
 function looksLikeHeading(line: string) {
