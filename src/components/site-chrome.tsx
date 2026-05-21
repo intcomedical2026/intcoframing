@@ -23,7 +23,7 @@ export function SiteChrome({ settings, categories, locale, currentPath, children
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
       <FloatingActions settings={settings} locale={locale} />
-      <CookieBanner locale={locale} />
+      <CookieBanner locale={locale} currentPath={currentPath} />
     </div>
   );
 }

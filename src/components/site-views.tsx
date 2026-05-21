@@ -58,6 +58,76 @@ const WHAT_WE_DO_IMAGES: Record<string, string> = {
   "memo board": "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo4.png",
 };
 
+const PRODUCTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/products.png";
+const PRODUCT_TEST_REPORT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/testreportBg.png";
+const PRODUCT_CONTACT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/orderBg.png";
+
+const PRODUCT_CATEGORY_CARDS = [
+  {
+    title: "Mirror",
+    path: "/mirror",
+    imageUrl: WHAT_WE_DO_IMAGES.mirror,
+  },
+  {
+    title: "Picture frame",
+    path: "/picture-frame",
+    imageUrl: WHAT_WE_DO_IMAGES["picture frame"],
+  },
+  {
+    title: "Art",
+    path: "/art",
+    imageUrl: WHAT_WE_DO_IMAGES.art,
+  },
+  {
+    title: "Furniture",
+    path: "/furniture",
+    imageUrl: WHAT_WE_DO_IMAGES.furniture,
+  },
+  {
+    title: "Memo Board",
+    path: "/memo-board",
+    imageUrl: WHAT_WE_DO_IMAGES["memo board"],
+  },
+];
+
+const PRODUCT_MANUALS = [
+  {
+    title: "Mirror",
+    imageUrl: PRODUCT_CATALOG_IMAGES[0],
+    description:
+      "Decorating your wall with a mirror can add depth and fascination into your room. INTCO Framing offers a range ofmirrors suitable for any room in your home. Discover the ideal mirror to elevate your living space!",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Mirror-Intco-Framing.pdf",
+  },
+  {
+    title: "Picture Frame",
+    imageUrl: PRODUCT_CATALOG_IMAGES[1],
+    description:
+      "Our picture frames are made of environmentally friendly materials. Explore picture frames in various shapes and styles at INTCO Framing. Display your cherished photos, meaningful moments, and essential documents elegantly.",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Picture-Frame-Intco-Framing.pdf",
+  },
+  {
+    title: "Art",
+    imageUrl: PRODUCT_CATALOG_IMAGES[2],
+    description:
+      "Create your own gallery with wall art from INTCO Framing. Our diverse selection of art ensures your home is as exceptional as your individual taste.",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Art-Intco-Framing.pdf",
+  },
+  {
+    title: "Memo Board",
+    imageUrl: PRODUCT_CATALOG_IMAGES[3],
+    description:
+      "Discover a variety of framed chalkboards and cork boards at INTCO Framing. Whether it's a reminder, a note, or a piece of encouragement, add your personal touch to these boards. Explore our selection and find the perfect one that resonates with you!",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Memo-Board-%E2%80%94-Intco-Framing.pdf",
+  },
+  {
+    title: "Furniture",
+    imageUrl: PRODUCT_CATALOG_IMAGES[4],
+    description:
+      "INTCO Framing delivers top-quality furniture, ranging from medicine cabinets to shelves, designed to maximize home storage space. INTCO Framing provides innovative storage solutions for a clutter-free living environment.",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Furniture-Intco-Framing.pdf",
+  },
+];
+
 const HOME_HERO_GIF_SLIDE = {
   title: "",
   subtitle: "",
@@ -540,9 +610,6 @@ function homeSolutionDescription(solution: Solution) {
 
 export function ProductsLandingView({
   page,
-  products,
-  categories,
-  projects,
   locale,
 }: {
   page?: ContentPage;
@@ -551,129 +618,276 @@ export function ProductsLandingView({
   projects: Project[];
   locale: Locale;
 }) {
-  const parentCategories = categories.filter((category) => !category.parentSlug).slice(0, 5);
   const pageLines = contentLines(page?.bodyText, 80);
   const intro = extractAfter(pageLines, "WHAT WE DO", 2);
   const catalogLines = extractAfter(pageLines, "Catalog", 2);
   const testReportLines = extractAfter(pageLines, "TEST REPORT", 2);
-  const introTitle = intro[0] || pageLines[2] || page?.description || "";
-  const introDescription = intro[1] || pageLines[3] || page?.description;
+  const introTitle = intro[0] || "Making your space more than just a place.";
+  const introDescription = intro[1] || "Discover the perfect accents for your room with our exceptional collections";
   const projectLines = extractAfter(pageLines, "PROJECTS", 2);
-  const projectTitle = projectLines[0] || pageLines[5] || t(locale, "projects");
-  const projectDescription = projectLines[1] || pageLines[6] || page?.description;
-  const catalogTitle = catalogLines[0] || pageLines[8] || page?.description || t(locale, "catalog");
-  const catalogDescription = catalogLines[1] || pageLines[9] || page?.description;
-  const reportTitle = testReportLines[0] || pageLines[16] || page?.description || t(locale, "testReport");
-  const reportDescription = testReportLines[1] || pageLines[17] || page?.description;
+  const projectTitle = projectLines[0] || "Artistry meets functionality.";
+  const projectDescription =
+    projectLines[1] || "From commercial spaces to homes, our diverse products seamlessly integrate into diverse scenarios.";
+  const catalogTitle = catalogLines[0] || "Interested in delving into more details about our products?";
+  const catalogDescription = catalogLines[1] || "We offer product brochures covering various categories for your information.";
+  const reportTitle = testReportLines[0] || "Rest easy with our commitment to quality and compliance.";
+  const reportDescription = testReportLines[1] || "Intco Framing provides outstanding products and quality services to global customers.";
 
   return (
     <>
-      <PageHero
-        title={page?.title || "Products"}
-        description={page?.description}
-        imageUrl={page?.imageUrl || parentCategories[0]?.imageUrl}
-      />
-      <section className="bg-white py-16">
-        <SectionTitle
-          eyebrow={t(locale, "whatWeDo")}
-          title={introTitle}
-          description={introDescription}
-        />
-        <div className="mx-auto mt-12 grid max-w-7xl gap-6 px-4 sm:px-6 lg:px-8">
-          {parentCategories.map((category, index) => (
-            <Link
-              key={category.slug}
-              href={localizePath(locale, category.path)}
-              className="group grid overflow-hidden bg-neutral-50 ring-1 ring-black/5 transition duration-200 hover:-translate-y-1 hover:bg-white hover:shadow-lg lg:grid-cols-[.82fr_1.18fr]"
-              data-reveal
-              style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}
-            >
-              <div className="relative min-h-72 bg-neutral-100">
-                {whatWeDoImage(category) ? (
-                  <Image
-                    src={whatWeDoImage(category)}
-                    alt={category.imageAlt || category.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    sizes="(min-width: 1024px) 38vw, 100vw"
-                  />
-                ) : null}
-              </div>
-              <div className="flex flex-col justify-center p-7 sm:p-10">
-                <p className="text-sm font-bold uppercase text-emerald-700">{index + 1 < 10 ? `0${index + 1}` : index + 1}</p>
-                <h2 className="mt-3 text-balance text-3xl font-semibold text-neutral-950">{category.title}</h2>
-                <p className="mt-4 text-pretty text-base leading-8 text-neutral-600">{category.description || categoryStory(category.title, pageLines)}</p>
-                <span className="mt-7 inline-flex items-center gap-2 text-sm font-bold uppercase text-emerald-700 transition-transform duration-200 group-hover:translate-x-1">
-                  {t(locale, "exploreMore")} <ArrowRight size={16} />
-                </span>
-              </div>
-            </Link>
-          ))}
+      <ProductSourceHero title={page?.title || "Products"} locale={locale} />
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[30px] sm:px-6 lg:pt-[99px]">
+        <div className="mx-auto max-w-[1600px]">
+          <ProductSourceTitle title="WHAT WE DO" />
+          <ProductSectionDescription first={introTitle} second={introDescription} className="lg:mt-[58px]" />
+          <div className="mt-2 lg:mt-[58px]">
+            <div className="grid gap-5 lg:grid-cols-2 lg:gap-10">
+              {PRODUCT_CATEGORY_CARDS.slice(0, 2).map((category, index) => (
+                <ProductSourceTile key={category.title} category={category} locale={locale} index={index} wide />
+              ))}
+            </div>
+            <div className="mt-[30px] grid gap-5 lg:grid-cols-3 lg:gap-[65px]">
+              {PRODUCT_CATEGORY_CARDS.slice(2).map((category, index) => (
+                <ProductSourceTile key={category.title} category={category} locale={locale} index={index + 2} />
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="bg-neutral-950 py-16 text-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
-          <div data-reveal="left">
-            <p className="text-sm font-bold uppercase text-emerald-300">{t(locale, "projects")}</p>
-            <h2 className="mt-3 text-balance text-4xl font-semibold">{projectTitle}</h2>
-            {projectDescription ? <p className="mt-4 text-pretty leading-8 text-white/70">{projectDescription}</p> : null}
-            <Link href={localizePath(locale, "/projects")} className="mt-8 inline-flex items-center gap-2 bg-white px-6 py-3 text-sm font-bold uppercase text-neutral-950 transition duration-200 hover:-translate-y-0.5">
-              {t(locale, "exploreMore")} <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2" data-reveal="right">
-            {projects.slice(0, 4).map((project) => (
-              <ImageCard key={project.slug} href={localizePath(locale, project.path)} title={project.title} label={project.category} imageUrl={project.imageUrl} alt={project.imageAlt} locale={locale} />
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-10 sm:px-6 lg:pt-[99px]">
+        <div className="mx-auto max-w-[1600px]">
+          <ProductSourceTitle title="PROJECTS" />
+          <ProductSectionDescription first={projectTitle} second={projectDescription} className="lg:mt-[55px]" />
+          <div className="mt-8 grid gap-10 lg:mt-[55px] lg:grid-cols-2">
+            {HOME_PROJECT_CARDS.map((project, index) => (
+              <ProductProjectTile key={project.title} project={project} locale={locale} index={index} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
-          <div data-reveal="left">
-            <p className="text-sm font-bold uppercase text-emerald-700">{t(locale, "catalog")}</p>
-            <h2 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{catalogTitle}</h2>
-            {catalogDescription ? <p className="mt-4 text-pretty leading-8 text-neutral-600">{catalogDescription}</p> : null}
-            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-5">
-              {PRODUCT_CATALOG_IMAGES.map((image, index) => (
-                <div key={image} className="relative aspect-[257/300] bg-neutral-100 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 60}ms` } as React.CSSProperties}>
-                  <Image src={image} alt={`${t(locale, "catalog")} ${index + 1}`} fill className="object-cover" sizes="160px" />
-                </div>
-              ))}
-            </div>
+      <ProductCatalogSection title={catalogTitle} description={catalogDescription} locale={locale} />
+      <ProductTestReportSection title={reportTitle} description={reportDescription} />
+      <ProductContactSection />
+    </>
+  );
+}
+
+function ProductSourceHero({ title, locale }: { title: string; locale: Locale }) {
+  return (
+    <section className="relative overflow-hidden bg-white">
+      <div className="relative h-[122px] overflow-hidden bg-white lg:aspect-[3.2] lg:h-auto">
+        <Image src={PRODUCTS_HERO_IMAGE} alt={title} fill priority className="object-cover object-top" sizes="100vw" />
+        <div className="absolute inset-0 hidden bg-white/30 lg:block" />
+        <div className="absolute inset-x-0 bottom-0 top-6 bg-white lg:hidden" />
+        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[26px] text-center lg:justify-center lg:pt-0">
+          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[84px]">{title}</h1>
+          <nav className="mt-4 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium text-[#484653] lg:mt-5 lg:text-xl" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#987754]">
+              Home
+            </Link>
+            <span>›</span>
+            <span>{title}</span>
+          </nav>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-[42px] lg:mt-7 lg:gap-6">
+            <a href="#goinput" className="inline-flex h-12 min-w-[130px] items-center justify-center rounded-full border-2 border-[#484653] px-3 text-base font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[200px] lg:px-6 lg:text-lg">
+              Chat With Us
+            </a>
+            <a href="#goinput" className="inline-flex h-12 min-w-[130px] items-center justify-center rounded-full border-2 border-[#484653] px-3 text-base font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[200px] lg:px-6 lg:text-lg">
+              Leave a Message
+            </a>
           </div>
-          <div className="bg-neutral-100 p-6" data-reveal="right">
-            <p className="text-sm font-bold uppercase text-emerald-700">{t(locale, "testReport")}</p>
-            <h2 className="mt-3 text-balance text-3xl font-semibold text-neutral-950">{reportTitle}</h2>
-            {reportDescription ? <p className="mt-4 text-pretty leading-8 text-neutral-600">{reportDescription}</p> : null}
-            <div className="mt-8 grid grid-cols-2 gap-4">
-              {PRODUCT_REPORT_IMAGES.map((report, index) => (
-                <div key={report.title} className="bg-white p-4 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 60}ms` } as React.CSSProperties}>
-                  <div className="relative aspect-[4/3] bg-neutral-50">
-                    <Image src={report.imageUrl} alt={report.title} fill className="object-contain" sizes="180px" />
-                  </div>
-                  <p className="mt-3 text-center text-sm font-semibold text-neutral-800">{report.title}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProductSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
+  const centered = align === "center";
+  return (
+    <div className={`relative overflow-hidden ${centered ? "text-center" : "text-left"}`}>
+      <div className={`pointer-events-none absolute top-0 whitespace-nowrap text-[42px] font-semibold uppercase text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] lg:text-[70px] ${centered ? "left-1/2 -translate-x-1/2" : "-left-5"}`}>
+        {title}
+      </div>
+      <h2 className={`relative z-10 inline-block border-b border-[#484653] pb-[10px] text-[20px] font-semibold uppercase leading-none text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] lg:pb-[47px] lg:text-[45px] ${centered ? "" : "ml-0"}`}>
+        {title}
+        <span className={`absolute bottom-0 h-0.5 w-10 translate-y-1/2 bg-[#484653] lg:h-[5px] lg:w-[65px] ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
+      </h2>
+    </div>
+  );
+}
+
+function ProductSectionDescription({ first, second, className = "" }: { first: string; second: string; className?: string }) {
+  return (
+    <p className={`mx-auto mt-3 max-w-[1100px] text-center text-base leading-6 text-[#363636] lg:mt-9 lg:text-lg lg:leading-[30px] ${className}`}>
+      {first}
+      <br />
+      {second}
+    </p>
+  );
+}
+
+function ProductSourceTile({
+  category,
+  locale,
+  index,
+  wide,
+}: {
+  category: (typeof PRODUCT_CATEGORY_CARDS)[number];
+  locale: Locale;
+  index: number;
+  wide?: boolean;
+}) {
+  return (
+    <Link
+      href={localizePath(locale, category.path)}
+      className="group relative block overflow-hidden rounded-[20px] bg-neutral-200"
+      data-reveal
+      style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
+    >
+      <div className={`relative overflow-hidden ${wide ? "h-[579px] lg:h-auto lg:aspect-[1.95]" : "h-[676px] lg:h-auto lg:aspect-[1.27]"}`}>
+        <Image src={category.imageUrl} alt={category.title} width={wide ? 780 : 507} height={400} className="h-auto max-w-none lg:hidden" sizes="780px" />
+        <Image src={category.imageUrl} alt={category.title} fill className="hidden object-cover lg:block" sizes={wide ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 33vw, 100vw"} />
+      </div>
+      <div className="absolute inset-0 rounded-[20px] bg-black/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <h3 className="absolute bottom-[31px] left-[34px] translate-y-[-10px] text-2xl font-semibold leading-9 text-white">{category.title}</h3>
+      </div>
+    </Link>
+  );
+}
+
+function ProductProjectTile({
+  project,
+  locale,
+  index,
+}: {
+  project: (typeof HOME_PROJECT_CARDS)[number];
+  locale: Locale;
+  index: number;
+}) {
+  return (
+    <Link
+      href={localizePath(locale, project.path)}
+      className="group relative block overflow-hidden rounded-[20px] bg-neutral-200"
+      data-reveal
+      style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
+    >
+      <div className="relative aspect-[1.95]">
+        <Image src={project.imageUrl} alt={project.title} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+      </div>
+      <div className="absolute inset-[20px] rounded-[20px] bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:inset-x-8 lg:bottom-8 lg:top-[30px]">
+        <div className="flex h-full flex-col justify-between p-7 text-white lg:p-10">
+          <h3 className="text-2xl font-semibold lg:text-3xl">{project.title}</h3>
+          <span className="inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-white text-lg font-medium">
+            Explore More <ArrowRight className="ml-2" size={20} />
+          </span>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
+function ProductCatalogSection({ title, description, locale }: { title: string; description: string; locale: Locale }) {
+  const activeManual = PRODUCT_MANUALS[0];
+
+  return (
+    <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-10 sm:px-6 lg:pt-[99px]">
+      <div className="mx-auto max-w-[1600px]">
+        <ProductSourceTitle title="Catalog" />
+        <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
+        <div className="mt-8 flex flex-col gap-3 lg:mt-[55px] lg:flex-row lg:gap-[39px]">
+          <div className="grid gap-3 sm:grid-cols-5 lg:flex lg:w-[370px] lg:flex-col">
+            {PRODUCT_MANUALS.map((manual, index) => (
+              <Link
+                key={manual.title}
+                href={manual.pdfUrl}
+                target="_blank"
+                className={`flex h-14 items-center justify-center bg-white px-4 text-center text-base font-semibold text-[#3e3e3e] transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[127px] lg:text-2xl ${index === 0 ? "bg-[#484653] text-white" : ""}`}
+              >
+                {manual.title}
+              </Link>
+            ))}
+          </div>
+          <div className="bg-white p-5 lg:min-h-[520px] lg:flex-1 lg:p-[70px]">
+            <div className="grid gap-7 lg:grid-cols-[45%_1fr] lg:gap-[5%]">
+              <div className="relative mx-auto aspect-[257/300] w-full max-w-[257px] bg-neutral-100 lg:max-w-none">
+                <Image src={activeManual.imageUrl} alt={activeManual.title} fill className="object-cover" sizes="(min-width: 1024px) 28vw, 257px" />
+              </div>
+              <div className="flex flex-col justify-between">
+                <div>
+                  <h3 className="text-3xl font-semibold leading-[39px] text-[#3e3e3e] lg:text-[38px]">{activeManual.title}</h3>
+                  <p className="mt-8 text-base leading-[30px] text-[#363636] lg:mt-10 lg:text-lg">{activeManual.description}</p>
                 </div>
+                <Link href={activeManual.pdfUrl} target="_blank" className="mt-10 inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:mt-[120px]">
+                  Explore More <Download className="ml-2" size={20} />
+                </Link>
+              </div>
+            </div>
+            <div className="sr-only">
+              {PRODUCT_MANUALS.slice(1).map((manual) => (
+                <p key={manual.title}>
+                  {manual.title}: {manual.description}
+                </p>
               ))}
+              <span>{t(locale, "catalog")}</span>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      <section className="bg-neutral-100 py-16">
-        <SectionTitle eyebrow={t(locale, "latestProducts")} title={t(locale, "viewAllProducts")} />
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {products.slice(0, 12).map((product, index) => (
-            <div key={product.slug} data-reveal style={{ "--reveal-delay": `${(index % 4) * 70}ms` } as React.CSSProperties}>
-              <ProductCard product={product} locale={locale} />
+function ProductTestReportSection({ title, description }: { title: string; description: string }) {
+  return (
+    <section className="overflow-hidden bg-white bg-cover bg-center px-5 pb-16 pt-10 sm:px-6 lg:pb-[120px] lg:pt-[99px]" style={{ backgroundImage: `url(${PRODUCT_TEST_REPORT_BG})` }}>
+      <div className="mx-auto max-w-[1600px]">
+        <ProductSourceTitle title="TEST REPORT" />
+        <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
+        <div className="mx-auto mt-10 grid max-w-[1230px] gap-6 sm:grid-cols-2 lg:mt-[55px] lg:grid-cols-4">
+          {PRODUCT_REPORT_IMAGES.map((report, index) => (
+            <div key={report.title} className="bg-white p-2.5" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+              <div className="relative aspect-[292/213] shadow-[0_0_10px_3px_#ccc]">
+                <Image src={report.imageUrl} alt={report.title} fill className="object-cover" sizes="292px" />
+              </div>
+              <span className="sr-only">{report.title}</span>
             </div>
           ))}
         </div>
-      </section>
-      <ContactBand locale={locale} />
-    </>
+      </div>
+    </section>
+  );
+}
+
+function ProductContactSection() {
+  return (
+    <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-10 sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
+      <div className="mx-auto max-w-[1600px]">
+        <ProductSourceTitle title="GET IN TOUCH" />
+        <p className="mx-auto mt-9 max-w-[1100px] text-center text-base leading-[30px] text-[#363636] lg:mt-[55px] lg:text-lg">
+          Don&apos;t Hesitate to Reach Us.We are always here to address all your concerns and provide solutions.
+        </p>
+        <div className="mx-auto mt-10 grid max-w-[1446px] gap-3 lg:grid-cols-[26%_1fr] lg:gap-[35px] lg:px-[77px]">
+          <div className="grid gap-3">
+            {["Name*", "Country*", "E-mail*", "How to Find Us*", "Tel", "Company"].map((placeholder) => (
+              <div key={placeholder} className="flex h-14 items-center rounded-md border border-[#717171] bg-white px-5 text-base font-light text-[#727272] lg:h-20 lg:text-2xl">
+                {placeholder}
+              </div>
+            ))}
+          </div>
+          <div className="rounded-md border border-[#717171] bg-white p-5 lg:p-8">
+            <div className="text-base font-light text-[#727272] lg:text-2xl">Questions/Comments*</div>
+            <div className="mt-5 h-44 lg:h-[315px]" />
+            <button type="button" className="inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white">
+              Submit <ArrowRight className="ml-2" size={20} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -1968,18 +2182,6 @@ function blogDateFor(lines: string[], title: string) {
   const index = lines.findIndex((line) => line === title);
   if (index < 0) return "";
   return lines.slice(index + 1, index + 4).find((line) => /^[A-Z][a-z]{2} \d{2}, \d{4}$/.test(line)) || "";
-}
-
-function categoryStory(title: string, lines: string[]) {
-  const lowered = title.toLowerCase();
-  return (
-    lines.find((line) => line.toLowerCase().includes(lowered.split(" ")[0]) && line.length > 80) ||
-    "Discover category-specific products, materials and manufacturing support from INTCO Framing."
-  );
-}
-
-function whatWeDoImage(category: ProductCategory) {
-  return WHAT_WE_DO_IMAGES[category.title.toLowerCase()] || category.imageUrl || category.navImageUrl || "";
 }
 
 function preferredImage(item: ImageLike) {

@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { t } from "@/lib/i18n";
 
-export function CookieBanner({ locale }: { locale: Locale }) {
+export function CookieBanner({ locale, currentPath }: { locale: Locale; currentPath?: string }) {
+  const shouldRender = !currentPath || currentPath === "/";
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
+    if (!shouldRender) return;
     const timer = window.setTimeout(() => {
       setVisible(localStorage.getItem("intco-cookie-choice") === null);
     }, 0);
     return () => window.clearTimeout(timer);
-  }, []);
+  }, [shouldRender]);
 
-  if (!visible) return null;
+  if (!shouldRender || !visible) return null;
 
   function choose(value: string) {
     localStorage.setItem("intco-cookie-choice", value);
