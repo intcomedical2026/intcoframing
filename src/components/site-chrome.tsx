@@ -15,6 +15,8 @@ type ChromeProps = {
   children: React.ReactNode;
 };
 
+const HEADER_LANGUAGE_MAP_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/lg-bg-h.png";
+
 export function SiteChrome({ settings, categories, locale, currentPath, children }: ChromeProps) {
   return (
     <div lang={locale}>
@@ -45,7 +47,7 @@ function Header({
   return (
     <header className="sticky top-0 z-50 bg-white">
       <div className="hidden h-[53px] bg-[#484652] text-white lg:block">
-        <div className="mx-auto flex h-full max-w-[1160px] items-center justify-between px-0 text-base font-medium">
+        <div className="intco-source-container flex h-full items-center justify-between px-5 text-base font-medium">
           <div className="flex items-center">
             <span className="inline-flex items-center gap-2">
               <Phone size={20} />
@@ -68,13 +70,28 @@ function Header({
             <Link href={href("/enquiry-list")} className="ml-4 flex h-[34px] w-[171px] items-center justify-center rounded-full border-2 border-white text-lg font-semibold text-white">
               {t(locale, "myCart")}
             </Link>
-            <div className="absolute right-0 top-0 h-[53px] w-[95px] opacity-60">
-              <div className="mt-2 h-9 rounded-full border border-white/30 bg-white/10" />
-            </div>
+            <details className="absolute right-0 top-0 h-[53px] w-[95px]">
+              <summary
+                className="block h-[53px] w-[95px] cursor-pointer list-none bg-center bg-no-repeat"
+                style={{ backgroundImage: `url(${HEADER_LANGUAGE_MAP_IMAGE})` }}
+                aria-label="Change language"
+              />
+              <div className="absolute right-0 top-[53px] z-50 w-44 bg-white p-2 text-left shadow-xl ring-1 ring-black/10">
+                {locales.map((item) => (
+                  <Link
+                    key={item}
+                    href={localizePath(item, currentPath)}
+                    className="block px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
+                  >
+                    {localeLabels[item]}
+                  </Link>
+                ))}
+              </div>
+            </details>
           </div>
         </div>
       </div>
-      <div className="mx-auto flex h-[57px] max-w-[1160px] items-center justify-between gap-6 px-5 lg:h-[90px] lg:px-0">
+      <div className="intco-source-container flex h-[57px] items-center justify-between gap-6 px-5 lg:h-[90px]">
         <Link href={href("/")} className="flex items-center gap-3" aria-label="INTCO Framing home">
           {settings.logoUrl ? (
             <Image
@@ -137,22 +154,6 @@ function Header({
             className="sr-only"
           />
         </form>
-        <details className="relative hidden lg:block">
-          <summary className="ml-5 flex size-8 cursor-pointer list-none items-center justify-center border border-[#484653] text-xs font-semibold uppercase text-[#484653]" aria-label="Change language">
-            {locale === "en" ? "EN" : locale.toUpperCase()}
-          </summary>
-          <div className="absolute right-0 top-8 w-44 bg-white p-2 shadow-xl ring-1 ring-black/10">
-            {locales.map((item) => (
-              <Link
-                key={item}
-                href={localizePath(item, currentPath)}
-                className="block px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
-              >
-                {localeLabels[item]}
-              </Link>
-            ))}
-          </div>
-        </details>
         <div className="flex items-center gap-8 text-[#484653] lg:hidden">
           <Link href={href("/index.php")} aria-label={t(locale, "search")}>
             <Search size={28} strokeWidth={2.8} />

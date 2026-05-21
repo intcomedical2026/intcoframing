@@ -137,13 +137,50 @@ const PRODUCT_CONTACT_FIELDS = [
   { label: "WhatsApp", placeholder: "WhatsApp", required: false },
 ];
 
-const HOME_HERO_GIF_SLIDE = {
-  title: "",
-  subtitle: "",
-  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/20240712-150123.gif",
-  primaryCta: { label: "Explore More", path: "/mirror/led-mirror" },
-  secondaryCta: { label: "Contact Us", path: "/contact" },
-};
+const SOURCE_HOME_HERO_SLIDES: NonNullable<SiteData["homePage"]["heroSlides"]> = [
+  {
+    title: "INTCO FRAMING",
+    subtitle: "We are committed to offering you turnkey service and ready to\ncreate retail solutions custom tailored to fulfill all your needs.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20240229-145653.jpg",
+    primaryCta: { label: "Latest Products", path: "/products" },
+    secondaryCta: { label: "Solutions", path: "/solutions" },
+  },
+  {
+    title: "",
+    subtitle: "",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/20240712-150123.gif",
+    primaryCta: { label: "Explore More", path: "/mirror/led-mirror" },
+    secondaryCta: { label: "Contact Us", path: "/contact" },
+  },
+  {
+    title: "Mirror",
+    subtitle: "Decorating your wall with a mirror can add depth and fascination into your room.\nlntco Framing offers a range of mirrors suitable for any room in your home.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-1.jpg",
+    primaryCta: { label: "Explore More", path: "/mirror" },
+    secondaryCta: { label: "Contact Us", path: "/contact" },
+  },
+  {
+    title: "Picture Frame",
+    subtitle: "Our picture frames are all made of environmentally friendly materials.\nExplore picture frames in various shapes and styles at Intco Framing.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/image.jpg",
+    primaryCta: { label: "Explore More", path: "/picture-frame" },
+    secondaryCta: { label: "Contact Us", path: "/contact" },
+  },
+  {
+    title: "Wall Art",
+    subtitle: "Create your own gallery with wall art from Intco Framing.\nOur diverse selection of art ensures your home is as exceptional as your individual taste.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4.jpg",
+    primaryCta: { label: "Explore More", path: "/art" },
+    secondaryCta: { label: "Contact Us", path: "/contact" },
+  },
+  {
+    title: "Flexible Manufacturing",
+    subtitle: "With over 20 years of manufacturing experience, lntco Framing stands out for its flexible manufacturing capabilities.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/111.jpg",
+    primaryCta: { label: "Explore More", path: "/solutions/manufacturing-delivery" },
+    secondaryCta: { label: "Contact Us", path: "/contact" },
+  },
+];
 
 const HOME_PRODUCT_COPY: Record<string, { title: string; description: string }> = {
   mirror: {
@@ -182,6 +219,13 @@ const HOME_PROFILE_LINKS = [
     path: "/solutions/certification",
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/cboe-icon-02.png",
   },
+];
+
+const HOME_PROFILE_STATS = [
+  { value: "3", label: "Business Units", Icon: Layers },
+  { value: "6", label: "Production Bases", Icon: Factory },
+  { value: "30+", label: "Years Experience", Icon: Globe2 },
+  { value: "4000+", label: "Employees", Icon: PackageCheck },
 ];
 
 const HOME_PROJECT_CARDS = [
@@ -339,7 +383,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
   const { homePage, productCategories, solutions } = data;
   const parentCategories = productCategories.filter((category) => !category.parentSlug).slice(0, 5);
   const href = (path: string) => localizePath(locale, path);
-  const heroSlides = withSourceHomeHeroSlide(homePage.heroSlides || []);
+  const heroSlides = SOURCE_HOME_HERO_SLIDES;
 
   return (
     <>
@@ -348,7 +392,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
 
       <section className="overflow-hidden bg-[#f3f3f3] px-4 py-7 sm:px-6 lg:py-[99px]">
         <HomeSourceTitle title="FEATURED PRODUCTS" />
-        <div className="mx-auto mt-8 max-w-[1600px] lg:mt-[65px]">
+        <div className="intco-source-container mt-8 px-5 lg:mt-[65px]">
           <div className="grid gap-5 lg:grid-cols-2 lg:gap-[30px]">
             {parentCategories.slice(0, 2).map((category) => (
               <HomeProductTile key={category.slug} category={category} locale={locale} wide />
@@ -366,7 +410,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
       </section>
 
       <section className="relative overflow-hidden bg-white px-4 pt-16 sm:px-6 lg:pt-[100px]">
-        <div className="mx-auto grid max-w-[1600px] gap-10 lg:grid-cols-2">
+        <div className="intco-source-container grid gap-10 px-5 lg:grid-cols-2">
           <div className="pb-8 lg:pb-[90px]">
             <HomeSourceTitle title="COMPANY PROFILE" align="left" />
             <p className="mt-10 max-w-2xl text-pretty text-lg leading-[30px] text-[#363636] lg:mt-[50px]">
@@ -406,28 +450,34 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
             </div>
           </div>
         </div>
-        <div className="relative z-10 mx-auto max-w-[1600px] bg-[rgba(72,70,83,0.27)] px-4 py-8 sm:px-6 lg:px-10">
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {(homePage.stats || []).map((stat) => (
-              <div key={stat.label} className="flex items-center justify-center text-[#484653]">
-                <div className="text-5xl font-semibold lg:text-[70px]">
-                  <CountUpStat value={stat.value.replace("+", "")} />
-                  {stat.value.includes("+") ? <sup className="ml-1 align-super text-3xl">+</sup> : null}
+        <div className="intco-source-container relative z-10 -mt-16 px-5">
+          <div className="relative py-5">
+            <div className="absolute inset-y-0 right-0 w-4/5 bg-[rgba(72,70,83,0.27)]" />
+            <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              {HOME_PROFILE_STATS.map((stat) => (
+                <div key={stat.label} className="flex items-center justify-center text-[#484653]">
+                  <div className="relative mr-4">
+                    <span className="absolute -left-1 top-0 size-11 rounded-full bg-[#c3c2c6]" />
+                    <stat.Icon className="relative z-10 size-[60px] stroke-[1.4]" />
+                  </div>
+                  <div className="leading-none">
+                    <div className="text-[56px] font-semibold leading-none">{stat.value}</div>
+                    <div className="mt-2 text-right text-lg font-semibold leading-[22px]">{stat.label}</div>
+                  </div>
                 </div>
-                <div className="ml-4 max-w-28 text-right text-lg font-semibold leading-6">{stat.label}</div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-16 pt-16 sm:px-6 lg:pt-[230px]">
-        <div className="mx-auto max-w-[1600px]">
+        <div className="intco-source-container px-5">
           <HomeSourceTitle title="SOLUTIONS" align="left" />
           <p className="mt-10 max-w-4xl text-pretty text-lg leading-8 text-[#363636] lg:mt-[68px]">
             We are committed to offering you turnkey service and ready to create retail solutions custom tailored to fulfill all your needs.
           </p>
-          <div className="mt-10 grid gap-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
             {solutions.slice(0, 6).map((solution) => (
               <HomeSolutionTile key={solution.slug} solution={solution} locale={locale} />
             ))}
@@ -436,7 +486,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
       </section>
 
       <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-10 sm:px-6">
-        <div className="mx-auto max-w-[1600px]">
+        <div className="intco-source-container px-5">
           <HomeSourceTitle title="PROJECTS" align="left" />
           <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
             <p className="text-pretty text-lg leading-8 text-[#363636]">
@@ -463,7 +513,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
       </section>
 
       <section className="overflow-hidden bg-white px-4 py-16 sm:px-6 lg:py-[99px]">
-        <div className="mx-auto max-w-[1600px]">
+        <div className="intco-source-container px-5">
           <div className="flex flex-wrap justify-between gap-8">
             <HomeSourceTitle title="BLOG" align="left" />
             <p className="max-w-[819px] text-pretty text-lg leading-8 text-[#363636]">{homePage.blogIntro?.description}</p>
@@ -490,28 +540,14 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
   );
 }
 
-function withSourceHomeHeroSlide(slides: NonNullable<SiteData["homePage"]["heroSlides"]>) {
-  const existing = slides.filter((slide) => slide.imageUrl !== HOME_HERO_GIF_SLIDE.imageUrl);
-  const sourceFirstSlide = existing[0]
-    ? {
-        ...existing[0],
-        title: "",
-        subtitle: "",
-        primaryCta: undefined,
-        secondaryCta: undefined,
-      }
-    : HOME_HERO_GIF_SLIDE;
-  return [sourceFirstSlide, HOME_HERO_GIF_SLIDE, ...existing.slice(1)].filter(Boolean);
-}
-
 function HomeSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
   const centered = align === "center";
   return (
     <div className={`relative overflow-hidden ${centered ? "text-center" : "text-left"}`}>
-      <div className={`pointer-events-none absolute top-0 whitespace-nowrap text-5xl font-semibold uppercase text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] sm:text-[70px] ${centered ? "left-1/2 -translate-x-1/2" : "-left-5"}`}>
+      <div className={`pointer-events-none absolute top-0 whitespace-nowrap text-5xl font-semibold uppercase text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] sm:text-[70px] max-[1600px]:text-[46px] max-[650px]:text-4xl ${centered ? "left-1/2 -translate-x-1/2" : "-left-5"}`}>
         {title}
       </div>
-      <h2 className={`relative z-10 inline-block border-b border-[#484653] pb-8 text-balance text-3xl font-semibold uppercase leading-none text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] sm:text-[45px] ${centered ? "" : "ml-0"}`}>
+      <h2 className={`relative z-10 inline-block border-b border-[#484653] pb-8 text-balance text-3xl font-semibold uppercase leading-none text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] sm:text-[45px] max-[1600px]:text-4xl max-[650px]:text-xl ${centered ? "" : "ml-0"}`}>
         {title}
         <span className={`absolute bottom-0 h-[5px] w-[65px] translate-y-1/2 bg-[#484653] ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
       </h2>
@@ -552,14 +588,14 @@ function HomeProductTile({ category, locale, wide }: { category: ProductCategory
 
 function HomeSolutionTile({ solution, locale }: { solution: Solution; locale: Locale }) {
   return (
-    <Link href={localizePath(locale, solution.path)} className="group block bg-white">
-      <div className="relative aspect-[1.34] overflow-hidden bg-neutral-100">
-        {solution.imageUrl ? <Image src={solution.imageUrl} alt={solution.imageAlt || solution.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 16vw, 50vw" /> : null}
+    <Link href={localizePath(locale, solution.path)} className="group block overflow-hidden bg-white shadow-[0_10px_22px_rgba(0,0,0,0.06)]">
+      <div className="relative aspect-[1.72] overflow-hidden bg-neutral-100">
+        {solution.imageUrl ? <Image src={solution.imageUrl} alt={solution.imageAlt || solution.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 33vw, 50vw" /> : null}
       </div>
-      <div className="min-h-64 bg-[#484653] p-6 text-white">
-        <h3 className="text-balance text-2xl font-semibold leading-8">{solution.title}</h3>
-        <p className="mt-4 line-clamp-2 text-pretty text-lg leading-7 text-white/80">{homeSolutionDescription(solution)}</p>
-        <span className="mt-7 inline-flex items-center text-lg font-semibold">
+      <div className="min-h-[306px] bg-white px-9 py-12 text-[#363636]">
+        <h3 className="border-b border-[#484653] pb-4 text-balance text-lg font-semibold leading-6 text-[#363636]">{solution.title}</h3>
+        <p className="mt-7 line-clamp-3 min-h-[84px] text-pretty text-lg leading-7 text-[#363636]">{homeSolutionDescription(solution)}</p>
+        <span className="mt-8 inline-flex items-center text-lg font-semibold text-[#484653]">
           {t(locale, "exploreMore")} <ArrowRight className="ml-2" size={18} />
         </span>
       </div>
