@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Phone, Search } from "lucide-react";
+import { Mail, MapPin, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
 import { RevealRuntime } from "@/components/reveal-runtime";
@@ -43,50 +43,58 @@ function Header({
   const href = (path: string) => localizePath(locale, path);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-black/10 bg-white/95 backdrop-blur">
-      <div className="hidden bg-neutral-950 text-white lg:block">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-4 py-2 text-xs sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-x-5 gap-y-1">
+    <header className="sticky top-0 z-50 bg-white">
+      <div className="hidden h-[53px] bg-[#484652] text-white lg:block">
+        <div className="mx-auto flex h-full max-w-[1160px] items-center justify-between px-0 text-base font-medium">
+          <div className="flex items-center">
             <span className="inline-flex items-center gap-2">
-              <Phone size={14} />
+              <Phone size={20} />
               {settings.phone}
             </span>
+            <span className="mx-9 h-6 w-px bg-white" />
             <span className="inline-flex items-center gap-2">
-              <Mail size={14} />
+              <Mail size={20} />
               {settings.email}
             </span>
           </div>
-          <div className="flex items-center gap-4">
-            <Link href={href("/enquiry-list")} className="font-medium text-emerald-200 transition hover:text-white">
+          <div className="relative flex items-center pr-[125px]">
+            <div className="flex items-center gap-1">
+              {["f", "y", "in", "x", "ig", "p"].map((label) => (
+                <span key={label} className="flex size-[30px] items-center justify-center rounded-full bg-[#959595] text-[10px] font-bold uppercase text-[#484652]">
+                  {label}
+                </span>
+              ))}
+            </div>
+            <Link href={href("/enquiry-list")} className="ml-4 flex h-[34px] w-[171px] items-center justify-center rounded-full border-2 border-white text-lg font-semibold text-white">
               {t(locale, "myCart")}
             </Link>
-            <Link href={href("/contact")} className="font-medium text-emerald-200 transition hover:text-white">
-              {t(locale, "perfectSolution")}
-            </Link>
+            <div className="absolute right-0 top-0 h-[53px] w-[95px] opacity-60">
+              <div className="mt-2 h-9 rounded-full border border-white/30 bg-white/10" />
+            </div>
           </div>
         </div>
       </div>
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-[57px] max-w-[1160px] items-center justify-between gap-6 px-5 lg:h-[90px] lg:px-0">
         <Link href={href("/")} className="flex items-center gap-3" aria-label="INTCO Framing home">
           {settings.logoUrl ? (
             <Image
               src={settings.logoUrl}
               alt={settings.title}
-              width={132}
-              height={44}
-              className="h-11 w-auto object-contain"
+              width={101}
+              height={87}
+              className="h-10 w-auto object-contain lg:h-[87px]"
               priority
             />
           ) : (
             <span className="text-xl font-bold tracking-wide">{settings.title}</span>
           )}
         </Link>
-        <nav className="hidden items-center gap-7 text-sm font-semibold uppercase tracking-wide text-neutral-700 lg:flex">
+        <nav className="hidden flex-1 items-center justify-center text-xl font-semibold text-[#484653] lg:flex">
           {(settings.navigation || []).map((item) => (
             <div key={item.path} className="group relative py-7">
               <Link
                 href={href(item.path)}
-                className="relative block transition-colors duration-200 after:absolute after:left-0 after:-bottom-2 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-neutral-700 after:transition-transform after:duration-200 hover:text-emerald-700 group-hover:after:scale-x-100"
+                className={`relative mx-5 block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-200 hover:text-[#484653] ${currentPath === item.path ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
               >
                 {item.label}
               </Link>
@@ -119,18 +127,19 @@ function Header({
             </div>
           ))}
         </nav>
-        <form action={href("/index.php")} className="hidden w-44 items-center border border-neutral-200 px-3 py-2 xl:flex">
-          <Search size={16} className="text-neutral-500" />
+        <form action={href("/index.php")} className="hidden items-center xl:flex">
+          <button type="submit" aria-label={t(locale, "search")} className="text-[#484653]">
+            <Search size={24} />
+          </button>
           <input
             name="keyword"
             aria-label={t(locale, "search")}
-            placeholder={t(locale, "search")}
-            className="ml-2 min-w-0 flex-1 bg-transparent text-sm outline-none"
+            className="sr-only"
           />
         </form>
         <details className="relative hidden lg:block">
-          <summary className="cursor-pointer list-none text-sm font-semibold uppercase tracking-wide text-neutral-700">
-            {localeLabels[locale]}
+          <summary className="ml-5 flex size-8 cursor-pointer list-none items-center justify-center border border-[#484653] text-xs font-semibold uppercase text-[#484653]" aria-label="Change language">
+            {locale === "en" ? "EN" : locale.toUpperCase()}
           </summary>
           <div className="absolute right-0 top-8 w-44 bg-white p-2 shadow-xl ring-1 ring-black/10">
             {locales.map((item) => (
@@ -144,29 +153,27 @@ function Header({
             ))}
           </div>
         </details>
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-8 text-[#484653] lg:hidden">
+          <Link href={href("/index.php")} aria-label={t(locale, "search")}>
+            <Search size={28} strokeWidth={2.8} />
+          </Link>
           <details className="relative">
-            <summary className="cursor-pointer list-none rounded border border-neutral-300 px-3 py-2 text-sm font-semibold">
-              {localeLabels[locale]}
+            <summary className="cursor-pointer list-none" aria-label="Open menu">
+              <Menu size={32} strokeWidth={2.8} />
             </summary>
-            <div className="absolute left-0 top-12 z-50 w-44 bg-white p-2 shadow-xl ring-1 ring-black/10">
+            <div className="absolute right-0 top-10 z-50 w-64 bg-white p-3 shadow-xl ring-1 ring-black/10">
+              {(settings.navigation || []).map((item) => (
+                <Link key={item.path} href={href(item.path)} className="block border-b border-neutral-100 px-3 py-3 text-sm font-semibold text-[#484653]">
+                  {item.label}
+                </Link>
+              ))}
               {locales.map((item) => (
-                <Link
-                  key={item}
-                  href={localizePath(item, currentPath)}
-                  className="block px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
-                >
+                <Link key={item} href={localizePath(item, currentPath)} className="block px-3 py-2 text-sm font-semibold text-neutral-600 hover:bg-neutral-100">
                   {localeLabels[item]}
                 </Link>
               ))}
             </div>
           </details>
-          <Link href={href("/products")} className="rounded border border-neutral-300 px-3 py-2 text-sm font-semibold">
-            Products
-          </Link>
-          <Link href={href("/contact")} className="rounded bg-emerald-700 px-3 py-2 text-sm font-semibold text-white">
-            {t(locale, "contactUs")}
-          </Link>
         </div>
       </div>
     </header>

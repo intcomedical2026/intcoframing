@@ -85,7 +85,7 @@ const translations: Record<Locale, Record<string, string>> = {
     reject: "Reject",
     privacyTitle: "We Value Your Privacy",
     privacyText:
-      "We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic.",
+      "We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking \"Accept\", you consent to our use of cookies.",
   },
   es: {
     perfectSolution: "¿Busca la solución perfecta?",

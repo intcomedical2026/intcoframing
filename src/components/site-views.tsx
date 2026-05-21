@@ -58,130 +58,484 @@ const WHAT_WE_DO_IMAGES: Record<string, string> = {
   "memo board": "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo4.png",
 };
 
+const HOME_HERO_GIF_SLIDE = {
+  title: "",
+  subtitle: "",
+  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/20240712-150123.gif",
+  primaryCta: { label: "Explore More", path: "/mirror/led-mirror" },
+  secondaryCta: { label: "Contact Us", path: "/contact" },
+};
+
+const HOME_PRODUCT_COPY: Record<string, { title: string; description: string }> = {
+  mirror: {
+    title: "Mirror",
+    description: "Decorating your wall with a mirror can add depth and fascination into rooms. Intco Framing offers a range of mirrors suitable for any room in home!",
+  },
+  "picture-frame": {
+    title: "Picture Frame",
+    description:
+      "Our picture frames are all made of environmentally friendly materials. Explore picture frames in various shapes and styles at Intco Framing. Display your cherished photos, meaningful moments, and essential documents elegantly.",
+  },
+  art: {
+    title: "Art",
+    description: "Create your own gallery with wall art from Intco Framing. Our diverse selection of art ensures your home is as exceptional as your individual taste.",
+  },
+  furniture: {
+    title: "Furniture",
+    description:
+      "Intco Framing delivers top-quality furniture, ranging from medicine cabinets to shelves, designed to maximize home storage space. Intco Framing provides innovative storage solutions for a clutter-free living environment.",
+  },
+  "memo-board": {
+    title: "Memo Board",
+    description:
+      "Discover a variety of framed chalkboards and cork boards at Intco Framing. Whether it's a reminder, a note, or a piece of encouragement, add your personal touch to these boards. Explore our selection and find the perfect one that resonates with you!",
+  },
+};
+
+const HOME_PROFILE_LINKS = [
+  {
+    label: "Sustainability",
+    path: "/who-we-are/sustainability",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/cboe-icon-01.png",
+  },
+  {
+    label: "Certification",
+    path: "/solutions/certification",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/cboe-icon-02.png",
+  },
+];
+
+const HOME_PROJECT_CARDS = [
+  {
+    title: "Residential",
+    path: "/projects/residential",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS1.jpg",
+  },
+  {
+    title: "Commercial",
+    path: "/projects/commercial",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS2.jpg",
+  },
+];
+
+const HOME_BLOG_CATEGORIES = ["All", "Expo", "Industry News", "Inspiration", "New Arrivals", "Press Release", "Tips"];
+
+const HOME_BLOG_CARDS = [
+  {
+    title: "Canvas Art: A Perfect Addition to Your Home Decor",
+    path: "/news/canvas-art-a-perfect-addition-to-your-home-decor",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/09/8-1-1.jpg",
+    date: "Sep 09, 2025",
+    description: "",
+  },
+  {
+    title: "Creative Gallery Wall Ideas: Transform Your Walls with Frames, Art and Memo Boards",
+    path: "/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/09/5416b754-a48c-4209-a071-d16586157fbe.png",
+    date: "Sep 04, 2025",
+    description: "Discover creative gallery wall ideas with frames, art, mirrors & memo boards. Tr...",
+  },
+  {
+    title: "Top Frame Design Trends in 2025 for Interiors and Art Galleries",
+    path: "/news/top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/premium_photo-1706561252292-a468453e49bb.avif",
+    date: "Aug 26, 2025",
+    description: "",
+  },
+  {
+    title: "Which One Suits Your Project?——A Guide to Mirror Materials",
+    path: "/news/which-one-suits-your-project-a-guide-to-mirror-materials",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/1.jpg",
+    date: "Aug 19, 2025",
+    description: "",
+  },
+  {
+    title: "Modern? Rustic? Classic? The Custom Framing Guide Every Home Needs",
+    path: "/news/modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/1280X1280-3.png",
+    date: "Aug 09, 2025",
+    description: "Explore Intco Framing's custom picture frames and frame mouldings. Discover mode...",
+  },
+  {
+    title: "Sustainable Furniture Choices: Eco-Friendly Options for the Modern Home",
+    path: "/news/sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-medium-shot-woman-restoring-furniture-scaled.webp",
+    date: "Apr 23, 2025",
+    description: "Discover eco-friendly furniture that blend style & sustainability for modern hom...",
+  },
+  {
+    title: "Functional Decor: Incorporating Memo Boards into Your Home Office",
+    path: "/news/functional-decor-incorporating-memo-boards-into-your-home-office",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-postcard-pictures-rack-against-white-scaled.webp",
+    date: "Apr 16, 2025",
+    description: "Discover how to integrate memo boards into your home office for stylish organiza...",
+  },
+  {
+    title: "The Art of Framing: Enhancing Your Artwork with Unique Picture Frames",
+    path: "/news/the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-top-view-wooden-frames-arrangement-scaled.jpg",
+    date: "Apr 09, 2025",
+    description: "Discover how unique picture frames enhance your art. Expert tips on styles, mate...",
+  },
+  {
+    title: "Intco Framing Will Be Participating in The 135th CANTON FAIR",
+    path: "/news/intco-framing-will-be-participating-in-the-135th-canton-fair",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/04/20240410-112017.jpg",
+    date: "Apr 10, 2024",
+    description: "Intco Framing Will Be Participating in The 135th CANTON FAIR",
+  },
+  {
+    title: "Visit Intco Framing at 2024 VIFA Expo",
+    path: "/news/visit-intco-framing-at-2024-vifa-expo",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20240227-090025-scaled.jpg",
+    date: "Feb 27, 2024",
+    description: "Intco Framing will be showcasing latest innovations in home decor solutions at V...",
+  },
+  {
+    title: "Tips for Installing Picture Frames in Your Home",
+    path: "/news/tips-for-installing-picture-frames-in-your-home",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/03/1-high-angle-beautiful-plants-home-scaled.jpg",
+    date: "Apr 02, 2025",
+    description: "Discover expert tips for installing picture frames to enhance your home decor. L...",
+  },
+  {
+    title: "Interior Deco Market Outlook 2025: Key Trends and Challenges",
+    path: "/news/interior-deco-market-outlook-2025-key-trends-and-challenges",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/03/1-home-plant-vase-decoration-arrangement-scaled.jpg",
+    date: "Mar 26, 2025",
+    description: "Explore the Interior Decor Market Outlook 2025: Key trends, challenges, sustaina...",
+  },
+  {
+    title: "What's the Best Way to Frame Black-and-White Photos?",
+    path: "/news/whats-the-best-way-to-frame-black-and-white-photos",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/12/1-picture-framing-scaled.jpg",
+    date: "Dec 12, 2024",
+    description: "In conclusion, framing black-and-white photos requires careful consideration of ...",
+  },
+  {
+    title: "Bulk Picture Frame Orders for Wholesale Buyers: A Complete Guide",
+    path: "/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/12/1-INTCO-Framing.webp",
+    date: "Dec 05, 2024",
+    description: "Ordering picture frames in bulk offers substantial benefits for wholesale buyers...",
+  },
+  {
+    title: "Poster Frames vs. Picture Frames: Understanding the Difference",
+    path: "/news/poster-frames-vs-picture-frames-understanding-the-difference",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/11/1-Intcos-Poster-Frame.webp",
+    date: "Nov 28, 2024",
+    description: "Deciding on the appropriate frame for your posters, art prints, or photos is a c...",
+  },
+  {
+    title: "Framing the Future: A Comprehensive Guide to A-Paper Sizes",
+    path: "/news/framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/11/1-natural-burl-wood-framing.webp",
+    date: "Nov 21, 2024",
+    description: "A-sizes are a system of paper sizes that are standardized by the International O...",
+  },
+  {
+    title: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released",
+    path: "/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Intco-Recycling-has-been-awarded-the-Best-Bloomberg-Green-ESG-Projects.jpg",
+    date: "Jan 29, 2024",
+    description: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released.",
+  },
+  {
+    title: "The Clear Difference: Picture Frame vs Photo Frame Explained",
+    path: "/news/the-clear-difference-picture-frame-vs-photo-frame-explained",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/06/微信图片3_20240611140721.jpg",
+    date: "Jun 13, 2024",
+    description: "A picture frame is a decorative edging designed to encase and protect artwork, p...",
+  },
+  {
+    title: "How To Choose The Right Mirror Cabinet for Your Bathroom",
+    path: "/news/how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/medicine-cabinet-ideas-for-bathroom.jpg",
+    date: "Feb 23, 2024",
+    description: "It's vital to get the correct mirror cabinet for your purposes since it may trul...",
+  },
+];
+
 export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
-  const { homePage, productCategories, products, solutions, projects, blogPosts } = data;
+  const { homePage, productCategories, solutions } = data;
   const parentCategories = productCategories.filter((category) => !category.parentSlug).slice(0, 5);
-  const latestPosts = blogPosts.slice(0, 6);
   const href = (path: string) => localizePath(locale, path);
+  const heroSlides = withSourceHomeHeroSlide(homePage.heroSlides || []);
 
   return (
     <>
-      <HeroCarousel slides={homePage.heroSlides} fallbackTitle={homePage.title} locale={locale} />
+      <HeroCarousel slides={heroSlides} fallbackTitle={homePage.title} locale={locale} />
+      <span className="sr-only">Latest Products</span>
 
-      <section className="bg-white py-16">
-        <div data-reveal="fade">
-          <SectionTitle eyebrow={t(locale, "featuredProducts")} title="Category depth for retail programs" />
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-5 lg:px-8">
-          {parentCategories.map((category, index) => (
-            <div key={category.slug} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-              <CategoryCard category={category} locale={locale} />
-            </div>
-          ))}
+      <section className="overflow-hidden bg-[#f3f3f3] px-4 py-7 sm:px-6 lg:py-[99px]">
+        <HomeSourceTitle title="FEATURED PRODUCTS" />
+        <div className="mx-auto mt-8 max-w-[1600px] lg:mt-[65px]">
+          <div className="grid gap-5 lg:grid-cols-2 lg:gap-[30px]">
+            {parentCategories.slice(0, 2).map((category) => (
+              <HomeProductTile key={category.slug} category={category} locale={locale} wide />
+            ))}
+          </div>
+          <div className="mt-[30px] grid gap-5 lg:grid-cols-3 lg:gap-[30px]">
+            {parentCategories.slice(2, 5).map((category) => (
+              <HomeProductTile key={category.slug} category={category} locale={locale} />
+            ))}
+          </div>
+          <div className="mt-12 flex justify-center lg:mt-16">
+            <SourcePillLink href={href("/products")}>{t(locale, "exploreMore")}</SourcePillLink>
+          </div>
         </div>
       </section>
 
-      <section className="bg-neutral-100 py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.15fr] lg:px-8">
-          <div className="relative min-h-[420px] overflow-hidden bg-neutral-300" data-reveal="left">
-            {homePage.companyProfile?.imageUrl ? (
-              <Image
-                src={homePage.companyProfile.imageUrl}
-                alt={homePage.companyProfile.title || "Company profile"}
-                fill
-                className="object-cover"
-                sizes="(min-width: 1024px) 45vw, 100vw"
-              />
-            ) : null}
-          </div>
-          <div className="flex flex-col justify-center" data-reveal="right">
-            <p className="text-sm font-bold uppercase tracking-[0.26em] text-emerald-700">Company Profile</p>
-            <h2 className="mt-4 text-balance text-3xl font-semibold text-neutral-950 sm:text-5xl">{homePage.companyProfile?.title}</h2>
-            <p className="mt-5 text-pretty text-lg leading-8 text-neutral-700">{homePage.companyProfile?.description}</p>
-            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+      <section className="relative overflow-hidden bg-white px-4 pt-16 sm:px-6 lg:pt-[100px]">
+        <div className="mx-auto grid max-w-[1600px] gap-10 lg:grid-cols-2">
+          <div className="pb-8 lg:pb-[90px]">
+            <HomeSourceTitle title="COMPANY PROFILE" align="left" />
+            <p className="mt-10 max-w-2xl text-pretty text-lg leading-[30px] text-[#363636] lg:mt-[50px]">
+              Founded in 2002, INTCO upholds the reputation for high quality, greatdesigns, and fast delivery to fulfill all aspects of a project - from artistryto functionality, saving you time and money.
+            </p>
+            <ul className="mt-5 space-y-2 text-lg leading-10 text-[#363636]">
               {(homePage.companyProfile?.points || []).map((point, index) => (
-                <li key={point} className="flex items-center gap-3 bg-white p-4 text-sm font-semibold text-neutral-800 transition-transform duration-200 hover:-translate-y-0.5">
-                  <span className="flex size-8 shrink-0 items-center justify-center bg-emerald-700 text-white">{index + 1}</span>
+                <li key={point} className="group flex items-center gap-[13px]">
+                  <span className="flex size-[26px] items-center justify-center rounded-full border border-[#484653] text-sm transition duration-200 group-hover:bg-[#484653] group-hover:text-white">
+                    {index + 1}
+                  </span>
                   {point}
                 </li>
               ))}
             </ul>
+            <div className="mt-10 flex flex-wrap items-end gap-8">
+              {HOME_PROFILE_LINKS.map((item) => (
+                <Link key={item.label} href={href(item.path)} className="group flex flex-col justify-end text-lg font-semibold text-[#484653] transition duration-200 hover:-translate-y-2">
+                  <Image src={item.imageUrl} alt={item.label} width={58} height={58} className="size-14 object-contain" />
+                  <span className="mt-5">{item.label}</span>
+                </Link>
+              ))}
+              <SourcePillLink href={href("/who-we-are")} compact>
+                Read More
+              </SourcePillLink>
+            </div>
+          </div>
+          <div className="flex items-end">
+            <div className="aspect-video w-full overflow-hidden bg-neutral-100">
+              <iframe
+                className="size-full"
+                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
-          {(homePage.stats || []).map((stat, index) => (
-            <div key={stat.label} className="bg-white p-6" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-              <div className="text-4xl font-bold text-emerald-700">
-                <CountUpStat value={stat.value} />
+        <div className="relative z-10 mx-auto max-w-[1600px] bg-[rgba(72,70,83,0.27)] px-4 py-8 sm:px-6 lg:px-10">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {(homePage.stats || []).map((stat) => (
+              <div key={stat.label} className="flex items-center justify-center text-[#484653]">
+                <div className="text-5xl font-semibold lg:text-[70px]">
+                  <CountUpStat value={stat.value.replace("+", "")} />
+                  {stat.value.includes("+") ? <sup className="ml-1 align-super text-3xl">+</sup> : null}
+                </div>
+                <div className="ml-4 max-w-28 text-right text-lg font-semibold leading-6">{stat.label}</div>
               </div>
-              <div className="mt-2 text-sm font-semibold uppercase tracking-wide text-neutral-600">{stat.label}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-white py-16">
-        <div data-reveal="fade">
-          <SectionTitle
-            eyebrow={t(locale, "solutions")}
-            title="Turnkey service from insight to delivery"
-            description="We are committed to offering you retail solutions custom tailored to fulfill all your needs."
-          />
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-          {solutions.map((solution, index) => (
-            <div key={solution.slug} data-reveal style={{ "--reveal-delay": `${(index % 3) * 90}ms` } as React.CSSProperties}>
-              <FeatureCard item={solution} iconIndex={index} href={href(solution.path)} locale={locale} />
-            </div>
-          ))}
+      <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-16 pt-16 sm:px-6 lg:pt-[230px]">
+        <div className="mx-auto max-w-[1600px]">
+          <HomeSourceTitle title="SOLUTIONS" align="left" />
+          <p className="mt-10 max-w-4xl text-pretty text-lg leading-8 text-[#363636] lg:mt-[68px]">
+            We are committed to offering you turnkey service and ready to create retail solutions custom tailored to fulfill all your needs.
+          </p>
+          <div className="mt-10 grid gap-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+            {solutions.slice(0, 6).map((solution) => (
+              <HomeSolutionTile key={solution.slug} solution={solution} locale={locale} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-neutral-950 py-16 text-white">
-        <div data-reveal="fade">
-          <SectionTitle
-            eyebrow={homePage.projectsIntro?.title || "Projects"}
-            title={homePage.projectsIntro?.cta || "Customized solution for every industry needs"}
-            description={homePage.projectsIntro?.description}
-            dark
-          />
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {projects.slice(0, 4).map((project, index) => (
-            <div key={project.slug} data-reveal style={{ "--reveal-delay": `${index * 90}ms` } as React.CSSProperties}>
-              <ImageCard href={href(project.path)} title={project.title} label={project.category} imageUrl={project.imageUrl} alt={project.imageAlt} locale={locale} />
+      <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-10 sm:px-6">
+        <div className="mx-auto max-w-[1600px]">
+          <HomeSourceTitle title="PROJECTS" align="left" />
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
+            <p className="text-pretty text-lg leading-8 text-[#363636]">
+              Artistry meets functionality.
+              <br />
+              From public spaces to homes,
+              <br />
+              our diverse products seamlessly integrate into diverse scenarios.
+            </p>
+            <div className="flex max-w-[631px] items-center gap-8 bg-white px-8 py-[18px] text-[#484653]">
+              <p className="max-w-[300px] text-2xl font-semibold leading-[30px]">Customized Solution For Every Industry Needs!</p>
+              <Link href={href("/contact")} className="inline-flex h-[66px] items-center rounded-md bg-[#484653] px-5 text-lg font-semibold text-white">
+                <span className="border-r border-white pr-3">Contact Us</span>
+                <ArrowRight className="ml-3" size={22} />
+              </Link>
             </div>
-          ))}
+          </div>
+          <div className="mt-[55px] grid gap-8 lg:grid-cols-2">
+            {HOME_PROJECT_CARDS.map((project) => (
+              <HomeProjectTile key={project.title} project={project} locale={locale} />
+            ))}
+          </div>
         </div>
       </section>
 
-      <section className="bg-white py-16">
-        <div data-reveal="fade">
-          <SectionTitle eyebrow="Blog" title="Interior decor expertise" description={homePage.blogIntro?.description} />
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-          {latestPosts.map((post, index) => (
-            <div key={post.slug} data-reveal style={{ "--reveal-delay": `${(index % 3) * 90}ms` } as React.CSSProperties}>
-              <BlogCard post={post} locale={locale} />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-neutral-100 py-16">
-        <div data-reveal="fade">
-          <SectionTitle eyebrow={t(locale, "latestProducts")} title={t(locale, "productCatalog")} />
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {products.slice(0, 8).map((product, index) => (
-            <div key={product.slug} data-reveal style={{ "--reveal-delay": `${(index % 4) * 70}ms` } as React.CSSProperties}>
-              <ProductCard product={product} locale={locale} />
-            </div>
-          ))}
+      <section className="overflow-hidden bg-white px-4 py-16 sm:px-6 lg:py-[99px]">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="flex flex-wrap justify-between gap-8">
+            <HomeSourceTitle title="BLOG" align="left" />
+            <p className="max-w-[819px] text-pretty text-lg leading-8 text-[#363636]">{homePage.blogIntro?.description}</p>
+          </div>
+          <div className="my-12 grid gap-3 sm:grid-cols-2 lg:my-[70px] lg:grid-cols-7">
+            {HOME_BLOG_CATEGORIES.map((category, index) => (
+              <button
+                key={category}
+                type="button"
+                className={`h-10 rounded-md border text-lg font-semibold transition duration-200 ${index === 0 ? "border-[#484653] bg-[#484653] text-white" : "border-white bg-white text-[#484653] hover:border-[#484653] hover:bg-[#484653] hover:text-white"}`}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+            {HOME_BLOG_CARDS.map((post) => (
+              <HomeBlogTile key={`${post.title}-${post.date}`} post={post} locale={locale} />
+            ))}
+          </div>
         </div>
       </section>
     </>
   );
+}
+
+function withSourceHomeHeroSlide(slides: NonNullable<SiteData["homePage"]["heroSlides"]>) {
+  const existing = slides.filter((slide) => slide.imageUrl !== HOME_HERO_GIF_SLIDE.imageUrl);
+  const sourceFirstSlide = existing[0]
+    ? {
+        ...existing[0],
+        title: "",
+        subtitle: "",
+        primaryCta: undefined,
+        secondaryCta: undefined,
+      }
+    : HOME_HERO_GIF_SLIDE;
+  return [sourceFirstSlide, HOME_HERO_GIF_SLIDE, ...existing.slice(1)].filter(Boolean);
+}
+
+function HomeSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
+  const centered = align === "center";
+  return (
+    <div className={`relative overflow-hidden ${centered ? "text-center" : "text-left"}`}>
+      <div className={`pointer-events-none absolute top-0 whitespace-nowrap text-5xl font-semibold uppercase text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] sm:text-[70px] ${centered ? "left-1/2 -translate-x-1/2" : "-left-5"}`}>
+        {title}
+      </div>
+      <h2 className={`relative z-10 inline-block border-b border-[#484653] pb-8 text-balance text-3xl font-semibold uppercase leading-none text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] sm:text-[45px] ${centered ? "" : "ml-0"}`}>
+        {title}
+        <span className={`absolute bottom-0 h-[5px] w-[65px] translate-y-1/2 bg-[#484653] ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
+      </h2>
+    </div>
+  );
+}
+
+function SourcePillLink({ href, children, compact }: { href: string; children: React.ReactNode; compact?: boolean }) {
+  return (
+    <Link
+      href={href}
+      className={`inline-flex items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white ${compact ? "h-[54px] px-10" : "h-[66px] px-20"}`}
+    >
+      {children}
+      <ArrowRight className="ml-3" size={20} />
+    </Link>
+  );
+}
+
+function HomeProductTile({ category, locale, wide }: { category: ProductCategory; locale: Locale; wide?: boolean }) {
+  const copy = HOME_PRODUCT_COPY[category.slug] || { title: category.title, description: category.description || "" };
+  const imageUrl = category.imageUrl || category.navImageUrl || "";
+  return (
+    <Link href={localizePath(locale, category.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
+      <div className={`relative ${wide ? "aspect-[1.78]" : "aspect-[1.16]"}`}>
+        {imageUrl ? <Image src={imageUrl} alt={category.imageAlt || copy.title} fill className="object-cover" sizes={wide ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 33vw, 100vw"} /> : null}
+      </div>
+      <div className="absolute inset-0 flex flex-col items-center justify-center rounded-[20px] bg-black/45 px-[5%] text-center text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <h3 className="text-balance text-3xl font-semibold leading-none">{copy.title}</h3>
+        <p className="mt-5 line-clamp-2 text-pretty text-lg leading-[26px]">{copy.description}</p>
+        <span className="mt-7 inline-flex h-12 items-center rounded-full border-2 border-white px-10 text-lg font-medium">
+          {t(locale, "exploreMore")} <ArrowRight className="ml-2" size={18} />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+function HomeSolutionTile({ solution, locale }: { solution: Solution; locale: Locale }) {
+  return (
+    <Link href={localizePath(locale, solution.path)} className="group block bg-white">
+      <div className="relative aspect-[1.34] overflow-hidden bg-neutral-100">
+        {solution.imageUrl ? <Image src={solution.imageUrl} alt={solution.imageAlt || solution.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 16vw, 50vw" /> : null}
+      </div>
+      <div className="min-h-64 bg-[#484653] p-6 text-white">
+        <h3 className="text-balance text-2xl font-semibold leading-8">{solution.title}</h3>
+        <p className="mt-4 line-clamp-2 text-pretty text-lg leading-7 text-white/80">{homeSolutionDescription(solution)}</p>
+        <span className="mt-7 inline-flex items-center text-lg font-semibold">
+          {t(locale, "exploreMore")} <ArrowRight className="ml-2" size={18} />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+function HomeProjectTile({ project, locale }: { project: (typeof HOME_PROJECT_CARDS)[number]; locale: Locale }) {
+  return (
+    <Link href={localizePath(locale, project.path)} className="group relative block overflow-hidden">
+      <div className="relative aspect-[1.9] bg-neutral-200">
+        <Image src={project.imageUrl} alt={project.title} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+      </div>
+      <div className="absolute inset-5 rounded-md bg-white/75 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <span className="absolute right-8 top-7 flex size-9 items-center justify-center rounded-full bg-white text-[#987754]">+</span>
+        <h3 className="px-12 pt-20 text-3xl font-semibold text-[#484653]">{project.title}</h3>
+        <span className="absolute bottom-16 left-11 inline-flex items-center text-2xl font-semibold text-[#484653]">
+          {t(locale, "exploreMore")}
+          <span className="ml-3 flex size-8 items-center justify-center rounded-full border-2 border-[#484653]">
+            <ArrowRight size={17} />
+          </span>
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+function HomeBlogTile({ post, locale }: { post: (typeof HOME_BLOG_CARDS)[number]; locale: Locale }) {
+  return (
+    <Link href={localizePath(locale, post.path)} className="group block overflow-hidden bg-white">
+      <div className="relative aspect-[1.48] overflow-hidden bg-neutral-100">
+        <Image src={post.imageUrl} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 25vw, 50vw" />
+      </div>
+      <div className="py-6">
+        <h3 className="truncate text-2xl font-semibold text-[#363636]">{post.title}</h3>
+        <p className="mt-2 text-base font-light leading-10 text-[#999]">{post.date}</p>
+        {post.description ? <p className="line-clamp-2 text-lg leading-7 text-[#363636]">{post.description}</p> : <p className="h-14" />}
+        <span className="mt-8 inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 group-hover:bg-[#484653] group-hover:text-white">
+          Read More <ArrowRight className="ml-2" size={20} />
+        </span>
+      </div>
+    </Link>
+  );
+}
+
+function homeSolutionDescription(solution: Solution) {
+  const byTitle: Record<string, string> = {
+    "Business Insights & Trends": "With extensive relationships with our retail partners, we hold a distinct advant...",
+    "Design & Engineering": "Collaborate with our skilled design and engineering teams for innovative product...",
+    "Manufacturing & Delivery": "Intco's vertically integrated supply chain of raw materials, we maintain control...",
+    "Global Production and Supply": "By strategically locating our factories in China, Vietnam and Malaysia, we enhan...",
+    Certification: "Rest easy with our commitment to quality and compliance. Intco Framing provides ...",
+    "Retailer Support": "As the only home decor manufacturer that starts with recycled materials around t...",
+  };
+  return byTitle[solution.title] || solution.description || "";
 }
 
 export function ProductsLandingView({

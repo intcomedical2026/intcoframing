@@ -23,18 +23,19 @@ export function HeroCarousel({
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
   const activeSlide = items[active % items.length];
+  const hasCopy = Boolean(activeSlide.title || activeSlide.subtitle);
 
   useEffect(() => {
     if (items.length < 2 || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const timer = window.setInterval(() => {
       setActive((index) => (index + 1) % items.length);
-    }, 5600);
+    }, 9000);
     return () => window.clearInterval(timer);
   }, [items.length, paused]);
 
   return (
     <section
-      className="relative min-h-[280px] overflow-hidden bg-neutral-950 text-white lg:min-h-[620px]"
+      className="relative min-h-[194px] overflow-hidden bg-[#f3f3f3] text-[#484653] lg:min-h-[706px]"
       aria-label="Featured INTCO Framing slides"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
@@ -48,27 +49,29 @@ export function HeroCarousel({
               src={slide.imageUrl}
               alt={slide.title}
               fill
-              priority={index === 0}
-              className="object-cover lg:opacity-70"
+              priority={index < 2}
+              unoptimized={slide.imageUrl?.endsWith(".gif")}
+              className="object-cover"
               sizes="100vw"
             />
           ) : null}
         </div>
       ))}
-      <div className="absolute inset-0 hidden bg-[linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.3),rgba(0,0,0,.08))] lg:block" />
-      <div className="relative mx-auto flex min-h-[280px] max-w-7xl items-center px-4 py-12 sm:px-6 lg:min-h-[620px] lg:px-8 lg:py-20">
-        <div key={`${activeSlide.title}-${active}`} className="intco-hero-copy hidden max-w-3xl lg:block" aria-live="polite">
-          <p className="text-sm font-bold uppercase tracking-[0.32em] text-emerald-300">Premier Interior Decoration Manufacturer</p>
-          <h1 className="mt-5 text-balance text-5xl font-bold leading-none sm:text-7xl lg:text-8xl">{activeSlide.title || fallbackTitle}</h1>
-          {activeSlide.subtitle ? <p className="mt-6 max-w-2xl text-pretty text-lg leading-8 text-white/85">{activeSlide.subtitle}</p> : null}
-          <div className="mt-9 flex flex-wrap gap-4">
-            {activeSlide.primaryCta ? <HeroPrimaryLink href={localizePath(locale, activeSlide.primaryCta.path)}>{activeSlide.primaryCta.label}</HeroPrimaryLink> : null}
-            {activeSlide.secondaryCta ? <HeroSecondaryLink href={localizePath(locale, activeSlide.secondaryCta.path)}>{activeSlide.secondaryCta.label}</HeroSecondaryLink> : null}
+      {hasCopy ? <div className="absolute inset-0 hidden bg-white/30 lg:block" /> : null}
+      <div className="relative mx-auto flex min-h-[194px] max-w-[1600px] items-center px-4 sm:px-6 lg:min-h-[706px]">
+        {hasCopy ? (
+          <div key={`${activeSlide.title}-${active}`} className="intco-hero-copy hidden max-w-5xl lg:block" aria-live="polite">
+            <h1 className="text-balance text-[112px] font-semibold leading-none text-[#484653]">{activeSlide.title || fallbackTitle}</h1>
+            {activeSlide.subtitle ? <p className="mt-5 max-w-4xl text-pretty text-[28px] font-semibold leading-[1.45] text-[#484653]">{activeSlide.subtitle}</p> : null}
+            <div className="mt-12 flex flex-wrap gap-7">
+              {activeSlide.primaryCta ? <HeroPrimaryLink href={localizePath(locale, activeSlide.primaryCta.path)}>{activeSlide.primaryCta.label}</HeroPrimaryLink> : null}
+              {activeSlide.secondaryCta ? <HeroSecondaryLink href={localizePath(locale, activeSlide.secondaryCta.path)}>{activeSlide.secondaryCta.label}</HeroSecondaryLink> : null}
+            </div>
           </div>
-        </div>
+        ) : null}
       </div>
       {items.length > 1 ? (
-        <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center gap-4">
+        <div className="absolute inset-x-0 bottom-8 z-10 flex justify-center gap-4 lg:bottom-5">
           {items.map((slide, index) => (
             <button
               key={`${slide.title}-dot-${index}`}
@@ -76,7 +79,7 @@ export function HeroCarousel({
               aria-label={`Show slide ${index + 1}: ${slide.title}`}
               aria-current={index === active}
               onClick={() => setActive(index)}
-              className="size-3.5 border border-white bg-transparent transition-colors duration-200 hover:bg-white aria-current:bg-white"
+              className="size-3.5 rounded-full border border-white bg-transparent transition-colors duration-200 hover:bg-white aria-current:bg-white lg:rounded-none"
             />
           ))}
         </div>
@@ -87,7 +90,7 @@ export function HeroCarousel({
 
 function HeroPrimaryLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="inline-flex items-center gap-2 rounded bg-emerald-600 px-7 py-4 text-sm font-bold uppercase tracking-wide text-white transition duration-200 hover:-translate-y-0.5 hover:bg-emerald-500">
+    <Link href={href} className="inline-flex h-[66px] items-center rounded-full border-2 border-[#484653] px-10 text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white">
       {children}
       <ArrowRight size={18} />
     </Link>
@@ -96,7 +99,7 @@ function HeroPrimaryLink({ href, children }: { href: string; children: React.Rea
 
 function HeroSecondaryLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
-    <Link href={href} className="inline-flex items-center gap-2 rounded border border-white/55 px-7 py-4 text-sm font-bold uppercase tracking-wide text-white transition duration-200 hover:-translate-y-0.5 hover:bg-white hover:text-neutral-950">
+    <Link href={href} className="inline-flex h-[66px] items-center rounded-full border-2 border-[#484653] px-10 text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white">
       {children}
     </Link>
   );
