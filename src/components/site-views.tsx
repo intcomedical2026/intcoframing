@@ -128,6 +128,15 @@ const PRODUCT_MANUALS = [
   },
 ];
 
+const PRODUCT_CONTACT_FIELDS = [
+  { label: "姓名", placeholder: "Name", required: true },
+  { label: "公司名称", placeholder: "Company Name", required: true },
+  { label: "国家地区", placeholder: "Country", required: true },
+  { label: "邮箱", placeholder: "Email", required: true },
+  { label: "电话", placeholder: "Phone", required: true },
+  { label: "WhatsApp", placeholder: "WhatsApp", required: false },
+];
+
 const HOME_HERO_GIF_SLIDE = {
   title: "",
   subtitle: "",
@@ -805,7 +814,7 @@ function ProductCatalogSection({ title, description, locale }: { title: string; 
                 key={manual.title}
                 href={manual.pdfUrl}
                 target="_blank"
-                className={`flex h-14 items-center justify-center bg-white px-4 text-center text-base font-semibold text-[#3e3e3e] transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[127px] lg:text-2xl ${index === 0 ? "bg-[#484653] text-white" : ""}`}
+                className={`flex h-14 items-center justify-center px-4 text-center text-base font-semibold transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[127px] lg:text-2xl ${index === 0 ? "bg-[#484653] text-white" : "bg-white text-[#3e3e3e]"}`}
               >
                 {manual.title}
               </Link>
@@ -864,30 +873,57 @@ function ProductTestReportSection({ title, description }: { title: string; descr
 
 function ProductContactSection() {
   return (
-    <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-10 sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
+    <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="mx-auto max-w-[1600px]">
         <ProductSourceTitle title="GET IN TOUCH" />
         <p className="mx-auto mt-9 max-w-[1100px] text-center text-base leading-[30px] text-[#363636] lg:mt-[55px] lg:text-lg">
           Don&apos;t Hesitate to Reach Us.We are always here to address all your concerns and provide solutions.
         </p>
-        <div className="mx-auto mt-10 grid max-w-[1446px] gap-3 lg:grid-cols-[26%_1fr] lg:gap-[35px] lg:px-[77px]">
-          <div className="grid gap-3">
-            {["Name*", "Country*", "E-mail*", "How to Find Us*", "Tel", "Company"].map((placeholder) => (
-              <div key={placeholder} className="flex h-14 items-center rounded-md border border-[#717171] bg-white px-5 text-base font-light text-[#727272] lg:h-20 lg:text-2xl">
-                {placeholder}
-              </div>
-            ))}
-          </div>
-          <div className="rounded-md border border-[#717171] bg-white p-5 lg:p-8">
-            <div className="text-base font-light text-[#727272] lg:text-2xl">Questions/Comments*</div>
-            <div className="mt-5 h-44 lg:h-[315px]" />
-            <button type="button" className="inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white">
-              Submit <ArrowRight className="ml-2" size={20} />
+        <form className="mx-auto mt-12 grid max-w-[1446px] gap-x-[58px] gap-y-7 lg:mt-[55px] lg:grid-cols-2">
+          {PRODUCT_CONTACT_FIELDS.map((field) => (
+            <ProductContactField key={field.label} label={field.label} placeholder={field.placeholder} required={field.required} />
+          ))}
+          <ProductContactField label="留言" placeholder="Message" required multiline />
+          <div className="flex justify-center lg:col-span-2">
+            <button type="button" className="h-16 w-[240px] rounded-md border-2 border-[#484653] bg-transparent text-xl font-normal text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:h-20 lg:w-[300px] lg:text-2xl">
+              提交
             </button>
           </div>
-        </div>
+        </form>
       </div>
     </section>
+  );
+}
+
+function ProductContactField({
+  label,
+  placeholder,
+  required,
+  multiline,
+}: {
+  label: string;
+  placeholder: string;
+  required: boolean;
+  multiline?: boolean;
+}) {
+  const id = `product-contact-${placeholder.toLowerCase().replace(/\s+/g, "-")}`;
+  const inputClass =
+    "w-full rounded-md border border-[#717171] bg-white px-5 text-2xl font-light text-[#727272] outline-none placeholder:text-[#727272] placeholder:opacity-100";
+
+  return (
+    <div className={multiline ? "lg:col-span-2" : ""}>
+      <label htmlFor={id} className="block text-sm leading-[18px] text-[#666]">
+        {label}
+      </label>
+      <div className="relative mt-[9px]">
+        {multiline ? (
+          <textarea id={id} readOnly placeholder={placeholder} className={`${inputClass} h-[272px] resize-none py-5`} />
+        ) : (
+          <input id={id} readOnly type="text" placeholder={placeholder} className={`${inputClass} h-20 leading-[80px]`} />
+        )}
+        {required ? <span className="absolute right-[-11px] top-1/2 -translate-y-1/2 text-sm leading-none text-red-600">*</span> : null}
+      </div>
+    </div>
   );
 }
 
