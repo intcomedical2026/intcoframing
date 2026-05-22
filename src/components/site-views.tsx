@@ -2258,7 +2258,7 @@ function SustainabilitySourceTitle({ title, light = false }: { title: string; li
     <div className="relative text-center uppercase" data-reveal="fade">
       <span
         aria-hidden="true"
-        className={`pointer-events-none absolute left-1/2 top-0 z-[2] -translate-x-1/2 whitespace-nowrap text-[70px] font-semibold leading-none opacity-20 max-[1600px]:text-[46px] max-[650px]:hidden ${
+        className={`pointer-events-none absolute left-1/2 top-0 z-[2] -translate-x-1/2 whitespace-nowrap text-[70px] font-semibold leading-[39px] opacity-20 max-[1600px]:text-[46px] max-[650px]:hidden ${
           light ? "text-transparent [-webkit-text-stroke:1px_#fff]" : "text-white [-webkit-text-stroke:1px_#3d3d3d]"
         }`}
       >

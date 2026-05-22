@@ -27,6 +27,12 @@ const footerSocialLinks = [
   { label: "p", href: "https://www.pinterest.com/intco_framing/" },
 ];
 
+const ABOUT_INTCO_NAV = [
+  { label: "Who We Are", path: "/who-we-are" },
+  { label: "Sustainability", path: "/who-we-are/sustainability" },
+  { label: "Philosophy", path: "/who-we-are/philosophy" },
+];
+
 export function SiteChrome({ settings, categories, locale, currentPath, children }: ChromeProps) {
   return (
     <div lang={locale}>
@@ -153,6 +159,27 @@ function Header({
                     </div>
                   </div>
                 ) : null}
+                {item.path === "/who-we-are" ? (
+                  <div className="pointer-events-none absolute left-1/2 top-full z-40 hidden -translate-x-1/2 pt-[19px] group-hover:pointer-events-auto group-hover:block">
+                    <ul className="bg-white/80 text-center shadow-[5px_5px_15px_0_rgba(0,0,0,0.2)]">
+                      {ABOUT_INTCO_NAV.map((child) => {
+                        const childActive = currentPath === child.path;
+                        return (
+                          <li key={child.path}>
+                            <Link
+                              href={href(child.path)}
+                              className={`block whitespace-nowrap px-5 py-[15px] text-base font-normal leading-none transition duration-700 ${
+                                childActive ? "bg-[#484652] text-white" : "text-black hover:bg-[#484652] hover:text-white"
+                              }`}
+                            >
+                              {child.label}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ) : null}
               </div>
             );
           })}
@@ -177,9 +204,18 @@ function Header({
             </summary>
             <div className="absolute right-0 top-10 z-50 w-64 bg-white p-3 shadow-xl ring-1 ring-black/10">
               {(settings.navigation || []).map((item) => (
-                <Link key={item.path} href={href(item.path)} className="block border-b border-neutral-100 px-3 py-3 text-sm font-semibold text-[#484653]">
-                  {item.label}
-                </Link>
+                <div key={item.path} className="border-b border-neutral-100">
+                  <Link href={href(item.path)} className="block px-3 py-3 text-sm font-semibold text-[#484653]">
+                    {item.label}
+                  </Link>
+                  {item.path === "/who-we-are"
+                    ? ABOUT_INTCO_NAV.slice(1).map((child) => (
+                        <Link key={child.path} href={href(child.path)} className="block px-6 pb-3 text-xs font-semibold text-neutral-600">
+                          {child.label}
+                        </Link>
+                      ))
+                    : null}
+                </div>
               ))}
               {locales.map((item) => (
                 <Link key={item} href={localizePath(item, currentPath)} className="block px-3 py-2 text-sm font-semibold text-neutral-600 hover:bg-neutral-100">
