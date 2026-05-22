@@ -1291,10 +1291,10 @@ function SolutionsRelatedCard({ item, href }: { item: (typeof SOLUTIONS_RELATED_
 
 function SolutionsContactBand({ locale }: { locale: Locale }) {
   return (
-    <section className="relative bg-cover bg-center px-4 py-16 sm:px-6 lg:py-[98px]" style={{ backgroundImage: `url(${SOLUTIONS_CONTACT_BG})` }}>
+    <section className="relative mb-[55px] bg-cover bg-center px-4 py-16 sm:px-6 lg:py-[98px]" style={{ backgroundImage: `url(${SOLUTIONS_CONTACT_BG})` }}>
       <span className="sr-only">GET IN TOUCH</span>
       <div className="intco-source-container rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:py-[8vh]" data-reveal="fade">
-        <h2 className="text-[32px] font-semibold leading-tight lg:text-[38px]">Looking for the Perfect Solution?</h2>
+        <h2 className="text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">Looking for the Perfect Solution?</h2>
         <p className="my-8 text-2xl font-normal">Contact us today for your decor solution needs.</p>
         <Link
           href={localizePath(locale, "/contact")}

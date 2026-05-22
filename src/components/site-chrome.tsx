@@ -16,6 +16,16 @@ type ChromeProps = {
 };
 
 const HEADER_LANGUAGE_MAP_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/lg-bg-h.png";
+const SOURCE_FOOTER_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/footer.png";
+
+const footerSocialLinks = [
+  { label: "f", href: "https://www.facebook.com/IntcoFraming.cn/" },
+  { label: "y", href: "https://www.youtube.com/@intcoframing" },
+  { label: "in", href: "https://www.linkedin.com/company/intcoframing/" },
+  { label: "x", href: "https://twitter.com/intco_framing" },
+  { label: "ig", href: "https://www.instagram.com/intcoframing/" },
+  { label: "p", href: "https://www.pinterest.com/intco_framing/" },
+];
 
 export function SiteChrome({ settings, categories, locale, currentPath, children }: ChromeProps) {
   return (
@@ -184,70 +194,90 @@ function Header({
 function Footer({ settings, categories, locale }: { settings: SiteSettings; categories: ProductCategory[]; locale: Locale }) {
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
   const href = (path: string) => localizePath(locale, path);
+  const quickLinks = (settings.footerColumns || []).find((column) => column.title.toLowerCase().includes("quick"))?.links || [
+    { label: "Projects", path: "/projects" },
+    { label: "Solutions", path: "/solutions" },
+    { label: "About INTCO", path: "/who-we-are" },
+    { label: "Blog", path: "/blog" },
+    { label: "Contact", path: "/contact" },
+  ];
 
   return (
-    <footer className="bg-neutral-950 text-white">
-      <section className="border-b border-white/10">
-        <div className="mx-auto grid max-w-7xl gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.5fr_1fr] lg:px-8">
-          <div>
-            <p className="text-sm uppercase tracking-[0.26em] text-emerald-300">{t(locale, "perfectSolution")}</p>
-            <h2 className="mt-3 max-w-2xl text-3xl font-semibold sm:text-4xl">
-              {t(locale, "contactToday")}
-            </h2>
+    <footer className="bg-[#484653] bg-cover bg-bottom bg-no-repeat text-white" style={{ backgroundImage: `url(${SOURCE_FOOTER_BG})` }}>
+      <div className="intco-source-container px-5">
+        <div className="box-border flex min-h-[360px] flex-col justify-between pt-10 lg:min-h-[488px] min-[1601px]:min-h-[454px] min-[1601px]:pt-[74px]">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.3fr_0.85fr_0.85fr_1fr] lg:gap-5 xl:gap-[60px]">
+            <div>
+              <div className="w-[138px] max-w-[178px] pb-3 lg:w-[178px]">
+                {settings.footerLogoUrl ? (
+                  <Image src={settings.footerLogoUrl} alt={settings.title} width={178} height={104} className="h-auto w-full object-contain" />
+                ) : (
+                  <h3 className="text-2xl font-bold">{settings.title}</h3>
+                )}
+              </div>
+              <ul className="text-base font-medium text-white min-[1601px]:text-xl">
+                <FooterContactItem href={settings.phone ? `https://api.whatsapp.com/send?phone=${settings.phone.replace(/[^\d]/g, "")}&text=Hello` : href("/contact")}>
+                  <Phone size={20} className="mr-2 mt-0.5 shrink-0" />
+                  {settings.phone}
+                </FooterContactItem>
+                {settings.secondaryPhone ? (
+                  <FooterContactItem href={`https://api.whatsapp.com/send?phone=${settings.secondaryPhone.replace(/[^\d]/g, "")}&text=Hello`}>
+                    <span className="mr-2 inline-block w-5 shrink-0" />
+                    {settings.secondaryPhone}
+                  </FooterContactItem>
+                ) : null}
+                <FooterContactItem href={settings.email ? `mailto:${settings.email}` : href("/contact")}>
+                  <Mail size={20} className="mr-2 mt-0.5 shrink-0" />
+                  {settings.email}
+                </FooterContactItem>
+                <li className="mt-3 flex max-w-[388px] cursor-pointer text-left leading-6 min-[1601px]:mt-6">
+                  <MapPin size={20} className="mr-2 mt-0.5 shrink-0" />
+                  <span>{settings.address}</span>
+                </li>
+              </ul>
+            </div>
+
+            <FooterColumn title={t(locale, "product")} links={parents.map((item) => ({ label: item.title, path: href(item.path) }))} />
+            <FooterColumn title={t(locale, "quickLinks")} links={quickLinks.map((link) => ({ ...link, path: href(link.path) }))} />
+
+            <div>
+              <h3 className="pb-3 text-2xl font-semibold leading-tight text-white min-[1601px]:pb-12 min-[1601px]:text-[34px]">{t(locale, "newsletter")}</h3>
+              <form action={href("/contact")} className="relative flex h-[50px] w-full max-w-[388px] overflow-hidden rounded-md bg-white min-[1601px]:h-[78px]">
+                <input
+                  type="email"
+                  name="email"
+                  aria-label="Email"
+                  placeholder="Email"
+                  className="h-full min-w-0 flex-1 border-0 bg-white px-5 text-base font-light text-[#727272] outline-0 min-[1601px]:px-8 min-[1601px]:text-2xl"
+                />
+                <button type="submit" className="h-full w-[50px] shrink-0 bg-[#484653] text-center text-sm font-semibold text-white transition hover:bg-[#3b3945] min-[1601px]:w-[82px] min-[1601px]:text-base">
+                  提交
+                </button>
+              </form>
+              <div className="mt-[25px] text-base font-semibold leading-3 text-white min-[1601px]:mt-[74px] min-[1601px]:text-xl">
+                Follow Us
+                <div className="mt-[25px] flex flex-wrap gap-2.5">
+                  {footerSocialLinks.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={item.label}
+                      className="flex size-8 items-center justify-center rounded-full bg-[#959595] text-xs font-bold text-[#484653] transition hover:bg-white min-[1601px]:size-[50px] min-[1601px]:text-lg"
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="flex items-center lg:justify-end">
-            <Link
-              href={href("/contact")}
-              className="inline-flex items-center justify-center rounded bg-emerald-600 px-7 py-4 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-emerald-500"
-            >
-              {t(locale, "contactUs")}
-            </Link>
+
+          <div className="mt-0 h-[50px] border-t border-white py-0 text-center text-base font-normal leading-[50px] text-white min-[1601px]:mt-[10vh] min-[1601px]:h-auto min-[1601px]:py-[4vh] min-[1601px]:text-xl min-[1601px]:leading-normal">
+            Copyright @ 2023 INTCO , All rights reserved.
           </div>
         </div>
-      </section>
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-        <div>
-          {settings.footerLogoUrl ? (
-            <Image src={settings.footerLogoUrl} alt={settings.title} width={138} height={48} className="h-12 w-auto" />
-          ) : (
-            <h3 className="text-xl font-bold">{settings.title}</h3>
-          )}
-          <div className="mt-6 space-y-3 text-sm text-neutral-300">
-            <p className="flex gap-3">
-              <Phone size={16} className="mt-0.5 text-emerald-300" />
-              <span>
-                {settings.phone}
-                <br />
-                {settings.secondaryPhone}
-              </span>
-            </p>
-            <p className="flex gap-3">
-              <Mail size={16} className="mt-0.5 text-emerald-300" />
-              <span>{settings.email}</span>
-            </p>
-            <p className="flex gap-3">
-              <MapPin size={16} className="mt-0.5 text-emerald-300" />
-              <span>{settings.address}</span>
-            </p>
-          </div>
-        </div>
-        <FooterColumn title={t(locale, "product")} links={parents.map((item) => ({ label: item.title, path: href(item.path) }))} />
-        {(settings.footerColumns || []).slice(1).map((column) => (
-          <FooterColumn
-            key={column.title}
-            title={column.title}
-            links={(column.links || []).map((link) => ({ ...link, path: href(link.path) }))}
-          />
-        ))}
-        <div>
-          <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white">{t(locale, "newsletter")}</h3>
-          <p className="mt-4 text-sm leading-6 text-neutral-300">
-            {t(locale, "newsletterText")}
-          </p>
-        </div>
-      </div>
-      <div className="border-t border-white/10 py-5 text-center text-xs text-neutral-400">
-        Copyright @ 2023 INTCO, All rights reserved.
       </div>
     </footer>
   );
@@ -256,16 +286,27 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
 function FooterColumn({ title, links }: { title: string; links: Array<{ label: string; path: string }> }) {
   return (
     <div>
-      <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-white">{title}</h3>
-      <ul className="mt-4 space-y-3 text-sm text-neutral-300">
+      <h3 className="pb-3 text-2xl font-semibold leading-tight text-white min-[1601px]:pb-12 min-[1601px]:text-[34px]">{title}</h3>
+      <ul className="text-base font-medium text-white min-[1601px]:text-xl">
         {links.map((link) => (
-          <li key={`${title}-${link.path}`}>
-            <Link href={link.path} className="transition hover:text-emerald-300">
+          <li key={`${title}-${link.path}`} className="mt-3 flex max-w-[388px] cursor-pointer leading-6 min-[1601px]:mt-6">
+            <Link href={link.path} className="transition duration-500 hover:text-white/70">
+              <span className="mr-2">→</span>
               {link.label}
             </Link>
           </li>
         ))}
       </ul>
     </div>
+  );
+}
+
+function FooterContactItem({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <li className="mt-3 flex max-w-[388px] cursor-pointer leading-6 min-[1601px]:mt-6">
+      <Link href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined} className="flex transition duration-500 hover:text-white/70">
+        {children}
+      </Link>
+    </li>
   );
 }
