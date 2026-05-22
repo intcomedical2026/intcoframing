@@ -34,6 +34,7 @@ import { ProductQuotePanel } from "@/components/product-quote-panel";
 import { EnquiryList } from "@/components/enquiry-list";
 import { CountUpStat } from "@/components/count-up-stat";
 import { HeroCarousel } from "@/components/hero-carousel";
+import { HomeBlogSection } from "@/components/home-blog-section";
 
 const PRODUCT_CATALOG_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.png",
@@ -136,6 +137,24 @@ const PRODUCT_CONTACT_FIELDS = [
   { label: "电话", placeholder: "Phone", required: true },
   { label: "WhatsApp", placeholder: "WhatsApp", required: false },
 ];
+
+const HOME_PROFILE_VIDEO_SRC = "https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC&autoplay=1&rel=0";
+const HOME_PROFILE_VIDEO_THUMB = "https://i.ytimg.com/vi/N7I6CgHXCZQ/maxresdefault.jpg";
+const HOME_PROFILE_VIDEO_SRC_DOC = `
+<!doctype html>
+<html>
+<head>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#000;font-family:Arial,Helvetica,sans-serif}a{position:absolute;inset:0;display:block;color:#fff;text-decoration:none;overflow:hidden}img{width:100%;height:100%;object-fit:cover;display:block}.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.05) 32%,rgba(0,0,0,.22))}.title{position:absolute;left:76px;top:18px;font-size:21px;font-weight:700;line-height:1.15;text-shadow:0 1px 2px rgba(0,0,0,.8)}.channel{position:absolute;left:76px;top:47px;font-size:14px;text-shadow:0 1px 2px rgba(0,0,0,.8)}.badge{position:absolute;left:30px;top:18px;width:40px;height:40px;border-radius:50%;background:#fff;color:#0067b1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}.play{position:absolute;left:50%;top:50%;width:68px;height:48px;border-radius:13px;background:#f00;transform:translate(-50%,-50%)}.play:before{content:"";position:absolute;left:27px;top:14px;border-left:17px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}.watch{position:absolute;right:48px;bottom:28px;font-size:18px;text-shadow:0 1px 2px rgba(0,0,0,.8)}.yt{position:absolute;right:14px;bottom:25px;font-size:17px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.8)}
+</style>
+</head>
+<body>
+<a href="${HOME_PROFILE_VIDEO_SRC}" aria-label="Play INTCO Framing YouTube video">
+<img src="${HOME_PROFILE_VIDEO_THUMB}" alt="">
+<span class="shade"></span><span class="badge">INTCO</span><span class="title">Intco Framing | End-to-end Home Decor Solutions</span><span class="channel">INTCO Framing</span><span class="play"></span><span class="watch">前往平台观看</span><span class="yt">YouTube</span>
+</a>
+</body>
+</html>`;
 
 const SOURCE_HOME_HERO_SLIDES: NonNullable<SiteData["homePage"]["heroSlides"]> = [
   {
@@ -250,6 +269,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/09/8-1-1.jpg",
     date: "Sep 09, 2025",
     description: "",
+    category: "All",
   },
   {
     title: "Creative Gallery Wall Ideas: Transform Your Walls with Frames, Art and Memo Boards",
@@ -257,6 +277,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/09/5416b754-a48c-4209-a071-d16586157fbe.png",
     date: "Sep 04, 2025",
     description: "Discover creative gallery wall ideas with frames, art, mirrors & memo boards. Tr...",
+    category: "All",
   },
   {
     title: "Top Frame Design Trends in 2025 for Interiors and Art Galleries",
@@ -264,6 +285,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/premium_photo-1706561252292-a468453e49bb.avif",
     date: "Aug 26, 2025",
     description: "",
+    category: "All",
   },
   {
     title: "Which One Suits Your Project?——A Guide to Mirror Materials",
@@ -271,6 +293,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/1.jpg",
     date: "Aug 19, 2025",
     description: "",
+    category: "All",
   },
   {
     title: "Modern? Rustic? Classic? The Custom Framing Guide Every Home Needs",
@@ -278,6 +301,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/1280X1280-3.png",
     date: "Aug 09, 2025",
     description: "Explore Intco Framing's custom picture frames and frame mouldings. Discover mode...",
+    category: "Inspiration",
   },
   {
     title: "Sustainable Furniture Choices: Eco-Friendly Options for the Modern Home",
@@ -285,6 +309,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-medium-shot-woman-restoring-furniture-scaled.webp",
     date: "Apr 23, 2025",
     description: "Discover eco-friendly furniture that blend style & sustainability for modern hom...",
+    category: "Industry News",
   },
   {
     title: "Functional Decor: Incorporating Memo Boards into Your Home Office",
@@ -292,6 +317,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-postcard-pictures-rack-against-white-scaled.webp",
     date: "Apr 16, 2025",
     description: "Discover how to integrate memo boards into your home office for stylish organiza...",
+    category: "Industry News",
   },
   {
     title: "The Art of Framing: Enhancing Your Artwork with Unique Picture Frames",
@@ -299,6 +325,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-top-view-wooden-frames-arrangement-scaled.jpg",
     date: "Apr 09, 2025",
     description: "Discover how unique picture frames enhance your art. Expert tips on styles, mate...",
+    category: "Industry News",
   },
   {
     title: "Intco Framing Will Be Participating in The 135th CANTON FAIR",
@@ -306,6 +333,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/04/20240410-112017.jpg",
     date: "Apr 10, 2024",
     description: "Intco Framing Will Be Participating in The 135th CANTON FAIR",
+    category: "Expo",
   },
   {
     title: "Visit Intco Framing at 2024 VIFA Expo",
@@ -313,6 +341,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20240227-090025-scaled.jpg",
     date: "Feb 27, 2024",
     description: "Intco Framing will be showcasing latest innovations in home decor solutions at V...",
+    category: "Expo",
   },
   {
     title: "Tips for Installing Picture Frames in Your Home",
@@ -320,6 +349,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/03/1-high-angle-beautiful-plants-home-scaled.jpg",
     date: "Apr 02, 2025",
     description: "Discover expert tips for installing picture frames to enhance your home decor. L...",
+    category: "Industry News",
   },
   {
     title: "Interior Deco Market Outlook 2025: Key Trends and Challenges",
@@ -327,6 +357,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/03/1-home-plant-vase-decoration-arrangement-scaled.jpg",
     date: "Mar 26, 2025",
     description: "Explore the Interior Decor Market Outlook 2025: Key trends, challenges, sustaina...",
+    category: "Industry News",
   },
   {
     title: "What's the Best Way to Frame Black-and-White Photos?",
@@ -334,6 +365,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/12/1-picture-framing-scaled.jpg",
     date: "Dec 12, 2024",
     description: "In conclusion, framing black-and-white photos requires careful consideration of ...",
+    category: "Inspiration",
   },
   {
     title: "Bulk Picture Frame Orders for Wholesale Buyers: A Complete Guide",
@@ -341,6 +373,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/12/1-INTCO-Framing.webp",
     date: "Dec 05, 2024",
     description: "Ordering picture frames in bulk offers substantial benefits for wholesale buyers...",
+    category: "Inspiration",
   },
   {
     title: "Poster Frames vs. Picture Frames: Understanding the Difference",
@@ -348,6 +381,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/11/1-Intcos-Poster-Frame.webp",
     date: "Nov 28, 2024",
     description: "Deciding on the appropriate frame for your posters, art prints, or photos is a c...",
+    category: "Inspiration",
   },
   {
     title: "Framing the Future: A Comprehensive Guide to A-Paper Sizes",
@@ -355,6 +389,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/11/1-natural-burl-wood-framing.webp",
     date: "Nov 21, 2024",
     description: "A-sizes are a system of paper sizes that are standardized by the International O...",
+    category: "Inspiration",
   },
   {
     title: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released",
@@ -362,6 +397,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Intco-Recycling-has-been-awarded-the-Best-Bloomberg-Green-ESG-Projects.jpg",
     date: "Jan 29, 2024",
     description: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released.",
+    category: "Press Release",
   },
   {
     title: "The Clear Difference: Picture Frame vs Photo Frame Explained",
@@ -369,6 +405,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/06/微信图片3_20240611140721.jpg",
     date: "Jun 13, 2024",
     description: "A picture frame is a decorative edging designed to encase and protect artwork, p...",
+    category: "Tips",
   },
   {
     title: "How To Choose The Right Mirror Cabinet for Your Bathroom",
@@ -376,6 +413,7 @@ const HOME_BLOG_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/medicine-cabinet-ideas-for-bathroom.jpg",
     date: "Feb 23, 2024",
     description: "It's vital to get the correct mirror cabinet for your purposes since it may trul...",
+    category: "Tips",
   },
 ];
 
@@ -410,43 +448,47 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
       </section>
 
       <section className="relative overflow-hidden bg-white px-4 pt-16 sm:px-6 lg:pt-[100px]">
-        <div className="intco-source-container grid gap-10 px-5 lg:grid-cols-2">
-          <div className="pb-8 lg:pb-[90px]">
-            <HomeSourceTitle title="COMPANY PROFILE" align="left" />
-            <p className="mt-10 max-w-2xl text-pretty text-lg leading-[30px] text-[#363636] lg:mt-[50px]">
-              Founded in 2002, INTCO upholds the reputation for high quality, greatdesigns, and fast delivery to fulfill all aspects of a project - from artistryto functionality, saving you time and money.
-            </p>
-            <ul className="mt-5 space-y-2 text-lg leading-10 text-[#363636]">
-              {(homePage.companyProfile?.points || []).map((point, index) => (
-                <li key={point} className="group flex items-center gap-[13px]">
-                  <span className="flex size-[26px] items-center justify-center rounded-full border border-[#484653] text-sm transition duration-200 group-hover:bg-[#484653] group-hover:text-white">
-                    {index + 1}
-                  </span>
-                  {point}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10 flex flex-wrap items-end gap-8">
-              {HOME_PROFILE_LINKS.map((item) => (
-                <Link key={item.label} href={href(item.path)} className="group flex flex-col justify-end text-lg font-semibold text-[#484653] transition duration-200 hover:-translate-y-2">
-                  <Image src={item.imageUrl} alt={item.label} width={58} height={58} className="size-14 object-contain" />
-                  <span className="mt-5">{item.label}</span>
-                </Link>
-              ))}
-              <SourcePillLink href={href("/who-we-are")} compact>
-                Read More
-              </SourcePillLink>
+        <div className="intco-source-container px-5">
+          <div className="lg:flex">
+            <div className="pb-8 lg:w-1/2 lg:pb-[90px]">
+              <HomeSourceTitle title="COMPANY PROFILE" align="left" />
+              <p className="mt-10 max-w-2xl text-pretty text-lg leading-[30px] text-[#363636] lg:mt-[50px]">
+                Founded in 2002, INTCO upholds the reputation for high quality, greatdesigns, and fast delivery to fulfill all aspects of a project - from artistryto functionality, saving you time and money.
+              </p>
+              <ul className="mt-5 space-y-2 text-lg leading-10 text-[#363636]">
+                {(homePage.companyProfile?.points || []).map((point, index) => (
+                  <li key={point} className="group flex items-center gap-[13px]">
+                    <span className="flex size-[26px] items-center justify-center rounded-full border border-[#484653] text-sm transition duration-200 group-hover:bg-[#484653] group-hover:text-white">
+                      {index + 1}
+                    </span>
+                    {point}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10 flex flex-wrap items-end gap-8">
+                {HOME_PROFILE_LINKS.map((item) => (
+                  <Link key={item.label} href={href(item.path)} className="group flex flex-col justify-end text-lg font-semibold text-[#484653] transition duration-200 hover:-translate-y-2">
+                    <Image src={item.imageUrl} alt={item.label} width={58} height={58} className="size-14 object-contain" />
+                    <span className="mt-5">{item.label}</span>
+                  </Link>
+                ))}
+                <SourcePillLink href={href("/who-we-are")} compact>
+                  Read More
+                </SourcePillLink>
+              </div>
             </div>
-          </div>
-          <div className="flex items-end">
-            <div className="aspect-video w-full overflow-hidden bg-neutral-100">
-              <iframe
-                className="size-full"
-                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
+            <div className="flex items-end lg:w-1/2">
+              <div className="aspect-video w-full overflow-hidden bg-black">
+                <iframe
+                  className="size-full"
+                  srcDoc={HOME_PROFILE_VIDEO_SRC_DOC}
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -512,30 +554,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         </div>
       </section>
 
-      <section className="overflow-hidden bg-white px-4 py-16 sm:px-6 lg:py-[99px]">
-        <div className="intco-source-container px-5">
-          <div className="flex flex-wrap justify-between gap-8">
-            <HomeSourceTitle title="BLOG" align="left" />
-            <p className="max-w-[819px] text-pretty text-lg leading-8 text-[#363636]">{homePage.blogIntro?.description}</p>
-          </div>
-          <div className="my-12 grid gap-3 sm:grid-cols-2 lg:my-[70px] lg:grid-cols-7">
-            {HOME_BLOG_CATEGORIES.map((category, index) => (
-              <button
-                key={category}
-                type="button"
-                className={`h-10 rounded-md border text-lg font-semibold transition duration-200 ${index === 0 ? "border-[#484653] bg-[#484653] text-white" : "border-white bg-white text-[#484653] hover:border-[#484653] hover:bg-[#484653] hover:text-white"}`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {HOME_BLOG_CARDS.map((post) => (
-              <HomeBlogTile key={`${post.title}-${post.date}`} post={post} locale={locale} />
-            ))}
-          </div>
-        </div>
-      </section>
+      <HomeBlogSection categories={HOME_BLOG_CATEGORIES} intro={homePage.blogIntro?.description} locale={locale} posts={HOME_BLOG_CARDS} />
     </>
   );
 }
@@ -617,24 +636,6 @@ function HomeProjectTile({ project, locale }: { project: (typeof HOME_PROJECT_CA
           <span className="ml-3 flex size-8 items-center justify-center rounded-full border-2 border-[#484653]">
             <ArrowRight size={17} />
           </span>
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-function HomeBlogTile({ post, locale }: { post: (typeof HOME_BLOG_CARDS)[number]; locale: Locale }) {
-  return (
-    <Link href={localizePath(locale, post.path)} className="group block overflow-hidden bg-white">
-      <div className="relative aspect-[1.48] overflow-hidden bg-neutral-100">
-        <Image src={post.imageUrl} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 25vw, 50vw" />
-      </div>
-      <div className="py-6">
-        <h3 className="truncate text-2xl font-semibold text-[#363636]">{post.title}</h3>
-        <p className="mt-2 text-base font-light leading-10 text-[#999]">{post.date}</p>
-        {post.description ? <p className="line-clamp-2 text-lg leading-7 text-[#363636]">{post.description}</p> : <p className="h-14" />}
-        <span className="mt-8 inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 group-hover:bg-[#484653] group-hover:text-white">
-          Read More <ArrowRight className="ml-2" size={20} />
         </span>
       </div>
     </Link>
