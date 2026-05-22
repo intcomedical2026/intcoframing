@@ -134,6 +134,30 @@ summary::-webkit-details-marker {
   }
 }
 
+@keyframes intco-map-pulse {
+  from {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+@keyframes intco-map-pulse-large {
+  from {
+    opacity: 0.45;
+    transform: scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(3);
+  }
+}
+
 @media (max-width: 1600px) {
   .intco-source-container {
     max-width: 1466px;

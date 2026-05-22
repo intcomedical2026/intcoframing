@@ -34,6 +34,7 @@ import { CountUpStat } from "@/components/count-up-stat";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { HomeBlogSection } from "@/components/home-blog-section";
 import { SolutionsServicesSection, type SolutionsServiceItem } from "@/components/solutions-services-section";
+import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
 
 const PRODUCT_CATALOG_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.png",
@@ -421,6 +422,52 @@ const SOLUTIONS_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/upload
 const SOLUTIONS_PROCESS_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solutionBg.png";
 const SOLUTIONS_RELATED_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solution9.png";
 const SOLUTIONS_CONTACT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/projectPage5.png";
+
+const WHO_WE_ARE_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/微信图片_20240205105129.jpg";
+const WHO_WE_ARE_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs2.png";
+const WHO_WE_ARE_STATS_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/hc-about-us-page.jpg";
+const WHO_WE_ARE_MAP_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/map-hc-bg-01.png";
+
+const WHO_WE_ARE_STATS = [
+  { value: "3", label: "Business Units", Icon: Layers },
+  { value: "6", label: "Production Bases", Icon: Factory },
+  { value: "30+", label: "Years Experience", Icon: Globe2 },
+  { value: "4000+", label: "Employees", Icon: PackageCheck },
+];
+
+const WHO_WE_ARE_HISTORY = [
+  { year: "2002", title: "Shanghai Base", description: "Picture Frame Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2002.jpg" },
+  { year: "2005", title: "Shandong Base", description: "Art / Picture / Mirror Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2005.jpg" },
+  { year: "2009", title: "Shanghai Base", description: "Greenwood Brand Picture Frame Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2009.jpg" },
+  { year: "2010", title: "Lu'an Base", description: "Picture Frame Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2010.jpg" },
+  { year: "2010", title: "Zheniiang Base", description: "GREENMAX Brand Recycling Machines", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2010_2.jpg" },
+  { year: "2015", title: "Domestic Marketing Center", description: "25 Exhibition Offices in China", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2015.jpg" },
+  { year: "2016", title: "Shandong Base ll", description: "MDF Frames Aluminum Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2016.jpg" },
+  { year: "2018", title: "Malaysia Base", description: "100,000 Tons r-PS Pellets", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2018.jpg" },
+  { year: "2019", title: "Integration of two networks", description: "Recycle the Compressed Foam in Shanghai", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2019.jpg" },
+  { year: "2019", title: "Malaysia Base ll", description: "50,000 Tons r-PET Pellets", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2019_2.jpg" },
+  { year: "2021", title: "Shandong Base lll", description: "Aluminum Frames Canvas Art Art Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2021.jpg" },
+  { year: "2021", title: "IPO in Shanghai", description: "STOCK SYMBOL: 688087", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2021_2.jpg" },
+  { year: "2022", title: "Lu'an Basell", description: "Multi-category Decorative Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2022.jpg" },
+  { year: "2022", title: "Vietnam Base", description: "Frame / Decorative Mouldings Picture / Mirror Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2022_2.jpg" },
+];
+
+const WHO_WE_ARE_MARKETS = [
+  { continent: "North America", countries: ["United States", "Canada", "Mexico", "Panama"], top: "22%", right: "81.97%", color: "#c00000", scale: 1.5 },
+  { continent: "Europe", countries: ["Germany", "United Kingdom", "Spain", "France", "Portugal", "Denmark", "Italy"], top: "23.61%", right: "47.65%", color: "#2f5597" },
+  { continent: "Asia", countries: ["China", "Malaysia", "Japan", "Turkey", "Thailand", "Singapore", "U.A.E", "Pakistan"], top: "39.81%", right: "25.36%", color: "#ffc000" },
+  { continent: "Africa", countries: ["South Africa", "Egypt", "Libya", "Morocco"], top: "53.54%", right: "43.33%", color: "#7030a0" },
+  { continent: "South America", countries: ["Brazil", "Uruguay", "Chile", "Argentina", "Peru", "Ecuador", "Colombia"], top: "64.88%", right: "66.56%", color: "#c00000" },
+  { continent: "Oceania", countries: ["Australia", "New Zealand"], top: "80.15%", right: "9.27%", color: "#548235" },
+];
+
+const WHO_WE_ARE_PARTNER_LOGOS = Array.from({ length: 15 }, (_, index) => `https://www.intcoframing-us.com/wp-content/uploads/2024/01/comP${index + 1}.png`);
+
+const WHO_WE_ARE_PARTNER_CARDS = [
+  { title: "Our Products", path: "/products", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs3.png" },
+  { title: "Solutions", path: "/solutions", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs4.png" },
+  { title: "Projects", path: "/projects", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs5.png" },
+];
 
 const SOLUTIONS_INTRO_COPY =
   "We are dedicated to providing innovative and sustainable solutions. Collaborating seamlessly with our clients, we strive for continuous improvement in every aspect of our offerings. From innovative product designs to sustainable manufacturing practices, our solutions are crafted with a focus on the future.";
@@ -1175,29 +1222,29 @@ export function SolutionsListingView({
   );
 }
 
-function SolutionsSourceHero({ title, locale }: { title: string; locale: Locale }) {
+function SolutionsSourceHero({ title, locale, imageUrl = SOLUTIONS_HERO_IMAGE, imageAlt = "Solutions" }: { title: string; locale: Locale; imageUrl?: string; imageAlt?: string }) {
   return (
     <section className="relative aspect-[1920/600] min-h-[260px] overflow-hidden">
-      <Image src={SOLUTIONS_HERO_IMAGE} alt="Solutions" fill className="object-cover" sizes="100vw" priority />
+      <Image src={imageUrl} alt={imageAlt} fill className="object-cover" sizes="100vw" priority />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
-        <div className="intco-source-container px-5 text-center text-[#484653]">
-          <h1 className="text-[42px] font-semibold leading-none sm:text-[56px] lg:text-[66px]">{title}</h1>
-          <div className="mt-5 flex items-center justify-center gap-3 text-lg font-medium lg:text-xl">
+        <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
+          <h1 className="text-[42px] font-semibold leading-none max-lg:text-[38px]">{title}</h1>
+          <div className="mt-5 flex items-center justify-center gap-3 text-lg font-medium max-lg:justify-start max-lg:text-base lg:text-xl">
             <Link href={localizePath(locale, "/")}>Home</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
             <span>{title}</span>
           </div>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
+          <div className="mt-4 flex flex-wrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
             <Link
               href={localizePath(locale, "/contact")}
-              className="inline-flex h-[58px] min-w-[154px] items-center justify-center rounded-[29px] border border-[#484653] px-8 text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
+              className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
               Chat With Us
             </Link>
             <Link
               href={localizePath(locale, "/products/#goinput")}
-              className="inline-flex h-[58px] min-w-[154px] items-center justify-center rounded-[29px] border border-[#484653] px-8 text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
+              className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
               Leave a Message
             </Link>
@@ -1208,20 +1255,20 @@ function SolutionsSourceHero({ title, locale }: { title: string; locale: Locale 
   );
 }
 
-function SolutionsSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
+function SolutionsSourceTitle({ title, align = "center", wide = false }: { title: string; align?: "left" | "center"; wide?: boolean }) {
   const centered = align === "center";
   return (
     <div className={`relative uppercase ${centered ? "text-center" : "text-left"}`} data-reveal={centered ? "fade" : "left"}>
       <div
         className={`pointer-events-none absolute top-0 text-[70px] font-semibold leading-none text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-[46px] max-[650px]:hidden ${
-          centered ? "left-1/2 -translate-x-1/2 whitespace-nowrap" : "left-0 max-w-[760px] -translate-x-5 whitespace-normal"
+          centered ? "left-1/2 -translate-x-1/2 whitespace-nowrap" : `left-0 ${wide ? "max-w-[1200px]" : "max-w-[760px]"} -translate-x-5 whitespace-normal`
         }`}
       >
         {title}
       </div>
       <h2
         className={`relative z-10 inline-block border-b border-[#484653] pb-[47px] text-[45px] font-semibold leading-[39px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-4xl max-[650px]:text-[28px] ${
-          centered ? "" : "max-w-[760px] leading-[1.4]"
+          centered ? "" : `${wide ? "max-w-[1200px]" : "max-w-[760px]"} leading-[1.4]`
         }`}
       >
         {title}
@@ -1903,72 +1950,206 @@ export function EnquiryListView({ locale }: { locale: Locale }) {
   );
 }
 
-export function ContentPageView({ page, locale }: { page: ContentPage; locale: Locale }) {
-  const lines = contentLines(page.bodyText, 140);
+function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Locale }) {
+  const href = (path: string) => localizePath(locale, path);
 
-  if (page.path === "/who-we-are") {
-    const timeline = parseTimeline(lines);
-    return (
-      <>
-        <PageHero title={page.title} description={page.description} imageUrl={page.imageUrl} label="INTCO" />
-        <section className="bg-white py-16">
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[.85fr_1.15fr] lg:px-8">
-            <div data-reveal="left">
-              <p className="text-sm font-bold uppercase text-emerald-700">{t(locale, "aboutUs")}</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{lines.find((line) => line.includes("Intco Framing")) || page.title}</h2>
+  return (
+    <>
+      <SolutionsSourceHero title={page.title} locale={locale} imageUrl={WHO_WE_ARE_HERO_IMAGE} imageAlt="Who We Are" />
+
+      <section className="mb-[100px] bg-white pt-[108px] max-lg:mb-16 max-lg:pt-16">
+        <div className="intco-source-container px-5">
+          <div className="bg-white">
+            <div className="grid gap-10 lg:grid-cols-2 lg:gap-[100px]">
+              <div className="flex items-start" data-reveal="left">
+                <div className="relative aspect-[883/420] w-full max-w-[883px] overflow-hidden">
+                  <Image src={WHO_WE_ARE_INTRO_IMAGE} alt="aboutUs2" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+                </div>
+              </div>
+              <div className="flex flex-col justify-center pb-12 lg:pb-0" data-reveal="right">
+                <SolutionsSourceTitle title="ABOUT US" align="left" />
+                <div className="mt-8 max-w-[720px] text-lg leading-[1.78] text-[#363636]">
+                  <p>Intco Framing (stock symbol 688087), a leading interior décor manufacturer specializing in picture frames, art, mirrors, memo boards and furniture.</p>
+                  <p className="mt-7">We provide customized solutions for diverse applications, tailoring designs to complement residential, commercial, and office spaces.</p>
+                </div>
+              </div>
             </div>
-            <div className="space-y-4 text-pretty leading-8 text-neutral-600" data-reveal="right">
-              {lines.slice(lines.findIndex((line) => line === "ABOUT US") + 1, lines.findIndex((line) => line === "OUR HISTORY")).filter((line) => !["Business Units", "Production Bases", "+", "Years Experience", "4000", "Employees"].includes(line)).slice(0, 4).map((line) => (
-                <p key={line}>{line}</p>
+          </div>
+        </div>
+
+        <div className="mt-0 bg-cover bg-center" style={{ backgroundImage: `url(${WHO_WE_ARE_STATS_BG})` }}>
+          <div className="intco-source-container px-5">
+            <ul className="grid bg-transparent sm:grid-cols-2 lg:grid-cols-4">
+              {WHO_WE_ARE_STATS.map((stat, index) => {
+                const countValue = stat.value.replace("+", "");
+                const suffix = stat.value.endsWith("+") ? "+" : "";
+                return (
+                  <li key={stat.label} className="relative z-[3]" data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+                    <div className={`flex justify-center py-[50px] ${index > 0 ? "lg:border-l-2 lg:border-[#bdbdbd]" : ""}`}>
+                      <div className="flex items-center justify-center px-[30px] text-[#484653]">
+                        <div className="relative mr-[13px] flex size-[76px] shrink-0 items-center justify-center">
+                          <span className="absolute left-1 top-1 size-11 rounded-full bg-[#c3c2c6]" aria-hidden="true" />
+                          <stat.Icon className="relative z-[3]" size={index === 3 ? 64 : 58} strokeWidth={1.4} />
+                        </div>
+                        <div className="inline-block">
+                          <div className="text-[58px] font-semibold leading-none lg:text-[66px]">
+                            <CountUpStat value={countValue} />
+                            {suffix ? <sup className="align-super text-[32px] leading-none">{suffix}</sup> : null}
+                          </div>
+                          <div className="mt-3 text-lg font-semibold leading-tight">{stat.label}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f3f3f3] pb-[98px] pt-[108px] max-lg:py-16">
+        <div className="intco-source-container px-5">
+          <SolutionsSourceTitle title="OUR HISTORY" align="left" />
+          <div className="mt-16">
+            <WhoWeAreHistoryCarousel items={WHO_WE_ARE_HISTORY} />
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pt-[118px] max-lg:pt-16">
+        <div className="intco-source-container px-5">
+          <SolutionsSourceTitle title="GLOBAL MARKET" />
+          <p className="mx-auto mt-16 max-w-[980px] text-center text-lg leading-8 text-[#363636]" data-reveal="fade">
+            Operating on a global scale, we have established a widespread presence in the market, collaborating with numerous high-quality retail partners worldwide
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-[53px] bg-white max-lg:mt-8">
+        <div className="intco-source-container px-5">
+          <div className="relative" data-reveal="fade">
+            <div className="relative aspect-[1600/934] w-full">
+              <Image src={WHO_WE_ARE_MAP_IMAGE} alt="Global market map" fill className="object-contain" sizes="100vw" />
+              <div className="absolute inset-0 hidden lg:block">
+                {WHO_WE_ARE_MARKETS.map((market) => (
+                  <WhoWeAreMarketMarker key={market.continent} market={market} />
+                ))}
+              </div>
+            </div>
+            <div className="absolute bottom-[-5px] left-[47px] flex flex-col items-center text-center text-[#484653] max-lg:static max-lg:mt-8 max-lg:flex-row max-lg:justify-center max-lg:gap-8">
+              <div className="flex flex-col items-center">
+                <MapPin size={54} strokeWidth={1.2} />
+                <div className="-my-1 text-5xl font-bold leading-tight">
+                  <CountUpStat value="120" />
+                  <sup className="text-2xl">+</sup>
+                </div>
+                <div className="text-sm font-semibold">Countries & Regions</div>
+              </div>
+              <div className="my-[36.5px] h-0.5 w-40 bg-[#484653] max-lg:my-0 max-lg:h-20 max-lg:w-0.5" />
+              <div className="flex flex-col items-center">
+                <Globe2 size={54} strokeWidth={1.2} />
+                <div className="-my-1 text-5xl font-bold leading-tight">
+                  <CountUpStat value="12000" />
+                  <sup className="text-2xl">+</sup>
+                </div>
+                <div className="text-sm font-semibold">Clients</div>
+              </div>
+            </div>
+          </div>
+          <div className="mt-8 grid gap-3 md:grid-cols-2 lg:hidden">
+            {WHO_WE_ARE_MARKETS.map((market) => (
+              <div key={market.continent} className="border border-neutral-200 p-4">
+                <div className="font-semibold text-[#484653]">{market.continent}</div>
+                <p className="mt-2 text-sm leading-6 text-[#363636]">{market.countries.join(", ")}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-[100px] pt-16 max-lg:pb-16">
+        <div className="intco-source-container px-5">
+          <SolutionsSourceTitle title="OUR PARTNERS" />
+          <ul className="mt-16 grid grid-cols-2 gap-x-[6.25%] gap-y-[57px] sm:grid-cols-3 lg:grid-cols-5" data-reveal="fade">
+            {WHO_WE_ARE_PARTNER_LOGOS.map((logo, index) => (
+              <li key={logo} className="flex justify-center" style={{ "--reveal-delay": `${(index % 5) * 50}ms` } as React.CSSProperties}>
+                <div className="relative aspect-[192/100] w-full max-w-[180px]">
+                  <Image src={logo} alt={`comP${index + 1}`} fill className="object-contain" sizes="180px" />
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-white pb-[116px] max-lg:pb-16">
+        <div className="intco-source-container px-5">
+          <SolutionsSourceTitle title="AN INTELLIGENT COMPANY TO PARTNER WITH" align="left" wide />
+          <p className="mt-[55px] max-w-[1104px] text-lg leading-8 text-[#363636]" data-reveal="left">
+            Founded in 2002, INTCO upholds the reputation for high quality, great designs, and fast delivery to fulfill all aspects of a project – from artistry to functionality, saving you time and money.
+          </p>
+          <div className="mt-12 grid gap-5 lg:grid-cols-[41.3%_1fr]">
+            <WhoWeArePartnerCard card={WHO_WE_ARE_PARTNER_CARDS[0]} href={href(WHO_WE_ARE_PARTNER_CARDS[0].path)} large />
+            <div className="grid gap-[15px]">
+              {WHO_WE_ARE_PARTNER_CARDS.slice(1).map((card) => (
+                <WhoWeArePartnerCard key={card.title} card={card} href={href(card.path)} />
               ))}
             </div>
           </div>
-          <div className="mx-auto mt-12 grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
-            {[
-              { value: "5", label: "Business Units" },
-              { value: "8", label: "Production Bases" },
-              { value: "20+", label: "Years Experience" },
-              { value: "4000", label: "Employees" },
-            ].map((stat, index) => (
-              <div key={stat.label} className="bg-neutral-50 p-6 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
-                <div className="text-4xl font-bold text-emerald-700">
-                  <CountUpStat value={stat.value} />
-                </div>
-                <p className="mt-2 text-sm font-semibold uppercase text-neutral-600">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="bg-neutral-100 py-16">
-          <SectionTitle eyebrow={t(locale, "ourHistory")} title={t(locale, "ourHistory")} />
-          <div className="mx-auto mt-10 grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-            {timeline.map((item, index) => (
-              <div key={`${item.year}-${index}`} className="bg-white p-6 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${(index % 3) * 70}ms` } as React.CSSProperties}>
-                <div className="text-3xl font-bold text-emerald-700">{item.year}</div>
-                <div className="mt-3 space-y-2 text-sm leading-6 text-neutral-700">
-                  {item.body.map((line) => (
-                    <p key={line}>{line}</p>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="bg-white py-16">
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[.75fr_1.25fr] lg:px-8">
-            <div data-reveal="left">
-              <p className="text-sm font-bold uppercase text-emerald-700">{t(locale, "globalMarket")}</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{t(locale, "globalMarket")}</h2>
-            </div>
-            <p className="text-pretty text-lg leading-8 text-neutral-600" data-reveal="right">
-              {lines.find((line) => line.includes("Operating on a global scale")) || "We have established a widespread presence in the market, collaborating with numerous high-quality retail partners worldwide."}
-            </p>
-          </div>
-        </section>
-        <ContactBand locale={locale} />
-      </>
-    );
+        </div>
+      </section>
+    </>
+  );
+}
+
+function WhoWeAreMarketMarker({ market }: { market: (typeof WHO_WE_ARE_MARKETS)[number] }) {
+  return (
+    <dl className="group absolute" style={{ top: market.top, right: market.right }}>
+      <dt className="relative">
+        <span
+          className="absolute right-full top-full z-[4] -mr-[3px] -mt-px block h-[38px] w-[219px] -translate-x-[10%] bg-white/90 text-center text-[22px] font-medium leading-[38px] text-[#1479c2] opacity-0 shadow-sm transition duration-700 group-hover:translate-x-0 group-hover:opacity-100"
+        >
+          {market.continent}
+        </span>
+        <span
+          className="relative z-[3] block size-3.5 rounded-full [background:var(--dot-color)] after:absolute after:left-1/2 after:top-1/2 after:size-[23px] after:-translate-x-1/2 after:-translate-y-1/2 after:rounded-full after:opacity-50 after:[animation:intco-map-pulse_2s_infinite] after:[background:var(--dot-color)] before:absolute before:left-1/2 before:top-1/2 before:size-[33px] before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:opacity-40 before:[animation:intco-map-pulse-large_2s_infinite] before:[background:var(--dot-color)]"
+          style={{ "--dot-color": market.color, transform: market.scale ? `scale(${market.scale})` : undefined } as React.CSSProperties}
+        />
+      </dt>
+      <dd className="absolute right-full top-[52px] z-[4] w-[219px] -translate-x-[10%] text-lg leading-[30px] text-[#363636] opacity-0 transition duration-700 group-hover:translate-x-0 group-hover:opacity-100">
+        {market.countries.map((country) => (
+          <span key={country} className="mr-[15px] inline-block">
+            {country}
+          </span>
+        ))}
+        <span aria-hidden="true">...</span>
+      </dd>
+    </dl>
+  );
+}
+
+function WhoWeArePartnerCard({ card, href, large = false }: { card: (typeof WHO_WE_ARE_PARTNER_CARDS)[number]; href: string; large?: boolean }) {
+  return (
+    <Link href={href} className={`group relative block overflow-hidden rounded-md ${large ? "aspect-[547/583]" : "aspect-[1033/375]"}`} data-reveal>
+      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes={large ? "(min-width: 1024px) 42vw, 100vw" : "(min-width: 1024px) 58vw, 100vw"} />
+      <span className="absolute inset-0 z-[3] bg-[rgba(72,70,83,0.2)] opacity-0 transition duration-300 group-hover:opacity-100" aria-hidden="true" />
+      <span className="absolute inset-0 z-10 block">
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-2xl font-bold text-white">{card.title}</span>
+        <span className="absolute bottom-0 left-1/2 flex -translate-x-1/2 items-center gap-2 pb-[49px] text-lg font-semibold text-white max-sm:pb-6">
+          Learn More <ArrowRight size={22} />
+        </span>
+      </span>
+    </Link>
+  );
+}
+
+export function ContentPageView({ page, locale }: { page: ContentPage; locale: Locale }) {
+  if (page.path === "/who-we-are") {
+    return <WhoWeAreSourceView page={page} locale={locale} />;
   }
+
+  const lines = contentLines(page.bodyText, 140);
 
   if (page.path === "/who-we-are/sustainability") {
     const sections = sectionize(lines);
@@ -2555,25 +2736,6 @@ function looksLikeHeading(line: string) {
   if (known.has(line)) return true;
   if (line.length > 52 || /[.!?]$/.test(line)) return false;
   return /^[A-Z0-9& /-]+$/.test(line) && /[A-Z]/.test(line);
-}
-
-function parseTimeline(lines: string[]) {
-  const start = lines.findIndex((line) => line === "OUR HISTORY");
-  const end = lines.findIndex((line) => line === "GLOBAL MARKET");
-  const timelineLines = lines.slice(start > -1 ? start + 1 : 0, end > start ? end : undefined);
-  const entries: Array<{ year: string; body: string[] }> = [];
-  let current: { year: string; body: string[] } | null = null;
-
-  timelineLines.forEach((line) => {
-    if (/^20\d{2}$/.test(line)) {
-      current = { year: line, body: [] };
-      entries.push(current);
-      return;
-    }
-    current?.body.push(line);
-  });
-
-  return entries.filter((entry) => entry.body.length).slice(0, 12);
 }
 
 function parseFactories(lines: string[]) {
