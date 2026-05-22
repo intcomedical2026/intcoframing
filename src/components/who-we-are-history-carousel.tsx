@@ -20,7 +20,8 @@ export function WhoWeAreHistoryCarousel({ items }: { items: HistoryItem[] }) {
     if (!element) return;
 
     const card = element.querySelector<HTMLElement>("[data-history-card]");
-    const amount = card ? card.offsetWidth + 28 : element.clientWidth * 0.75;
+    const gap = Number.parseFloat(window.getComputedStyle(element).columnGap || window.getComputedStyle(element).gap || "0") || 0;
+    const amount = card ? card.offsetWidth + gap : element.clientWidth * 0.75;
     element.scrollBy({ left: direction === "next" ? amount : -amount, behavior: "smooth" });
   };
 
@@ -43,14 +44,14 @@ export function WhoWeAreHistoryCarousel({ items }: { items: HistoryItem[] }) {
         <ChevronRight size={22} strokeWidth={2.4} />
       </button>
 
-      <div ref={scrollerRef} className="flex snap-x gap-7 overflow-x-auto scroll-smooth pb-3 pt-[100px] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div ref={scrollerRef} className="flex snap-x gap-7 overflow-x-auto scroll-smooth pb-3 pt-[100px] [scrollbar-width:none] lg:gap-[68px] [&::-webkit-scrollbar]:hidden">
         {items.map((item, index) => (
           <article
             key={`${item.year}-${item.title}-${index}`}
             data-history-card
             data-reveal
             style={{ "--reveal-delay": `${(index % 4) * 70}ms` } as CSSProperties}
-            className="relative min-w-[min(386px,calc(100vw-56px))] snap-start border-4 border-[#484653] bg-[#f3f3f3] p-5 text-[#484653] lg:min-w-[386px]"
+            className="relative min-w-[min(386px,calc(100vw-56px))] snap-start border-4 border-[#484653] bg-[#f3f3f3] p-5 text-[#484653] lg:min-w-[calc((100%_-_136px)/3)] lg:max-w-[calc((100%_-_136px)/3)] lg:basis-[calc((100%_-_136px)/3)]"
           >
             {index > 0 ? (
               <span

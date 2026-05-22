@@ -1278,6 +1278,30 @@ function SolutionsSourceTitle({ title, align = "center", wide = false }: { title
   );
 }
 
+function WhoWeAreSourceTitle({ title, align = "center", wide = false }: { title: string; align?: "left" | "center"; wide?: boolean }) {
+  const centered = align === "center";
+  return (
+    <div className={`relative uppercase ${centered ? "text-center" : "text-left"}`} data-reveal={centered ? "fade" : "left"}>
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute top-0 z-[2] text-[70px] font-semibold leading-none text-white opacity-20 [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-[46px] max-[650px]:hidden ${
+          centered ? "left-1/2 -translate-x-1/2 whitespace-nowrap" : `left-0 -translate-x-5 whitespace-nowrap ${wide ? "max-w-none" : ""}`
+        }`}
+      >
+        {title}
+      </span>
+      <h2
+        className={`relative z-[3] inline-block w-fit border-b border-[#484653] pb-[47px] text-[45px] font-semibold leading-[39px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-4xl max-[650px]:pb-2 max-[650px]:text-xl max-[650px]:leading-[1.3] ${
+          centered ? "mx-auto" : `mx-0 ${wide ? "max-w-none max-lg:max-w-full max-lg:whitespace-normal lg:whitespace-nowrap" : "max-w-full"}`
+        }`}
+      >
+        {title}
+        <span className={`absolute bottom-0 h-[5px] w-[65px] translate-y-1/2 bg-[#484653] max-[650px]:h-0.5 max-[650px]:w-10 ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
+      </h2>
+    </div>
+  );
+}
+
 function SolutionsOutlineLink({ href, children, width = 200 }: { href: string; children: React.ReactNode; width?: number }) {
   return (
     <Link
@@ -1967,7 +1991,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
                 </div>
               </div>
               <div className="flex flex-col justify-center pb-12 lg:pb-0" data-reveal="right">
-                <SolutionsSourceTitle title="ABOUT US" align="left" />
+                <WhoWeAreSourceTitle title="ABOUT US" align="left" />
                 <div className="mt-8 max-w-[720px] text-lg leading-[1.78] text-[#363636]">
                   <p>Intco Framing (stock symbol 688087), a leading interior décor manufacturer specializing in picture frames, art, mirrors, memo boards and furniture.</p>
                   <p className="mt-7">We provide customized solutions for diverse applications, tailoring designs to complement residential, commercial, and office spaces.</p>
@@ -2010,7 +2034,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-[#f3f3f3] pb-[98px] pt-[108px] max-lg:py-16">
         <div className="intco-source-container px-5">
-          <SolutionsSourceTitle title="OUR HISTORY" align="left" />
+          <WhoWeAreSourceTitle title="OUR HISTORY" align="left" />
           <div className="mt-16">
             <WhoWeAreHistoryCarousel items={WHO_WE_ARE_HISTORY} />
           </div>
@@ -2019,7 +2043,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pt-[118px] max-lg:pt-16">
         <div className="intco-source-container px-5">
-          <SolutionsSourceTitle title="GLOBAL MARKET" />
+          <WhoWeAreSourceTitle title="GLOBAL MARKET" />
           <p className="mx-auto mt-16 max-w-[980px] text-center text-lg leading-8 text-[#363636]" data-reveal="fade">
             Operating on a global scale, we have established a widespread presence in the market, collaborating with numerous high-quality retail partners worldwide
           </p>
@@ -2070,7 +2094,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pb-[100px] pt-16 max-lg:pb-16">
         <div className="intco-source-container px-5">
-          <SolutionsSourceTitle title="OUR PARTNERS" />
+          <WhoWeAreSourceTitle title="OUR PARTNERS" />
           <ul className="mt-16 grid grid-cols-2 gap-x-[6.25%] gap-y-[57px] sm:grid-cols-3 lg:grid-cols-5" data-reveal="fade">
             {WHO_WE_ARE_PARTNER_LOGOS.map((logo, index) => (
               <li key={logo} className="flex justify-center" style={{ "--reveal-delay": `${(index % 5) * 50}ms` } as React.CSSProperties}>
@@ -2085,7 +2109,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pb-[116px] max-lg:pb-16">
         <div className="intco-source-container px-5">
-          <SolutionsSourceTitle title="AN INTELLIGENT COMPANY TO PARTNER WITH" align="left" wide />
+          <WhoWeAreSourceTitle title="AN INTELLIGENT COMPANY TO PARTNER WITH" align="left" wide />
           <p className="mt-[55px] max-w-[1104px] text-lg leading-8 text-[#363636]" data-reveal="left">
             Founded in 2002, INTCO upholds the reputation for high quality, great designs, and fast delivery to fulfill all aspects of a project – from artistry to functionality, saving you time and money.
           </p>
