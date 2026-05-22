@@ -117,42 +117,45 @@ function Header({
           )}
         </Link>
         <nav className="hidden flex-1 items-center justify-center text-xl font-semibold text-[#484653] lg:flex">
-          {(settings.navigation || []).map((item) => (
-            <div key={item.path} className="group relative py-7">
-              <Link
-                href={href(item.path)}
-                className={`relative mx-5 block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-200 hover:text-[#484653] ${currentPath === item.path ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
-              >
-                {item.label}
-              </Link>
-              {item.path === "/products" ? (
-                <div className="pointer-events-none absolute left-1/2 top-full w-[760px] origin-top -translate-x-1/2 translate-y-2 scale-y-95 opacity-0 shadow-2xl transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:scale-y-100 group-hover:opacity-100">
-                  <div className="grid grid-cols-5 gap-0 bg-white p-3">
-                    {parents.map((category) => (
-                      <Link
-                        key={category.slug}
-                        href={href(category.path)}
-                        className="group/card border-r border-neutral-100 p-3 transition-transform duration-200 hover:-translate-y-0.5 last:border-r-0"
-                      >
-                        <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
-                          {category.navImageUrl || category.imageUrl ? (
-                            <Image
-                              src={category.navImageUrl || category.imageUrl || ""}
-                              alt={category.title}
-                              fill
-                              className="object-cover transition-transform duration-500 group-hover/card:scale-110"
-                              sizes="160px"
-                            />
-                          ) : null}
-                        </div>
-                        <div className="mt-3 text-center text-xs font-bold text-neutral-900">{category.title}</div>
-                      </Link>
-                    ))}
+          {(settings.navigation || []).map((item) => {
+            const isActive = currentPath === item.path || (item.path !== "/" && currentPath.startsWith(`${item.path}/`));
+            return (
+              <div key={item.path} className="group relative py-7">
+                <Link
+                  href={href(item.path)}
+                  className={`relative mx-5 block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-200 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
+                >
+                  {item.label}
+                </Link>
+                {item.path === "/products" ? (
+                  <div className="pointer-events-none absolute left-1/2 top-full w-[760px] origin-top -translate-x-1/2 translate-y-2 scale-y-95 opacity-0 shadow-2xl transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:scale-y-100 group-hover:opacity-100">
+                    <div className="grid grid-cols-5 gap-0 bg-white p-3">
+                      {parents.map((category) => (
+                        <Link
+                          key={category.slug}
+                          href={href(category.path)}
+                          className="group/card border-r border-neutral-100 p-3 transition-transform duration-200 hover:-translate-y-0.5 last:border-r-0"
+                        >
+                          <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
+                            {category.navImageUrl || category.imageUrl ? (
+                              <Image
+                                src={category.navImageUrl || category.imageUrl || ""}
+                                alt={category.title}
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover/card:scale-110"
+                                sizes="160px"
+                              />
+                            ) : null}
+                          </div>
+                          <div className="mt-3 text-center text-xs font-bold text-neutral-900">{category.title}</div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ) : null}
-            </div>
-          ))}
+                ) : null}
+              </div>
+            );
+          })}
         </nav>
         <form action={href("/index.php")} className="hidden items-center xl:flex">
           <button type="submit" aria-label={t(locale, "search")} className="text-[#484653]">

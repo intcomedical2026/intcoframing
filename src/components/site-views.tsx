@@ -34,6 +34,7 @@ import { CountUpStat } from "@/components/count-up-stat";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { HomeBlogSection } from "@/components/home-blog-section";
 import { SolutionsServicesSection, type SolutionsServiceItem } from "@/components/solutions-services-section";
+import { SustainabilitySavingsTabs, SustainabilityVideoButton } from "@/components/sustainability-interactions";
 import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
 
 const PRODUCT_CATALOG_IMAGES = [
@@ -467,6 +468,54 @@ const WHO_WE_ARE_PARTNER_CARDS = [
   { title: "Our Products", path: "/products", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs3.png" },
   { title: "Solutions", path: "/solutions", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs4.png" },
   { title: "Projects", path: "/projects", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs5.png" },
+];
+
+const SUSTAINABILITY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Sustainability1.jpg";
+const SUSTAINABILITY_VIDEO_SRC = "https://www.youtube.com/embed/uzpr_7MwI_c?si=BM4lcdw_WKcepCph";
+const SUSTAINABILITY_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability2.png";
+const SUSTAINABILITY_REPORT_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability3.png";
+const SUSTAINABILITY_REPORT_PDF = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/ESG-Report-Intco-Framing.pdf";
+const SUSTAINABILITY_EXTERNAL_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-01.jpg";
+const SUSTAINABILITY_EXTERNAL_IMAGES = [
+  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-02.png",
+  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-03.png",
+  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-04.png",
+  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-05.png",
+  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-06.png",
+];
+
+const SUSTAINABILITY_INTRO_COPY = [
+  "Intco Recycling(688087.SH) is a high-tech manufacturer in resource recycling, and its affiliate, Intco Framing is one of the world’s largest makers of frames.",
+  "We have developed an innovative end-to-end process of plastic recycling and reuse, that transforming recycled plastics into trendy, high-quality household and consumer goods.",
+  "As a global leader in resource recycling, INTCO Recycling launched its PET recycling base in Malaysia in 2018. Spanning the recycling of multiple types of plastics, this facility transforms beverage bottles into food-grade plastic.",
+  "Sustainable materials, net-zero and a circular economy. Intco Recycling has been committed to ESG for more than 20 years. What is the future of resource regeneration? We can’t wait to see it.",
+];
+
+const SUSTAINABILITY_TREE_ITEMS = [
+  { value: "15", unit: "Pieces", label: "Art Frames" },
+  { value: "60", unit: "Meters", label: "Baseboards" },
+  { value: "100", unit: "Pieces", label: "Picture Frames" },
+];
+
+const SUSTAINABILITY_ACTION_CARDS = [
+  {
+    title: "Innovating Circular Economy Models",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability13.png",
+    description:
+      "Intco emphasizes on the environmental impact of the whole life cycle of products, and with advanced plastic recycling technology and recycled plastic products, it realizes the high-value recycling of plastics and opens up the entire industrial chain of plastic recycling, forming a unique “Circular Economy lntegration” business model.",
+  },
+  {
+    title: "Comprehensive Environmental Initiatives",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability14.png",
+    description:
+      "Recognizing the pressing issue of climate change, we respond by implementing strategies to reduce ourcarbon footprint,emphasizing the judicious use of resources across all operations. Furthermore, we focus on optimizing waste utilization,transforming it into a valuable resource. We conscientiously uphold the highest environmental standards in every aspect of our business.",
+  },
+  {
+    title: "Nurturing A Diverse And Inclusive Work Environment",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability15.png",
+    description:
+      "Our company is committed to fostering a workplace culture that embodies genuine care for our employees.We prioritize diversity and inclusion,actively valuing and respecting individuals of different nationalities,ethnicities,and backgrounds. In our pursuit of an inclusive and equal opportunity environment, we offer positions tailored to recruit employees with disabilities.",
+  },
 ];
 
 const SOLUTIONS_INTRO_COPY =
@@ -2168,6 +2217,196 @@ function WhoWeArePartnerCard({ card, href, large = false }: { card: (typeof WHO_
   );
 }
 
+function SustainabilitySourceHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="relative aspect-[1920/600] min-h-[320px] overflow-hidden max-[650px]:min-h-0">
+      <Image src={SUSTAINABILITY_HERO_IMAGE} alt="Sustainability1" fill className="object-cover" sizes="100vw" priority />
+      <div className="absolute inset-0 bg-white/30" />
+      <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center max-[650px]:hidden">
+        <div className="intco-source-container px-5 text-center text-white">
+          <h1 className="text-[66px] font-semibold leading-none max-[1466px]:text-[40px] max-[650px]:text-[32px]">Sustainability</h1>
+          <div className="mt-5 flex items-center justify-center gap-3 text-lg font-medium max-[650px]:text-base">
+            <Link href={localizePath(locale, "/")}>Home</Link>
+            <ArrowRight size={18} strokeWidth={1.8} />
+            <span>Sustainability</span>
+          </div>
+          <div className="mt-7">
+            <SustainabilityVideoButton src={SUSTAINABILITY_VIDEO_SRC} label="Watch Video" />
+          </div>
+          <div className="mt-6 flex justify-center gap-[30px] max-sm:flex-col max-sm:items-center max-sm:gap-3">
+            <Link
+              href={localizePath(locale, "/contact")}
+              className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
+            >
+              Chat With Us
+            </Link>
+            <Link
+              href={localizePath(locale, "/products/#goinput")}
+              className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
+            >
+              Leave a Message
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SustainabilitySourceTitle({ title, light = false }: { title: string; light?: boolean }) {
+  return (
+    <div className="relative text-center uppercase" data-reveal="fade">
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute left-1/2 top-0 z-[2] -translate-x-1/2 whitespace-nowrap text-[70px] font-semibold leading-none opacity-20 max-[1600px]:text-[46px] max-[650px]:hidden ${
+          light ? "text-transparent [-webkit-text-stroke:1px_#fff]" : "text-white [-webkit-text-stroke:1px_#3d3d3d]"
+        }`}
+      >
+        {title}
+      </span>
+      <h2
+        className={`relative z-[3] mx-auto inline-block w-fit border-b pb-[47px] text-[45px] font-semibold leading-[39px] max-[1600px]:text-4xl max-[650px]:pb-2 max-[650px]:text-xl max-[650px]:leading-[1.3] ${
+          light ? "border-white text-white" : "border-[#484653] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d]"
+        }`}
+      >
+        {title}
+        <span className={`absolute bottom-0 left-1/2 h-[5px] w-[65px] -translate-x-1/2 translate-y-1/2 max-[650px]:h-0.5 max-[650px]:w-10 ${light ? "bg-white" : "bg-[#484653]"}`} />
+      </h2>
+    </div>
+  );
+}
+
+function SustainabilityExternalRatings() {
+  return (
+    <section className="bg-cover bg-center bg-no-repeat px-5 py-20 lg:pb-[100px]" style={{ backgroundImage: `url(${SUSTAINABILITY_EXTERNAL_BG})` }}>
+      <div className="intco-source-container">
+        <SustainabilitySourceTitle title="EXTERNAL RATINGS" light />
+        <ul className="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-[47px]" data-reveal="fade">
+          {SUSTAINABILITY_EXTERNAL_IMAGES.slice(0, 3).map((image, index) => (
+            <li key={image}>
+              <Image src={image} alt={`External rating ${index + 1}`} width={360} height={460} className="h-auto w-full rounded-[10px]" sizes="(min-width: 1024px) 25vw, 50vw" />
+            </li>
+          ))}
+          <li className="flex flex-col justify-between gap-8">
+            {SUSTAINABILITY_EXTERNAL_IMAGES.slice(3).map((image, index) => (
+              <Image key={image} src={image} alt={`External rating ${index + 4}`} width={360} height={210} className="h-auto w-full rounded-[10px]" sizes="(min-width: 1024px) 25vw, 50vw" />
+            ))}
+          </li>
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function SustainabilityTreeCard({ item, index }: { item: (typeof SUSTAINABILITY_TREE_ITEMS)[number]; index: number }) {
+  return (
+    <li data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+      <div className="flex min-h-[211px] justify-between rounded-md bg-[#f3f3f3] pb-12 pl-10 pr-[49px] pt-3 max-lg:px-6">
+        <div>
+          <div className="flex items-center text-[#569654]">
+            <span className="text-[90px] font-black leading-none max-lg:text-6xl">
+              <CountUpStat value={item.value} />
+            </span>
+            <span className="ml-[18px] text-[34px] font-semibold text-[#484653] max-lg:text-2xl">{item.unit}</span>
+          </div>
+          <div className="mt-1 text-[26px] font-medium leading-none text-[#484653] max-lg:text-xl">{item.label}</div>
+        </div>
+        <div className="mt-[33px] flex max-w-[89px] flex-1 items-center">
+          <div className="relative aspect-[22/19] max-w-[22px] flex-1">
+            <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Sustainability16.png" alt="" fill className="object-contain" sizes="22px" />
+          </div>
+          <div className="relative mr-[11px] aspect-[89/119] max-w-[89px] flex-1">
+            <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Sustainability12.png" alt="" fill className="object-contain" sizes="89px" />
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function SustainabilitySourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <span className="sr-only">ESG & Sustainability in Action | Intco Framing</span>
+      <SustainabilitySourceHero locale={locale} />
+
+      <section className="bg-white px-5 pb-[100px] pt-[100px] max-[650px]:pb-8 max-[650px]:pt-5">
+        <div className="intco-source-container">
+          <div className="grid gap-[101px] lg:grid-cols-2">
+            <div className="text-lg leading-[1.55] text-[#363636]" data-reveal="left">
+              {SUSTAINABILITY_INTRO_COPY.map((line) => (
+                <p key={line} className="mb-10 last:mb-0">
+                  {line}
+                </p>
+              ))}
+            </div>
+            <div className="relative aspect-[680/400] w-full overflow-hidden rounded-md" data-reveal="right">
+              <Image src={SUSTAINABILITY_INTRO_IMAGE} alt="Sustainability2" fill className="object-cover transition duration-700 hover:scale-105" sizes="(min-width: 1024px) 50vw, 100vw" />
+            </div>
+          </div>
+
+          <div className="mt-[90px] grid gap-0 lg:grid-cols-[49.125%_1fr]" data-reveal="fade">
+            <div className="relative aspect-[786/399] overflow-hidden">
+              <Image src={SUSTAINABILITY_REPORT_IMAGE} alt="Sustainability3" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+            </div>
+            <div className="flex flex-col items-center justify-center rounded-r-md bg-white px-8 py-16 shadow-[0_11px_12px_1px_rgba(101,101,101,0.08)] max-lg:rounded-b-md max-lg:rounded-r-none">
+              <h2 className="text-center text-[38px] font-semibold leading-[30px] text-[#484653] max-lg:text-3xl">ESG Report 2022</h2>
+              <Link
+                href={SUSTAINABILITY_REPORT_PDF}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-[50px] inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-700 hover:bg-[#484653] hover:text-white"
+              >
+                Download PDF <Download className="ml-2" size={20} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SustainabilityExternalRatings />
+
+      <section className="bg-[#f3f3f3] pt-[100px]">
+        <div className="intco-source-container px-5">
+          <SustainabilitySourceTitle title="ENVIRONMENTAL CONTRIBUTION" />
+          <p className="mx-auto mb-[86px] mt-16 max-w-[1320px] text-center text-lg leading-8 text-[#363636]" data-reveal="fade">
+            Intco Recycling has reduced 200,000 tons of carbon emissions, saved 300,000 tons of crude oil, and protected 2 million trees every year, an elegant and profitable solution for the recycling of waste EPS foam.
+          </p>
+        </div>
+        <SustainabilitySavingsTabs />
+      </section>
+
+      <section className="bg-white px-5 pt-[100px]">
+        <div className="intco-source-container">
+          <SustainabilitySourceTitle title="HOW TO PROTECT A TREE" />
+          <ul className="mt-16 grid gap-12 lg:grid-cols-3">
+            {SUSTAINABILITY_TREE_ITEMS.map((item, index) => (
+              <SustainabilityTreeCard key={item.label} item={item} index={index} />
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="mt-[100px] bg-[#f3f3f3] px-5 pb-[100px] pt-[100px]">
+        <div className="intco-source-container">
+          <SustainabilitySourceTitle title="SUSTAINABILITY IN ACTION" />
+          <ul className="mt-16 grid gap-[55px] lg:grid-cols-3">
+            {SUSTAINABILITY_ACTION_CARDS.map((card, index) => (
+              <li key={card.title} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+                <div className="group relative aspect-[436/300] overflow-hidden">
+                  <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-110" sizes="(min-width: 1024px) 33vw, 100vw" />
+                </div>
+                <h2 className="mb-[39px] mt-11 text-[30px] font-semibold leading-[1.35] text-[#363636] max-lg:text-2xl">{card.title}</h2>
+                <p className="text-lg leading-[1.55] text-[#363636]">{card.description}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export function ContentPageView({ page, locale }: { page: ContentPage; locale: Locale }) {
   if (page.path === "/who-we-are") {
     return <WhoWeAreSourceView page={page} locale={locale} />;
@@ -2176,57 +2415,7 @@ export function ContentPageView({ page, locale }: { page: ContentPage; locale: L
   const lines = contentLines(page.bodyText, 140);
 
   if (page.path === "/who-we-are/sustainability") {
-    const sections = sectionize(lines);
-    return (
-      <>
-        <PageHero title={page.title} description={page.description} imageUrl={page.imageUrl} label="ESG" />
-        <section className="bg-white py-16">
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
-            <div data-reveal="left">
-              <p className="text-sm font-bold uppercase text-emerald-700">ESG & Sustainability in Action</p>
-              <h2 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{lines[0] || page.title}</h2>
-              <Link href="#" className="mt-7 inline-flex items-center gap-2 bg-neutral-950 px-6 py-3 text-sm font-bold uppercase text-white">
-                ESG Report 2022 / Download PDF <Download size={16} />
-              </Link>
-              {lines.includes("EXTERNAL RATINGS") ? <p className="mt-5 text-sm font-bold uppercase tracking-wide text-emerald-700">EXTERNAL RATINGS</p> : null}
-            </div>
-            <div className="space-y-4 text-pretty leading-8 text-neutral-600" data-reveal="right">
-              {lines.slice(1, 6).map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </div>
-          </div>
-        </section>
-        <section className="bg-neutral-100 py-16">
-          <SectionTitle eyebrow="ENVIRONMENTAL CONTRIBUTION" title="Cumulative Savings" description={lines.find((line) => line.includes("reduced 200,000 tons"))} />
-          <div className="mx-auto mt-10 grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-4 lg:px-8">
-            {[
-              ["2.5 Million", "Tons Carbon Emissions"],
-              ["3.75", "Tons Crude Oil Resources"],
-              ["2 Million", "Trees Were Protected"],
-              ["1.2 Million", "Boxes PS Mouldings"],
-            ].map(([value, label], index) => (
-              <div key={label} className="bg-white p-6 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
-                <div className="text-4xl font-bold text-emerald-700">{value}</div>
-                <p className="mt-3 text-sm font-semibold uppercase text-neutral-600">{label}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="bg-white py-16">
-          <SectionTitle eyebrow="SUSTAINABILITY IN ACTION" title="Innovating circular economy models" />
-          <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
-            {sections.slice(-3).map((section, index) => (
-              <div key={section.title} className="bg-neutral-50 p-6 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
-                <h3 className="text-balance text-2xl font-semibold text-neutral-950">{section.title}</h3>
-                <p className="mt-4 text-pretty text-sm leading-7 text-neutral-600">{section.body.join(" ")}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-        <ContactBand locale={locale} />
-      </>
-    );
+    return <SustainabilitySourceView locale={locale} />;
   }
 
   if (page.path === "/who-we-are/philosophy") {
