@@ -518,6 +518,63 @@ const SUSTAINABILITY_ACTION_CARDS = [
   },
 ];
 
+const PHILOSOPHY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy1.png";
+const PHILOSOPHY_CEO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy2.png";
+const PHILOSOPHY_QUOTE_TOP = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy11.png";
+const PHILOSOPHY_QUOTE_BOTTOM = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy10.png";
+const PHILOSOPHY_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/PhilosophyBg.png";
+const PHILOSOPHY_CENTER_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy18.jpg";
+const PHILOSOPHY_TEAM_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy8.png";
+const PHILOSOPHY_CONTACT_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy9.png";
+
+const PHILOSOPHY_QUOTE =
+  "We have a dynamic and hardworking team making concerted efforts on adifficult but worthwhile cause. The recycling industry has a profound impact on the environment and society, leading to sustainable development.";
+
+const PHILOSOPHY_VALUES = [
+  {
+    title: "Mission",
+    body: "Focus on the Recycling of Resources, for the Sustainable Development of the Earth",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p1.png",
+  },
+  {
+    title: "Vision",
+    body: "Becoming a Global Leader in High-tech Recycled Resource Manufacturing",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p2.png",
+  },
+  {
+    title: "Spirit",
+    body: "Honesty & Integrity, Diligence & Hardworking, Professionalism,Teamwork, Customer First",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p3.png",
+  },
+  {
+    title: "Values",
+    body: "Love Goodness Truth",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p4.png",
+  },
+  {
+    title: "Objective",
+    body: "With Human Wisdom Serving Human Needs",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p5.png",
+  },
+  {
+    title: "lmprovement & Innovation",
+    body: "Every Suggestion Will be Cherished, Every lmprovement Will be Awarded",
+    details: ["The Duty to Our Enterprise:", "Growing Our Business", "The Duty to Society:", "Practicing Ethical Behavior"],
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p6.png",
+  },
+];
+
+const PHILOSOPHY_GALLERY_TOP = [
+  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy3.png", label: "WORLD CLASS CUSTOMER SERVICE" },
+  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy5.png", label: "MEET THE TEAM" },
+];
+
+const PHILOSOPHY_GALLERY_MOSAIC = [
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy4.png",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy6.png",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy7.png",
+];
+
 const SOLUTIONS_INTRO_COPY =
   "We are dedicated to providing innovative and sustainable solutions. Collaborating seamlessly with our clients, we strive for continuous improvement in every aspect of our offerings. From innovative product designs to sustainable manufacturing practices, our solutions are crafted with a focus on the future.";
 
@@ -2407,51 +2464,196 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
   );
 }
 
+function PhilosophySourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
+  const centered = align === "center";
+  return (
+    <div className={`relative uppercase ${centered ? "text-center" : "text-left"}`} data-reveal={centered ? "fade" : "left"}>
+      <span
+        aria-hidden="true"
+        className={`pointer-events-none absolute top-0 z-[2] text-[70px] font-semibold leading-[39px] text-white opacity-20 [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-[46px] max-[650px]:hidden ${
+          centered ? "left-1/2 -translate-x-1/2 whitespace-nowrap" : "left-0 max-w-[80%] whitespace-normal"
+        }`}
+      >
+        {title}
+      </span>
+      <h2
+        className={`relative z-[3] inline-block border-b border-[#484653] pb-[47px] text-[45px] font-semibold leading-[39px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-4xl max-[650px]:pb-3 max-[650px]:text-2xl max-[650px]:leading-[1.25] ${
+          centered ? "mx-auto" : "max-w-[80%] text-left max-lg:max-w-full"
+        }`}
+      >
+        {title}
+        <span className={`absolute bottom-0 h-[5px] w-[65px] translate-y-1/2 bg-[#484653] max-[650px]:h-0.5 max-[650px]:w-10 ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
+      </h2>
+    </div>
+  );
+}
+
+function PhilosophyValueCard({ item, index }: { item: (typeof PHILOSOPHY_VALUES)[number]; index: number }) {
+  return (
+    <li className={`${index % 2 === 1 ? "lg:border-l-2 lg:border-[#bdbdbd]" : ""} mb-[70px]`} data-reveal style={{ "--reveal-delay": `${(index % 2) * 80}ms` } as React.CSSProperties}>
+      <div className="flex gap-6 pl-[74px] max-lg:pl-4 max-sm:flex-col">
+        <div className="w-full max-w-[116px] shrink-0">
+          <div className="relative aspect-square transition duration-300 group-hover:-translate-y-2">
+            <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-300 hover:-translate-y-2" sizes="116px" />
+          </div>
+        </div>
+        <div className="flex-1 pr-6">
+          <h3 className="mb-[18px] mt-4 text-[28px] font-semibold leading-[30px] text-[#484653]">{item.title}</h3>
+          <div className="text-base leading-6 text-[#363636]">
+            <p>{item.body}</p>
+            {item.details?.map((detail) => (
+              <p key={detail}>{detail}</p>
+            ))}
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function PhilosophyGalleryTile({ imageUrl, label }: { imageUrl: string; label?: string }) {
+  return (
+    <div className="group relative cursor-pointer overflow-hidden rounded-[3px]" data-reveal>
+      <div className="relative aspect-[861/402]">
+        <Image src={imageUrl} alt={label || "Philosophy"} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+      </div>
+      <span className="absolute inset-0 z-[2] bg-black/0 transition duration-700 group-hover:bg-black/45" aria-hidden="true" />
+      {label ? (
+        <span className="absolute bottom-[35px] left-[41px] z-[3] text-white">
+          <span className="block text-lg leading-7">{label}</span>
+        </span>
+      ) : null}
+    </div>
+  );
+}
+
+function PhilosophySourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <span className="sr-only">Our Mission & Vision | Intco Framing</span>
+      <SolutionsSourceHero title="Philosophy" locale={locale} imageUrl={PHILOSOPHY_HERO_IMAGE} imageAlt="Philosophy1" />
+
+      <section className="bg-white bg-center bg-no-repeat pt-[99px] max-lg:pt-10" style={{ backgroundImage: `url(${PHILOSOPHY_BG})` }}>
+        <div className="intco-source-container px-5">
+          <div className="relative">
+            <div className="absolute -left-7 top-[18px] h-full w-[96.625%] rounded-md bg-white shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:hidden" />
+            <div className="relative z-[2] flex justify-center rounded-md bg-white py-[58px] pb-12 shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:flex-col max-lg:px-6">
+              <div className="w-full max-w-[641px]" data-reveal="left">
+                <div className="relative aspect-[641/553]">
+                  <Image src={PHILOSOPHY_CEO_IMAGE} alt="Frank Liu" fill className="object-contain" sizes="(min-width: 1024px) 45vw, 100vw" />
+                </div>
+              </div>
+              <div className="relative flex-1 pb-[150px] pl-[159px] pr-[91px] pt-[99px] max-lg:p-8" data-reveal="right">
+                <div className="absolute left-[94px] top-[89px] w-8 max-lg:hidden">
+                  <div className="relative aspect-[32/29]">
+                    <Image src={PHILOSOPHY_QUOTE_TOP} alt="" fill className="object-contain" sizes="32px" />
+                  </div>
+                </div>
+                <p className="max-w-[481px] text-lg leading-[1.68] text-[#363636]">{PHILOSOPHY_QUOTE}</p>
+                <p className="mt-[100px] w-full text-right text-2xl font-semibold leading-[30px] text-[#484653] max-lg:mt-10">—— Frank Liu，CEO</p>
+                <div className="absolute bottom-0 right-[91px] w-full max-w-[310px] max-lg:hidden">
+                  <div className="relative aspect-[310/272]">
+                    <Image src={PHILOSOPHY_QUOTE_BOTTOM} alt="" fill className="object-contain" sizes="310px" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-[100px]">
+            <PhilosophySourceTitle title="PHILOSOPHY" />
+            <ul className="mt-[70px] grid lg:grid-cols-2">
+              {PHILOSOPHY_VALUES.map((item, index) => (
+                <PhilosophyValueCard key={item.title} item={item} index={index} />
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pt-[94px] max-lg:pt-8">
+        <div className="intco-source-container px-5">
+          <ul className="grid gap-3 lg:grid-cols-2">
+            {PHILOSOPHY_GALLERY_TOP.map((item) => (
+              <li key={item.imageUrl}>
+                <PhilosophyGalleryTile imageUrl={item.imageUrl} label={item.label} />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-[13px] flex gap-[14px] max-lg:flex-col">
+            <div className="w-[59.62%] max-lg:w-full">
+              <div className="relative aspect-[1015/669] overflow-hidden rounded-[3px]">
+                <Image src={PHILOSOPHY_GALLERY_MOSAIC[0]} alt="Philosophy team collaboration" fill className="object-cover" sizes="(min-width: 1024px) 60vw, 100vw" />
+              </div>
+            </div>
+            <div className="flex flex-1 flex-col gap-[14px]">
+              {PHILOSOPHY_GALLERY_MOSAIC.slice(1).map((imageUrl) => (
+                <div key={imageUrl} className="relative aspect-[674/328] flex-1 overflow-hidden rounded-[3px]">
+                  <Image src={imageUrl} alt="Philosophy workplace" fill className="object-cover" sizes="(min-width: 1024px) 40vw, 100vw" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-white pt-[200px] max-[1600px]:pt-[100px] max-lg:pt-16">
+        <div className="flex bg-center bg-no-repeat py-[162px] pb-[121px] max-lg:flex-col max-lg:py-0" style={{ backgroundImage: `url(${PHILOSOPHY_CENTER_BG})` }}>
+          <div className="w-[65.7%] max-lg:w-full" data-reveal="left">
+            <div className="relative aspect-[1261/682] overflow-hidden">
+              <Image src={PHILOSOPHY_TEAM_IMAGE} alt="MEET THE TEAM" fill className="object-cover" sizes="(min-width: 1024px) 66vw, 100vw" />
+            </div>
+          </div>
+          <div className="ml-[120px] max-w-[460px] pt-28 max-[1600px]:mx-[50px] max-lg:m-0 max-lg:max-w-none max-lg:bg-white max-lg:p-8" data-reveal="right">
+            <h2 className="text-[34px] font-semibold leading-none text-[#484653]">20+ Years</h2>
+            <div className="mb-[65px] mt-[31px] h-0.5 w-full bg-[#484653] max-lg:mb-6" />
+            <p className="max-w-[374px] text-lg leading-[1.68] text-[#363636] max-lg:max-w-none">
+              Our Customer Service Team has an in-depth knowledge of the picture framing industry and is here to support you with seamless end-to-end solutions.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f3f3f3] pb-[100px] pt-[100px] max-lg:py-16">
+        <div className="relative mx-auto box-border w-[71.61%] max-w-[calc(100%-430px)] bg-white py-[107px] pb-[98px] pl-[103px] max-lg:w-full max-lg:max-w-full max-lg:px-8 max-lg:py-12">
+          <div className="max-w-[80%] max-lg:max-w-full" data-reveal="left">
+            <PhilosophySourceTitle title="DON'T HESITATE TO REACH US" align="left" />
+            <span className="sr-only">GET IN TOUCH</span>
+            <p className="mt-8 max-w-[80%] text-lg leading-[1.68] text-[#363636] max-lg:max-w-full">Unmatched quality & service will help you running a better business</p>
+            <Link
+              href={localizePath(locale, "/contact")}
+              className="mt-12 inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-700 hover:bg-[#484653] hover:text-white"
+            >
+              Contact Us <ArrowRight className="ml-2" size={20} />
+            </Link>
+          </div>
+          <div className="absolute right-[6%] top-6 z-[3] w-full max-w-[428px] translate-x-[41%] max-lg:hidden" data-reveal="right">
+            <div className="relative aspect-square">
+              <Image src={PHILOSOPHY_CONTACT_IMAGE} alt="Contact Us" fill className="object-contain" sizes="428px" />
+            </div>
+            <div className="absolute -bottom-8 right-[68px] w-full max-w-[138px]">
+              <div className="relative aspect-square">
+                <Image src={PHILOSOPHY_QUOTE_BOTTOM} alt="" fill className="object-contain" sizes="138px" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
 export function ContentPageView({ page, locale }: { page: ContentPage; locale: Locale }) {
   if (page.path === "/who-we-are") {
     return <WhoWeAreSourceView page={page} locale={locale} />;
   }
-
-  const lines = contentLines(page.bodyText, 140);
 
   if (page.path === "/who-we-are/sustainability") {
     return <SustainabilitySourceView locale={locale} />;
   }
 
   if (page.path === "/who-we-are/philosophy") {
-    const sections = sectionize(lines);
-    return (
-      <>
-        <PageHero title={page.title} description={page.description} imageUrl={page.imageUrl} label={t(locale, "philosophy")} />
-        <section className="bg-white py-16">
-          <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8" data-reveal="fade">
-            <h2 className="text-balance text-4xl font-semibold text-neutral-950">{lines[0] || "Our Mission & Vision | Intco Framing"}</h2>
-            <p className="text-pretty text-2xl font-semibold leading-10 text-neutral-950">
-              {lines.find((line) => line.includes("dynamic and hardworking")) || "We have a dynamic and hardworking team making concerted efforts on a difficult but worthwhile cause."}
-            </p>
-            <p className="mt-5 text-sm font-bold uppercase text-emerald-700">{lines.find((line) => line.includes("Frank Liu")) || "—— Frank Liu，CEO"}</p>
-          </div>
-        </section>
-        <section className="bg-neutral-100 py-16">
-          <SectionTitle eyebrow={t(locale, "philosophy")} title={t(locale, "missionVisionValues")} />
-          <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-            {sections.filter((section) => ["Mission", "Vision", "Spirit", "Values", "Objective", "lmprovement & Innovation"].includes(section.title)).map((section, index) => (
-              <div key={section.title} className="bg-white p-6 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${(index % 3) * 70}ms` } as React.CSSProperties}>
-                <h3 className="text-xl font-semibold text-neutral-950">{section.title}</h3>
-                <p className="mt-4 text-pretty text-sm leading-7 text-neutral-600">{section.body.join(" ")}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-        <section className="bg-white py-16">
-          <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-            <InfoPanel icon={<Globe2 size={24} />} eyebrow={t(locale, "worldClassCustomerService")} title="20+ Years" description="Our Customer Service Team has an in-depth knowledge of the picture framing industry and is here to support you with seamless end-to-end solutions." />
-            <InfoPanel icon={<Phone size={24} />} eyebrow={t(locale, "doNotHesitate")} title="Unmatched quality and service" description="Unmatched quality and service will help you running a better business." />
-          </div>
-        </section>
-        <ContactBand locale={locale} />
-      </>
-    );
+    return <PhilosophySourceView locale={locale} />;
   }
 
   return <DetailView item={page} label="INTCO" locale={locale} />;
@@ -2536,17 +2738,6 @@ export function ContactView({ page, locale }: { page: ContentPage; locale: Local
         </div>
       </section>
     </>
-  );
-}
-
-function InfoPanel({ icon, eyebrow, title, description }: { icon: React.ReactNode; eyebrow: string; title: string; description?: string }) {
-  return (
-    <div className="bg-neutral-50 p-7 ring-1 ring-black/5" data-reveal>
-      <div className="flex size-12 items-center justify-center bg-emerald-700 text-white">{icon}</div>
-      <p className="mt-6 text-sm font-bold uppercase text-emerald-700">{eyebrow}</p>
-      <h2 className="mt-3 text-balance text-3xl font-semibold text-neutral-950">{title}</h2>
-      {description ? <p className="mt-4 text-pretty leading-8 text-neutral-600">{description}</p> : null}
-    </div>
   );
 }
 
