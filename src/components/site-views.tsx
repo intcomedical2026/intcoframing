@@ -7,7 +7,6 @@ import {
   Factory,
   Globe2,
   Layers,
-  Leaf,
   Mail,
   MapPin,
   PackageCheck,
@@ -15,7 +14,6 @@ import {
   Ruler,
   Search,
   ShoppingCart,
-  Truck,
 } from "lucide-react";
 import {
   BlogPost,
@@ -35,6 +33,7 @@ import { EnquiryList } from "@/components/enquiry-list";
 import { CountUpStat } from "@/components/count-up-stat";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { HomeBlogSection } from "@/components/home-blog-section";
+import { SolutionsServicesSection, type SolutionsServiceItem } from "@/components/solutions-services-section";
 
 const PRODUCT_CATALOG_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.png",
@@ -415,6 +414,75 @@ const HOME_BLOG_CARDS = [
     description: "It's vital to get the correct mirror cabinet for your purposes since it may trul...",
     category: "Tips",
   },
+];
+
+const SOLUTIONS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj-1.jpg";
+const SOLUTIONS_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution1.png";
+const SOLUTIONS_PROCESS_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solutionBg.png";
+const SOLUTIONS_RELATED_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solution9.png";
+const SOLUTIONS_CONTACT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/projectPage5.png";
+
+const SOLUTIONS_INTRO_COPY =
+  "We are dedicated to providing innovative and sustainable solutions. Collaborating seamlessly with our clients, we strive for continuous improvement in every aspect of our offerings. From innovative product designs to sustainable manufacturing practices, our solutions are crafted with a focus on the future.";
+
+const SOLUTIONS_SERVICE_ITEMS: SolutionsServiceItem[] = [
+  {
+    title: "Business Insights & Trends",
+    path: "/solutions/business-insights-trends",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11.jpg",
+    description:
+      "With extensive relationships with our retail partners, we hold a distinct advantage which includes real time global market analysis. We offer real-time market performance to keep retailers informed about the latest trends, selling cycles and white space opportunities enabling strategic decision-making for expanded product offerings.",
+  },
+  {
+    title: "Design & Engineering",
+    path: "/solutions/design-engineering",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/22-1.jpg",
+    description:
+      "Collaborate with our skilled design and engineering teams for innovative product design, professional packaging design, cost engineering, captivating display design, extensive product research, and customizable solutions tailored to meet your unique needs. We prioritize innovation and aesthetic appeal, ensuring your products stand out in the competitive market.",
+  },
+  {
+    title: "Manufacturing & Delivery",
+    path: "/solutions/manufacturing-delivery",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-1.jpg",
+    description:
+      "Intco's vertically integrated supply chain of raw materials, we maintain control over product quality from the source, ensuring consistent excellence for initial orders and reorders. With formidable production capabilities, we have the capacity to manufacture 1.2 million boxes of PS moulding annually. We can meet the demands of large-scale production while consistently upholding rigorous standards of quality.",
+  },
+  {
+    title: "Global Production and Supply",
+    path: "/solutions/global-production-and-supply",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/44.jpg",
+    description:
+      "By strategically locating our factories in China, Vietnam and Malaysia, we enhance our resilience to external factors that may impact the supply chain and maximize efficiency and flexibility in meeting your demands. All of our factories ensure advanced production technology and equipment, quality manufacturing and flexible shipping. Operating in strict adherence to international quality standards, each factory has earned high recognition for product quality from our customers.",
+  },
+  {
+    title: "Certification",
+    path: "/solutions/certification",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/55.jpg",
+    description:
+      "Rest easy with our commitment to quality and compliance. Intco Framing provides outstanding products and quality services to global customers. We actively certify quality systems and cooperate with third-party audit agencies, customers, and suppliers for audit supervision.",
+  },
+  {
+    title: "Retailer Support",
+    path: "/solutions/retailer-support",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/66.jpg",
+    description:
+      "As the only home décor manufacturer that starts with recycled materials around the world, we truly ensure quality control from the source, and pride ourselves on offering continuous assistance to ensure the prosperity of your retail business.",
+  },
+];
+
+const SOLUTIONS_PROCESS_STEPS = [
+  { label: "Design", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution3.png" },
+  { label: "Frame Extrusion", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution4.png" },
+  { label: "Assemble", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution5.png" },
+  { label: "Warehousing", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution6.png" },
+  { label: "Packing", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution7.png" },
+  { label: "Quality Control", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution8.png" },
+];
+
+const SOLUTIONS_RELATED_LINKS = [
+  { number: "01", title: "Featured Products", path: "/products", description: "We offer product brochures covering various categories for your information." },
+  { number: "02", title: "Latest  Projects", path: "/projects", description: "We offer product brochures covering various categories for your information." },
+  { number: "03", title: "Customer  Service", path: "/contact", description: "We offer product brochures covering various categories for your information." },
 ];
 
 export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
@@ -1035,10 +1103,7 @@ export function ProductListingView({
 }
 
 export function SolutionsListingView({
-  solutions,
   page,
-  products = [],
-  projects = [],
   locale,
 }: {
   solutions: Solution[];
@@ -1047,76 +1112,199 @@ export function SolutionsListingView({
   projects?: Project[];
   locale: Locale;
 }) {
-  const lines = contentLines(page?.bodyText, 90);
-  const intro = extractAfter(lines, "END-TO-END HOME DECOR SOLUTIONS", 2);
-  const serviceCopy = extractBetween(lines, "SERVICES WE OFFER", "HOW IT WORKS").filter((line) => line !== "About Intco");
-  const process = ["Design", "Frame Extrusion", "Assemble", "Warehousing", "Packing", "Quality Control"];
+  const href = (path: string) => localizePath(locale, path);
   return (
     <>
-      <PageHero
-        title={page?.title || "Solutions"}
-        description={page?.description || "Turnkey support across trend research, design engineering, manufacturing delivery, global supply, certification and retailer support."}
-        imageUrl={page?.imageUrl}
-      />
-      <section className="bg-white py-16">
-        <SectionTitle
-          eyebrow={t(locale, "endToEndHomeDecor")}
-          title={intro[0] || "We are dedicated to providing innovative and sustainable solutions."}
-          description={intro[1] || page?.description}
-        />
-      </section>
-      <section className="bg-white py-14">
-        <SectionTitle eyebrow={t(locale, "servicesWeOffer")} title={t(locale, "solutions")} />
-        {serviceCopy.length ? (
-          <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-            {serviceCopy.map((line, index) => (
-              <div key={`${line}-${index}`} className="bg-neutral-50 p-6 text-pretty text-sm leading-7 text-neutral-600 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${(index % 3) * 70}ms` } as React.CSSProperties}>
-                {line}
+      <SolutionsSourceHero title={page?.title || "Solutions"} locale={locale} />
+
+      <section className="overflow-hidden bg-[#f8f8f8] px-4 py-16 sm:px-6 lg:py-[100px]">
+        <div className="intco-source-container px-5">
+          <div className="grid gap-12 lg:grid-cols-[1fr_minmax(420px,783px)] lg:gap-[122px]">
+            <div data-reveal="left">
+              <SolutionsSourceTitle title="END-TO-END HOME DECOR SOLUTIONS" align="left" />
+              <p className="mt-[64px] max-w-[690px] text-lg font-normal leading-8 text-[#363636]">{SOLUTIONS_INTRO_COPY}</p>
+              <div className="mt-[55px]">
+                <SolutionsOutlineLink href={href("/who-we-are")} width={254}>
+                  About Intco
+                </SolutionsOutlineLink>
               </div>
+            </div>
+            <div className="relative aspect-[783/504] w-full overflow-hidden" data-reveal="right">
+              <Image src={SOLUTIONS_INTRO_IMAGE} alt="End-to-end Home Decor Solutions" fill className="object-cover" sizes="(min-width: 1024px) 783px, 100vw" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f8f8f8] px-4 py-16 sm:px-6 lg:py-[100px]">
+        <div className="intco-source-container px-5">
+          <SolutionsSourceTitle title="SERVICES WE OFFER" />
+          <div className="mt-[64px]">
+            <SolutionsServicesSection items={SOLUTIONS_SERVICE_ITEMS} locale={locale} />
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f8f8f8] bg-cover bg-center px-4 pt-16 sm:px-6 lg:pt-[116px]" style={{ backgroundImage: `url(${SOLUTIONS_PROCESS_BG})` }}>
+        <div className="intco-source-container px-5">
+          <SolutionsSourceTitle title="HOW IT WORKS" />
+          <div className="mt-[64px]">
+            <SolutionsProcessGrid />
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-white px-4 pt-16 sm:px-6 lg:pt-[87px]">
+        <div className="intco-source-container px-5">
+          <SolutionsSourceTitle title="YOU MAY ALSO LIKE" />
+        </div>
+      </section>
+      <section className="relative mb-[55px] mt-[64px] overflow-hidden">
+        <div className="relative aspect-[1920/800] min-h-[540px]">
+          <Image src={SOLUTIONS_RELATED_BG} alt="You may also like" fill className="object-cover" sizes="100vw" />
+          <div className="absolute inset-0 flex flex-col bg-black/30 lg:flex-row">
+            {SOLUTIONS_RELATED_LINKS.map((item) => (
+              <SolutionsRelatedCard key={item.number} item={item} href={href(item.path)} />
             ))}
           </div>
-        ) : null}
-        <div className="mx-auto grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
-          {solutions.map((solution, index) => (
-            <div key={solution.slug} data-reveal style={{ "--reveal-delay": `${(index % 3) * 90}ms` } as React.CSSProperties}>
-              <FeatureCard item={solution} iconIndex={index} href={localizePath(locale, solution.path)} locale={locale} />
-            </div>
-          ))}
         </div>
       </section>
-      <section className="bg-neutral-100 py-16">
-        <SectionTitle eyebrow={t(locale, "howItWorks")} title={t(locale, "servicesWeProvide")} />
-        <div className="mx-auto mt-10 grid max-w-7xl gap-4 px-4 sm:grid-cols-2 sm:px-6 lg:grid-cols-6 lg:px-8">
-          {process.map((step, index) => (
-            <div key={step} className="bg-white p-5 text-center ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 60}ms` } as React.CSSProperties}>
-              <div className="mx-auto flex size-12 items-center justify-center bg-emerald-700 text-sm font-bold text-white">{index + 1}</div>
-              <h3 className="mt-4 text-balance text-base font-semibold text-neutral-950">{step}</h3>
-            </div>
-          ))}
-        </div>
-      </section>
-      <section className="bg-white py-16">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div>
-            <SectionTitle eyebrow={t(locale, "featuredProductsLabel")} title={t(locale, "youMayAlsoLike")} />
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {products.slice(0, 4).map((product) => (
-                <ProductCard key={product.slug} product={product} locale={locale} />
-              ))}
-            </div>
-          </div>
-          <div>
-            <SectionTitle eyebrow={t(locale, "latestProjects")} title={t(locale, "customerService")} />
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {projects.slice(0, 4).map((project) => (
-                <ImageCard key={project.slug} href={localizePath(locale, project.path)} title={project.title} label={project.category} imageUrl={project.imageUrl} alt={project.imageAlt} locale={locale} />
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      <ContactBand locale={locale} />
+
+      <SolutionsContactBand locale={locale} />
     </>
+  );
+}
+
+function SolutionsSourceHero({ title, locale }: { title: string; locale: Locale }) {
+  return (
+    <section className="relative aspect-[1920/600] min-h-[260px] overflow-hidden">
+      <Image src={SOLUTIONS_HERO_IMAGE} alt="Solutions" fill className="object-cover" sizes="100vw" priority />
+      <div className="absolute inset-0 bg-white/30" />
+      <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
+        <div className="intco-source-container px-5 text-center text-[#484653]">
+          <h1 className="text-[42px] font-semibold leading-none sm:text-[56px] lg:text-[66px]">{title}</h1>
+          <div className="mt-5 flex items-center justify-center gap-3 text-lg font-medium lg:text-xl">
+            <Link href={localizePath(locale, "/")}>Home</Link>
+            <ArrowRight size={18} strokeWidth={1.8} />
+            <span>{title}</span>
+          </div>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <Link
+              href={localizePath(locale, "/contact")}
+              className="inline-flex h-[58px] min-w-[154px] items-center justify-center rounded-[29px] border border-[#484653] px-8 text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
+            >
+              Chat With Us
+            </Link>
+            <Link
+              href={localizePath(locale, "/products/#goinput")}
+              className="inline-flex h-[58px] min-w-[154px] items-center justify-center rounded-[29px] border border-[#484653] px-8 text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
+            >
+              Leave a Message
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SolutionsSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
+  const centered = align === "center";
+  return (
+    <div className={`relative uppercase ${centered ? "text-center" : "text-left"}`} data-reveal={centered ? "fade" : "left"}>
+      <div
+        className={`pointer-events-none absolute top-0 text-[70px] font-semibold leading-none text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-[46px] max-[650px]:hidden ${
+          centered ? "left-1/2 -translate-x-1/2 whitespace-nowrap" : "left-0 max-w-[760px] -translate-x-5 whitespace-normal"
+        }`}
+      >
+        {title}
+      </div>
+      <h2
+        className={`relative z-10 inline-block border-b border-[#484653] pb-[47px] text-[45px] font-semibold leading-[39px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-4xl max-[650px]:text-[28px] ${
+          centered ? "" : "max-w-[760px] leading-[1.4]"
+        }`}
+      >
+        {title}
+        <span className={`absolute bottom-0 h-[5px] w-[65px] translate-y-1/2 bg-[#484653] ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
+      </h2>
+    </div>
+  );
+}
+
+function SolutionsOutlineLink({ href, children, width = 200 }: { href: string; children: React.ReactNode; width?: number }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex h-[58px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-700 hover:bg-[#484653] hover:text-white"
+      style={{ width }}
+    >
+      {children}
+      <ArrowRight className="ml-2" size={22} />
+    </Link>
+  );
+}
+
+function SolutionsProcessGrid() {
+  return (
+    <ul className="grid gap-x-[100px] gap-y-0 sm:grid-cols-2 lg:grid-cols-3">
+      {SOLUTIONS_PROCESS_STEPS.map((step, index) => (
+        <li key={step.label} className="relative flex justify-center" data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+          <div className="relative mb-16 w-full max-w-[278px] lg:mb-[140px]">
+            <div className="relative aspect-square overflow-hidden rounded-full">
+              <Image src={step.imageUrl} alt={step.label} fill className="object-cover transition duration-700 hover:scale-110" sizes="278px" />
+            </div>
+            <div className="mt-5 text-center text-[22px] font-normal leading-tight text-[#363636] lg:text-[28px]">{step.label}</div>
+            {index !== 2 && index !== 5 ? (
+              <ArrowRight
+                className={`absolute hidden text-[#484653] lg:block ${index === 3 || index === 4 ? "rotate-180" : ""}`}
+                size={72}
+                strokeWidth={1}
+                style={{ right: "-92px", top: "38%" }}
+              />
+            ) : null}
+            {index === 2 ? <ArrowRight className="absolute left-1/2 hidden rotate-90 text-[#484653] lg:block" size={72} strokeWidth={1} style={{ top: "130%", transform: "translateX(-50%) rotate(90deg)" }} /> : null}
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function SolutionsRelatedCard({ item, href }: { item: (typeof SOLUTIONS_RELATED_LINKS)[number]; href: string }) {
+  return (
+    <div className="group relative min-h-[180px] flex-1 cursor-pointer border-b border-white/85 lg:border-b-0 lg:border-r last:border-r-0" data-reveal>
+      <div className="absolute bottom-10 left-8 text-white transition duration-500 group-hover:opacity-0 lg:bottom-[141px]">
+        <div className="text-2xl font-semibold leading-[39px]">{item.number}</div>
+        <div className="mt-[25px] max-w-[187px] text-[32px] font-semibold leading-tight lg:text-[40px]">{item.title}</div>
+      </div>
+      <div className="absolute left-1/2 top-1/2 w-[min(406px,calc(100%-48px))] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white px-[49px] pb-8 pt-[70px] opacity-0 shadow-xl transition duration-500 group-hover:opacity-100 max-lg:relative max-lg:left-auto max-lg:top-auto max-lg:mx-6 max-lg:w-auto max-lg:translate-x-0 max-lg:translate-y-0 max-lg:bg-white/90 max-lg:opacity-100 max-lg:shadow-none lg:h-[510px]">
+        <div className="text-2xl font-semibold leading-[39px] text-[#3e3e3e]">{item.number}</div>
+        <div className="mt-[25px] max-w-[187px] text-[32px] font-semibold leading-tight text-[#3e3e3e] lg:text-[40px]">{item.title}</div>
+        <p className="mt-5 max-w-[312px] text-lg leading-7 text-[#363636]">{item.description}</p>
+        <div className="mt-[68px] max-lg:mt-6">
+          <SolutionsOutlineLink href={href}>Explore More</SolutionsOutlineLink>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SolutionsContactBand({ locale }: { locale: Locale }) {
+  return (
+    <section className="relative bg-cover bg-center px-4 py-16 sm:px-6 lg:py-[98px]" style={{ backgroundImage: `url(${SOLUTIONS_CONTACT_BG})` }}>
+      <span className="sr-only">GET IN TOUCH</span>
+      <div className="intco-source-container rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:py-[8vh]" data-reveal="fade">
+        <h2 className="text-[32px] font-semibold leading-tight lg:text-[38px]">Looking for the Perfect Solution?</h2>
+        <p className="my-8 text-2xl font-normal">Contact us today for your decor solution needs.</p>
+        <Link
+          href={localizePath(locale, "/contact")}
+          className="mx-auto inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
+        >
+          <Phone className="mr-[9px]" size={22} />
+          Contact Us
+        </Link>
+      </div>
+    </section>
   );
 }
 
@@ -2114,23 +2302,6 @@ function ProductCard({ product, locale }: { product: Product; locale: Locale }) 
         <h3 className="line-clamp-2 min-h-[3.5rem] text-balance text-lg font-semibold leading-7 text-neutral-950">{product.title}</h3>
         <p className="mt-3 line-clamp-3 text-pretty text-sm leading-6 text-neutral-600">{product.description}</p>
       </div>
-    </Link>
-  );
-}
-
-function FeatureCard({ item, iconIndex, href, locale }: { item: Solution; iconIndex: number; href: string; locale: Locale }) {
-  const icons = [Search, Layers, Factory, Truck, Leaf, ArrowRight];
-  const Icon = icons[iconIndex % icons.length];
-  return (
-    <Link href={href} className="group block h-full bg-neutral-50 p-7 ring-1 ring-black/5 transition duration-200 hover:-translate-y-1 hover:bg-neutral-950 hover:text-white">
-      <div className="flex size-12 items-center justify-center bg-emerald-700 text-white transition-transform duration-200 group-hover:scale-105">
-        <Icon size={24} />
-      </div>
-      <h3 className="mt-6 text-balance text-xl font-semibold">{item.title}</h3>
-      <p className="mt-4 line-clamp-4 text-pretty text-sm leading-7 text-neutral-600 transition-colors duration-200 group-hover:text-white/70">{item.description}</p>
-      <span className="mt-6 inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-emerald-700 transition duration-200 group-hover:translate-x-1 group-hover:text-emerald-300">
-        {t(locale, "exploreMore")} <ArrowRight size={16} />
-      </span>
     </Link>
   );
 }
