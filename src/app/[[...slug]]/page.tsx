@@ -59,7 +59,7 @@ export default async function SitePage({ params, searchParams }: PageProps) {
   const data = await getSiteData(locale);
 
   return (
-    <SiteChrome settings={data.siteSettings} categories={data.productCategories} locale={locale} currentPath={path}>
+    <SiteChrome settings={data.siteSettings} categories={data.productCategories} solutions={data.solutions} locale={locale} currentPath={path}>
       <script dangerouslySetInnerHTML={{ __html: `document.documentElement.lang=${JSON.stringify(locale)};` }} />
       {renderRoute(path, data, locale, query)}
     </SiteChrome>

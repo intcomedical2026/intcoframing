@@ -1727,24 +1727,24 @@ function BusinessInsightsHero({ locale }: { locale: Locale }) {
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
         <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
-          <h1 className="text-[42px] font-semibold leading-[80px] max-lg:text-[38px] max-lg:leading-tight">Business Insights & Trends</h1>
-          <nav className="mt-5 flex items-center justify-center gap-3 text-lg font-medium max-lg:justify-start max-lg:text-base lg:text-xl" aria-label="Breadcrumb">
+          <h1 className="text-[42px] font-bold leading-[80px] text-[#333333] max-lg:text-[38px] max-lg:leading-tight">Business Insights & Trends</h1>
+          <nav className="flex items-center justify-center gap-3 py-3 text-lg font-medium leading-10 max-lg:justify-start max-lg:text-base lg:text-xl" aria-label="Breadcrumb">
             <Link href={localizePath(locale, "/")}>Home</Link>
             <span>›</span>
             <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
             <span>›</span>
             <span>Business Insights & Trends</span>
           </nav>
-          <div className="mt-4 flex flex-wrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
+          <div className="flex flex-wrap justify-center max-lg:justify-start">
             <Link
               href={localizePath(locale, "/contact")}
-              className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
+              className="m-[15px] box-content inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold leading-[48px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
               Chat With Us
             </Link>
             <Link
               href={localizePath(locale, "/products/#goinput")}
-              className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
+              className="m-[15px] box-content inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold leading-[48px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
               Leave a Message
             </Link>

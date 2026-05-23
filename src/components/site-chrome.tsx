@@ -5,11 +5,12 @@ import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
 import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
-import type { ProductCategory, SiteSettings } from "@/lib/site-data";
+import type { ProductCategory, SiteSettings, Solution } from "@/lib/site-data";
 
 type ChromeProps = {
   settings: SiteSettings;
   categories: ProductCategory[];
+  solutions: Solution[];
   locale: Locale;
   currentPath: string;
   children: React.ReactNode;
@@ -33,11 +34,24 @@ const ABOUT_INTCO_NAV = [
   { label: "Philosophy", path: "/who-we-are/philosophy" },
 ];
 
-export function SiteChrome({ settings, categories, locale, currentPath, children }: ChromeProps) {
+const PROJECT_NAV_ITEMS = [
+  {
+    label: "Residential",
+    path: "/projects/residential",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/xia1.jpg",
+  },
+  {
+    label: "Commercial",
+    path: "/projects/commercial",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/xia2.jpg",
+  },
+];
+
+export function SiteChrome({ settings, categories, solutions, locale, currentPath, children }: ChromeProps) {
   return (
     <div lang={locale}>
       <RevealRuntime />
-      <Header settings={settings} categories={categories} locale={locale} currentPath={currentPath} />
+      <Header settings={settings} categories={categories} solutions={solutions} locale={locale} currentPath={currentPath} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
       <FloatingActions settings={settings} locale={locale} />
@@ -49,15 +63,18 @@ export function SiteChrome({ settings, categories, locale, currentPath, children
 function Header({
   settings,
   categories,
+  solutions,
   locale,
   currentPath,
 }: {
   settings: SiteSettings;
   categories: ProductCategory[];
+  solutions: Solution[];
   locale: Locale;
   currentPath: string;
 }) {
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
+  const solutionNav = solutions.slice().sort((a, b) => (a.order || 0) - (b.order || 0)).slice(0, 6);
   const href = (path: string) => localizePath(locale, path);
 
   return (
@@ -122,64 +139,25 @@ function Header({
             <span className="text-xl font-bold tracking-wide">{settings.title}</span>
           )}
         </Link>
-        <nav className="hidden flex-1 items-center justify-center text-xl font-semibold text-[#484653] lg:flex">
+        <nav className="hidden flex-1 items-center justify-between px-[5%] text-xl font-semibold text-[#484653] lg:flex">
           {(settings.navigation || []).map((item) => {
             const isActive = currentPath === item.path || (item.path !== "/" && currentPath.startsWith(`${item.path}/`));
+            const isProducts = item.path === "/products";
+            const isProjects = item.path === "/projects";
+            const isSolutions = item.path === "/solutions";
+            const isAbout = item.path === "/who-we-are";
             return (
-              <div key={item.path} className="group relative py-7">
+              <div key={item.path} className="group relative flex h-[90px] items-center">
                 <Link
                   href={href(item.path)}
-                  className={`relative mx-5 block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-px after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-200 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
+                  className={`relative mx-5 block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-500 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
                 >
                   {item.label}
                 </Link>
-                {item.path === "/products" ? (
-                  <div className="pointer-events-none absolute left-1/2 top-full w-[760px] origin-top -translate-x-1/2 translate-y-2 scale-y-95 opacity-0 shadow-2xl transition duration-200 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:scale-y-100 group-hover:opacity-100">
-                    <div className="grid grid-cols-5 gap-0 bg-white p-3">
-                      {parents.map((category) => (
-                        <Link
-                          key={category.slug}
-                          href={href(category.path)}
-                          className="group/card border-r border-neutral-100 p-3 transition-transform duration-200 hover:-translate-y-0.5 last:border-r-0"
-                        >
-                          <div className="relative aspect-[4/3] overflow-hidden bg-neutral-100">
-                            {category.navImageUrl || category.imageUrl ? (
-                              <Image
-                                src={category.navImageUrl || category.imageUrl || ""}
-                                alt={category.title}
-                                fill
-                                className="object-cover transition-transform duration-500 group-hover/card:scale-110"
-                                sizes="160px"
-                              />
-                            ) : null}
-                          </div>
-                          <div className="mt-3 text-center text-xs font-bold text-neutral-900">{category.title}</div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                ) : null}
-                {item.path === "/who-we-are" ? (
-                  <div className="pointer-events-none absolute left-1/2 top-full z-40 hidden -translate-x-1/2 pt-[19px] group-hover:pointer-events-auto group-hover:block">
-                    <ul className="bg-white/80 text-center shadow-[5px_5px_15px_0_rgba(0,0,0,0.2)]">
-                      {ABOUT_INTCO_NAV.map((child) => {
-                        const childActive = currentPath === child.path;
-                        return (
-                          <li key={child.path}>
-                            <Link
-                              href={href(child.path)}
-                              className={`block whitespace-nowrap px-5 py-[15px] text-base font-normal leading-none transition duration-700 ${
-                                childActive ? "bg-[#484652] text-white" : "text-black hover:bg-[#484652] hover:text-white"
-                              }`}
-                            >
-                              {child.label}
-                            </Link>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </div>
-                ) : null}
+                {isProducts ? <HeaderMegaDropdown items={parents.map((category) => ({ label: category.title, path: category.path, imageUrl: category.navImageUrl || category.imageUrl || "" }))} locale={locale} name="products" /> : null}
+                {isProjects ? <HeaderMegaDropdown items={PROJECT_NAV_ITEMS} locale={locale} name="projects" /> : null}
+                {isSolutions ? <HeaderSecondNav items={solutionNav.map((solution) => ({ label: solution.title, path: solution.path }))} locale={locale} name="solutions" /> : null}
+                {isAbout ? <HeaderSecondNav items={ABOUT_INTCO_NAV} locale={locale} name="about" /> : null}
               </div>
             );
           })}
@@ -227,6 +205,84 @@ function Header({
         </div>
       </div>
     </header>
+  );
+}
+
+function HeaderMegaDropdown({
+  items,
+  locale,
+  name,
+}: {
+  items: Array<{ label: string; path: string; imageUrl?: string }>;
+  locale: Locale;
+  name: string;
+}) {
+  return (
+    <div
+      data-intco-dropdown={`mega-${name}`}
+      className="pointer-events-none invisible fixed left-0 top-[142px] z-40 hidden w-screen bg-white/60 py-10 pb-[50px] opacity-0 transition-opacity duration-150 group-hover:visible group-hover:pointer-events-auto group-hover:block group-hover:opacity-100 lg:block"
+    >
+      <div className="intco-source-container">
+        <ul className="flex">
+          {items.map((item) => (
+            <li
+              key={item.path}
+              className="group/nav-card ml-[22px] box-border rounded-[20px] border-[10px] border-white bg-white first:ml-0"
+              style={{ width: "calc(20% - 17.6px)" }}
+            >
+              <Link href={localizePath(locale, item.path)} className="block">
+                <div className="mb-2.5 text-[18px] font-semibold leading-[27px] text-[#484652]">{item.label}</div>
+                <div className="relative overflow-hidden rounded-[10px] bg-neutral-100 pb-[84.6975%]">
+                  {item.imageUrl ? (
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.label}
+                      fill
+                      className="object-cover transition-transform duration-[600ms] group-hover/nav-card:scale-110"
+                      sizes="222px"
+                    />
+                  ) : null}
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+function HeaderSecondNav({
+  items,
+  locale,
+  name,
+}: {
+  items: Array<{ label: string; path: string }>;
+  locale: Locale;
+  name: string;
+}) {
+  const widthClass = name === "solutions" ? "min-w-[286px]" : name === "about" ? "min-w-[151px]" : "";
+
+  return (
+    <div
+      data-intco-dropdown={`second-${name}`}
+      className="pointer-events-none absolute left-1/2 top-[68px] z-40 hidden -translate-x-1/2 pt-[19px] group-hover:pointer-events-auto group-hover:block"
+    >
+      <ul className={`bg-white/80 text-center ${widthClass}`}>
+        {items.map((child) => {
+          return (
+            <li key={child.path}>
+              <Link
+                href={localizePath(locale, child.path)}
+                className="block whitespace-nowrap px-5 py-[15px] text-base font-semibold leading-none text-[#484653] transition duration-[600ms] hover:bg-[#484652] hover:text-white"
+              >
+                {child.label}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
 
