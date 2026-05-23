@@ -92,6 +92,80 @@ const PRODUCT_CATEGORY_CARDS = [
   },
 ];
 
+const MIRROR_COLLECTION_CARDS = [
+  {
+    title: "Wall Mirror",
+    path: "/mirror/wall-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/09/2-1-1.jpg",
+  },
+  {
+    title: "Standing Mirror",
+    path: "/mirror/standing-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m2.jpg",
+  },
+  {
+    title: "Leaner Mirror",
+    path: "/mirror/leaner-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m3.jpg",
+  },
+  {
+    title: "Door Mirror",
+    path: "/mirror/door-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m4.jpg",
+  },
+  {
+    title: "LED Mirror",
+    path: "/mirror/led-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m6.jpg",
+  },
+];
+
+const MIRROR_BEST_SELLERS = [
+  {
+    title: "Aluminum Framed Arched Full Length Standing Mirror",
+    path: "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-75.jpg",
+  },
+  {
+    title: "Aluminum Framed Round Wall Mirror with Wood Grain",
+    path: "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-40.jpg",
+  },
+  {
+    title: "Decorative Aluminum Framed Gold Wall Mirror",
+    path: "/mirror/wall-mirror/decorative-aluminum-framed-gold-wall-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-72.jpg",
+  },
+  {
+    title: "Arched Alumium Framed LED Bathroom Wall Mounted Mirror",
+    path: "/arched-alumium-framed-led-bathroom-wall-mounted-mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-21.jpg",
+  },
+];
+
+const MIRROR_CATEGORY_COPY = [
+  {
+    title: "Wall Mirror",
+    body: "Wall mirrors are designed to be mounted on walls, offering a space-efficient solution. They come in various shapes and sizes, serving both functional and decorative purposes.",
+  },
+  {
+    title: "Standing Mirror",
+    body: "Standing mirrors are large, full-length mirrors typically placed on the floor. They offer the convenience of being placed anywhere in a room without the need for wall mounting. Standing mirrors are adjustable, making them ideal for different viewing angles.",
+  },
+  {
+    title: "Leaner Mirror",
+    body: "Leaner mirrors are larger mirrors that leaned against a wall rather than being mounted or placed on the floor. Leaner mirrors are popular for creating a stylish focal point and can visually expand the space.",
+  },
+  {
+    title: "Door Mirror",
+    body: "Door mirrors are designed to be mounted on the back of doors. They are space-saving and convenient, allowing for a quick outfit check as you enter or exit a room. Door mirrors are a practical solution for smaller spaces.",
+  },
+  {
+    title: "LED Mirror",
+    body: "LED mirrors come equipped with built-in LED lights, providing both illumination and functionality. They are often used in bathrooms or dressing areas to ensure optimal lighting for tasks like grooming and applying makeup.",
+  },
+];
+
 const PRODUCT_MANUALS = [
   {
     title: "Mirror",
@@ -972,6 +1046,39 @@ function ProductSourceHero({ title, locale }: { title: string; locale: Locale })
   );
 }
 
+function ProductCategorySourceHero({ title, locale }: { title: string; locale: Locale }) {
+  return (
+    <section className="relative overflow-hidden bg-white">
+      <div className="relative h-[452px] overflow-hidden bg-white max-lg:h-[260px]">
+        <Image src={PRODUCTS_HERO_IMAGE} alt="products" fill priority className="object-cover object-center" sizes="100vw" />
+        <div className="absolute inset-0 bg-white/30" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-5 text-center">
+          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[54px]">{title}</h1>
+          <nav className="mt-5 flex flex-wrap items-center justify-center gap-3 text-[15px] font-medium text-[#484653] lg:text-xl" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#987754]">
+              Home
+            </Link>
+            <span>›</span>
+            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#987754]">
+              Products
+            </Link>
+            <span>›</span>
+            <span>{title}</span>
+          </nav>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 lg:gap-[30px]">
+            <a href="#goinput" className="inline-flex h-12 min-w-[160px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white px-6 text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[232px] lg:text-lg">
+              Chat With Us
+            </a>
+            <a href="#goinput" className="inline-flex h-12 min-w-[160px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white px-6 text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[232px] lg:text-lg">
+              Leave a Message
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProductSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
   const centered = align === "center";
   return (
@@ -1185,6 +1292,82 @@ function ProductContactField({
   );
 }
 
+function MirrorCategorySourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <ProductCategorySourceHero title="Mirror" locale={locale} />
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[99px] max-lg:pt-12">
+        <div className="mx-auto max-w-[1160px]">
+          <ProductSourceTitle title="COLLECTION" />
+          <h1 className="sr-only">Mirror</h1>
+          <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/07/未标题-3.jpg" alt="" width={1} height={1} className="hidden" />
+          <p className="mx-auto mb-[86px] mt-[55px] max-w-[1120px] text-center text-lg leading-[30px] text-[#363636] max-lg:mb-10 max-lg:mt-8 max-lg:text-base">
+            Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.
+          </p>
+          <ul className="grid gap-x-[67px] gap-y-[68px] md:grid-cols-2 lg:grid-cols-3">
+            {MIRROR_COLLECTION_CARDS.map((card, index) => (
+              <li key={card.title} data-reveal style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+                <Link href={localizePath(locale, card.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
+                  <div className="relative aspect-[305/380]">
+                    <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 33vw, 50vw" />
+                  </div>
+                  <div className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition duration-300 group-hover:opacity-100">
+                    <div className="absolute bottom-[31px] left-[34px] translate-y-[-10px] text-2xl font-semibold leading-9 text-white">{card.title}</div>
+                  </div>
+                  <span className="sr-only">{card.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-[68px] flex justify-center max-lg:mt-10">
+            <Link href={localizePath(locale, "/products/mirror-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
+              View All Products <ArrowRight className="ml-2" size={22} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[99px] max-lg:pt-12">
+        <div className="mx-auto max-w-[1300px]">
+          <ProductSourceTitle title="BEST SELLERS" />
+          <div className="relative mt-[64px] px-[70px] max-lg:px-0">
+            <button type="button" aria-label="Previous best seller" className="absolute left-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
+              ‹
+            </button>
+            <button type="button" aria-label="Next best seller" className="absolute right-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
+              ›
+            </button>
+            <ul className="grid gap-[30px] md:grid-cols-2 lg:grid-cols-4">
+              {MIRROR_BEST_SELLERS.map((item, index) => (
+                <li key={item.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <Link href={localizePath(locale, item.path)} className="group block text-center">
+                    <div className="relative aspect-square rounded-full bg-white">
+                      <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 25vw, 50vw" />
+                    </div>
+                    <div className="mx-auto mb-[97px] mt-[39px] max-w-[280px] text-sm font-medium leading-[18px] text-[#484653] max-lg:mb-10">{item.title}</div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mx-auto max-w-[1600px] space-y-5 pb-4 text-lg leading-[30px] text-[#3e3e3e] max-lg:text-base max-lg:leading-7">
+            {MIRROR_CATEGORY_COPY.map((item) => (
+              <div key={item.title}>
+                <p className="font-semibold text-[#484653]">{item.title}</p>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <span className="sr-only">Category Products</span>
+        </div>
+      </section>
+
+      <ProductContactSection />
+    </>
+  );
+}
+
 export function ProductListingView({
   title,
   description,
@@ -1202,6 +1385,10 @@ export function ProductListingView({
   category?: ProductCategory;
   locale: Locale;
 }) {
+  if (category?.slug === "mirror") {
+    return <MirrorCategorySourceView locale={locale} />;
+  }
+
   const bestSellers = products.slice(0, 4);
   return (
     <>
