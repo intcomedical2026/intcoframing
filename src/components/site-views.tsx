@@ -497,6 +497,54 @@ const SOLUTIONS_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/upload
 const SOLUTIONS_PROCESS_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solutionBg.png";
 const SOLUTIONS_RELATED_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solution9.png";
 const SOLUTIONS_CONTACT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/projectPage5.png";
+const BUSINESS_INSIGHTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights1.png";
+const BUSINESS_INSIGHTS_MARKET_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights2.png";
+const BUSINESS_INSIGHTS_MARKET_ICON = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/BusinessInsights10.jpg";
+const BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights9.png";
+
+const BUSINESS_INSIGHTS_TREND_SLIDES = [
+  {
+    path: "/solutions/business-insights-trends/trend",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-131.jpg",
+  },
+  {
+    path: "/solutions/business-insights-trends/trend-2",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-112.jpg",
+  },
+  {
+    path: "/solutions/business-insights-trends/trend-2-2",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-96.jpg",
+  },
+];
+
+const BUSINESS_INSIGHTS_REPORTS = [
+  {
+    title: "The Major Materials of Medicine Mirror Cabinet",
+    date: "29 Jan 2024",
+    excerpt: "Bathroom medicine cabinets are available in various materials - you can choose f...",
+    path: "/news/the-major-materials-of-medicine-mirror-cabinet",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+  },
+  {
+    title: "5 Ways an LED Bathroom Vanity Mirror Can lmprove Your Space",
+    date: "29 Jan 2024",
+    excerpt: "Looking to revitalise your bathroom? Heres how an LED bathroom vanity mirror wit...",
+    path: "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Bathroom-Round-Wall-Mirror-Ideas.jpg",
+  },
+];
+
+const BUSINESS_INSIGHTS_COPY = {
+  market:
+    "You can gain a competitive edge with our comprehensive market survey. Dive deep into consumer preferences and purchasing behavior. Our comprehensive survey provides reliable data, empowering you to refine your strategies and capture new opportunities.",
+  trend:
+    "Understand the latest consumer trends, technological advancements, and design preferences. Our insights offer a forward-looking perspective, enabling you to align your products or services with evolving market demands. Anticipate change and position your brand as an industry trendsetter.",
+  recommendation:
+    "Explore bestsellers recommendations to stay informed about the best-selling styles, sizes, shapes, and materials. Discover effective sales and marketing strategies that have propelled products to best-seller status.",
+  manufacturingIntro: "Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.",
+  manufacturing:
+    "Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.",
+};
 
 const WHO_WE_ARE_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/微信图片_20240205105129.jpg";
 const WHO_WE_ARE_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs2.png";
@@ -1672,6 +1720,215 @@ function SolutionsContactBand({ locale }: { locale: Locale }) {
   );
 }
 
+function BusinessInsightsHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="relative aspect-[1920/600] min-h-[260px] overflow-hidden">
+      <Image src={BUSINESS_INSIGHTS_HERO_IMAGE} alt="BusinessInsights1" fill className="object-cover" sizes="100vw" priority />
+      <div className="absolute inset-0 bg-white/30" />
+      <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
+        <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
+          <h1 className="text-[42px] font-semibold leading-[80px] max-lg:text-[38px] max-lg:leading-tight">Business Insights & Trends</h1>
+          <nav className="mt-5 flex items-center justify-center gap-3 text-lg font-medium max-lg:justify-start max-lg:text-base lg:text-xl" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")}>Home</Link>
+            <span>›</span>
+            <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+            <span>›</span>
+            <span>Business Insights & Trends</span>
+          </nav>
+          <div className="mt-4 flex flex-wrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
+            <Link
+              href={localizePath(locale, "/contact")}
+              className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
+            >
+              Chat With Us
+            </Link>
+            <Link
+              href={localizePath(locale, "/products/#goinput")}
+              className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
+            >
+              Leave a Message
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function BusinessInsightsTitle({
+  title,
+  align = "center",
+  narrow = false,
+}: {
+  title: string;
+  align?: "left" | "center";
+  narrow?: boolean;
+}) {
+  const centered = align === "center";
+  return (
+    <div className={`relative uppercase ${centered ? "text-center" : "text-left"}`}>
+      <div
+        className={`pointer-events-none absolute top-0 text-[70px] font-semibold leading-none text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-[46px] max-[650px]:hidden ${
+          centered ? "left-1/2 -translate-x-1/2 whitespace-nowrap" : `left-0 -translate-x-5 ${narrow ? "max-w-[430px] whitespace-normal leading-[1.08]" : "whitespace-nowrap"}`
+        }`}
+      >
+        {title}
+      </div>
+      <h2
+        className={`relative z-10 inline-block border-b border-[#484653] pb-[47px] text-[45px] font-semibold text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:pb-5 max-[1600px]:text-4xl max-[650px]:pb-4 max-[650px]:text-[26px] ${
+          centered ? "leading-[39px]" : `${narrow ? "max-w-[430px] leading-[60px] max-[1600px]:leading-[50px]" : "leading-[39px]"}`
+        }`}
+      >
+        {title}
+        <span className={`absolute bottom-0 h-[5px] w-[65px] translate-y-1/2 bg-[#484653] ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
+      </h2>
+    </div>
+  );
+}
+
+function BusinessInsightsOutlineLink({ href, children, width = 200 }: { href: string; children: React.ReactNode; width?: number }) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex h-[58px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-700 hover:bg-[#484653] hover:text-white"
+      style={{ width }}
+    >
+      {children}
+      <ArrowRight className="ml-2" size={22} />
+    </Link>
+  );
+}
+
+function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <div className="intco-business-insights-page">
+        <BusinessInsightsHero locale={locale} />
+        <span className="sr-only">SERVICES</span>
+        <span className="sr-only">YOU MAY ALSO LIKE</span>
+        <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions1.png" alt="" width={1} height={1} className="hidden" />
+
+        <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-0 pt-[29px] sm:px-6">
+        <div className="mx-auto max-w-[1160px]">
+          <BusinessInsightsTitle title="BUSINESS INSIGHTS & TRENDS" />
+          <div className="mt-[58px] grid bg-white lg:grid-cols-[61.25%_1fr]" data-reveal="fade">
+            <div className="relative aspect-[710/478] overflow-hidden">
+              <Image src={BUSINESS_INSIGHTS_MARKET_IMAGE} alt="BusinessInsights2" fill className="object-cover" sizes="(min-width: 1024px) 61vw, 100vw" />
+            </div>
+            <div className="box-border px-8 pb-10 pt-10 text-center lg:px-[77px] lg:pb-0 lg:pt-[98px]">
+              <div className="relative mx-auto size-[170px] overflow-hidden rounded-full max-lg:size-[120px]">
+                <Image src={BUSINESS_INSIGHTS_MARKET_ICON} alt="" fill className="object-cover" sizes="170px" />
+              </div>
+              <h2 className="mx-auto mb-[42px] mt-[65px] text-2xl font-semibold leading-9 text-[#3e3e3e] max-lg:my-6">Market Survey</h2>
+              <p className="text-left text-base font-normal leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{BUSINESS_INSIGHTS_COPY.market}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-[148px] pt-[70px] sm:px-6 max-lg:py-12">
+        <div className="mx-auto max-w-[1160px]">
+          <div className="grid items-start gap-[100px] lg:grid-cols-[480px_580px]">
+            <div className="flex flex-col items-start" data-reveal="fade">
+              <BusinessInsightsTitle title="TREND INSIGHTS" align="left" />
+              <p className="mb-[77px] mt-[58px] max-w-[551px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-8">{BUSINESS_INSIGHTS_COPY.trend}</p>
+              <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends/trend")} width={306}>
+                Explore More
+              </BusinessInsightsOutlineLink>
+            </div>
+            <div className="relative overflow-hidden bg-white" data-reveal="fade">
+              <div className="flex w-[300%]">
+                {BUSINESS_INSIGHTS_TREND_SLIDES.map((slide) => (
+                  <Link key={slide.imageUrl} href={localizePath(locale, slide.path)} className="relative block aspect-[580/321] w-1/3 shrink-0">
+                    <Image src={slide.imageUrl} alt="" fill className="object-cover" sizes="580px" />
+                  </Link>
+                ))}
+              </div>
+              <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-2">
+                {BUSINESS_INSIGHTS_TREND_SLIDES.map((slide, index) => (
+                  <span key={slide.imageUrl} className={`size-2 rounded-full ${index === 0 ? "bg-[#484653]" : "bg-[#bfc0c4]"}`} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-white px-4 pb-0 pt-10 sm:px-6">
+        <div className="mx-auto max-w-[1160px]">
+          <BusinessInsightsTitle title="INDUSTRY REPORT" align="left" />
+          <p className="mb-[34px] mt-[58px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{BUSINESS_INSIGHTS_COPY.trend}</p>
+          <ul className="-mx-[41px] grid md:grid-cols-3">
+            {BUSINESS_INSIGHTS_REPORTS.map((report, index) => (
+              <li key={report.title} className="box-border px-[41px] pb-0 max-md:mb-10" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <Link href={localizePath(locale, report.path)} className="group block">
+                  <div className="relative aspect-[332/257] overflow-hidden bg-neutral-100">
+                    <Image src={report.imageUrl} alt={report.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 332px, 100vw" />
+                  </div>
+                  <h3 className="mt-[29px] line-clamp-2 h-[3em] text-[26px] font-semibold leading-[1.5] text-[#484653] max-lg:text-xl">{report.title}</h3>
+                  <div className="mt-[14px] text-base font-light leading-[39px] text-[#999]">{report.date}</div>
+                  <p className="text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{report.excerpt}</p>
+                  <div className="mb-[45px] mt-[39px] max-lg:mb-10">
+                    <BusinessInsightsOutlineLink href={localizePath(locale, report.path)}>Read More</BusinessInsightsOutlineLink>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-white px-4 pb-10 pt-10 sm:px-6">
+        <div className="mx-auto max-w-[1160px]">
+          <div className="grid items-start gap-[96px] pb-[135px] lg:grid-cols-[564px_1fr] max-lg:gap-8 max-lg:pb-10">
+            <div className="relative aspect-[564/368] overflow-hidden" data-reveal="fade">
+              <Image src={BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE} alt="BusinessInsights9" fill className="object-cover" sizes="(min-width: 1024px) 564px, 100vw" />
+            </div>
+            <div data-reveal="fade">
+              <BusinessInsightsTitle title="BESTSELLERS RECOMMENDATIONS" align="left" narrow />
+              <p className="mt-[58px] max-w-[599px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mt-8">{BUSINESS_INSIGHTS_COPY.recommendation}</p>
+              <div className="mt-[90px] max-lg:mt-8">
+                <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends/bestsellers")}>Explore More</BusinessInsightsOutlineLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f8f8f8] px-4 pb-10 pt-10 sm:px-6 max-lg:pb-10">
+        <div className="mx-auto max-w-[1160px]">
+          <BusinessInsightsTitle title="OUR MANUFACTURING" />
+          <p className="mx-auto mb-[58px] mt-[55px] max-w-[1320px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{BUSINESS_INSIGHTS_COPY.manufacturingIntro}</p>
+          <div className="mb-[55px] flex overflow-hidden rounded-md bg-white shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:flex-col" data-reveal="fade">
+            <div className="w-[58%] overflow-hidden rounded-md max-lg:w-full">
+              <div className="aspect-video w-full overflow-hidden bg-black">
+                <iframe
+                  className="size-full"
+                  srcDoc={HOME_PROFILE_VIDEO_SRC_DOC}
+                  title="YouTube video player"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+            </div>
+            <div className="flex w-[42%] flex-col justify-center px-[5%] py-10 text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:w-full">
+              <p>{BUSINESS_INSIGHTS_COPY.manufacturing}</p>
+              <div className="mt-[6vh] text-right max-lg:mt-8 max-lg:text-left">
+                <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/manufacturing-delivery")}>Explore More</BusinessInsightsOutlineLink>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SolutionsContactBand locale={locale} />
+      </div>
+    </>
+  );
+}
+
 export function ProjectsListingView({ projects, category, page, locale }: { projects: Project[]; category?: string; page?: ContentPage; locale: Locale }) {
   const filtered = category ? projects.filter((project) => (project.categoryKey || project.category) === category) : projects;
   const projectNav = projects.slice(0, 5);
@@ -1960,6 +2217,10 @@ export function SolutionDetailView({
   projects: Project[];
   locale: Locale;
 }) {
+  if (solution.slug === "business-insights-trends") {
+    return <BusinessInsightsSourceView locale={locale} />;
+  }
+
   const sections = sectionize(contentLines(solution.bodyText, 120));
 
   return (

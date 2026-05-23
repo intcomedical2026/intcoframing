@@ -39,6 +39,10 @@ summary::-webkit-details-marker {
   width: 100%;
 }
 
+.intco-business-insights-page {
+  font-family: var(--font-montserrat), var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
 .intco-hero-track {
   transition: transform 850ms ease;
   will-change: transform;

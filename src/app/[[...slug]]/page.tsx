@@ -134,6 +134,15 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
 }
 
 function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteData>>) {
+  if (path === "/solutions/business-insights-trends") {
+    return {
+      title: "Latest Business Insights & Trend Reports | Intco Framing",
+      description: "Unlock key business insights and industry trends with Intco Framing. Read our detailed reports to stay competitive and informed.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights1.png",
+      imageAlt: "BusinessInsights1",
+    };
+  }
+
   const item =
     data.products.find((entry) => entry.path === path || path.endsWith(`/${entry.slug}`)) ||
     data.blogPosts.find((entry) => entry.path === path || path === `/news/${entry.slug}`) ||
