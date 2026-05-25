@@ -166,6 +166,167 @@ const MIRROR_CATEGORY_COPY = [
   },
 ];
 
+const PICTURE_FRAME_COLLECTION_CARDS = [
+  {
+    title: "Tabletop Frame",
+    path: "/picture-frame/tabletop-frame",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION1.png",
+  },
+  {
+    title: "Wall Frame",
+    path: "/picture-frame/wall-frame",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION2.png",
+  },
+  {
+    title: "Poster Frame",
+    path: "/picture-frame/poster-frame",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION3.png",
+  },
+  {
+    title: "Document Frame",
+    path: "/picture-frame/document-frame",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION4.png",
+  },
+  {
+    title: "Shadow Box",
+    path: "/picture-frame/shadow-box",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION5.png",
+  },
+  {
+    title: "Collage Frame",
+    path: "/picture-frame/collage-frame",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION6.png",
+  },
+];
+
+const PICTURE_FRAME_BEST_SELLERS = [
+  {
+    title: "Modern Black Aluminum Framed Poster Frame",
+    path: "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-2-8.jpg",
+  },
+];
+
+const PICTURE_FRAME_CATEGORY_COPY = [
+  {
+    title: "Tabletop Frame",
+    body: "Tabletop frames are ideal for displaying photos on tables, shelves, or desks. Typically small and delicate, available in various shapes and materials to complement home decor.",
+  },
+  {
+    title: "Wall Frame",
+    body: "Most wall frames have a simple design that suits various home styles. If you plan to concentrate your photo displays on the wall, wall frames are a stylish option for creating a personalized space.",
+  },
+  {
+    title: "Poster Frame",
+    body: "Specifically designed for large posters, suitable for displaying artwork or collectibles. Typically simple in appearance to highlight the content being displayed. If you have large posters or artwork, choosing poster frames can effectively protect and showcase them.",
+  },
+  {
+    title: "Document Frame",
+    body: "Specifically designed to commemorate graduation photos and other essential documents. If you want to commemorate the special moment of your life, graduation frames are a meaningful choice.",
+  },
+  {
+    title: "Shadow Box",
+    body: "Suitable for displaying three-dimensional items such as medals, certificates, small objects, etc.",
+  },
+  {
+    title: "Collage Frame",
+    body: "Contains multiple photo slots, display multiple photos simultaneously, ideal for creating a photo wall or showcasing multiple important moments in life.",
+  },
+];
+
+const ART_COLLECTION_CARDS = [
+  {
+    title: "Framed Art",
+    path: "/art/framed-art",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/h1.jpg",
+  },
+  {
+    title: "Canvas Art",
+    path: "/art/canvas-art",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/h2.jpg",
+  },
+  {
+    title: "Alternative Wall Decor",
+    path: "/art/alternative-wall-decor",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/h3.jpg",
+  },
+];
+
+const ART_BEST_SELLERS = [
+  {
+    title: "Modern Abstract Canvas Wall Art",
+    path: "/art/canvas-art/modern-abstract-canvas-wall-art",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-96.jpg",
+  },
+  {
+    title: "Large Framed Canvas Wall Art Abstract Neutral",
+    path: "/art/canvas-art/large-framed-canvas-wall-art-abstract-neutral",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-103.jpg",
+  },
+  {
+    title: "Framed Landscape Wall Art Room Decor 24x30",
+    path: "/art/framed-art/framed-landscape-wall-art-room-decor-24x30",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-1-2.jpg",
+  },
+];
+
+const ART_CATEGORY_COPY = [
+  {
+    title: "Framed Art",
+    body: "Framed art refers to artworks that are encased in a frame, providing both aesthetic and protective elements. The frame not only enhances the visual appeal of the artwork but also adds a layer of durability.",
+  },
+  {
+    title: "Canvas Art",
+    body: "Canvas art involves the direct printing or painting of images onto a canvas material. Canvas artworks often have a contemporary and modern aesthetic, with the canvas texture adding depth and character to the piece.",
+  },
+  {
+    title: "Alternative Wall Décor",
+    body: "Alternative wall décor encompasses a broad category of non-traditional and unconventional art pieces. This can include wood wall sculptures, woodblock print, or any creative installation that deviates from traditional framed or canvas art.",
+  },
+];
+
+const FURNITURE_COLLECTION_CARDS = [
+  {
+    title: "Medicine Cabinet",
+    path: "/furniture/medicine-cabinet",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/j1.jpg",
+  },
+  {
+    title: "Shelf",
+    path: "/furniture/shelf",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/j2.jpg",
+  },
+];
+
+const FURNITURE_BEST_SELLERS = [
+  {
+    title: "Black Rectangular Medicine Cabinet with Mirror 22x26.8 in",
+    path: "/black-rectangular-medicine-cabinet-with-mirror-22x26-8-in",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-33.jpg",
+  },
+  {
+    title: "Rectangular Frameless Mirror Medicine Cabinet 31.4x24.4",
+    path: "/rectangular-medicine-cabinet-without-mirror-31-4x24-4",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-32.jpg",
+  },
+  {
+    title: "Floating Shelves",
+    path: "/furniture/shelf/floating-shelves",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20-1.jpg",
+  },
+];
+
+const FURNITURE_CATEGORY_COPY = [
+  {
+    title: "Medicine Cabinet",
+    body: "Combining a mirror with a medicine cabinet maximizes space utilization in bathrooms or other areas where it is installed. It serves dual purposes, providing storage for medications and toiletries while also serving as a mirror for grooming and personal care routines.",
+  },
+  {
+    title: "Shelf",
+    body: "Shelves maximize vertical space, allowing for efficient use of wall space and freeing up floor space for other purposes. Our shelves come in various shapes, sizes, and materials, allowing for customization to suit different storage needs and aesthetic preferences.",
+  },
+];
+
 const PRODUCT_MANUALS = [
   {
     title: "Mirror",
@@ -1416,6 +1577,427 @@ function MirrorCategorySourceView({ locale }: { locale: Locale }) {
   );
 }
 
+function PictureFrameCategorySourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <PictureFrameSourceHero locale={locale} />
+
+      <section className="overflow-hidden bg-[#f3f3f3] pb-[5px] pt-6 lg:pb-7 lg:pt-[99px]">
+        <div className="intco-source-container px-5">
+          <PictureFrameSectionTitle title="COLLECTION" />
+          <p className="mx-auto mb-0 mt-4 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]">
+            Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.
+          </p>
+          <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
+            {PICTURE_FRAME_COLLECTION_CARDS.map((card, index) => (
+              <li key={card.title} data-reveal style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+                <PictureFrameCollectionCard card={card} locale={locale} />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex justify-center lg:mt-[68px]">
+            <Link href={localizePath(locale, "/products/picture-frame-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              View All Products <ArrowRight className="ml-2" size={22} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f3f3f3] pb-[40px] pt-12 lg:pt-[99px]">
+        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <div className="intco-source-container mt-10 px-5 lg:mt-[65px]">
+          <div className="relative min-h-[430px] cursor-pointer lg:min-h-[994px]">
+            <button type="button" aria-label="Previous best seller" className="absolute left-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ‹
+            </button>
+            <button type="button" aria-label="Next best seller" className="absolute right-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ›
+            </button>
+            <div className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
+              {PICTURE_FRAME_BEST_SELLERS.map((item, index) => (
+                <Link key={item.title} href={localizePath(locale, item.path)} className="group block text-center" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <div className="relative aspect-square rounded-full bg-white">
+                    <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="270px" />
+                  </div>
+                  <div className="mx-auto mb-12 mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653] lg:mb-[97px]">{item.title}</div>
+                </Link>
+              ))}
+            </div>
+            <div className="space-y-6 text-base font-normal leading-6 text-[#363636] lg:space-y-6">
+              {PICTURE_FRAME_CATEGORY_COPY.map((item) => (
+                <p key={item.title}>
+                  <strong className="font-semibold">{item.title}</strong>
+                  <br />
+                  {item.body}
+                </p>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <PictureFrameContactSection />
+    </>
+  );
+}
+
+function PictureFrameSourceHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="relative overflow-hidden bg-white">
+      <div className="relative h-[122px] overflow-hidden bg-white lg:h-[450px]">
+        <Image src={PRODUCTS_HERO_IMAGE} alt="Picture frame" fill priority className="object-cover object-center" sizes="100vw" />
+        <div className="absolute inset-0 bg-white/50" />
+        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[2px] text-center lg:justify-center lg:pt-0">
+          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[42px] lg:leading-[80px]">Picture frame</h1>
+          <nav className="mt-1 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium leading-5 text-[#484653] lg:mt-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#f49c19]">
+              Home
+            </Link>
+            <span>›</span>
+            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#f49c19]">
+              Products
+            </Link>
+            <span>›</span>
+            <span>Picture frame</span>
+          </nav>
+          <div className="mt-2 flex w-full max-w-[340px] items-center justify-center gap-[30px] lg:mt-[27px] lg:max-w-none lg:gap-0">
+            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
+              Chat With Us
+            </a>
+            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center overflow-hidden whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
+              Leave a Message
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PictureFrameSectionTitle({ title }: { title: string }) {
+  return (
+    <div className="relative h-12 text-center lg:h-[60px]">
+      <div className="pointer-events-none absolute left-1/2 top-0 z-[1] hidden -translate-x-1/2 whitespace-nowrap text-[70px] font-semibold uppercase leading-[60px] text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] lg:block">
+        {title}
+      </div>
+      <div className="relative z-[2] mx-auto w-fit border-b border-[#484653] pb-[17px] text-[24px] font-semibold uppercase leading-[29px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] lg:pb-5 lg:text-[36px] lg:leading-[39px]">
+        {title}
+        <span className="absolute bottom-0 left-1/2 h-[5px] w-[65px] -translate-x-1/2 translate-y-1/2 bg-[#484653]" />
+      </div>
+    </div>
+  );
+}
+
+function PictureFrameContactSection() {
+  return (
+    <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center pb-0 pt-[50px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
+      <div className="intco-source-container px-5">
+        <PictureFrameSectionTitle title="GET IN TOUCH" />
+        <p className="mx-auto mb-[55px] mt-[55px] max-w-[1160px] text-center text-base leading-6 text-[#363636]">
+          Don&apos;t Hesitate to Reach Us.We are always here to address all your concerns and provide solutions.
+        </p>
+        <form className="mx-auto grid max-w-[1160px] gap-y-5 pb-[77px] lg:grid-cols-2 lg:gap-x-[40px] lg:px-[77px]">
+          {PRODUCT_CONTACT_FIELDS.map((field) => (
+            <PictureFrameContactField key={field.label} label={field.label} placeholder={field.placeholder} required={field.required} />
+          ))}
+          <PictureFrameContactField label="留言" placeholder="Message" required multiline />
+          <div className="flex justify-center lg:col-span-2">
+            <button type="button" className="h-16 w-[240px] rounded-md border-2 border-[#484653] bg-transparent text-xl font-normal text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:h-20 lg:w-[300px] lg:text-2xl">
+              提交
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  );
+}
+
+function PictureFrameContactField({
+  label,
+  placeholder,
+  required,
+  multiline,
+}: {
+  label: string;
+  placeholder: string;
+  required: boolean;
+  multiline?: boolean;
+}) {
+  const id = `picture-frame-contact-${placeholder.toLowerCase().replace(/\s+/g, "-")}`;
+  const inputClass =
+    "w-full rounded-md border border-[#717171] bg-white px-5 text-2xl font-light text-[#727272] outline-none placeholder:text-[#727272] placeholder:opacity-100";
+
+  return (
+    <div className={multiline ? "lg:col-span-2" : ""}>
+      <label htmlFor={id} className="block text-sm leading-[18px] text-[#666]">
+        {label}
+      </label>
+      <div className="relative mt-[18px]">
+        {multiline ? (
+          <textarea id={id} readOnly placeholder={placeholder} className={`${inputClass} h-[272px] resize-none py-5`} />
+        ) : (
+          <input id={id} readOnly type="text" placeholder={placeholder} className={`${inputClass} h-20 leading-[80px]`} />
+        )}
+        {required ? <span className="absolute right-[-11px] top-1/2 -translate-y-1/2 text-sm leading-none text-red-600">*</span> : null}
+      </div>
+    </div>
+  );
+}
+
+function PictureFrameCollectionCard({
+  card,
+  locale,
+}: {
+  card: (typeof PICTURE_FRAME_COLLECTION_CARDS)[number];
+  locale: Locale;
+}) {
+  return (
+    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
+      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
+      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
+      </span>
+    </Link>
+  );
+}
+
+function ArtCategorySourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <ArtSourceHero locale={locale} />
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-[5px] pt-12 lg:pt-[99px]">
+        <div className="mx-auto max-w-[1160px]">
+          <PictureFrameSectionTitle title="COLLECTION" />
+          <h1 className="sr-only">Art</h1>
+          <p className="mx-auto mb-10 mt-8 max-w-[1000px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]">
+            Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!
+          </p>
+          <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
+            {ART_COLLECTION_CARDS.map((card, index) => (
+              <li key={card.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <ArtCollectionCard card={card} locale={locale} />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex justify-center lg:mt-[68px]">
+            <Link href={localizePath(locale, "/products/art-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              View All Products <ArrowRight className="ml-2" size={22} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
+        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <div className="mx-auto mt-10 max-w-[1160px] lg:mt-[65px]">
+          <div className="relative">
+            <button type="button" aria-label="Previous best seller" className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ‹
+            </button>
+            <button type="button" aria-label="Next best seller" className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ›
+            </button>
+            <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
+              {ART_BEST_SELLERS.map((item, index) => (
+                <li key={item.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <Link href={localizePath(locale, item.path)} className="group block text-center">
+                    <div className="relative aspect-square bg-white">
+                      <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
+                    </div>
+                    <div className="mx-auto mb-10 mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653] lg:mb-[97px]">{item.title}</div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636] lg:mt-0">
+            {ART_CATEGORY_COPY.map((item) => (
+              <div key={item.title}>
+                <p>
+                  <strong className="font-semibold">{item.title}</strong>
+                </p>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <PictureFrameContactSection />
+    </>
+  );
+}
+
+function ArtSourceHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="relative overflow-hidden bg-white">
+      <div className="relative h-[122px] overflow-hidden bg-white lg:h-[450px]">
+        <Image src={PRODUCTS_HERO_IMAGE} alt="Art" fill priority className="object-cover object-center" sizes="100vw" />
+        <div className="absolute inset-0 bg-white/50" />
+        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[2px] text-center lg:justify-center lg:pt-0">
+          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[42px] lg:leading-[80px]">Art</h1>
+          <nav className="mt-1 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium leading-5 text-[#484653] lg:mt-0 lg:text-xl lg:leading-10" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#f49c19]">
+              Home
+            </Link>
+            <span>›</span>
+            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#f49c19]">
+              Products
+            </Link>
+            <span>›</span>
+            <span>Art</span>
+          </nav>
+          <div className="mt-2 flex w-full max-w-[340px] items-center justify-center gap-[30px] lg:mt-[27px] lg:max-w-none lg:gap-0">
+            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
+              Chat With Us
+            </a>
+            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center overflow-hidden whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
+              Leave a Message
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ArtCollectionCard({
+  card,
+  locale,
+}: {
+  card: (typeof ART_COLLECTION_CARDS)[number];
+  locale: Locale;
+}) {
+  return (
+    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
+      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
+      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
+      </span>
+    </Link>
+  );
+}
+
+function FurnitureCategorySourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <FurnitureSourceHero locale={locale} />
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-[5px] pt-12 lg:pt-[99px]">
+        <div className="mx-auto max-w-[1160px]">
+          <PictureFrameSectionTitle title="COLLECTION" />
+          <h1 className="sr-only">Furniture</h1>
+          <p className="mx-auto mb-10 mt-8 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]">
+            Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!
+          </p>
+          <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
+            {FURNITURE_COLLECTION_CARDS.map((card, index) => (
+              <li key={card.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <FurnitureCollectionCard card={card} locale={locale} />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex justify-center lg:mt-[68px]">
+            <Link href={localizePath(locale, "/products/furniture-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              View All Products <ArrowRight className="ml-2" size={22} />
+            </Link>
+          </div>
+          <span className="sr-only">Category Products</span>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
+        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <div className="mx-auto mt-10 max-w-[1160px] lg:mt-[65px]">
+          <div className="relative">
+            <button type="button" aria-label="Previous best seller" className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ‹
+            </button>
+            <button type="button" aria-label="Next best seller" className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ›
+            </button>
+            <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
+              {FURNITURE_BEST_SELLERS.map((item, index) => (
+                <li key={item.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <Link href={localizePath(locale, item.path)} className="group block text-center">
+                    <div className="relative aspect-square bg-white">
+                      <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
+                    </div>
+                    <div className="mx-auto mb-10 mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653] lg:mb-[97px]">{item.title}</div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636]">
+            {FURNITURE_CATEGORY_COPY.map((item) => (
+              <div key={item.title}>
+                <p>
+                  <strong className="font-semibold">{item.title}</strong>
+                </p>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <PictureFrameContactSection />
+    </>
+  );
+}
+
+function FurnitureSourceHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="relative overflow-hidden bg-white">
+      <div className="relative h-[122px] overflow-hidden bg-white lg:h-[450px]">
+        <Image src={PRODUCTS_HERO_IMAGE} alt="Furniture" fill priority className="object-cover object-center" sizes="100vw" />
+        <div className="absolute inset-0 bg-white/50" />
+        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[2px] text-center lg:justify-center lg:pt-0">
+          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[42px] lg:leading-[80px]">Furniture</h1>
+          <nav className="mt-1 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium leading-5 text-[#484653] lg:mt-0 lg:text-xl lg:leading-10" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#f49c19]">
+              Home
+            </Link>
+            <span>›</span>
+            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#f49c19]">
+              Products
+            </Link>
+            <span>›</span>
+            <span>Furniture</span>
+          </nav>
+          <div className="mt-2 flex w-full max-w-[340px] items-center justify-center gap-[30px] lg:mt-[27px] lg:max-w-none lg:gap-0">
+            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
+              Chat With Us
+            </a>
+            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center overflow-hidden whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
+              Leave a Message
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FurnitureCollectionCard({
+  card,
+  locale,
+}: {
+  card: (typeof FURNITURE_COLLECTION_CARDS)[number];
+  locale: Locale;
+}) {
+  return (
+    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
+      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
+      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
+      </span>
+    </Link>
+  );
+}
+
 export function ProductListingView({
   title,
   description,
@@ -1435,6 +2017,15 @@ export function ProductListingView({
 }) {
   if (category?.slug === "mirror") {
     return <MirrorCategorySourceView locale={locale} />;
+  }
+  if (category?.slug === "picture-frame") {
+    return <PictureFrameCategorySourceView locale={locale} />;
+  }
+  if (category?.slug === "art") {
+    return <ArtCategorySourceView locale={locale} />;
+  }
+  if (category?.slug === "furniture") {
+    return <FurnitureCategorySourceView locale={locale} />;
   }
 
   const bestSellers = products.slice(0, 4);

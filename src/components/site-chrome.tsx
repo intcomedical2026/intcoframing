@@ -96,7 +96,7 @@ function Header({
             <div className="flex items-center gap-1">
               {["f", "y", "in", "x", "ig", "p"].map((label) => (
                 <span key={label} className="flex size-[30px] items-center justify-center rounded-full bg-[#959595] text-[10px] font-bold uppercase text-[#484652]">
-                  {label}
+                  <SocialGlyph label={label} />
                 </span>
               ))}
             </div>
@@ -141,11 +141,12 @@ function Header({
         </Link>
         <nav className="hidden flex-1 items-center justify-between px-[5%] text-xl font-semibold text-[#484653] lg:flex">
           {(settings.navigation || []).map((item) => {
-            const isActive = currentPath === item.path || (item.path !== "/" && currentPath.startsWith(`${item.path}/`));
             const isProducts = item.path === "/products";
             const isProjects = item.path === "/projects";
             const isSolutions = item.path === "/solutions";
             const isAbout = item.path === "/who-we-are";
+            const isProductCategory = isProducts && parents.some((category) => currentPath === category.path || currentPath.startsWith(`${category.path}/`));
+            const isActive = currentPath === item.path || (item.path !== "/" && currentPath.startsWith(`${item.path}/`)) || isProductCategory;
             return (
               <div key={item.path} className="group relative flex h-[90px] items-center">
                 <Link
@@ -286,6 +287,22 @@ function HeaderSecondNav({
   );
 }
 
+function SocialGlyph({ label }: { label: string }) {
+  const key = label.toLowerCase();
+  if (key === "y") {
+    return <span className="ml-0.5 block h-0 w-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-[#484652]" />;
+  }
+  if (key === "ig") {
+    return (
+      <span className="relative block size-[15px] rounded-[4px] border-2 border-[#484652]">
+        <span className="absolute left-1/2 top-1/2 block size-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#484652]" />
+        <span className="absolute right-[2px] top-[2px] block size-[2px] rounded-full bg-[#484652]" />
+      </span>
+    );
+  }
+  return <span className="text-[13px] font-bold leading-none lowercase">{key}</span>;
+}
+
 function Footer({ settings, categories, locale }: { settings: SiteSettings; categories: ProductCategory[]; locale: Locale }) {
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
   const href = (path: string) => localizePath(locale, path);
@@ -361,7 +378,7 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
                       aria-label={item.label}
                       className="flex size-8 items-center justify-center rounded-full bg-[#959595] text-xs font-bold text-[#484653] transition hover:bg-white min-[1601px]:size-[50px] min-[1601px]:text-lg"
                     >
-                      {item.label}
+                      <SocialGlyph label={item.label} />
                     </Link>
                   ))}
                 </div>
