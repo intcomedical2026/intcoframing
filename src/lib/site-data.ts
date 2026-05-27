@@ -79,6 +79,7 @@ export type BlogPost = ImageLike & {
   slug: string;
   path: string;
   category?: string;
+  categoryKey?: string;
   excerpt?: string;
   bodyText?: string;
   imageUrl?: string;

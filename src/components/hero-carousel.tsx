@@ -64,8 +64,8 @@ export function HeroCarousel({
                       <div className={`intco-hero-copy max-w-5xl ${hasText ? "" : "pt-[548px]"}`} aria-live={index === activeIndex ? "polite" : undefined}>
                         {hasText ? (
                           <>
-                            <h1 className="text-balance text-[112px] font-semibold leading-none text-[#484653] max-[1600px]:text-[85px] max-[1466px]:text-[40px]">{slide.title || fallbackTitle}</h1>
-                            {slide.subtitle ? <p className="mt-5 max-w-4xl whitespace-pre-line text-pretty text-[28px] font-semibold leading-[1.45] text-[#484653] max-[1600px]:text-2xl max-[1466px]:text-lg">{slide.subtitle}</p> : null}
+                            <h1 className="text-balance text-[112px] font-bold leading-none text-[#484653] max-[1600px]:text-[85px] max-[1466px]:text-[40px]">{slide.title || fallbackTitle}</h1>
+                            {slide.subtitle ? <p className="mt-5 max-w-[1160px] whitespace-pre-line text-pretty text-[28px] font-semibold leading-[1.45] text-[#484653] max-[1200px]:text-lg">{slide.subtitle}</p> : null}
                           </>
                         ) : null}
                         {hasActions ? (

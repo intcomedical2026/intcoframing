@@ -28,12 +28,6 @@ const footerSocialLinks = [
   { label: "Pinterest", href: "https://www.pinterest.com/intco_framing/", iconClass: "intco-social-pinterest" },
 ];
 
-const ABOUT_INTCO_NAV = [
-  { label: "Who We Are", path: "/who-we-are" },
-  { label: "Sustainability", path: "/who-we-are/sustainability" },
-  { label: "Philosophy", path: "/who-we-are/philosophy" },
-];
-
 const PROJECT_NAV_ITEMS = [
   {
     label: "Residential",
@@ -47,6 +41,34 @@ const PROJECT_NAV_ITEMS = [
   },
 ];
 
+function aboutNav(locale: Locale) {
+  return [
+    { label: t(locale, "whoWeAre"), path: "/who-we-are" },
+    { label: t(locale, "sustainability"), path: "/who-we-are/sustainability" },
+    { label: t(locale, "philosophy"), path: "/who-we-are/philosophy" },
+  ];
+}
+
+function projectNav(locale: Locale) {
+  return PROJECT_NAV_ITEMS.map((item) => ({
+    ...item,
+    label: item.path.includes("residential") ? t(locale, "residential") : t(locale, "commercial"),
+  }));
+}
+
+function chromeLabel(locale: Locale, path: string, fallback: string) {
+  const labels: Record<string, string> = {
+    "/": t(locale, "home"),
+    "/products": t(locale, "products"),
+    "/projects": t(locale, "projects"),
+    "/solutions": t(locale, "solutions"),
+    "/who-we-are": t(locale, "aboutIntco"),
+    "/blog": t(locale, "blog"),
+    "/contact": t(locale, "contact"),
+  };
+  return labels[path] || fallback;
+}
+
 export function SiteChrome({ settings, categories, solutions, locale, currentPath, children }: ChromeProps) {
   return (
     <div lang={locale}>
@@ -54,7 +76,7 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
       <Header settings={settings} categories={categories} solutions={solutions} locale={locale} currentPath={currentPath} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
-      <FloatingActions settings={settings} locale={locale} />
+      {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
       <CookieBanner locale={locale} currentPath={currentPath} />
     </div>
   );
@@ -76,6 +98,7 @@ function Header({
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
   const solutionNav = solutions.slice().sort((a, b) => (a.order || 0) - (b.order || 0)).slice(0, 6);
   const href = (path: string) => localizePath(locale, path);
+  const localizedAboutNav = aboutNav(locale);
 
   return (
     <header className="sticky top-0 z-50 bg-white">
@@ -160,12 +183,12 @@ function Header({
                   href={href(item.path)}
                   className={`relative mx-5 block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-500 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
                 >
-                  {item.label}
+                  {chromeLabel(locale, item.path, item.label)}
                 </Link>
                 {isProducts ? <HeaderMegaDropdown items={parents.map((category) => ({ label: category.title, path: category.path, imageUrl: category.navImageUrl || category.imageUrl || "" }))} locale={locale} name="products" /> : null}
-                {isProjects ? <HeaderMegaDropdown items={PROJECT_NAV_ITEMS} locale={locale} name="projects" /> : null}
+                {isProjects ? <HeaderMegaDropdown items={projectNav(locale)} locale={locale} name="projects" /> : null}
                 {isSolutions ? <HeaderSecondNav items={solutionNav.map((solution) => ({ label: solution.title, path: solution.path }))} locale={locale} name="solutions" /> : null}
-                {isAbout ? <HeaderSecondNav items={ABOUT_INTCO_NAV} locale={locale} name="about" /> : null}
+                {isAbout ? <HeaderSecondNav items={localizedAboutNav} locale={locale} name="about" /> : null}
               </div>
             );
           })}
@@ -185,17 +208,17 @@ function Header({
             <Search size={28} strokeWidth={2.8} />
           </Link>
           <details className="relative">
-            <summary className="cursor-pointer list-none" aria-label="Open menu">
+            <summary className="cursor-pointer list-none" aria-label={t(locale, "language")}>
               <Menu size={32} strokeWidth={2.8} />
             </summary>
             <div className="absolute right-0 top-10 z-50 w-64 bg-white p-3 shadow-xl ring-1 ring-black/10">
               {(settings.navigation || []).map((item) => (
                 <div key={item.path} className="border-b border-neutral-100">
                   <Link href={href(item.path)} className="block px-3 py-3 text-sm font-semibold text-[#484653]">
-                    {item.label}
+                    {chromeLabel(locale, item.path, item.label)}
                   </Link>
                   {item.path === "/who-we-are"
-                    ? ABOUT_INTCO_NAV.slice(1).map((child) => (
+                    ? localizedAboutNav.slice(1).map((child) => (
                         <Link key={child.path} href={href(child.path)} className="block px-6 pb-3 text-xs font-semibold text-neutral-600">
                           {child.label}
                         </Link>
@@ -302,11 +325,11 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
   const href = (path: string) => localizePath(locale, path);
   const quickLinks = (settings.footerColumns || []).find((column) => column.title.toLowerCase().includes("quick"))?.links || [
-    { label: "Projects", path: "/projects" },
-    { label: "Solutions", path: "/solutions" },
-    { label: "About INTCO", path: "/who-we-are" },
-    { label: "Blog", path: "/blog" },
-    { label: "Contact", path: "/contact" },
+    { label: t(locale, "projects"), path: "/projects" },
+    { label: t(locale, "solutions"), path: "/solutions" },
+    { label: t(locale, "aboutIntco"), path: "/who-we-are" },
+    { label: t(locale, "blog"), path: "/blog" },
+    { label: t(locale, "contact"), path: "/contact" },
   ];
 
   return (
@@ -344,8 +367,8 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
               </ul>
             </div>
 
-            <FooterColumn title={t(locale, "product")} links={parents.map((item) => ({ label: item.title, path: href(item.path) }))} />
-            <FooterColumn title={t(locale, "quickLinks")} links={quickLinks.map((link) => ({ ...link, path: href(link.path) }))} />
+            <FooterColumn title={t(locale, "products")} links={parents.map((item) => ({ label: item.title, path: href(item.path) }))} />
+            <FooterColumn title={t(locale, "quickLinks")} links={quickLinks.map((link) => ({ label: chromeLabel(locale, link.path, link.label), path: href(link.path) }))} />
 
             <div>
               <h3 className="pb-3 text-2xl font-semibold leading-tight text-white min-[1601px]:pb-12 min-[1601px]:text-[34px]">{t(locale, "newsletter")}</h3>
@@ -353,16 +376,16 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
                 <input
                   type="email"
                   name="email"
-                  aria-label="Email"
-                  placeholder="Email"
+                  aria-label={t(locale, "email")}
+                  placeholder={t(locale, "email")}
                   className="h-full min-w-0 flex-1 border-0 bg-white px-5 text-base font-light text-[#727272] outline-0 min-[1601px]:px-8 min-[1601px]:text-2xl"
                 />
                 <button type="submit" className="h-full w-[50px] shrink-0 bg-[#484653] text-center text-sm font-semibold text-white transition hover:bg-[#3b3945] min-[1601px]:w-[82px] min-[1601px]:text-base">
-                  提交
+                  {t(locale, "submit")}
                 </button>
               </form>
               <div className="mt-[25px] text-base font-semibold leading-3 text-white min-[1601px]:mt-[74px] min-[1601px]:text-xl">
-                Follow Us
+                {t(locale, "followUs")}
                 <div className="mt-[25px] flex flex-wrap gap-2.5">
                   {footerSocialLinks.map((item) => (
                     <Link

@@ -27,7 +27,7 @@ import {
   SiteData,
   Solution,
 } from "@/lib/site-data";
-import { Locale, localizePath, t } from "@/lib/i18n";
+import { Locale, blogCategoryLabel, localizePath, t } from "@/lib/i18n";
 import { ProductQuotePanel } from "@/components/product-quote-panel";
 import { EnquiryList } from "@/components/enquiry-list";
 import { CountUpStat } from "@/components/count-up-stat";
@@ -431,15 +431,6 @@ const PRODUCT_MANUALS = [
   },
 ];
 
-const PRODUCT_CONTACT_FIELDS = [
-  { label: "姓名", placeholder: "Name", required: true },
-  { label: "公司名称", placeholder: "Company Name", required: true },
-  { label: "国家地区", placeholder: "Country", required: true },
-  { label: "邮箱", placeholder: "Email", required: true },
-  { label: "电话", placeholder: "Phone", required: true },
-  { label: "WhatsApp", placeholder: "WhatsApp", required: false },
-];
-
 const CONTACT_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/lxwm.jpg";
 const CONTACT_FORM_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact_03.png";
 const CONTACT_FORM_BADGE_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact3.png";
@@ -467,6 +458,25 @@ const CONTACT_FACTORIES: ContactFactory[] = [
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3746.735946325924!2d105.84062237598233!3d20.10332201891823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31366367ff3917ed%3A0xbfcafdb0c07ecdf7!2sIntco%20Industries%20Vietnam%20Co.%2C%20Ltd!5e0!3m2!1sen!2s!4v1707203919001!5m2!1sen!2s",
   },
 ];
+
+const CONTACT_FACTORY_LABELS: Record<Locale, { zibo: string; shanghai: string; vietnam: string; zip: string }> = {
+  en: { zibo: "Zibo Factory", shanghai: "Shanghai Factory", vietnam: "Vietnam Factory", zip: "Zip Code" },
+  es: { zibo: "Fábrica de Zibo", shanghai: "Fábrica de Shanghái", vietnam: "Fábrica de Vietnam", zip: "Código postal" },
+  pt: { zibo: "Fábrica de Zibo", shanghai: "Fábrica de Xangai", vietnam: "Fábrica do Vietnã", zip: "Código postal" },
+  fr: { zibo: "Usine de Zibo", shanghai: "Usine de Shanghai", vietnam: "Usine du Vietnam", zip: "Code postal" },
+  de: { zibo: "Werk Zibo", shanghai: "Werk Shanghai", vietnam: "Werk Vietnam", zip: "Postleitzahl" },
+  ja: { zibo: "淄博工場", shanghai: "上海工場", vietnam: "ベトナム工場", zip: "郵便番号" },
+};
+
+function localizedContactFactories(locale: Locale) {
+  const labels = CONTACT_FACTORY_LABELS[locale];
+  const titles = [labels.zibo, labels.shanghai, labels.vietnam];
+  return CONTACT_FACTORIES.map((factory, index) => ({
+    ...factory,
+    title: titles[index] || factory.title,
+    zip: factory.zip.replace(/^Zip Code/i, labels.zip),
+  }));
+}
 
 const HOME_PROFILE_VIDEO_SRC = "https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC&autoplay=1&rel=0";
 const HOME_PROFILE_VIDEO_THUMB = "https://i.ytimg.com/vi/N7I6CgHXCZQ/maxresdefault.jpg";
@@ -571,10 +581,10 @@ const HOME_PROFILE_LINKS = [
 ];
 
 const HOME_PROFILE_STATS = [
-  { value: "3", label: "Business Units", Icon: Layers },
-  { value: "6", label: "Production Bases", Icon: Factory },
-  { value: "30+", label: "Years Experience", Icon: Globe2 },
-  { value: "4000+", label: "Employees", Icon: PackageCheck },
+  { value: "3", label: "Business Units", iconClass: "intco-home-stat-icon-frame" },
+  { value: "6", label: "Production Bases", iconClass: "intco-home-stat-icon-base" },
+  { value: "30", suffix: "+", label: "Years Experience", iconClass: "intco-home-stat-icon-stock" },
+  { value: "4000", suffix: "+", label: "Employees", iconClass: "intco-home-stat-icon-team" },
 ];
 
 const HOME_PROJECT_CARDS = [
@@ -589,6 +599,133 @@ const HOME_PROJECT_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS2.jpg",
   },
 ];
+
+const CATEGORY_SLUG_BY_SOURCE_TITLE: Record<string, string> = {
+  Mirror: "mirror",
+  "Wall Mirror": "wall-mirror",
+  "Standing Mirror": "standing-mirror",
+  "Leaner Mirror": "leaner-mirror",
+  "Door Mirror": "door-mirror",
+  "LED Mirror": "led-mirror",
+  "Picture frame": "picture-frame",
+  "Picture Frame": "picture-frame",
+  "Tabletop Frame": "tabletop-frame",
+  "Wall Frame": "wall-frame",
+  "Poster Frame": "poster-frame",
+  "Document Frame": "document-frame",
+  "Shadow Box": "shadow-box",
+  "Collage Frame": "collage-frame",
+  Art: "art",
+  "Wall Art": "art",
+  "Framed Art": "framed-art",
+  "Canvas Art": "canvas-art",
+  "Alternative Wall Décor": "alternative-wall-decor",
+  Furniture: "furniture",
+  "Medicine Cabinet": "medicine-cabinet",
+  Shelf: "shelf",
+  "Memo Board": "memo-board",
+  Chalkboard: "chalkboard",
+  "Dry Erase Board": "dry-erase-board",
+  "Cork Board": "cork-board",
+  "Linen Board": "linen-board",
+};
+
+const SOURCE_HERO_LOCALIZED_INDEX = [0, -1, 1, 2, 3, 4];
+
+function localizedHomeHeroSlides(homePage: SiteData["homePage"], locale: Locale) {
+  if (locale === "en") return SOURCE_HOME_HERO_SLIDES;
+  const localizedSlides = homePage.heroSlides || [];
+  return SOURCE_HOME_HERO_SLIDES.map((sourceSlide, index) => {
+    const localizedIndex = SOURCE_HERO_LOCALIZED_INDEX[index];
+    const translated = localizedIndex >= 0 ? localizedSlides[localizedIndex] : undefined;
+    return {
+      ...sourceSlide,
+      title: translated?.title ?? sourceSlide.title,
+      subtitle: translated?.subtitle ?? sourceSlide.subtitle,
+      primaryCta: sourceSlide.primaryCta
+        ? {
+            ...sourceSlide.primaryCta,
+            label: translated?.primaryCta?.label || t(locale, sourceSlide.primaryCta.path === "/products" ? "latestProducts" : "exploreMore"),
+          }
+        : undefined,
+      secondaryCta: sourceSlide.secondaryCta
+        ? {
+            ...sourceSlide.secondaryCta,
+            label: translated?.secondaryCta?.label || t(locale, sourceSlide.secondaryCta.path === "/solutions" ? "solutions" : "contactUs"),
+          }
+        : undefined,
+    };
+  });
+}
+
+function localizedHomeStats(locale: Locale) {
+  return HOME_PROFILE_STATS.map((stat) => {
+    const keyByLabel: Record<string, string> = {
+      "Business Units": "businessUnits",
+      "Production Bases": "productionBases",
+      "Years Experience": "yearsExperience",
+      Employees: "employees",
+    };
+    return { ...stat, label: t(locale, keyByLabel[stat.label] || stat.label) };
+  });
+}
+
+function localizedHomeProfileLinks(locale: Locale) {
+  return HOME_PROFILE_LINKS.map((item) => ({
+    ...item,
+    label: item.path.includes("sustainability") ? t(locale, "sustainability") : t(locale, "certification"),
+  }));
+}
+
+function localizedProjectCard(project: (typeof HOME_PROJECT_CARDS)[number], locale: Locale) {
+  return {
+    ...project,
+    title: project.title === "Residential" ? t(locale, "residential") : t(locale, "commercial"),
+  };
+}
+
+function categoryBySourceTitle(categories: ProductCategory[], title: string) {
+  const slug = CATEGORY_SLUG_BY_SOURCE_TITLE[title] || title.toLowerCase().replace(/\s+/g, "-");
+  return categories.find((category) => category.slug === slug);
+}
+
+function localizeSourceCategoryCard<T extends { title: string; path: string; imageUrl: string }>(card: T, categories: ProductCategory[], locale: Locale): T {
+  if (locale === "en") return card;
+  const category = categories.find((item) => item.path === card.path) || categoryBySourceTitle(categories, card.title);
+  return category ? { ...card, title: category.title } : card;
+}
+
+function localizeSourceProductCard<T extends { title: string; path: string; imageUrl: string }>(card: T, products: Product[], locale: Locale): T {
+  if (locale === "en") return card;
+  const product = products.find((item) => item.path === card.path);
+  return product ? { ...card, title: product.title } : card;
+}
+
+function localizeSourceCopyItems(items: Array<{ title: string; body: string }>, categories: ProductCategory[], locale: Locale) {
+  if (locale === "en") return items;
+  return items.map((item) => {
+    const category = categoryBySourceTitle(categories, item.title);
+    return {
+      title: category?.title || item.title,
+      body: category?.description || item.body,
+    };
+  });
+}
+
+function localizedCategoryIntro(category: ProductCategory | undefined, fallback: string, locale: Locale) {
+  return locale === "en" ? fallback : category?.description || fallback;
+}
+
+function sourceFormFields(locale: Locale) {
+  return [
+    { label: t(locale, "name"), placeholder: t(locale, "name"), required: true },
+    { label: t(locale, "companyName"), placeholder: t(locale, "companyName"), required: true },
+    { label: t(locale, "country"), placeholder: t(locale, "country"), required: true },
+    { label: t(locale, "email"), placeholder: t(locale, "email"), required: true },
+    { label: t(locale, "phone"), placeholder: t(locale, "phone"), required: true },
+    { label: "WhatsApp", placeholder: "WhatsApp", required: false },
+  ];
+}
 
 const PROJECTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg";
 
@@ -1073,15 +1210,15 @@ const DESIGN_ENGINEERING_PROJECT_CARDS = [
 
 const BUSINESS_INSIGHTS_TREND_SLIDES = [
   {
-    path: "/solutions/business-insights-trends/trend",
+    path: "/solutions/business-insights-trends",
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-131.jpg",
   },
   {
-    path: "/solutions/business-insights-trends/trend-2",
+    path: "/solutions/business-insights-trends",
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-112.jpg",
   },
   {
-    path: "/solutions/business-insights-trends/trend-2-2",
+    path: "/solutions/business-insights-trends",
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-96.jpg",
   },
 ];
@@ -1152,6 +1289,49 @@ const WHO_WE_ARE_MARKETS = [
   { continent: "South America", countries: ["Brazil", "Uruguay", "Chile", "Argentina", "Peru", "Ecuador", "Colombia"], top: "64.88%", right: "66.56%", color: "#c00000" },
   { continent: "Oceania", countries: ["Australia", "New Zealand"], top: "80.15%", right: "9.27%", color: "#548235" },
 ];
+
+const WHO_WE_ARE_MARKET_TRANSLATIONS: Partial<Record<Locale, Record<string, { continent: string; countries: string[] }>>> = {
+  es: {
+    "North America": { continent: "América del Norte", countries: ["Estados Unidos", "Canadá", "México", "Panamá"] },
+    Europe: { continent: "Europa", countries: ["Alemania", "Reino Unido", "España", "Francia", "Portugal", "Dinamarca", "Italia"] },
+    Asia: { continent: "Asia", countries: ["China", "Malasia", "Japón", "Turquía", "Tailandia", "Singapur", "EAU", "Pakistán"] },
+    Africa: { continent: "África", countries: ["Sudáfrica", "Egipto", "Libia", "Marruecos"] },
+    "South America": { continent: "América del Sur", countries: ["Brasil", "Uruguay", "Chile", "Argentina", "Perú", "Ecuador", "Colombia"] },
+    Oceania: { continent: "Oceanía", countries: ["Australia", "Nueva Zelanda"] },
+  },
+  pt: {
+    "North America": { continent: "América do Norte", countries: ["Estados Unidos", "Canadá", "México", "Panamá"] },
+    Europe: { continent: "Europa", countries: ["Alemanha", "Reino Unido", "Espanha", "França", "Portugal", "Dinamarca", "Itália"] },
+    Asia: { continent: "Ásia", countries: ["China", "Malásia", "Japão", "Turquia", "Tailândia", "Singapura", "EAU", "Paquistão"] },
+    Africa: { continent: "África", countries: ["África do Sul", "Egito", "Líbia", "Marrocos"] },
+    "South America": { continent: "América do Sul", countries: ["Brasil", "Uruguai", "Chile", "Argentina", "Peru", "Equador", "Colômbia"] },
+    Oceania: { continent: "Oceania", countries: ["Austrália", "Nova Zelândia"] },
+  },
+  fr: {
+    "North America": { continent: "Amérique du Nord", countries: ["États-Unis", "Canada", "Mexique", "Panama"] },
+    Europe: { continent: "Europe", countries: ["Allemagne", "Royaume-Uni", "Espagne", "France", "Portugal", "Danemark", "Italie"] },
+    Asia: { continent: "Asie", countries: ["Chine", "Malaisie", "Japon", "Turquie", "Thaïlande", "Singapour", "Émirats arabes unis", "Pakistan"] },
+    Africa: { continent: "Afrique", countries: ["Afrique du Sud", "Égypte", "Libye", "Maroc"] },
+    "South America": { continent: "Amérique du Sud", countries: ["Brésil", "Uruguay", "Chili", "Argentine", "Pérou", "Équateur", "Colombie"] },
+    Oceania: { continent: "Océanie", countries: ["Australie", "Nouvelle-Zélande"] },
+  },
+  de: {
+    "North America": { continent: "Nordamerika", countries: ["Vereinigte Staaten", "Kanada", "Mexiko", "Panama"] },
+    Europe: { continent: "Europa", countries: ["Deutschland", "Vereinigtes Königreich", "Spanien", "Frankreich", "Portugal", "Dänemark", "Italien"] },
+    Asia: { continent: "Asien", countries: ["China", "Malaysia", "Japan", "Türkei", "Thailand", "Singapur", "VAE", "Pakistan"] },
+    Africa: { continent: "Afrika", countries: ["Südafrika", "Ägypten", "Libyen", "Marokko"] },
+    "South America": { continent: "Südamerika", countries: ["Brasilien", "Uruguay", "Chile", "Argentinien", "Peru", "Ecuador", "Kolumbien"] },
+    Oceania: { continent: "Ozeanien", countries: ["Australien", "Neuseeland"] },
+  },
+  ja: {
+    "North America": { continent: "北米", countries: ["米国", "カナダ", "メキシコ", "パナマ"] },
+    Europe: { continent: "ヨーロッパ", countries: ["ドイツ", "英国", "スペイン", "フランス", "ポルトガル", "デンマーク", "イタリア"] },
+    Asia: { continent: "アジア", countries: ["中国", "マレーシア", "日本", "トルコ", "タイ", "シンガポール", "アラブ首長国連邦", "パキスタン"] },
+    Africa: { continent: "アフリカ", countries: ["南アフリカ", "エジプト", "リビア", "モロッコ"] },
+    "South America": { continent: "南米", countries: ["ブラジル", "ウルグアイ", "チリ", "アルゼンチン", "ペルー", "エクアドル", "コロンビア"] },
+    Oceania: { continent: "オセアニア", countries: ["オーストラリア", "ニュージーランド"] },
+  },
+};
 
 const WHO_WE_ARE_PARTNER_LOGOS = Array.from({ length: 15 }, (_, index) => `https://www.intcoframing-us.com/wp-content/uploads/2024/01/comP${index + 1}.png`);
 
@@ -1323,6 +1503,78 @@ const SOLUTIONS_PROCESS_STEPS = [
   { label: "Quality Control", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution8.png" },
 ];
 
+const SOLUTIONS_PROCESS_LABELS: Record<Locale, string[]> = {
+  en: ["Design", "Frame Extrusion", "Assemble", "Warehousing", "Packing", "Quality Control"],
+  es: ["Diseño", "Extrusión de marcos", "Ensamblaje", "Almacenaje", "Embalaje", "Control de calidad"],
+  pt: ["Design", "Extrusão de molduras", "Montagem", "Armazenagem", "Embalagem", "Controle de qualidade"],
+  fr: ["Design", "Extrusion de cadres", "Assemblage", "Stockage", "Emballage", "Contrôle qualité"],
+  de: ["Design", "Rahmenextrusion", "Montage", "Lagerung", "Verpackung", "Qualitätskontrolle"],
+  ja: ["デザイン", "フレーム押出", "組立", "倉庫保管", "梱包", "品質管理"],
+};
+
+const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; downloadPdf: string; externalRatings: string; environmentalContribution: string; protectTree: string; inAction: string; meetTeam: string; years: string }> = {
+  en: {
+    watchVideo: "Watch Video",
+    downloadPdf: "Download PDF",
+    externalRatings: "EXTERNAL RATINGS",
+    environmentalContribution: "ENVIRONMENTAL CONTRIBUTION",
+    protectTree: "HOW TO PROTECT A TREE",
+    inAction: "SUSTAINABILITY IN ACTION",
+    meetTeam: "MEET THE TEAM",
+    years: "20+ Years",
+  },
+  es: {
+    watchVideo: "Ver video",
+    downloadPdf: "Descargar PDF",
+    externalRatings: "CALIFICACIONES EXTERNAS",
+    environmentalContribution: "CONTRIBUCIÓN AMBIENTAL",
+    protectTree: "CÓMO PROTEGER UN ÁRBOL",
+    inAction: "SOSTENIBILIDAD EN ACCIÓN",
+    meetTeam: "CONOZCA AL EQUIPO",
+    years: "Más de 20 años",
+  },
+  pt: {
+    watchVideo: "Ver vídeo",
+    downloadPdf: "Baixar PDF",
+    externalRatings: "AVALIAÇÕES EXTERNAS",
+    environmentalContribution: "CONTRIBUIÇÃO AMBIENTAL",
+    protectTree: "COMO PROTEGER UMA ÁRVORE",
+    inAction: "SUSTENTABILIDADE EM AÇÃO",
+    meetTeam: "CONHEÇA A EQUIPE",
+    years: "Mais de 20 anos",
+  },
+  fr: {
+    watchVideo: "Voir la vidéo",
+    downloadPdf: "Télécharger le PDF",
+    externalRatings: "ÉVALUATIONS EXTERNES",
+    environmentalContribution: "CONTRIBUTION ENVIRONNEMENTALE",
+    protectTree: "COMMENT PROTÉGER UN ARBRE",
+    inAction: "DURABILITÉ EN ACTION",
+    meetTeam: "RENCONTREZ L'ÉQUIPE",
+    years: "Plus de 20 ans",
+  },
+  de: {
+    watchVideo: "Video ansehen",
+    downloadPdf: "PDF herunterladen",
+    externalRatings: "EXTERNE BEWERTUNGEN",
+    environmentalContribution: "UMWELTBEITRAG",
+    protectTree: "WIE MAN EINEN BAUM SCHÜTZT",
+    inAction: "NACHHALTIGKEIT IN AKTION",
+    meetTeam: "DAS TEAM KENNENLERNEN",
+    years: "Über 20 Jahre",
+  },
+  ja: {
+    watchVideo: "動画を見る",
+    downloadPdf: "PDF をダウンロード",
+    externalRatings: "外部評価",
+    environmentalContribution: "環境への貢献",
+    protectTree: "木を守る方法",
+    inAction: "サステナビリティの実践",
+    meetTeam: "チーム紹介",
+    years: "20年以上",
+  },
+};
+
 const SOLUTIONS_RELATED_LINKS = [
   { number: "01", title: "Featured Products", path: "/products", description: "We offer product brochures covering various categories for your information." },
   { number: "02", title: "Latest  Projects", path: "/projects", description: "We offer product brochures covering various categories for your information." },
@@ -1330,18 +1582,29 @@ const SOLUTIONS_RELATED_LINKS = [
 ];
 
 export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
-  const { homePage, productCategories, solutions } = data;
+  const { homePage, productCategories, solutions, blogPosts } = data;
   const parentCategories = productCategories.filter((category) => !category.parentSlug).slice(0, 5);
   const href = (path: string) => localizePath(locale, path);
-  const heroSlides = SOURCE_HOME_HERO_SLIDES;
+  const heroSlides = localizedHomeHeroSlides(homePage, locale);
+  const localizedBlogCards = blogPosts
+    .filter((post) => post.imageUrl)
+    .map((post) => ({
+      title: post.title,
+      path: post.path,
+      imageUrl: post.imageUrl || "",
+      date: formatDate(post.publishedAt),
+      description: post.excerpt || post.metaDescription || "",
+      category: post.categoryKey || post.category || "All",
+    }));
+  const homeBlogCards = localizedBlogCards.length ? localizedBlogCards : HOME_BLOG_CARDS;
 
   return (
     <>
       <HeroCarousel slides={heroSlides} fallbackTitle={homePage.title} locale={locale} />
-      <span className="sr-only">Latest Products</span>
+      <span className="sr-only">{t(locale, "latestProducts")}</span>
 
       <section className="overflow-hidden bg-[#f3f3f3] px-4 py-7 sm:px-6 lg:py-[99px]">
-        <HomeSourceTitle title="FEATURED PRODUCTS" />
+        <HomeSourceTitle title={t(locale, "featuredProducts").toUpperCase()} />
         <div className="intco-source-container mt-8 px-5 lg:mt-[65px]">
           <div className="grid gap-5 lg:grid-cols-2 lg:gap-[30px]">
             {parentCategories.slice(0, 2).map((category) => (
@@ -1363,9 +1626,10 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         <div className="intco-source-container px-5">
           <div className="lg:flex">
             <div className="pb-8 lg:w-1/2 lg:pb-[90px]">
-              <HomeSourceTitle title="COMPANY PROFILE" align="left" />
+              <HomeSourceTitle title={(homePage.companyProfile?.title || "COMPANY PROFILE").toUpperCase()} align="left" />
               <p className="mt-10 max-w-2xl text-pretty text-lg leading-[30px] text-[#363636] lg:mt-[50px]">
-                Founded in 2002, INTCO upholds the reputation for high quality, greatdesigns, and fast delivery to fulfill all aspects of a project - from artistryto functionality, saving you time and money.
+                {homePage.companyProfile?.description ||
+                  "Founded in 2002, INTCO upholds the reputation for high quality, greatdesigns, and fast delivery to fulfill all aspects of a project - from artistryto functionality, saving you time and money."}
               </p>
               <ul className="mt-5 space-y-2 text-lg leading-10 text-[#363636]">
                 {(homePage.companyProfile?.points || []).map((point, index) => (
@@ -1378,14 +1642,14 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
                 ))}
               </ul>
               <div className="mt-10 flex flex-wrap items-end gap-8">
-                {HOME_PROFILE_LINKS.map((item) => (
+                {localizedHomeProfileLinks(locale).map((item) => (
                   <Link key={item.label} href={href(item.path)} className="group flex flex-col justify-end text-lg font-semibold text-[#484653] transition duration-200 hover:-translate-y-2">
-                    <Image src={item.imageUrl} alt={item.label} width={58} height={58} className="size-14 object-contain" />
+                    <Image src={item.imageUrl} alt={item.label} width={108} height={110} className="h-[110px] w-[108px] object-contain" />
                     <span className="mt-5">{item.label}</span>
                   </Link>
                 ))}
                 <SourcePillLink href={href("/who-we-are")} compact>
-                  Read More
+                  {t(locale, "readMore")}
                 </SourcePillLink>
               </div>
             </div>
@@ -1408,15 +1672,17 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
           <div className="relative py-5">
             <div className="absolute inset-y-0 right-0 w-4/5 bg-[rgba(72,70,83,0.27)]" />
             <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {HOME_PROFILE_STATS.map((stat) => (
-                <div key={stat.label} className="flex items-center justify-center text-[#484653]">
-                  <div className="relative mr-4">
-                    <span className="absolute -left-1 top-0 size-11 rounded-full bg-[#c3c2c6]" />
-                    <stat.Icon className="relative z-10 size-[60px] stroke-[1.4]" />
+              {localizedHomeStats(locale).map((stat) => (
+                <div key={stat.label} className="flex items-center justify-center pb-10 pt-5 text-[#484653]">
+                  <div className="mr-[13px]">
+                    <i className={`intco-home-stat-icon ${stat.iconClass}`} aria-hidden="true" />
                   </div>
                   <div className="leading-none">
-                    <div className="text-[56px] font-semibold leading-none">{stat.value}</div>
-                    <div className="mt-2 text-right text-lg font-semibold leading-[22px]">{stat.label}</div>
+                    <div className="text-[70px] font-semibold leading-none max-[1466px]:text-[45px]">
+                      <CountUpStat value={stat.value} />
+                      {stat.suffix ? <sup>{stat.suffix}</sup> : null}
+                    </div>
+                    <div className="mt-2 text-right text-sm font-semibold leading-[22px]">{stat.label}</div>
                   </div>
                 </div>
               ))}
@@ -1427,11 +1693,11 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
 
       <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-16 pt-16 sm:px-6 lg:pt-[230px]">
         <div className="intco-source-container px-5">
-          <HomeSourceTitle title="SOLUTIONS" align="left" />
-          <p className="mt-10 max-w-4xl text-pretty text-lg leading-8 text-[#363636] lg:mt-[68px]">
-            We are committed to offering you turnkey service and ready to create retail solutions custom tailored to fulfill all your needs.
+          <HomeSourceTitle title={t(locale, "solutions").toUpperCase()} align="left" />
+          <p className="mt-10 max-w-[1160px] text-pretty text-lg leading-8 text-[#363636] lg:mt-[68px]">
+            {t(locale, "sourceHomeSolutionsIntro")}
           </p>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
+          <div className="mt-10 grid gap-x-[17px] gap-y-10 px-[10px] sm:grid-cols-2 lg:mt-[50px] lg:grid-cols-3 lg:gap-y-[80px]">
             {solutions.slice(0, 6).map((solution) => (
               <HomeSolutionTile key={solution.slug} solution={solution} locale={locale} />
             ))}
@@ -1441,46 +1707,48 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
 
       <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-10 sm:px-6">
         <div className="intco-source-container px-5">
-          <HomeSourceTitle title="PROJECTS" align="left" />
-          <div className="mt-8 flex flex-wrap items-center justify-between gap-6">
-            <p className="text-pretty text-lg leading-8 text-[#363636]">
-              Artistry meets functionality.
+          <HomeSourceTitle title={t(locale, "projects").toUpperCase()} align="left" />
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-6 lg:flex-nowrap">
+            <p className="max-w-[512px] text-pretty text-base leading-6 text-[#363636]">
+              {t(locale, "sourceProjectsIntroLine1")}
               <br />
-              From public spaces to homes,
-              <br />
-              our diverse products seamlessly integrate into diverse scenarios.
+              {t(locale, "sourceProjectsIntroLine2")}
             </p>
-            <div className="flex max-w-[631px] items-center gap-8 bg-white px-8 py-[18px] text-[#484653]">
-              <p className="max-w-[300px] text-2xl font-semibold leading-[30px]">Customized Solution For Every Industry Needs!</p>
-              <Link href={href("/contact")} className="inline-flex h-[66px] items-center rounded-md bg-[#484653] px-5 text-lg font-semibold text-white">
-                <span className="border-r border-white pr-3">Contact Us</span>
+            <div className="flex max-w-[631px] items-center bg-white px-8 py-[18px] text-[#484653]">
+              <p className="max-w-[300px] text-base font-semibold leading-[30px]">{t(locale, "customizedIndustrySolution")}</p>
+              <Link href={href("/contact")} className="inline-flex h-[66px] items-center rounded-md bg-[#484653] px-5 text-base font-semibold text-white">
+                <span className="border-r border-white pr-3">{t(locale, "contactUs")}</span>
                 <ArrowRight className="ml-3" size={22} />
               </Link>
             </div>
           </div>
-          <div className="mt-[55px] grid gap-8 lg:grid-cols-2">
-            {HOME_PROJECT_CARDS.map((project) => (
-              <HomeProjectTile key={project.title} project={project} locale={locale} />
-            ))}
+          <div className="relative mt-[55px] px-[70px] max-[900px]:px-0">
+            <button type="button" aria-label={t(locale, "previousProject")} className="absolute left-0 top-1/2 z-10 flex size-[53px] -translate-y-1/2 items-center justify-center rounded-full bg-[#484653] text-white max-[900px]:hidden">
+              <i className="intco-source-iconfont intco-source-icon-arrow-left" aria-hidden="true" style={{ color: "#fff", fontSize: 32 }} />
+            </button>
+            <button type="button" aria-label={t(locale, "nextProject")} className="absolute right-0 top-1/2 z-10 flex size-[53px] -translate-y-1/2 items-center justify-center rounded-full bg-[#484653] text-white max-[900px]:hidden">
+              <i className="intco-source-iconfont intco-source-icon-arrow-right" aria-hidden="true" style={{ color: "#fff", fontSize: 32 }} />
+            </button>
+            <div className="grid gap-[11px] lg:grid-cols-2">
+              {HOME_PROJECT_CARDS.map((project) => (
+                <HomeProjectTile key={project.title} project={project} locale={locale} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <HomeBlogSection categories={HOME_BLOG_CATEGORIES} intro={homePage.blogIntro?.description} locale={locale} posts={HOME_BLOG_CARDS} />
+      <HomeBlogSection categories={HOME_BLOG_CATEGORIES} intro={homePage.blogIntro?.description} locale={locale} posts={homeBlogCards} />
+      <HomeBottomContactBand locale={locale} />
     </>
   );
 }
 
 function HomeSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
-  const centered = align === "center";
   return (
-    <div className={`relative overflow-hidden ${centered ? "text-center" : "text-left"}`}>
-      <div className={`pointer-events-none absolute top-0 whitespace-nowrap text-5xl font-semibold uppercase text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] sm:text-[70px] max-[1600px]:text-[46px] max-[650px]:text-4xl ${centered ? "left-1/2 -translate-x-1/2" : "-left-5"}`}>
+    <div className={`intco-home-source-title ${align === "left" ? "intco-home-source-title-left" : ""}`} data-tit={title}>
+      <h2 className="title_text">
         {title}
-      </div>
-      <h2 className={`relative z-10 inline-block border-b border-[#484653] pb-8 text-balance text-3xl font-semibold uppercase leading-none text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] sm:text-[45px] max-[1600px]:text-4xl max-[650px]:text-xl ${centered ? "" : "ml-0"}`}>
-        {title}
-        <span className={`absolute bottom-0 h-[5px] w-[65px] translate-y-1/2 bg-[#484653] ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
       </h2>
     </div>
   );
@@ -1499,7 +1767,7 @@ function SourcePillLink({ href, children, compact }: { href: string; children: R
 }
 
 function HomeProductTile({ category, locale, wide }: { category: ProductCategory; locale: Locale; wide?: boolean }) {
-  const copy = HOME_PRODUCT_COPY[category.slug] || { title: category.title, description: category.description || "" };
+  const copy = locale === "en" ? HOME_PRODUCT_COPY[category.slug] || { title: category.title, description: category.description || "" } : { title: category.title, description: category.description || "" };
   const imageUrl = category.imageUrl || category.navImageUrl || "";
   return (
     <Link href={localizePath(locale, category.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
@@ -1520,12 +1788,12 @@ function HomeProductTile({ category, locale, wide }: { category: ProductCategory
 function HomeSolutionTile({ solution, locale }: { solution: Solution; locale: Locale }) {
   return (
     <Link href={localizePath(locale, solution.path)} className="group block overflow-hidden bg-white shadow-[0_10px_22px_rgba(0,0,0,0.06)]">
-      <div className="relative aspect-[1.72] overflow-hidden bg-neutral-100">
+      <div className="relative aspect-[487/363] overflow-hidden bg-neutral-100">
         {solution.imageUrl ? <Image src={solution.imageUrl} alt={solution.imageAlt || solution.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 33vw, 50vw" /> : null}
       </div>
       <div className="min-h-[306px] bg-white px-9 py-12 text-[#363636]">
         <h3 className="border-b border-[#484653] pb-4 text-balance text-lg font-semibold leading-6 text-[#363636]">{solution.title}</h3>
-        <p className="mt-7 line-clamp-3 min-h-[84px] text-pretty text-lg leading-7 text-[#363636]">{homeSolutionDescription(solution)}</p>
+        <p className="mt-7 line-clamp-3 min-h-[84px] text-pretty text-lg leading-7 text-[#363636]">{homeSolutionDescription(solution, locale)}</p>
         <span className="mt-8 inline-flex items-center text-lg font-semibold text-[#484653]">
           {t(locale, "exploreMore")} <ArrowRight className="ml-2" size={18} />
         </span>
@@ -1535,14 +1803,15 @@ function HomeSolutionTile({ solution, locale }: { solution: Solution; locale: Lo
 }
 
 function HomeProjectTile({ project, locale }: { project: (typeof HOME_PROJECT_CARDS)[number]; locale: Locale }) {
+  const localizedProject = localizedProjectCard(project, locale);
   return (
     <Link href={localizePath(locale, project.path)} className="group relative block overflow-hidden">
-      <div className="relative aspect-[1.9] bg-neutral-200">
-        <Image src={project.imageUrl} alt={project.title} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+      <div className="relative aspect-[780/400] bg-neutral-200">
+        <Image src={project.imageUrl} alt={localizedProject.title} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
       </div>
       <div className="absolute inset-5 rounded-md bg-white/75 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         <span className="absolute right-8 top-7 flex size-9 items-center justify-center rounded-full bg-white text-[#987754]">+</span>
-        <h3 className="px-12 pt-20 text-3xl font-semibold text-[#484653]">{project.title}</h3>
+        <h3 className="px-12 pt-20 text-3xl font-semibold text-[#484653]">{localizedProject.title}</h3>
         <span className="absolute bottom-16 left-11 inline-flex items-center text-2xl font-semibold text-[#484653]">
           {t(locale, "exploreMore")}
           <span className="ml-3 flex size-8 items-center justify-center rounded-full border-2 border-[#484653]">
@@ -1554,7 +1823,39 @@ function HomeProjectTile({ project, locale }: { project: (typeof HOME_PROJECT_CA
   );
 }
 
-function homeSolutionDescription(solution: Solution) {
+function HomeBottomContactBand({ locale }: { locale: Locale }) {
+  return (
+    <section
+      className="relative mb-[55px] overflow-hidden bg-cover bg-center py-[98px] max-[650px]:mb-5 max-[650px]:p-5"
+      style={{
+        backgroundImage: `url(${SOLUTIONS_CONTACT_BG})`,
+        fontFamily: "var(--font-montserrat), var(--font-geist-sans), Arial, Helvetica, sans-serif",
+      }}
+    >
+      <span className="sr-only">{t(locale, "getInTouch")}</span>
+      <div className="mx-auto box-border flex max-w-[1600px] flex-col items-center justify-between rounded-md bg-[rgba(72,70,83,0.8)] px-0 py-[8vh] text-center text-white max-[1600px]:max-w-[1466px] max-[1366px]:max-w-[1200px] max-[650px]:h-fit max-[650px]:p-8">
+        <h2 className="wow fadeInUp w-full text-[38px] font-semibold leading-[15px] text-white max-[650px]:text-lg max-[650px]:leading-5" data-reveal="source-up">
+          {t(locale, "perfectSolution")}
+        </h2>
+        <p className="wow fadeInUp my-8 w-full text-2xl font-normal leading-9 text-white max-[650px]:pb-2.5 max-[650px]:text-sm max-[650px]:leading-5" data-reveal="source-up" style={{ "--reveal-delay": "90ms" } as React.CSSProperties}>
+          {t(locale, "contactToday")}
+        </p>
+        <div className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": "180ms" } as React.CSSProperties}>
+          <Link
+            href={localizePath(locale, "/contact#chat")}
+            className="mx-auto box-content flex h-[58px] w-[200px] items-center justify-center rounded-[33px] border-2 border-white bg-white p-0 text-lg font-medium leading-[54px] text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
+          >
+            <i className="intco-source-iconfont intco-source-icon-phone-loudspeaker mr-[9px]" aria-hidden="true" style={{ fontSize: 24 }} />
+            {t(locale, "contactUs")}
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function homeSolutionDescription(solution: Solution, locale: Locale) {
+  if (locale !== "en") return solution.description || "";
   const byTitle: Record<string, string> = {
     "Business Insights & Trends": "With extensive relationships with our retail partners, we hold a distinct advant...",
     "Design & Engineering": "Collaborate with our skilled design and engineering teams for innovative product...",
@@ -1568,6 +1869,7 @@ function homeSolutionDescription(solution: Solution) {
 
 export function ProductsLandingView({
   page,
+  categories,
   locale,
 }: {
   page?: ContentPage;
@@ -1580,33 +1882,42 @@ export function ProductsLandingView({
   const intro = extractAfter(pageLines, "WHAT WE DO", 2);
   const catalogLines = extractAfter(pageLines, "Catalog", 2);
   const testReportLines = extractAfter(pageLines, "TEST REPORT", 2);
-  const introTitle = intro[0] || "Making your space more than just a place.";
-  const introDescription = intro[1] || "Discover the perfect accents for your room with our exceptional collections";
+  const introTitle = locale === "en" ? intro[0] || t(locale, "productLandingIntroTitle") : t(locale, "productLandingIntroTitle");
+  const introDescription = locale === "en" ? intro[1] || t(locale, "productLandingIntroDescription") : t(locale, "productLandingIntroDescription");
   const projectLines = extractAfter(pageLines, "PROJECTS", 2);
-  const projectTitle = projectLines[0] || "Artistry meets functionality.";
-  const projectDescription =
-    projectLines[1] || "From commercial spaces to homes, our diverse products seamlessly integrate into diverse scenarios.";
-  const catalogTitle = catalogLines[0] || "Interested in delving into more details about our products?";
-  const catalogDescription = catalogLines[1] || "We offer product brochures covering various categories for your information.";
-  const reportTitle = testReportLines[0] || "Rest easy with our commitment to quality and compliance.";
-  const reportDescription = testReportLines[1] || "Intco Framing provides outstanding products and quality services to global customers.";
+  const projectTitle = locale === "en" ? projectLines[0] || t(locale, "sourceProjectsIntroLine1") : t(locale, "sourceProjectsIntroLine1");
+  const projectDescription = locale === "en" ? projectLines[1] || t(locale, "productLandingProjectDescription") : t(locale, "productLandingProjectDescription");
+  const catalogTitle = locale === "en" ? catalogLines[0] || t(locale, "productCatalogIntroTitle") : t(locale, "productCatalogIntroTitle");
+  const catalogDescription = locale === "en" ? catalogLines[1] || t(locale, "productCatalogIntroDescription") : t(locale, "productCatalogIntroDescription");
+  const reportTitle = locale === "en" ? testReportLines[0] || t(locale, "productReportIntroTitle") : t(locale, "productReportIntroTitle");
+  const reportDescription = locale === "en" ? testReportLines[1] || t(locale, "productReportIntroDescription") : t(locale, "productReportIntroDescription");
+  const localizedCategoryCards = categories
+    .filter((category) => !category.parentSlug)
+    .slice(0, 5)
+    .map((category) => ({
+      title: category.title,
+      path: category.path,
+      imageUrl: WHAT_WE_DO_IMAGES[category.slug] || category.imageUrl || category.navImageUrl || "",
+    }))
+    .filter((category) => category.imageUrl);
+  const sourceCategoryCards = localizedCategoryCards.length ? localizedCategoryCards : PRODUCT_CATEGORY_CARDS;
 
   return (
     <>
-      <ProductSourceHero title={page?.title || "Products"} locale={locale} />
+      <ProductSourceHero title={page?.title || t(locale, "products")} locale={locale} />
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[30px] sm:px-6 lg:pt-[99px]">
         <div className="mx-auto max-w-[1600px]">
-          <ProductSourceTitle title="WHAT WE DO" />
+          <ProductSourceTitle title={t(locale, "whatWeDo")} />
           <ProductSectionDescription first={introTitle} second={introDescription} className="lg:mt-[58px]" />
           <div className="mt-2 lg:mt-[58px]">
             <div className="grid gap-5 lg:grid-cols-2 lg:gap-10">
-              {PRODUCT_CATEGORY_CARDS.slice(0, 2).map((category, index) => (
+              {sourceCategoryCards.slice(0, 2).map((category, index) => (
                 <ProductSourceTile key={category.title} category={category} locale={locale} index={index} wide />
               ))}
             </div>
             <div className="mt-[30px] grid gap-5 lg:grid-cols-3 lg:gap-[65px]">
-              {PRODUCT_CATEGORY_CARDS.slice(2).map((category, index) => (
+              {sourceCategoryCards.slice(2).map((category, index) => (
                 <ProductSourceTile key={category.title} category={category} locale={locale} index={index + 2} />
               ))}
             </div>
@@ -1616,7 +1927,7 @@ export function ProductsLandingView({
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-10 sm:px-6 lg:pt-[99px]">
         <div className="mx-auto max-w-[1600px]">
-          <ProductSourceTitle title="PROJECTS" />
+          <ProductSourceTitle title={t(locale, "projects").toUpperCase()} />
           <ProductSectionDescription first={projectTitle} second={projectDescription} className="lg:mt-[55px]" />
           <div className="mt-8 grid gap-10 lg:mt-[55px] lg:grid-cols-2">
             {HOME_PROJECT_CARDS.map((project, index) => (
@@ -1626,9 +1937,9 @@ export function ProductsLandingView({
         </div>
       </section>
 
-      <ProductCatalogSection title={catalogTitle} description={catalogDescription} locale={locale} />
-      <ProductTestReportSection title={reportTitle} description={reportDescription} />
-      <ProductContactSection />
+      <ProductCatalogSection title={catalogTitle} description={catalogDescription} categories={categories} locale={locale} />
+      <ProductTestReportSection title={reportTitle} description={reportDescription} locale={locale} />
+      <ProductContactSection locale={locale} />
     </>
   );
 }
@@ -1637,15 +1948,16 @@ function ProductSourceHero({ title, locale }: { title: string; locale: Locale })
   return <ProductHeroSourceFrame title={title} locale={locale} variant="products" />;
 }
 
-function ProductCategorySourceHero({ title, locale }: { title: string; locale: Locale }) {
-  return <ProductHeroSourceFrame title={title} locale={locale} variant="category" />;
+function ProductCategorySourceHero({ title, locale, path }: { title: string; locale: Locale; path?: string }) {
+  return <ProductHeroSourceFrame title={title} locale={locale} variant="category" categoryPath={path} />;
 }
 
-function ProductHeroSourceFrame({ title, locale, variant }: { title: string; locale: Locale; variant: "products" | "category" }) {
+function ProductHeroSourceFrame({ title, locale, variant, categoryPath }: { title: string; locale: Locale; variant: "products" | "category"; categoryPath?: string }) {
   const isProducts = variant === "products";
 
   return (
     <section className={`intco-source-hero ${isProducts ? "intco-source-hero-products" : "intco-source-hero-category"}`} data-source-hero>
+      {!isProducts && locale === "en" ? <span className="sr-only">Category</span> : null}
       <div className="intco-source-hero-slide" data-source-hero-slide>
         <div className="intco-source-hero-bg" data-source-hero-bg>
           <Image src={PRODUCTS_HERO_IMAGE} alt={isProducts ? title : "products"} fill priority className="object-cover" sizes="100vw" />
@@ -1657,25 +1969,25 @@ function ProductHeroSourceFrame({ title, locale, variant }: { title: string; loc
                 {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>Home</Link>
+                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
                 <span className="intco-source-hero-separator">›</span>
                 {isProducts ? (
                   <span>{title}</span>
                 ) : (
                   <>
-                    <Link href={localizePath(locale, "/products")}>Products</Link>
+                    <Link href={localizePath(locale, "/products")}>{t(locale, "products")}</Link>
                     <span className="intco-source-hero-separator">›</span>
-                    <Link href={localizePath(locale, `/${title.toLowerCase().replace(/\s+/g, "-")}`)}>{title}</Link>
+                    <Link href={localizePath(locale, categoryPath || `/${title.toLowerCase().replace(/\s+/g, "-")}`)}>{title}</Link>
                   </>
                 )}
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
               <a href="#goinput" data-source-hero-cta>
-                Chat With Us
+                {t(locale, "chatWithUs")}
               </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
-                Leave a Message
+                {t(locale, "leaveMessage")}
               </a>
             </div>
           </div>
@@ -1712,7 +2024,7 @@ function ProductSourceTile({
   index,
   wide,
 }: {
-  category: (typeof PRODUCT_CATEGORY_CARDS)[number];
+  category: { title: string; path: string; imageUrl: string };
   locale: Locale;
   index: number;
   wide?: boolean;
@@ -1744,6 +2056,7 @@ function ProductProjectTile({
   locale: Locale;
   index: number;
 }) {
+  const localizedProject = localizedProjectCard(project, locale);
   return (
     <Link
       href={localizePath(locale, project.path)}
@@ -1752,13 +2065,13 @@ function ProductProjectTile({
       style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
     >
       <div className="relative aspect-[1.95]">
-        <Image src={project.imageUrl} alt={project.title} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+        <Image src={project.imageUrl} alt={localizedProject.title} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
       </div>
       <div className="absolute inset-[20px] rounded-[20px] bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100 lg:inset-x-8 lg:bottom-8 lg:top-[30px]">
         <div className="flex h-full flex-col justify-between p-7 text-white lg:p-10">
-          <h3 className="text-2xl font-semibold lg:text-3xl">{project.title}</h3>
+          <h3 className="text-2xl font-semibold lg:text-3xl">{localizedProject.title}</h3>
           <span className="inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-white text-lg font-medium">
-            Explore More <ArrowRight className="ml-2" size={20} />
+            {t(locale, "exploreMore")} <ArrowRight className="ml-2" size={20} />
           </span>
         </div>
       </div>
@@ -1766,17 +2079,27 @@ function ProductProjectTile({
   );
 }
 
-function ProductCatalogSection({ title, description, locale }: { title: string; description: string; locale: Locale }) {
+function ProductCatalogSection({ title, description, categories, locale }: { title: string; description: string; categories: ProductCategory[]; locale: Locale }) {
   const activeManual = PRODUCT_MANUALS[0];
+  const localizedManuals = PRODUCT_MANUALS.map((manual) => {
+    if (locale === "en") return manual;
+    const category = categoryBySourceTitle(categories, manual.title);
+    return {
+      ...manual,
+      title: category?.title || manual.title,
+      description: category?.description || manual.description,
+    };
+  });
+  const localizedActiveManual = localizedManuals[0] || activeManual;
 
   return (
     <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-10 sm:px-6 lg:pt-[99px]">
       <div className="mx-auto max-w-[1600px]">
-        <ProductSourceTitle title="Catalog" />
+        <ProductSourceTitle title={t(locale, "catalog")} />
         <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
         <div className="mt-8 flex flex-col gap-3 lg:mt-[55px] lg:flex-row lg:gap-[39px]">
           <div className="wow fadeInUp grid gap-3 sm:grid-cols-5 lg:flex lg:w-[370px] lg:flex-col" data-reveal="source-up">
-            {PRODUCT_MANUALS.map((manual, index) => (
+            {localizedManuals.map((manual, index) => (
               <Link
                 key={manual.title}
                 href={manual.pdfUrl}
@@ -1790,20 +2113,20 @@ function ProductCatalogSection({ title, description, locale }: { title: string; 
           <div className="wow fadeInDown bg-white p-5 lg:min-h-[520px] lg:flex-1 lg:p-[70px]" data-reveal="source-down">
             <div className="grid gap-7 lg:grid-cols-[45%_1fr] lg:gap-[5%]">
               <div className="relative mx-auto aspect-[257/300] w-full max-w-[257px] bg-neutral-100 lg:max-w-none">
-                <Image src={activeManual.imageUrl} alt={activeManual.title} fill className="object-cover" sizes="(min-width: 1024px) 28vw, 257px" />
+                <Image src={activeManual.imageUrl} alt={localizedActiveManual.title} fill className="object-cover" sizes="(min-width: 1024px) 28vw, 257px" />
               </div>
               <div className="flex flex-col justify-between">
                 <div>
-                  <h3 className="text-3xl font-semibold leading-[39px] text-[#3e3e3e] lg:text-[38px]">{activeManual.title}</h3>
-                  <p className="mt-8 text-base leading-[30px] text-[#363636] lg:mt-10 lg:text-lg">{activeManual.description}</p>
+                  <h3 className="text-3xl font-semibold leading-[39px] text-[#3e3e3e] lg:text-[38px]">{localizedActiveManual.title}</h3>
+                  <p className="mt-8 text-base leading-[30px] text-[#363636] lg:mt-10 lg:text-lg">{localizedActiveManual.description}</p>
                 </div>
                 <Link href={activeManual.pdfUrl} target="_blank" className="mt-10 inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:mt-[120px]">
-                  Explore More <Download className="ml-2" size={20} />
+                  {t(locale, "exploreMore")} <Download className="ml-2" size={20} />
                 </Link>
               </div>
             </div>
             <div className="sr-only">
-              {PRODUCT_MANUALS.slice(1).map((manual) => (
+              {localizedManuals.slice(1).map((manual) => (
                 <p key={manual.title}>
                   {manual.title}: {manual.description}
                 </p>
@@ -1817,11 +2140,11 @@ function ProductCatalogSection({ title, description, locale }: { title: string; 
   );
 }
 
-function ProductTestReportSection({ title, description }: { title: string; description: string }) {
+function ProductTestReportSection({ title, description, locale }: { title: string; description: string; locale: Locale }) {
   return (
     <section className="overflow-hidden bg-white bg-cover bg-center px-5 pb-16 pt-10 sm:px-6 lg:pb-[120px] lg:pt-[99px]" style={{ backgroundImage: `url(${PRODUCT_TEST_REPORT_BG})` }}>
       <div className="mx-auto max-w-[1600px]">
-        <ProductSourceTitle title="TEST REPORT" />
+        <ProductSourceTitle title={t(locale, "testReport")} />
         <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
         <div className="mx-auto mt-10 grid max-w-[1230px] gap-6 sm:grid-cols-2 lg:mt-[55px] lg:grid-cols-4">
           {PRODUCT_REPORT_IMAGES.map((report, index) => (
@@ -1838,22 +2161,23 @@ function ProductTestReportSection({ title, description }: { title: string; descr
   );
 }
 
-function ProductContactSection() {
+function ProductContactSection({ locale }: { locale: Locale }) {
+  const fields = sourceFormFields(locale);
   return (
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="mx-auto max-w-[1600px]">
-        <ProductSourceTitle title="GET IN TOUCH" />
+        <ProductSourceTitle title={t(locale, "getInTouch")} />
         <p className="wow fadeInUp mx-auto mt-9 max-w-[1100px] text-center text-base leading-[30px] text-[#363636] lg:mt-[55px] lg:text-lg" data-reveal="source-up">
-          Don&apos;t Hesitate to Reach Us.We are always here to address all your concerns and provide solutions.
+          {t(locale, "contactFormIntro")}
         </p>
         <form className="mx-auto mt-12 grid max-w-[1446px] gap-x-[58px] gap-y-7 lg:mt-[55px] lg:grid-cols-2">
-          {PRODUCT_CONTACT_FIELDS.map((field) => (
+          {fields.map((field) => (
             <ProductContactField key={field.label} label={field.label} placeholder={field.placeholder} required={field.required} />
           ))}
-          <ProductContactField label="留言" placeholder="Message" required multiline />
+          <ProductContactField label={t(locale, "message")} placeholder={t(locale, "message")} required multiline />
           <div className="flex justify-center lg:col-span-2">
             <button type="button" className="h-16 w-[240px] rounded-md border-2 border-[#484653] bg-transparent text-xl font-normal text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:h-20 lg:w-[300px] lg:text-2xl">
-              提交
+              {t(locale, "submit")}
             </button>
           </div>
         </form>
@@ -1894,21 +2218,24 @@ function ProductContactField({
   );
 }
 
-function MirrorCategorySourceView({ locale }: { locale: Locale }) {
+function MirrorCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
+  const collectionCards = MIRROR_COLLECTION_CARDS.map((card) => localizeSourceCategoryCard(card, categories, locale));
+  const bestSellers = MIRROR_BEST_SELLERS.map((item) => localizeSourceProductCard(item, products, locale));
+  const copy = localizeSourceCopyItems(MIRROR_CATEGORY_COPY, categories, locale);
   return (
     <>
-      <ProductCategorySourceHero title="Mirror" locale={locale} />
+      <ProductCategorySourceHero title={category?.title || "Mirror"} locale={locale} path={category?.path} />
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[99px] max-lg:pt-12">
         <div className="mx-auto max-w-[1160px]">
-          <ProductSourceTitle title="COLLECTION" />
-          <h1 className="sr-only">Mirror</h1>
+          <ProductSourceTitle title={t(locale, "collection")} />
+          <h1 className="sr-only">{category?.title || "Mirror"}</h1>
           <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/07/未标题-3.jpg" alt="" width={1} height={1} className="hidden" />
           <p className="wow fadeInUp mx-auto mb-[86px] mt-[55px] max-w-[1120px] text-center text-lg leading-[30px] text-[#363636] max-lg:mb-10 max-lg:mt-8 max-lg:text-base" data-reveal="source-up">
-            Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.
+            {localizedCategoryIntro(category, "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.", locale)}
           </p>
           <ul className="grid gap-x-[67px] gap-y-[68px] md:grid-cols-2 lg:grid-cols-3">
-            {MIRROR_COLLECTION_CARDS.map((card, index) => (
+            {collectionCards.map((card, index) => (
               <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
                 <Link href={localizePath(locale, card.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
                   <div className="relative aspect-[305/380]">
@@ -1923,8 +2250,8 @@ function MirrorCategorySourceView({ locale }: { locale: Locale }) {
             ))}
           </ul>
           <div className="mt-[68px] flex justify-center max-lg:mt-10">
-            <Link href={localizePath(locale, "/products/mirror-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
-              View All Products <ArrowRight className="ml-2" size={22} />
+            <Link href={localizePath(locale, "/mirror")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
+              {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
         </div>
@@ -1932,16 +2259,16 @@ function MirrorCategorySourceView({ locale }: { locale: Locale }) {
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[99px] max-lg:pt-12">
         <div className="mx-auto max-w-[1300px]">
-          <ProductSourceTitle title="BEST SELLERS" />
+          <ProductSourceTitle title={t(locale, "bestSellers")} />
           <div className="relative mt-[64px] px-[70px] max-lg:px-0">
-            <button type="button" aria-label="Previous best seller" className="absolute left-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
+            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
               ‹
             </button>
-            <button type="button" aria-label="Next best seller" className="absolute right-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
+            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
               ›
             </button>
             <ul className="grid gap-[30px] md:grid-cols-2 lg:grid-cols-4">
-              {MIRROR_BEST_SELLERS.map((item, index) => (
+              {bestSellers.map((item, index) => (
                 <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <Link href={localizePath(locale, item.path)} className="group block text-center">
                     <div className="relative aspect-square rounded-full bg-white">
@@ -1954,60 +2281,63 @@ function MirrorCategorySourceView({ locale }: { locale: Locale }) {
             </ul>
           </div>
           <div className="mx-auto max-w-[1600px] space-y-5 pb-4 text-lg leading-[30px] text-[#3e3e3e] max-lg:text-base max-lg:leading-7">
-            {MIRROR_CATEGORY_COPY.map((item) => (
+            {copy.map((item) => (
               <div key={item.title}>
                 <p className="font-semibold text-[#484653]">{item.title}</p>
                 <p>{item.body}</p>
               </div>
             ))}
           </div>
-          <span className="sr-only">Category Products</span>
+          <span className="sr-only">{t(locale, "products")}</span>
         </div>
       </section>
 
-      <ProductContactSection />
+      <ProductContactSection locale={locale} />
     </>
   );
 }
 
-function PictureFrameCategorySourceView({ locale }: { locale: Locale }) {
+function PictureFrameCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
+  const collectionCards = PICTURE_FRAME_COLLECTION_CARDS.map((card) => localizeSourceCategoryCard(card, categories, locale));
+  const bestSellers = PICTURE_FRAME_BEST_SELLERS.map((item) => localizeSourceProductCard(item, products, locale));
+  const copy = localizeSourceCopyItems(PICTURE_FRAME_CATEGORY_COPY, categories, locale);
   return (
     <>
-      <PictureFrameSourceHero locale={locale} />
+      <ProductCategorySourceHero title={category?.title || "Picture frame"} locale={locale} path={category?.path} />
 
       <section className="overflow-hidden bg-[#f3f3f3] pb-[5px] pt-6 lg:pb-7 lg:pt-[99px]">
         <div className="intco-source-container px-5">
-          <PictureFrameSectionTitle title="COLLECTION" />
+          <PictureFrameSectionTitle title={t(locale, "collection")} />
           <p className="wow fadeInUp mx-auto mb-0 mt-4 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
-            Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.
+            {localizedCategoryIntro(category, "Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.", locale)}
           </p>
           <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {PICTURE_FRAME_COLLECTION_CARDS.map((card, index) => (
+            {collectionCards.map((card, index) => (
               <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
                 <PictureFrameCollectionCard card={card} locale={locale} />
               </li>
             ))}
           </ul>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={localizePath(locale, "/products/picture-frame-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
-              View All Products <ArrowRight className="ml-2" size={22} />
+            <Link href={localizePath(locale, "/picture-frame")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
         </div>
       </section>
 
       <section className="overflow-hidden bg-[#f3f3f3] pb-[40px] pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
         <div className="intco-source-container mt-10 px-5 lg:mt-[65px]">
           <div className="relative min-h-[430px] cursor-pointer lg:min-h-[994px]">
-            <button type="button" aria-label="Previous best seller" className="absolute left-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ‹
             </button>
-            <button type="button" aria-label="Next best seller" className="absolute right-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ›
             </button>
             <div className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
-              {PICTURE_FRAME_BEST_SELLERS.map((item, index) => (
+              {bestSellers.map((item, index) => (
                 <Link key={item.title} href={localizePath(locale, item.path)} className="wow fadeInUp group block text-center" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <div className="relative aspect-square rounded-full bg-white">
                     <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="270px" />
@@ -2017,7 +2347,7 @@ function PictureFrameCategorySourceView({ locale }: { locale: Locale }) {
               ))}
             </div>
             <div className="space-y-6 text-base font-normal leading-6 text-[#363636] lg:space-y-6">
-              {PICTURE_FRAME_CATEGORY_COPY.map((item) => (
+              {copy.map((item) => (
                 <p key={item.title}>
                   <strong className="font-semibold">{item.title}</strong>
                   <br />
@@ -2029,13 +2359,9 @@ function PictureFrameCategorySourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <PictureFrameContactSection />
+      <PictureFrameContactSection locale={locale} />
     </>
   );
-}
-
-function PictureFrameSourceHero({ locale }: { locale: Locale }) {
-  return <ProductHeroSourceFrame title="Picture frame" locale={locale} variant="category" />;
 }
 
 function PictureFrameSectionTitle({ title }: { title: string }) {
@@ -2048,22 +2374,23 @@ function PictureFrameSectionTitle({ title }: { title: string }) {
   );
 }
 
-function PictureFrameContactSection() {
+function PictureFrameContactSection({ locale }: { locale: Locale }) {
+  const fields = sourceFormFields(locale);
   return (
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center pb-0 pt-[50px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="intco-source-container px-5">
-        <PictureFrameSectionTitle title="GET IN TOUCH" />
+        <PictureFrameSectionTitle title={t(locale, "getInTouch")} />
         <p className="wow fadeInUp mx-auto mb-[55px] mt-[55px] max-w-[1160px] text-center text-base leading-6 text-[#363636]" data-reveal="source-up">
-          Don&apos;t Hesitate to Reach Us.We are always here to address all your concerns and provide solutions.
+          {t(locale, "contactFormIntro")}
         </p>
         <form className="mx-auto grid max-w-[1160px] gap-y-5 pb-[77px] lg:grid-cols-2 lg:gap-x-[40px] lg:px-[77px]">
-          {PRODUCT_CONTACT_FIELDS.map((field) => (
+          {fields.map((field) => (
             <PictureFrameContactField key={field.label} label={field.label} placeholder={field.placeholder} required={field.required} />
           ))}
-          <PictureFrameContactField label="留言" placeholder="Message" required multiline />
+          <PictureFrameContactField label={t(locale, "message")} placeholder={t(locale, "message")} required multiline />
           <div className="flex justify-center lg:col-span-2">
             <button type="button" className="h-16 w-[240px] rounded-md border-2 border-[#484653] bg-transparent text-xl font-normal text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:h-20 lg:w-[300px] lg:text-2xl">
-              提交
+              {t(locale, "submit")}
             </button>
           </div>
         </form>
@@ -2121,45 +2448,48 @@ function PictureFrameCollectionCard({
   );
 }
 
-function ArtCategorySourceView({ locale }: { locale: Locale }) {
+function ArtCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
+  const collectionCards = ART_COLLECTION_CARDS.map((card) => localizeSourceCategoryCard(card, categories, locale));
+  const bestSellers = ART_BEST_SELLERS.map((item) => localizeSourceProductCard(item, products, locale));
+  const copy = localizeSourceCopyItems(ART_CATEGORY_COPY, categories, locale);
   return (
     <>
-      <ArtSourceHero locale={locale} />
+      <ProductCategorySourceHero title={category?.title || "Art"} locale={locale} path={category?.path} />
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-[5px] pt-12 lg:pt-[99px]">
         <div className="mx-auto max-w-[1160px]">
-          <PictureFrameSectionTitle title="COLLECTION" />
-          <h1 className="sr-only">Art</h1>
+          <PictureFrameSectionTitle title={t(locale, "collection")} />
+          <h1 className="sr-only">{category?.title || "Art"}</h1>
           <p className="wow fadeInUp mx-auto mb-10 mt-8 max-w-[1000px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
-            Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!
+            {localizedCategoryIntro(category, "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!", locale)}
           </p>
           <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {ART_COLLECTION_CARDS.map((card, index) => (
+            {collectionCards.map((card, index) => (
               <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                 <ArtCollectionCard card={card} locale={locale} />
               </li>
             ))}
           </ul>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={localizePath(locale, "/products/art-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
-              View All Products <ArrowRight className="ml-2" size={22} />
+            <Link href={localizePath(locale, "/art")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
         </div>
       </section>
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
         <div className="mx-auto mt-10 max-w-[1160px] lg:mt-[65px]">
           <div className="relative">
-            <button type="button" aria-label="Previous best seller" className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ‹
             </button>
-            <button type="button" aria-label="Next best seller" className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ›
             </button>
             <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
-              {ART_BEST_SELLERS.map((item, index) => (
+              {bestSellers.map((item, index) => (
                 <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <Link href={localizePath(locale, item.path)} className="group block text-center">
                     <div className="relative aspect-square bg-white">
@@ -2172,7 +2502,7 @@ function ArtCategorySourceView({ locale }: { locale: Locale }) {
             </ul>
           </div>
           <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636] lg:mt-0">
-            {ART_CATEGORY_COPY.map((item) => (
+            {copy.map((item) => (
               <div key={item.title}>
                 <p>
                   <strong className="font-semibold">{item.title}</strong>
@@ -2184,13 +2514,9 @@ function ArtCategorySourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <PictureFrameContactSection />
+      <PictureFrameContactSection locale={locale} />
     </>
   );
-}
-
-function ArtSourceHero({ locale }: { locale: Locale }) {
-  return <ProductHeroSourceFrame title="Art" locale={locale} variant="category" />;
 }
 
 function ArtCollectionCard({
@@ -2210,46 +2536,49 @@ function ArtCollectionCard({
   );
 }
 
-function FurnitureCategorySourceView({ locale }: { locale: Locale }) {
+function FurnitureCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
+  const collectionCards = FURNITURE_COLLECTION_CARDS.map((card) => localizeSourceCategoryCard(card, categories, locale));
+  const bestSellers = FURNITURE_BEST_SELLERS.map((item) => localizeSourceProductCard(item, products, locale));
+  const copy = localizeSourceCopyItems(FURNITURE_CATEGORY_COPY, categories, locale);
   return (
     <>
-      <FurnitureSourceHero locale={locale} />
+      <ProductCategorySourceHero title={category?.title || "Furniture"} locale={locale} path={category?.path} />
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-[5px] pt-12 lg:pt-[99px]">
         <div className="mx-auto max-w-[1160px]">
-          <PictureFrameSectionTitle title="COLLECTION" />
-          <h1 className="sr-only">Furniture</h1>
+          <PictureFrameSectionTitle title={t(locale, "collection")} />
+          <h1 className="sr-only">{category?.title || "Furniture"}</h1>
           <p className="wow fadeInUp mx-auto mb-10 mt-8 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
-            Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!
+            {localizedCategoryIntro(category, "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!", locale)}
           </p>
           <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {FURNITURE_COLLECTION_CARDS.map((card, index) => (
+            {collectionCards.map((card, index) => (
               <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                 <FurnitureCollectionCard card={card} locale={locale} />
               </li>
             ))}
           </ul>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={localizePath(locale, "/products/furniture-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
-              View All Products <ArrowRight className="ml-2" size={22} />
+            <Link href={localizePath(locale, "/furniture")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
-          <span className="sr-only">Category Products</span>
+          <span className="sr-only">{t(locale, "products")}</span>
         </div>
       </section>
 
       <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
         <div className="mx-auto mt-10 max-w-[1160px] lg:mt-[65px]">
           <div className="relative">
-            <button type="button" aria-label="Previous best seller" className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ‹
             </button>
-            <button type="button" aria-label="Next best seller" className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ›
             </button>
             <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
-              {FURNITURE_BEST_SELLERS.map((item, index) => (
+              {bestSellers.map((item, index) => (
                 <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <Link href={localizePath(locale, item.path)} className="group block text-center">
                     <div className="relative aspect-square bg-white">
@@ -2262,7 +2591,7 @@ function FurnitureCategorySourceView({ locale }: { locale: Locale }) {
             </ul>
           </div>
           <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636]">
-            {FURNITURE_CATEGORY_COPY.map((item) => (
+            {copy.map((item) => (
               <div key={item.title}>
                 <p>
                   <strong className="font-semibold">{item.title}</strong>
@@ -2274,13 +2603,9 @@ function FurnitureCategorySourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <PictureFrameContactSection />
+      <PictureFrameContactSection locale={locale} />
     </>
   );
-}
-
-function FurnitureSourceHero({ locale }: { locale: Locale }) {
-  return <ProductHeroSourceFrame title="Furniture" locale={locale} variant="category" />;
 }
 
 function FurnitureCollectionCard({
@@ -2300,44 +2625,47 @@ function FurnitureCollectionCard({
   );
 }
 
-function MemoBoardCategorySourceView({ locale }: { locale: Locale }) {
+function MemoBoardCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
+  const collectionCards = MEMO_BOARD_COLLECTION_CARDS.map((card) => localizeSourceCategoryCard(card, categories, locale));
+  const bestSellers = MEMO_BOARD_BEST_SELLERS.map((item) => localizeSourceProductCard(item, products, locale));
+  const copy = localizeSourceCopyItems(MEMO_BOARD_CATEGORY_COPY, categories, locale);
   return (
     <>
-      <MemoBoardSourceHero locale={locale} />
+      <ProductCategorySourceHero title={category?.title || "Memo Board"} locale={locale} path={category?.path} />
 
       <section className="overflow-hidden bg-[#f3f3f3] pb-[5px] pt-12 lg:pt-[99px]">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <PictureFrameSectionTitle title="COLLECTION" />
-          <h1 className="sr-only">Memo Board</h1>
+          <PictureFrameSectionTitle title={t(locale, "collection")} />
+          <h1 className="sr-only">{category?.title || "Memo Board"}</h1>
           <div className="wow fadeInUp DESC center margin86" data-reveal="source-up" aria-hidden="true" />
           <ul className="m-0 mt-[86px] grid list-none gap-[34px] p-0 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {MEMO_BOARD_COLLECTION_CARDS.map((card, index) => (
+            {collectionCards.map((card, index) => (
               <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
                 <MemoBoardCollectionCard card={card} locale={locale} />
               </li>
             ))}
           </ul>
           <div className="mt-10 flex justify-center lg:mt-0">
-            <Link href={localizePath(locale, "/products/memo-board-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
-              View All Products <ArrowRight className="ml-2" size={22} />
+            <Link href={localizePath(locale, "/memo-board")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
-          <span className="sr-only">Category Products</span>
+          <span className="sr-only">{t(locale, "products")}</span>
         </div>
       </section>
 
       <section className="overflow-hidden bg-[#f3f3f3] pb-10 pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
         <div className="intco-source-container mt-10 px-5 lg:mt-[65px] min-[1601px]:px-[70px]">
           <div className="relative">
-            <button type="button" aria-label="Previous best seller" className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ‹
             </button>
-            <button type="button" aria-label="Next best seller" className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
               ›
             </button>
             <ul className="m-0 grid list-none gap-[26px] p-0 md:grid-cols-2 lg:grid-cols-4">
-              {MEMO_BOARD_BEST_SELLERS.map((item, index) => (
+              {bestSellers.map((item, index) => (
                 <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <Link href={localizePath(locale, item.path)} className="group block pb-10 text-center lg:pb-[97px]">
                     <div className="relative aspect-square bg-white">
@@ -2352,7 +2680,7 @@ function MemoBoardCategorySourceView({ locale }: { locale: Locale }) {
         </div>
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636]">
-            {MEMO_BOARD_CATEGORY_COPY.map((item) => (
+            {copy.map((item) => (
               <div key={item.title}>
                 <p>
                   <strong className="font-semibold">{item.title}</strong>
@@ -2364,13 +2692,9 @@ function MemoBoardCategorySourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <PictureFrameContactSection />
+      <PictureFrameContactSection locale={locale} />
     </>
   );
-}
-
-function MemoBoardSourceHero({ locale }: { locale: Locale }) {
-  return <ProductHeroSourceFrame title="Memo Board" locale={locale} variant="category" />;
 }
 
 function MemoBoardCollectionCard({
@@ -2408,19 +2732,19 @@ export function ProductListingView({
   locale: Locale;
 }) {
   if (category?.slug === "mirror") {
-    return <MirrorCategorySourceView locale={locale} />;
+    return <MirrorCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
   }
   if (category?.slug === "picture-frame") {
-    return <PictureFrameCategorySourceView locale={locale} />;
+    return <PictureFrameCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
   }
   if (category?.slug === "art") {
-    return <ArtCategorySourceView locale={locale} />;
+    return <ArtCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
   }
   if (category?.slug === "furniture") {
-    return <FurnitureCategorySourceView locale={locale} />;
+    return <FurnitureCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
   }
   if (category?.slug === "memo-board") {
-    return <MemoBoardCategorySourceView locale={locale} />;
+    return <MemoBoardCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
   }
 
   const bestSellers = products.slice(0, 4);
@@ -2477,6 +2801,7 @@ export function ProductListingView({
 }
 
 export function SolutionsListingView({
+  solutions,
   page,
   locale,
 }: {
@@ -2487,24 +2812,38 @@ export function SolutionsListingView({
   locale: Locale;
 }) {
   const href = (path: string) => localizePath(locale, path);
+  const localizedServiceItems = SOLUTIONS_SERVICE_ITEMS.map((item) => {
+    if (locale === "en") return item;
+    const solution = solutions.find((entry) => entry.path === item.path);
+    return {
+      ...item,
+      title: solution?.title || item.title,
+      description: solution?.description || item.description,
+    };
+  });
+  const relatedLinks = SOLUTIONS_RELATED_LINKS.map((item) => ({
+    ...item,
+    title: item.path === "/products" ? t(locale, "featuredProductsLabel") : item.path === "/projects" ? t(locale, "latestProjects") : t(locale, "customerService"),
+    description: t(locale, "productCatalogIntroDescription"),
+  }));
   return (
     <>
-      <SolutionsSourceHero title={page?.title || "Solutions"} locale={locale} />
+      <SolutionsSourceHero title={page?.title || t(locale, "solutions")} locale={locale} />
 
       <section className="overflow-hidden bg-[#f8f8f8] px-4 py-16 sm:px-6 lg:py-[100px]">
         <div className="intco-source-container px-5">
           <div className="grid gap-12 lg:grid-cols-[1fr_minmax(420px,783px)] lg:gap-[122px]">
             <div data-reveal="left">
-              <SolutionsSourceTitle title="END-TO-END HOME DECOR SOLUTIONS" align="left" />
-              <p className="mt-[64px] max-w-[690px] text-lg font-normal leading-8 text-[#363636]">{SOLUTIONS_INTRO_COPY}</p>
+              <SolutionsSourceTitle title={t(locale, "endToEndHomeDecor")} align="left" />
+              <p className="mt-[64px] max-w-[690px] text-lg font-normal leading-8 text-[#363636]">{locale === "en" ? SOLUTIONS_INTRO_COPY : page?.description || t(locale, "sourceHomeSolutionsIntro")}</p>
               <div className="mt-[55px]">
                 <SolutionsOutlineLink href={href("/who-we-are")} width={254}>
-                  About Intco
+                  {t(locale, "aboutIntco")}
                 </SolutionsOutlineLink>
               </div>
             </div>
             <div className="relative aspect-[783/504] w-full overflow-hidden" data-reveal="right">
-              <Image src={SOLUTIONS_INTRO_IMAGE} alt="End-to-end Home Decor Solutions" fill className="object-cover" sizes="(min-width: 1024px) 783px, 100vw" />
+              <Image src={SOLUTIONS_INTRO_IMAGE} alt={t(locale, "endToEndHomeDecor")} fill className="object-cover" sizes="(min-width: 1024px) 783px, 100vw" />
             </div>
           </div>
         </div>
@@ -2512,33 +2851,33 @@ export function SolutionsListingView({
 
       <section className="overflow-hidden bg-[#f8f8f8] px-4 py-16 sm:px-6 lg:py-[100px]">
         <div className="intco-source-container px-5">
-          <SolutionsSourceTitle title="SERVICES WE OFFER" />
+          <SolutionsSourceTitle title={t(locale, "servicesWeOffer")} />
           <div className="mt-[64px]">
-            <SolutionsServicesSection items={SOLUTIONS_SERVICE_ITEMS} locale={locale} />
+            <SolutionsServicesSection items={localizedServiceItems} locale={locale} />
           </div>
         </div>
       </section>
 
       <section className="overflow-hidden bg-[#f8f8f8] bg-cover bg-center px-4 pt-16 sm:px-6 lg:pt-[116px]" style={{ backgroundImage: `url(${SOLUTIONS_PROCESS_BG})` }}>
         <div className="intco-source-container px-5">
-          <SolutionsSourceTitle title="HOW IT WORKS" />
+          <SolutionsSourceTitle title={t(locale, "howItWorks")} />
           <div className="mt-[64px]">
-            <SolutionsProcessGrid />
+            <SolutionsProcessGrid locale={locale} />
           </div>
         </div>
       </section>
 
       <section className="overflow-hidden bg-white px-4 pt-16 sm:px-6 lg:pt-[87px]">
         <div className="intco-source-container px-5">
-          <SolutionsSourceTitle title="YOU MAY ALSO LIKE" />
+          <SolutionsSourceTitle title={t(locale, "youMayAlsoLike")} />
         </div>
       </section>
       <section className="relative mb-[55px] mt-[64px] overflow-hidden">
         <div className="relative aspect-[1920/800] min-h-[540px]">
-          <Image src={SOLUTIONS_RELATED_BG} alt="You may also like" fill className="object-cover" sizes="100vw" />
+          <Image src={SOLUTIONS_RELATED_BG} alt={t(locale, "youMayAlsoLike")} fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0 flex flex-col bg-black/30 lg:flex-row">
-            {SOLUTIONS_RELATED_LINKS.map((item) => (
-              <SolutionsRelatedCard key={item.number} item={item} href={href(item.path)} />
+            {relatedLinks.map((item) => (
+              <SolutionsRelatedCard key={item.number} item={item} href={href(item.path)} locale={locale} />
             ))}
           </div>
         </div>
@@ -2572,7 +2911,7 @@ function SolutionsSourceHero({
         <div className={`intco-source-container px-5 text-center max-lg:text-left ${isDark ? "text-white" : "text-[#484653]"}`}>
           <h1 className={`text-[66px] leading-[80px] max-[1466px]:text-[40px] max-[1466px]:leading-[56px] max-[650px]:text-[26px] max-[650px]:leading-[1.2] ${isDark ? "font-semibold text-white" : "font-bold text-[#333333]"}`}>{title}</h1>
           <div className="flex items-center justify-center gap-3 py-3 text-[26px] font-medium leading-10 max-[1466px]:text-xl max-lg:justify-start max-lg:text-base">
-            <Link href={localizePath(locale, "/")}>Home</Link>
+            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
             <span>{title}</span>
           </div>
@@ -2581,13 +2920,13 @@ function SolutionsSourceHero({
               href={localizePath(locale, "/contact")}
               className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
-              Chat With Us
+              {t(locale, "chatWithUs")}
             </Link>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
-              Leave a Message
+              {t(locale, "leaveMessage")}
             </Link>
           </div>
         </div>
@@ -2656,16 +2995,17 @@ function SolutionsOutlineLink({ href, children, width = 200 }: { href: string; c
   );
 }
 
-function SolutionsProcessGrid() {
+function SolutionsProcessGrid({ locale }: { locale: Locale }) {
+  const labels = SOLUTIONS_PROCESS_LABELS[locale];
   return (
     <ul className="grid gap-x-[100px] gap-y-0 sm:grid-cols-2 lg:grid-cols-3">
       {SOLUTIONS_PROCESS_STEPS.map((step, index) => (
         <li key={step.label} className="relative flex justify-center" data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
           <div className="relative mb-16 w-full max-w-[278px] lg:mb-[140px]">
             <div className="relative aspect-square overflow-hidden rounded-full">
-              <Image src={step.imageUrl} alt={step.label} fill className="object-cover transition duration-700 hover:scale-110" sizes="278px" />
+              <Image src={step.imageUrl} alt={labels[index] || step.label} fill className="object-cover transition duration-700 hover:scale-110" sizes="278px" />
             </div>
-            <div className="mt-5 text-center text-[22px] font-normal leading-tight text-[#363636] lg:text-[28px]">{step.label}</div>
+            <div className="mt-5 text-center text-[22px] font-normal leading-tight text-[#363636] lg:text-[28px]">{labels[index] || step.label}</div>
             {index !== 2 && index !== 5 ? (
               <ArrowRight
                 className={`absolute hidden text-[#484653] lg:block ${index === 3 || index === 4 ? "rotate-180" : ""}`}
@@ -2682,7 +3022,7 @@ function SolutionsProcessGrid() {
   );
 }
 
-function SolutionsRelatedCard({ item, href }: { item: (typeof SOLUTIONS_RELATED_LINKS)[number]; href: string }) {
+function SolutionsRelatedCard({ item, href, locale }: { item: (typeof SOLUTIONS_RELATED_LINKS)[number]; href: string; locale: Locale }) {
   return (
     <div className="group relative min-h-[180px] flex-1 cursor-pointer border-b border-white/85 lg:border-b-0 lg:border-r last:border-r-0" data-reveal>
       <div className="absolute bottom-10 left-8 text-white transition duration-500 group-hover:opacity-0 lg:bottom-[141px]">
@@ -2694,7 +3034,7 @@ function SolutionsRelatedCard({ item, href }: { item: (typeof SOLUTIONS_RELATED_
         <div className="mt-[25px] max-w-[187px] text-[32px] font-semibold leading-tight text-[#3e3e3e] lg:text-[40px]">{item.title}</div>
         <p className="mt-5 max-w-[312px] text-lg leading-7 text-[#363636]">{item.description}</p>
         <div className="mt-[68px] max-lg:mt-6">
-          <SolutionsOutlineLink href={href}>Explore More</SolutionsOutlineLink>
+          <SolutionsOutlineLink href={href}>{t(locale, "exploreMore")}</SolutionsOutlineLink>
         </div>
       </div>
     </div>
@@ -2704,16 +3044,16 @@ function SolutionsRelatedCard({ item, href }: { item: (typeof SOLUTIONS_RELATED_
 function SolutionsContactBand({ locale }: { locale: Locale }) {
   return (
     <section className="relative mb-[55px] bg-cover bg-center px-4 py-16 sm:px-6 lg:py-[98px]" style={{ backgroundImage: `url(${SOLUTIONS_CONTACT_BG})` }}>
-      <span className="sr-only">GET IN TOUCH</span>
+      <span className="sr-only">{t(locale, "getInTouch")}</span>
       <div className="intco-source-container rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:py-[8vh]" data-reveal="fade">
-        <h2 className="text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">Looking for the Perfect Solution?</h2>
-        <p className="my-8 text-2xl font-normal">Contact us today for your decor solution needs.</p>
+        <h2 className="text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">{t(locale, "perfectSolution")}</h2>
+        <p className="my-8 text-2xl font-normal">{t(locale, "contactToday")}</p>
         <Link
           href={localizePath(locale, "/contact")}
           className="mx-auto inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
         >
           <Phone className="mr-[9px]" size={22} />
-          Contact Us
+          {t(locale, "contactUs")}
         </Link>
       </div>
     </section>
@@ -2804,8 +3144,8 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
     <>
       <div className="intco-business-insights-page">
         <BusinessInsightsHero locale={locale} />
-        <span className="sr-only">SERVICES</span>
-        <span className="sr-only">YOU MAY ALSO LIKE</span>
+        <span className="sr-only">{t(locale, "servicesWeProvide")}</span>
+        <span className="sr-only">{t(locale, "youMayAlsoLike")}</span>
         <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions1.png" alt="" width={1} height={1} className="hidden" />
 
         <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-0 pt-[29px] sm:px-6">
@@ -2832,7 +3172,7 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
             <div className="flex flex-col items-start" data-reveal="fade">
               <BusinessInsightsTitle title="TREND INSIGHTS" align="left" />
               <p className="mb-[77px] mt-[58px] max-w-[551px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-8">{BUSINESS_INSIGHTS_COPY.trend}</p>
-              <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends/trend")} width={306}>
+              <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends")} width={306}>
                 Explore More
               </BusinessInsightsOutlineLink>
             </div>
@@ -2861,17 +3201,19 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
           <ul className="-mx-[41px] grid md:grid-cols-3">
             {BUSINESS_INSIGHTS_REPORTS.map((report, index) => (
               <li key={report.title} className="box-border px-[41px] pb-0 max-md:mb-10" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                <Link href={localizePath(locale, report.path)} className="group block">
-                  <div className="relative aspect-[332/257] overflow-hidden bg-neutral-100">
-                    <Image src={report.imageUrl} alt={report.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 332px, 100vw" />
-                  </div>
-                  <h3 className="mt-[29px] line-clamp-2 h-[3em] text-[26px] font-semibold leading-[1.5] text-[#484653] max-lg:text-xl">{report.title}</h3>
+                <article>
+                  <Link href={localizePath(locale, report.path)} className="group block">
+                    <div className="relative aspect-[332/257] overflow-hidden bg-neutral-100">
+                      <Image src={report.imageUrl} alt={report.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 332px, 100vw" />
+                    </div>
+                    <h3 className="mt-[29px] line-clamp-2 h-[3em] text-[26px] font-semibold leading-[1.5] text-[#484653] max-lg:text-xl">{report.title}</h3>
+                  </Link>
                   <div className="mt-[14px] text-base font-light leading-[39px] text-[#999]">{report.date}</div>
                   <p className="text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{report.excerpt}</p>
                   <div className="mb-[45px] mt-[39px] max-lg:mb-10">
                     <BusinessInsightsOutlineLink href={localizePath(locale, report.path)}>Read More</BusinessInsightsOutlineLink>
                   </div>
-                </Link>
+                </article>
               </li>
             ))}
           </ul>
@@ -2888,7 +3230,7 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
               <BusinessInsightsTitle title="BESTSELLERS RECOMMENDATIONS" align="left" narrow />
               <p className="mt-[58px] max-w-[599px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mt-8">{BUSINESS_INSIGHTS_COPY.recommendation}</p>
               <div className="mt-[90px] max-lg:mt-8">
-                <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends/bestsellers")}>Explore More</BusinessInsightsOutlineLink>
+                <BusinessInsightsOutlineLink href={localizePath(locale, "/products")}>Explore More</BusinessInsightsOutlineLink>
               </div>
             </div>
           </div>
@@ -3475,7 +3817,7 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
                         <Headphones size={36} strokeWidth={1.8} />
                       </span>
                       <p>Live Chat</p>
-                      <a href="#chat">Contact Now</a>
+                      <a href={localizePath(locale, "/contact#chat")}>Contact Now</a>
                     </li>
                     <li data-reveal="up">
                       <span className="intco-retailer-contact-icon">
@@ -3628,7 +3970,7 @@ function RetailerSupportHero({ locale }: { locale: Locale }) {
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <a href="#chat" data-source-hero-cta>
+              <a href={localizePath(locale, "/contact#chat")} data-source-hero-cta>
                 Chat With Us
               </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
@@ -3931,20 +4273,20 @@ function GlobalProductionHero({ locale }: { locale: Locale }) {
 
 export function ProjectsListingView({ projects, category, page, locale, pageNumber = 1 }: { projects: Project[]; category?: string; page?: ContentPage; locale: Locale; pageNumber?: number }) {
   if (!category) {
-    return <ProjectsSourceListingView locale={locale} pageNumber={pageNumber} />;
+    return <ProjectsSourceListingView locale={locale} pageNumber={pageNumber} projects={projects} />;
   }
   if (category === "Residential") {
-    return <ProjectsSourceListingView locale={locale} pageNumber={1} variant="residential" />;
+    return <ProjectsSourceListingView locale={locale} pageNumber={1} variant="residential" projects={projects} />;
   }
   if (category === "Commercial") {
-    return <ProjectsSourceListingView locale={locale} pageNumber={1} variant="commercial" />;
+    return <ProjectsSourceListingView locale={locale} pageNumber={1} variant="commercial" projects={projects} />;
   }
 
   const filtered = category ? projects.filter((project) => (project.categoryKey || project.category) === category) : projects;
   const projectNav = projects.slice(0, 5);
   const pageLines = contentLines(page?.bodyText, 40);
   const introLines = pageLines.slice(1, 3);
-  const title = category ? `${category} Projects` : page?.title || "Projects";
+  const title = category ? projectCategoryTitle(locale, category) : page?.title || t(locale, "projects");
 
   return (
     <>
@@ -3985,7 +4327,7 @@ export function ProjectsListingView({ projects, category, page, locale, pageNumb
                 {project.imageUrl ? <Image src={project.imageUrl} alt={project.imageAlt || project.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" sizes="(min-width: 1024px) 50vw, 100vw" /> : null}
               </div>
               <div className="flex flex-col justify-center p-7 sm:p-10">
-                <p className="text-sm font-bold uppercase text-emerald-700">{project.category || "Project"}</p>
+                <p className="text-sm font-bold uppercase text-emerald-700">{project.category || t(locale, "projects")}</p>
                 <h2 className="mt-3 text-balance text-3xl font-semibold text-neutral-950">{project.title}</h2>
                 <p className="mt-4 text-pretty leading-8 text-neutral-600">{project.description}</p>
                 <span className="mt-7 inline-flex items-center gap-2 text-sm font-bold uppercase text-emerald-700 transition-transform duration-200 group-hover:translate-x-1">
@@ -4001,32 +4343,54 @@ export function ProjectsListingView({ projects, category, page, locale, pageNumb
   );
 }
 
-function ProjectsSourceListingView({ locale, pageNumber, variant = "all" }: { locale: Locale; pageNumber: number; variant?: "all" | "residential" | "commercial" }) {
+function projectCategoryTitle(locale: Locale, category: string) {
+  const titles: Record<string, Record<Locale, string>> = {
+    Residential: {
+      en: "Residential Projects",
+      es: "Proyectos residenciales",
+      pt: "Projetos residenciais",
+      fr: "Projets résidentiels",
+      de: "Wohnprojekte",
+      ja: "住宅プロジェクト",
+    },
+    Commercial: {
+      en: "Commercial Projects",
+      es: "Proyectos comerciales",
+      pt: "Projetos comerciais",
+      fr: "Projets commerciaux",
+      de: "Gewerbeprojekte",
+      ja: "商業プロジェクト",
+    },
+  };
+  return titles[category]?.[locale] || `${category} ${t(locale, "projects")}`;
+}
+
+function ProjectsSourceListingView({ locale, pageNumber, projects, variant = "all" }: { locale: Locale; pageNumber: number; projects: Project[]; variant?: "all" | "residential" | "commercial" }) {
   const isResidential = variant === "residential";
   const isCommercial = variant === "commercial";
   const activePage = isResidential || isCommercial ? 1 : PROJECTS_SOURCE_PAGE_ITEMS[pageNumber] ? pageNumber : 1;
   const items = isCommercial ? PROJECTS_SOURCE_COMMERCIAL_ITEMS : PROJECTS_SOURCE_PAGE_ITEMS[activePage];
   const pageHref = (page: number) => (page === 1 ? "/projects" : `/projects/page/${page}`);
-  const title = isResidential ? "Residential" : isCommercial ? "Commercial" : "PROJECTS";
-  const heroTitle = isResidential ? "Residential" : isCommercial ? "Commercial" : "Projects";
+  const title = isResidential ? t(locale, "residential") : isCommercial ? t(locale, "commercial") : t(locale, "projects").toUpperCase();
+  const heroTitle = isResidential ? t(locale, "residential") : isCommercial ? t(locale, "commercial") : t(locale, "projects");
   const paginationItems =
     activePage === 1
       ? [
           { label: "1", page: 1, current: true },
           { label: "2", page: 2 },
           { label: "3", page: 3 },
-          { label: ">", page: 2, ariaLabel: "Next projects page" },
+            { label: ">", page: 2, ariaLabel: t(locale, "nextProjectsPage") },
         ]
       : activePage === 2
         ? [
-            { label: "<", page: 1, ariaLabel: "Previous projects page" },
+            { label: "<", page: 1, ariaLabel: t(locale, "previousProjectsPage") },
             { label: "1", page: 1 },
             { label: "2", page: 2, current: true },
             { label: "3", page: 3 },
-            { label: ">", page: 3, ariaLabel: "Next projects page" },
+            { label: ">", page: 3, ariaLabel: t(locale, "nextProjectsPage") },
           ]
         : [
-            { label: "<", page: 2, ariaLabel: "Previous projects page" },
+            { label: "<", page: 2, ariaLabel: t(locale, "previousProjectsPage") },
             { label: "1", page: 1 },
             { label: "2", page: 2 },
             { label: "3", page: 3, current: true },
@@ -4037,26 +4401,26 @@ function ProjectsSourceListingView({ locale, pageNumber, variant = "all" }: { lo
       <ProjectsSourceHero locale={locale} title={heroTitle} showProjectsCrumb={isResidential || isCommercial} />
       <section className="bg-[#f3f3f3] pb-10 pt-5 lg:pt-[99px]">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <ProjectsSourceTitle title={title} backdrop="RESIDENTIAL" />
+          <ProjectsSourceTitle title={title} backdrop={t(locale, "residential").toUpperCase()} />
           <p className="intco-projects-source-intro">
-            Artistry meets functionality.
+            {t(locale, "sourceProjectsIntroLine1")}
             <br />
-            From commercial spaces to homes, our diverse products seamlessly integrate into diverse scenarios.
+            {t(locale, "productLandingProjectDescription")}
           </p>
           <nav className="flex justify-center gap-[10px] lg:gap-[130px]" aria-label="Project categories">
             <Link href={localizePath(locale, "/projects")} aria-current={!isResidential && !isCommercial ? "page" : undefined} className={`box-border flex h-11 flex-1 items-center justify-center rounded-[29px] border-2 border-[#484653] text-sm font-semibold transition duration-700 lg:box-content lg:h-[58px] lg:w-[232px] lg:flex-none lg:text-lg ${isResidential || isCommercial ? "bg-white text-[#484653] hover:bg-[#484653] hover:text-white" : "bg-[#484653] text-white"}`}>
-              View All
+              {t(locale, "viewAll")}
             </Link>
             <Link href={localizePath(locale, "/projects/residential")} aria-current={isResidential ? "page" : undefined} className={`box-border flex h-11 flex-1 items-center justify-center rounded-[29px] border-2 border-[#484653] text-sm font-semibold transition duration-700 lg:box-content lg:h-[58px] lg:w-[232px] lg:flex-none lg:text-lg ${isResidential ? "bg-[#484653] text-white" : "bg-white text-[#484653] hover:bg-[#484653] hover:text-white"}`}>
-              Residential
+              {t(locale, "residential")}
             </Link>
             <Link href={localizePath(locale, "/projects/commercial")} aria-current={isCommercial ? "page" : undefined} className={`box-border flex h-11 flex-1 items-center justify-center rounded-[29px] border-2 border-[#484653] text-sm font-semibold transition duration-700 lg:box-content lg:h-[58px] lg:w-[232px] lg:flex-none lg:text-lg ${isCommercial ? "bg-[#484653] text-white" : "bg-white text-[#484653] hover:bg-[#484653] hover:text-white"}`}>
-              Commercial
+              {t(locale, "commercial")}
             </Link>
           </nav>
           <div className="pt-5 lg:pt-[59px]">
             {items.map((project, index) => (
-              <ProjectsSourceCard key={project.title} project={project} index={index} locale={locale} />
+              <ProjectsSourceCard key={project.title} project={project} projects={projects} index={index} locale={locale} />
             ))}
           </div>
           {!isCommercial ? (
@@ -4082,7 +4446,7 @@ function ProjectsSourceListingView({ locale, pageNumber, variant = "all" }: { lo
 }
 
 function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { locale: Locale; title: string; showProjectsCrumb?: boolean }) {
-  const isProjectsIndex = title === "Projects";
+  const isProjectsIndex = title === t(locale, "projects");
 
   return (
     <section className="relative aspect-[1920/600] min-h-[122px] overflow-hidden lg:min-h-[260px]">
@@ -4092,16 +4456,16 @@ function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { loca
         <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
           <h1 className={`text-[32px] leading-[48px] lg:text-[66px] lg:leading-[80px] ${isProjectsIndex ? "font-bold text-[#333333]" : "font-semibold text-[#484653]"}`}>{title}</h1>
           <nav className="flex items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:py-0 lg:text-xl lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>Home</Link>
+            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
             {showProjectsCrumb ? (
               <>
-                <Link href={localizePath(locale, "/projects")}>Projects</Link>
+                <Link href={localizePath(locale, "/projects")}>{t(locale, "projects")}</Link>
                 <ArrowRight size={18} strokeWidth={1.8} />
                 <span>{title}</span>
               </>
             ) : (
-              <span>Projects</span>
+              <span>{t(locale, "projects")}</span>
             )}
           </nav>
           <div className="mt-4 flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
@@ -4109,13 +4473,13 @@ function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { loca
               href={localizePath(locale, "/contact")}
               className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
             >
-              Chat With Us
+              {t(locale, "chatWithUs")}
             </Link>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
             >
-              Leave a Message
+              {t(locale, "leaveMessage")}
             </Link>
           </div>
         </div>
@@ -4137,19 +4501,20 @@ function ProjectsSourceTitle({ title, backdrop }: { title: string; backdrop: str
   );
 }
 
-function ProjectsSourceCard({ project, index, locale }: { project: (typeof PROJECTS_SOURCE_ITEMS)[number]; index: number; locale: Locale }) {
+function ProjectsSourceCard({ project, projects, index, locale }: { project: (typeof PROJECTS_SOURCE_ITEMS)[number]; projects: Project[]; index: number; locale: Locale }) {
+  const localized = locale === "en" ? undefined : projects.find((item) => item.path === project.path);
   const textReveal = index % 2 === 0 ? "up" : "down";
   const imageReveal = index % 2 === 0 ? "down" : "up";
   const text = (
     <div className="intco-project-card-text" data-reveal={textReveal}>
-      <div className="intco-project-card-title">{project.title}</div>
-      <p className="intco-project-card-desc">{project.description}</p>
+      <div className="intco-project-card-title">{localized?.title || project.title}</div>
+      <p className="intco-project-card-desc">{localized?.description || project.description}</p>
     </div>
   );
   const image = (
     <div className="intco-project-card-image" data-reveal={imageReveal}>
       <div className="intco-project-card-image-inner">
-        <Image src={project.imageUrl} alt={project.title} fill className="object-cover transition duration-[1500ms] hover:scale-105" sizes="(min-width: 1601px) 1106px, (min-width: 1024px) 50vw, 100vw" />
+        <Image src={project.imageUrl} alt={localized?.imageAlt || localized?.title || project.title} fill className="object-cover transition duration-[1500ms] hover:scale-105" sizes="(min-width: 1601px) 1106px, (min-width: 1024px) 50vw, 100vw" />
       </div>
     </div>
   );
@@ -4174,16 +4539,16 @@ function ProjectsSourceCard({ project, index, locale }: { project: (typeof PROJE
 function ProjectsSourceContactBand({ locale }: { locale: Locale }) {
   return (
     <section className="relative mb-[30px] bg-cover bg-center p-5 lg:mb-[55px] lg:px-0 lg:py-[98px]" style={{ backgroundImage: `url(${SOLUTIONS_CONTACT_BG})` }}>
-      <span className="sr-only">GET IN TOUCH</span>
+      <span className="sr-only">{t(locale, "getInTouch")}</span>
       <div className="intco-source-container flex flex-col items-center justify-center rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:min-h-[321px] lg:px-0 lg:py-[8vh]" data-reveal="fade">
-        <h2 className="w-full text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">Looking for the Perfect Solution?</h2>
-        <p className="my-8 w-full text-lg font-normal lg:text-2xl lg:leading-9">Contact us today for your decor solution needs.</p>
+        <h2 className="w-full text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">{t(locale, "perfectSolution")}</h2>
+        <p className="my-8 w-full text-lg font-normal lg:text-2xl lg:leading-9">{t(locale, "contactToday")}</p>
         <Link
           href={localizePath(locale, "/contact")}
           className="mx-auto box-content inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium leading-[54px] text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
         >
           <Phone className="mr-[9px]" size={22} />
-          Contact Us
+          {t(locale, "contactUs")}
         </Link>
       </div>
     </section>
@@ -4193,10 +4558,10 @@ function ProjectsSourceContactBand({ locale }: { locale: Locale }) {
 export function BlogListingView({ posts, locale, activeCategory, page }: { posts: BlogPost[]; locale: Locale; activeCategory?: string; page?: ContentPage }) {
   const pageLines = contentLines(page?.bodyText, 120);
   const sourceCategoryOrder = ["Expo", "Industry News", "Inspiration", "New Arrivals", "Press Release", "Tips"];
-  const categorySet = new Set(posts.map((post) => post.category).filter(Boolean));
+  const categorySet = new Set(posts.map((post) => post.categoryKey || post.category).filter(Boolean));
   const categories = sourceCategoryOrder.filter((name) => pageLines.includes(name) || categorySet.has(name));
   const datedPosts = posts.map((post) => ({ ...post, publishedAt: post.publishedAt || blogDateFor(pageLines, post.title) }));
-  const filteredPosts = activeCategory ? datedPosts.filter((post) => post.category === activeCategory) : datedPosts;
+  const filteredPosts = activeCategory ? datedPosts.filter((post) => (post.categoryKey || post.category) === activeCategory) : datedPosts;
   const visiblePosts = filteredPosts.length ? filteredPosts : datedPosts;
   const popularPosts = datedPosts.slice(0, 5);
   return (
@@ -4208,17 +4573,17 @@ export function BlogListingView({ posts, locale, activeCategory, page }: { posts
       />
       <section className="bg-white py-8">
         <div className="mx-auto flex max-w-7xl flex-wrap gap-3 px-4 sm:px-6 lg:px-8">
-          {[t(locale, "all"), ...categories].map((category) => (
+          {["All", ...categories].map((category) => (
             <Link
               key={category}
-              href={category === t(locale, "all") ? localizePath(locale, "/blog") : `${localizePath(locale, "/blog")}?category=${encodeURIComponent(category || "")}`}
+              href={category === "All" ? localizePath(locale, "/blog") : `${localizePath(locale, "/blog")}?category=${encodeURIComponent(category || "")}`}
               className={`border px-4 py-2 text-sm font-semibold ${
-                (category === t(locale, "all") && !activeCategory) || category === activeCategory
+                (category === "All" && !activeCategory) || category === activeCategory
                   ? "border-emerald-700 bg-emerald-700 text-white"
                   : "border-neutral-200 text-neutral-700"
               }`}
             >
-              {category}
+              {blogCategoryLabel(locale, category)}
             </Link>
           ))}
         </div>
@@ -4279,7 +4644,7 @@ export function ProductDetailView({
   relatedProducts: Product[];
   locale: Locale;
 }) {
-  const details = parseProductDetails(product);
+  const details = parseProductDetails(product, locale);
   const displayTitle = details.displayTitle || product.title;
   const gallery = itemGallery(product);
   const primary = gallery[0] || preferredImage(product);
@@ -4290,7 +4655,7 @@ export function ProductDetailView({
       <section className="bg-neutral-100 py-6">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 text-sm text-neutral-600 sm:px-6 lg:px-8">
           <Link href={localizePath(locale, "/products")} className="font-semibold text-emerald-700">
-            Products
+            {t(locale, "products")}
           </Link>
           <span>/</span>
           <span>{displayTitle}</span>
@@ -4416,22 +4781,22 @@ export function SolutionDetailView({
   projects: Project[];
   locale: Locale;
 }) {
-  if (solution.slug === "business-insights-trends") {
+  if (locale === "en" && solution.slug === "business-insights-trends") {
     return <BusinessInsightsSourceView locale={locale} />;
   }
-  if (solution.slug === "design-engineering") {
+  if (locale === "en" && solution.slug === "design-engineering") {
     return <DesignEngineeringSourceView locale={locale} />;
   }
-  if (solution.slug === "manufacturing-delivery") {
+  if (locale === "en" && solution.slug === "manufacturing-delivery") {
     return <ManufacturingDeliverySourceView locale={locale} />;
   }
-  if (solution.slug === "global-production-and-supply") {
+  if (locale === "en" && solution.slug === "global-production-and-supply") {
     return <GlobalProductionSupplySourceView locale={locale} />;
   }
-  if (solution.slug === "certification") {
+  if (locale === "en" && solution.slug === "certification") {
     return <CertificationSourceView locale={locale} />;
   }
-  if (solution.slug === "retailer-support") {
+  if (locale === "en" && solution.slug === "retailer-support") {
     return <RetailerSupportSourceView locale={locale} />;
   }
 
@@ -4439,7 +4804,7 @@ export function SolutionDetailView({
 
   return (
     <>
-      <PageHero title={solution.title} description={solution.description} imageUrl={solution.imageUrl} label="Solution" />
+      <PageHero title={solution.title} description={solution.description} imageUrl={solution.imageUrl} label={t(locale, "solutions")} />
       <section className="bg-white py-16">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[.8fr_1.2fr] lg:px-8">
           <div data-reveal="left">
@@ -4744,10 +5109,30 @@ export function EnquiryListView({ locale }: { locale: Locale }) {
 
 function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Locale }) {
   const href = (path: string) => localizePath(locale, path);
+  const aboutLines = contentLines(page.bodyText, 8);
+  const aboutIntro = locale === "en"
+    ? [
+        "Intco Framing (stock symbol 688087), a leading interior décor manufacturer specializing in picture frames, art, mirrors, memo boards and furniture.",
+        "We provide customized solutions for diverse applications, tailoring designs to complement residential, commercial, and office spaces.",
+      ]
+    : aboutLines.slice(0, 2);
+  const globalMarketIntro =
+    locale === "en"
+      ? "Operating on a global scale, we have established a widespread presence in the market, collaborating with numerous high-quality retail partners worldwide"
+      : page.description || aboutLines[2] || t(locale, "globalMarket");
+  const statKeys: Record<string, string> = {
+    "Business Units": "businessUnits",
+    "Production Bases": "productionBases",
+    "Years Experience": "yearsExperience",
+    Employees: "employees",
+  };
+  const stats = WHO_WE_ARE_STATS.map((stat) => ({ ...stat, label: t(locale, statKeys[stat.label] || stat.label) }));
+  const markets = WHO_WE_ARE_MARKETS.map((market) => localizeWhoWeAreMarket(market, locale));
 
   return (
     <>
-      <SolutionsSourceHero title={page.title} locale={locale} imageUrl={WHO_WE_ARE_HERO_IMAGE} imageAlt="Who We Are" />
+      <SolutionsSourceHero title={page.title} locale={locale} imageUrl={WHO_WE_ARE_HERO_IMAGE} imageAlt={page.title} />
+      {locale === "en" ? <p className="sr-only">Learn More about Intco Framing | Premium Home Décor Manufacturer &amp; Supplier</p> : null}
 
       <section className="mb-[100px] bg-white pt-[108px] max-lg:mb-16 max-lg:pt-16">
         <div className="intco-source-container px-5">
@@ -4759,10 +5144,11 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
                 </div>
               </div>
               <div className="flex flex-col justify-center pb-12 lg:pb-0" data-reveal="right">
-                <WhoWeAreSourceTitle title="ABOUT US" align="left" />
+                <WhoWeAreSourceTitle title={t(locale, "aboutUs")} align="left" />
                 <div className="mt-8 max-w-[720px] text-lg leading-[1.78] text-[#363636]">
-                  <p>Intco Framing (stock symbol 688087), a leading interior décor manufacturer specializing in picture frames, art, mirrors, memo boards and furniture.</p>
-                  <p className="mt-7">We provide customized solutions for diverse applications, tailoring designs to complement residential, commercial, and office spaces.</p>
+                  {aboutIntro.map((line, index) => (
+                    <p key={line} className={index ? "mt-7" : ""}>{line}</p>
+                  ))}
                 </div>
               </div>
             </div>
@@ -4772,7 +5158,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
         <div className="mt-0 bg-cover bg-center" style={{ backgroundImage: `url(${WHO_WE_ARE_STATS_BG})` }}>
           <div className="intco-source-container px-5">
             <ul className="grid bg-transparent sm:grid-cols-2 lg:grid-cols-4">
-              {WHO_WE_ARE_STATS.map((stat, index) => {
+              {stats.map((stat, index) => {
                 const countValue = stat.value.replace("+", "");
                 const suffix = stat.value.endsWith("+") ? "+" : "";
                 return (
@@ -4802,7 +5188,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-[#f3f3f3] pb-[98px] pt-[108px] max-lg:py-16">
         <div className="intco-source-container px-5">
-          <WhoWeAreSourceTitle title="OUR HISTORY" align="left" />
+          <WhoWeAreSourceTitle title={t(locale, "ourHistory")} align="left" />
           <div className="mt-16">
             <WhoWeAreHistoryCarousel items={WHO_WE_ARE_HISTORY} />
           </div>
@@ -4811,9 +5197,9 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pt-[118px] max-lg:pt-16">
         <div className="intco-source-container px-5">
-          <WhoWeAreSourceTitle title="GLOBAL MARKET" />
+          <WhoWeAreSourceTitle title={t(locale, "globalMarket")} />
           <p className="mx-auto mt-16 max-w-[980px] text-center text-lg leading-8 text-[#363636]" data-reveal="fade">
-            Operating on a global scale, we have established a widespread presence in the market, collaborating with numerous high-quality retail partners worldwide
+            {globalMarketIntro}
           </p>
         </div>
       </section>
@@ -4824,7 +5210,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
             <div className="relative aspect-[1600/934] w-full">
               <Image src={WHO_WE_ARE_MAP_IMAGE} alt="Global market map" fill className="object-contain" sizes="100vw" />
               <div className="absolute inset-0 hidden lg:block">
-                {WHO_WE_ARE_MARKETS.map((market) => (
+                {markets.map((market) => (
                   <WhoWeAreMarketMarker key={market.continent} market={market} />
                 ))}
               </div>
@@ -4836,7 +5222,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
                   <CountUpStat value="120" />
                   <sup className="text-2xl">+</sup>
                 </div>
-                <div className="text-sm font-semibold">Countries & Regions</div>
+                <div className="text-sm font-semibold">{t(locale, "countriesRegions")}</div>
               </div>
               <div className="my-[36.5px] h-0.5 w-40 bg-[#484653] max-lg:my-0 max-lg:h-20 max-lg:w-0.5" />
               <div className="flex flex-col items-center">
@@ -4845,12 +5231,12 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
                   <CountUpStat value="12000" />
                   <sup className="text-2xl">+</sup>
                 </div>
-                <div className="text-sm font-semibold">Clients</div>
+                <div className="text-sm font-semibold">{t(locale, "clients")}</div>
               </div>
             </div>
           </div>
           <div className="mt-8 grid gap-3 md:grid-cols-2 lg:hidden">
-            {WHO_WE_ARE_MARKETS.map((market) => (
+            {markets.map((market) => (
               <div key={market.continent} className="border border-neutral-200 p-4">
                 <div className="font-semibold text-[#484653]">{market.continent}</div>
                 <p className="mt-2 text-sm leading-6 text-[#363636]">{market.countries.join(", ")}</p>
@@ -4862,7 +5248,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pb-[100px] pt-16 max-lg:pb-16">
         <div className="intco-source-container px-5">
-          <WhoWeAreSourceTitle title="OUR PARTNERS" />
+          <WhoWeAreSourceTitle title={locale === "en" ? "OUR PARTNERS" : t(locale, "aboutIntco")} />
           <ul className="mt-16 grid grid-cols-2 gap-x-[6.25%] gap-y-[57px] sm:grid-cols-3 lg:grid-cols-5" data-reveal="fade">
             {WHO_WE_ARE_PARTNER_LOGOS.map((logo, index) => (
               <li key={logo} className="flex justify-center" style={{ "--reveal-delay": `${(index % 5) * 50}ms` } as React.CSSProperties}>
@@ -4877,22 +5263,28 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pb-[116px] max-lg:pb-16">
         <div className="intco-source-container px-5">
-          <WhoWeAreSourceTitle title="AN INTELLIGENT COMPANY TO PARTNER WITH" align="left" wide />
+          <WhoWeAreSourceTitle title={locale === "en" ? "AN INTELLIGENT COMPANY TO PARTNER WITH" : t(locale, "aboutIntco")} align="left" wide />
           <p className="mt-[55px] max-w-[1104px] text-lg leading-8 text-[#363636]" data-reveal="left">
-            Founded in 2002, INTCO upholds the reputation for high quality, great designs, and fast delivery to fulfill all aspects of a project – from artistry to functionality, saving you time and money.
+            {aboutIntro[0] || page.description}
           </p>
           <div className="mt-12 grid gap-5 lg:grid-cols-[41.3%_1fr]">
-            <WhoWeArePartnerCard card={WHO_WE_ARE_PARTNER_CARDS[0]} href={href(WHO_WE_ARE_PARTNER_CARDS[0].path)} large />
+            <WhoWeArePartnerCard card={WHO_WE_ARE_PARTNER_CARDS[0]} href={href(WHO_WE_ARE_PARTNER_CARDS[0].path)} locale={locale} large />
             <div className="grid gap-[15px]">
               {WHO_WE_ARE_PARTNER_CARDS.slice(1).map((card) => (
-                <WhoWeArePartnerCard key={card.title} card={card} href={href(card.path)} />
+                <WhoWeArePartnerCard key={card.title} card={card} href={href(card.path)} locale={locale} />
               ))}
             </div>
           </div>
         </div>
       </section>
+      <HomeBottomContactBand locale={locale} />
     </>
   );
+}
+
+function localizeWhoWeAreMarket(market: (typeof WHO_WE_ARE_MARKETS)[number], locale: Locale) {
+  const translated = WHO_WE_ARE_MARKET_TRANSLATIONS[locale]?.[market.continent];
+  return translated ? { ...market, ...translated } : market;
 }
 
 function WhoWeAreMarketMarker({ market }: { market: (typeof WHO_WE_ARE_MARKETS)[number] }) {
@@ -4921,15 +5313,16 @@ function WhoWeAreMarketMarker({ market }: { market: (typeof WHO_WE_ARE_MARKETS)[
   );
 }
 
-function WhoWeArePartnerCard({ card, href, large = false }: { card: (typeof WHO_WE_ARE_PARTNER_CARDS)[number]; href: string; large?: boolean }) {
+function WhoWeArePartnerCard({ card, href, locale, large = false }: { card: (typeof WHO_WE_ARE_PARTNER_CARDS)[number]; href: string; locale: Locale; large?: boolean }) {
+  const label = card.path === "/products" ? t(locale, "products") : card.path === "/solutions" ? t(locale, "solutions") : t(locale, "projects");
   return (
     <Link href={href} className={`group relative block overflow-hidden rounded-md ${large ? "aspect-[547/583]" : "aspect-[1033/375]"}`} data-reveal>
-      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes={large ? "(min-width: 1024px) 42vw, 100vw" : "(min-width: 1024px) 58vw, 100vw"} />
+      <Image src={card.imageUrl} alt={label} fill className="object-cover transition duration-700 group-hover:scale-105" sizes={large ? "(min-width: 1024px) 42vw, 100vw" : "(min-width: 1024px) 58vw, 100vw"} />
       <span className="absolute inset-0 z-[3] bg-[rgba(72,70,83,0.2)] opacity-0 transition duration-300 group-hover:opacity-100" aria-hidden="true" />
       <span className="absolute inset-0 z-10 block">
-        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-2xl font-bold text-white">{card.title}</span>
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 whitespace-nowrap text-2xl font-bold text-white">{label}</span>
         <span className="absolute bottom-0 left-1/2 flex -translate-x-1/2 items-center gap-2 pb-[49px] text-lg font-semibold text-white max-sm:pb-6">
-          Learn More <ArrowRight size={22} />
+          {t(locale, "readMore")} <ArrowRight size={22} />
         </span>
       </span>
     </Link>
@@ -4937,33 +5330,34 @@ function WhoWeArePartnerCard({ card, href, large = false }: { card: (typeof WHO_
 }
 
 function SustainabilitySourceHero({ locale }: { locale: Locale }) {
+  const labels = SUSTAINABILITY_LABELS[locale];
   return (
     <section className="relative aspect-[1920/600] min-h-[320px] overflow-hidden max-[650px]:min-h-0">
       <Image src={SUSTAINABILITY_HERO_IMAGE} alt="Sustainability1" fill className="object-cover" sizes="100vw" priority />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center max-[650px]:hidden">
         <div className="intco-source-container px-5 text-center text-white">
-          <h1 className="text-[66px] font-semibold leading-none max-[1466px]:text-[40px] max-[650px]:text-[32px]">Sustainability</h1>
+          <h1 className="text-[66px] font-semibold leading-none max-[1466px]:text-[40px] max-[650px]:text-[32px]">{t(locale, "sustainability")}</h1>
           <div className="mt-5 flex items-center justify-center gap-3 text-lg font-medium max-[650px]:text-base">
-            <Link href={localizePath(locale, "/")}>Home</Link>
+            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
-            <span>Sustainability</span>
+            <span>{t(locale, "sustainability")}</span>
           </div>
           <div className="mt-7">
-            <SustainabilityVideoButton src={SUSTAINABILITY_VIDEO_SRC} label="Watch Video" />
+            <SustainabilityVideoButton src={SUSTAINABILITY_VIDEO_SRC} label={labels.watchVideo} />
           </div>
           <div className="mt-6 flex justify-center gap-[30px] max-sm:flex-col max-sm:items-center max-sm:gap-3">
             <Link
               href={localizePath(locale, "/contact")}
               className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
             >
-              Chat With Us
+              {t(locale, "chatWithUs")}
             </Link>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
             >
-              Leave a Message
+              {t(locale, "leaveMessage")}
             </Link>
           </div>
         </div>
@@ -4995,11 +5389,12 @@ function SustainabilitySourceTitle({ title, light = false }: { title: string; li
   );
 }
 
-function SustainabilityExternalRatings() {
+function SustainabilityExternalRatings({ locale }: { locale: Locale }) {
+  const labels = SUSTAINABILITY_LABELS[locale];
   return (
     <section className="bg-cover bg-center bg-no-repeat px-5 py-20 lg:pb-[100px]" style={{ backgroundImage: `url(${SUSTAINABILITY_EXTERNAL_BG})` }}>
       <div className="intco-source-container">
-        <SustainabilitySourceTitle title="EXTERNAL RATINGS" light />
+        <SustainabilitySourceTitle title={labels.externalRatings} light />
         <ul className="mt-16 grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-[47px]" data-reveal="fade">
           {SUSTAINABILITY_EXTERNAL_IMAGES.slice(0, 3).map((image, index) => (
             <li key={image}>
@@ -5044,9 +5439,10 @@ function SustainabilityTreeCard({ item, index }: { item: (typeof SUSTAINABILITY_
 }
 
 function SustainabilitySourceView({ locale }: { locale: Locale }) {
+  const labels = SUSTAINABILITY_LABELS[locale];
   return (
     <>
-      <span className="sr-only">ESG & Sustainability in Action | Intco Framing</span>
+      <span className="sr-only">{labels.inAction}</span>
       <SustainabilitySourceHero locale={locale} />
 
       <section className="bg-white px-5 pb-[100px] pt-[100px] max-[650px]:pb-8 max-[650px]:pt-5">
@@ -5076,18 +5472,18 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
                 rel="noreferrer"
                 className="mt-[50px] inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-700 hover:bg-[#484653] hover:text-white"
               >
-                Download PDF <Download className="ml-2" size={20} />
+                {labels.downloadPdf} <Download className="ml-2" size={20} />
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <SustainabilityExternalRatings />
+      <SustainabilityExternalRatings locale={locale} />
 
       <section className="bg-[#f3f3f3] pt-[100px]">
         <div className="intco-source-container px-5">
-          <SustainabilitySourceTitle title="ENVIRONMENTAL CONTRIBUTION" />
+          <SustainabilitySourceTitle title={labels.environmentalContribution} />
           <p className="mx-auto mb-[86px] mt-16 max-w-[1320px] text-center text-lg leading-8 text-[#363636]" data-reveal="fade">
             Intco Recycling has reduced 200,000 tons of carbon emissions, saved 300,000 tons of crude oil, and protected 2 million trees every year, an elegant and profitable solution for the recycling of waste EPS foam.
           </p>
@@ -5097,7 +5493,7 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
 
       <section className="bg-white px-5 pt-[100px]">
         <div className="intco-source-container">
-          <SustainabilitySourceTitle title="HOW TO PROTECT A TREE" />
+          <SustainabilitySourceTitle title={labels.protectTree} />
           <ul className="mt-16 grid gap-12 lg:grid-cols-3">
             {SUSTAINABILITY_TREE_ITEMS.map((item, index) => (
               <SustainabilityTreeCard key={item.label} item={item} index={index} />
@@ -5108,7 +5504,7 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
 
       <section className="mt-[100px] bg-[#f3f3f3] px-5 pb-[100px] pt-[100px]">
         <div className="intco-source-container">
-          <SustainabilitySourceTitle title="SUSTAINABILITY IN ACTION" />
+          <SustainabilitySourceTitle title={labels.inAction} />
           <ul className="mt-16 grid gap-[55px] lg:grid-cols-3">
             {SUSTAINABILITY_ACTION_CARDS.map((card, index) => (
               <li key={card.title} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
@@ -5173,16 +5569,17 @@ function PhilosophyValueCard({ item, index }: { item: (typeof PHILOSOPHY_VALUES)
   );
 }
 
-function PhilosophyGalleryTile({ imageUrl, label }: { imageUrl: string; label?: string }) {
+function PhilosophyGalleryTile({ imageUrl, label, locale }: { imageUrl: string; label?: string; locale: Locale }) {
+  const displayLabel = label === "WORLD CLASS CUSTOMER SERVICE" ? t(locale, "worldClassCustomerService") : label === "MEET THE TEAM" ? SUSTAINABILITY_LABELS[locale].meetTeam : label;
   return (
     <div className="group relative cursor-pointer overflow-hidden rounded-[3px]" data-reveal>
       <div className="relative aspect-[861/402]">
-        <Image src={imageUrl} alt={label || "Philosophy"} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
+        <Image src={imageUrl} alt={displayLabel || "Philosophy"} fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
       </div>
       <span className="absolute inset-0 z-[2] bg-black/0 transition duration-700 group-hover:bg-black/45" aria-hidden="true" />
-      {label ? (
+      {displayLabel ? (
         <span className="absolute bottom-[35px] left-[41px] z-[3] text-white">
-          <span className="block text-lg leading-7">{label}</span>
+          <span className="block text-lg leading-7">{displayLabel}</span>
         </span>
       ) : null}
     </div>
@@ -5193,7 +5590,7 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
   return (
     <>
       <span className="sr-only">Our Mission & Vision | Intco Framing</span>
-      <SolutionsSourceHero title="Philosophy" locale={locale} imageUrl={PHILOSOPHY_HERO_IMAGE} imageAlt="Philosophy1" tone="dark" />
+      <SolutionsSourceHero title={t(locale, "philosophy")} locale={locale} imageUrl={PHILOSOPHY_HERO_IMAGE} imageAlt={t(locale, "philosophy")} tone="dark" />
 
       <section className="bg-white bg-center bg-no-repeat pt-[99px] max-lg:pt-10" style={{ backgroundImage: `url(${PHILOSOPHY_BG})` }}>
         <div className="intco-source-container px-5">
@@ -5223,7 +5620,7 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
           </div>
 
           <div className="mt-[100px]">
-            <PhilosophySourceTitle title="PHILOSOPHY" />
+            <PhilosophySourceTitle title={t(locale, "philosophy").toUpperCase()} />
             <ul className="mt-[70px] grid lg:grid-cols-2">
               {PHILOSOPHY_VALUES.map((item, index) => (
                 <PhilosophyValueCard key={item.title} item={item} index={index} />
@@ -5238,7 +5635,7 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
           <ul className="grid gap-3 lg:grid-cols-2">
             {PHILOSOPHY_GALLERY_TOP.map((item) => (
               <li key={item.imageUrl}>
-                <PhilosophyGalleryTile imageUrl={item.imageUrl} label={item.label} />
+                <PhilosophyGalleryTile imageUrl={item.imageUrl} label={item.label} locale={locale} />
               </li>
             ))}
           </ul>
@@ -5263,14 +5660,14 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
         <div className="flex bg-center bg-no-repeat py-[162px] pb-[121px] max-lg:flex-col max-lg:py-0" style={{ backgroundImage: `url(${PHILOSOPHY_CENTER_BG})` }}>
           <div className="w-[65.7%] max-lg:w-full" data-reveal="left">
             <div className="relative aspect-[1261/682] overflow-hidden">
-              <Image src={PHILOSOPHY_TEAM_IMAGE} alt="MEET THE TEAM" fill className="object-cover" sizes="(min-width: 1024px) 66vw, 100vw" />
+              <Image src={PHILOSOPHY_TEAM_IMAGE} alt={SUSTAINABILITY_LABELS[locale].meetTeam} fill className="object-cover" sizes="(min-width: 1024px) 66vw, 100vw" />
             </div>
           </div>
           <div className="ml-[120px] max-w-[460px] pt-28 max-[1600px]:mx-[50px] max-lg:m-0 max-lg:max-w-none max-lg:bg-white max-lg:p-8" data-reveal="right">
-            <h2 className="text-[34px] font-semibold leading-none text-[#484653]">20+ Years</h2>
+            <h2 className="text-[34px] font-semibold leading-none text-[#484653]">{SUSTAINABILITY_LABELS[locale].years}</h2>
             <div className="mb-[65px] mt-[31px] h-0.5 w-full bg-[#484653] max-lg:mb-6" />
             <p className="max-w-[374px] text-lg leading-[1.68] text-[#363636] max-lg:max-w-none">
-              Our Customer Service Team has an in-depth knowledge of the picture framing industry and is here to support you with seamless end-to-end solutions.
+              {t(locale, "philosophyCustomerService")}
             </p>
           </div>
         </div>
@@ -5279,19 +5676,19 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
       <section className="bg-[#f3f3f3] pb-[100px] pt-[100px] max-lg:py-16">
         <div className="relative mx-auto box-border w-[71.61%] max-w-[calc(100%-430px)] bg-white py-[107px] pb-[98px] pl-[103px] max-lg:w-full max-lg:max-w-full max-lg:px-8 max-lg:py-12">
           <div className="max-w-[80%] max-lg:max-w-full" data-reveal="left">
-            <PhilosophySourceTitle title="DON'T HESITATE TO REACH US" align="left" />
-            <span className="sr-only">GET IN TOUCH</span>
-            <p className="mt-8 max-w-[80%] text-lg leading-[1.68] text-[#363636] max-lg:max-w-full">Unmatched quality & service will help you running a better business</p>
+            <PhilosophySourceTitle title={t(locale, "doNotHesitate")} align="left" />
+            <span className="sr-only">{t(locale, "getInTouch")}</span>
+            <p className="mt-8 max-w-[80%] text-lg leading-[1.68] text-[#363636] max-lg:max-w-full">{t(locale, "contactFormIntro")}</p>
             <Link
               href={localizePath(locale, "/contact")}
               className="mt-12 inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-700 hover:bg-[#484653] hover:text-white"
             >
-              Contact Us <ArrowRight className="ml-2" size={20} />
+              {t(locale, "contactUs")} <ArrowRight className="ml-2" size={20} />
             </Link>
           </div>
           <div className="absolute right-[6%] top-6 z-[3] w-full max-w-[428px] translate-x-[41%] max-lg:hidden" data-reveal="right">
             <div className="relative aspect-square">
-              <Image src={PHILOSOPHY_CONTACT_IMAGE} alt="Contact Us" fill className="object-contain" sizes="428px" />
+              <Image src={PHILOSOPHY_CONTACT_IMAGE} alt={t(locale, "contactUs")} fill className="object-contain" sizes="428px" />
             </div>
             <div className="absolute -bottom-8 right-[68px] w-full max-w-[138px]">
               <div className="relative aspect-square">
@@ -5325,9 +5722,9 @@ export function ContactView({ locale }: { page: ContentPage; locale: Locale }) {
   return (
     <div className="intco-contact-source-page">
       <ContactSourceHero locale={locale} />
-      <ContactMapTabs factories={CONTACT_FACTORIES} />
-      <ContactSupportSection />
-      <ContactSampleSection />
+      <ContactMapTabs factories={localizedContactFactories(locale)} locale={locale} />
+      <ContactSupportSection locale={locale} />
+      <ContactSampleSection locale={locale} />
     </div>
   );
 }
@@ -5343,20 +5740,20 @@ function ContactSourceHero({ locale }: { locale: Locale }) {
           <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
             <div className="intco-source-hero-text" data-source-hero-text>
               <h1 className="intco-source-hero-title" data-source-hero-title>
-                Contact
+                {t(locale, "contact")}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>Home</Link>
+                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
                 <span className="intco-source-hero-separator">›</span>
-                <span>Contact</span>
+                <span>{t(locale, "contact")}</span>
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
               <a href="#chat" data-source-hero-cta>
-                Chat With Us
+                {t(locale, "chatWithUs")}
               </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
-                Leave a Message
+                {t(locale, "leaveMessage")}
               </a>
             </div>
           </div>
@@ -5366,10 +5763,10 @@ function ContactSourceHero({ locale }: { locale: Locale }) {
   );
 }
 
-function ContactSupportSection() {
+function ContactSupportSection({ locale }: { locale: Locale }) {
   const contacts = [
     {
-      title: "Telephone",
+      title: t(locale, "telephone"),
       description: (
         <>
           <a href="https://api.whatsapp.com/send?phone=8613371591392&text=Hello" target="_blank" rel="noopener noreferrer">
@@ -5381,31 +5778,31 @@ function ContactSupportSection() {
           </a>
         </>
       ),
-      action: "Call Now",
+      action: t(locale, "callNow"),
       href: "https://api.whatsapp.com/send?phone=8613371591392&text=Hello",
       iconClass: "intco-source-icon-phone",
     },
     {
-      title: "Live Chat",
+      title: t(locale, "liveChat"),
       description: null,
-      action: "Contact Now",
+      action: t(locale, "contactNow"),
       href: "#chat",
       iconClass: "intco-source-icon-service",
     },
     {
-      title: "Send an Email",
+      title: t(locale, "sendEmail"),
       description: <a href="mailto:info@intcoframing-us.com">info@intcoframing-us.com</a>,
-      action: "Email Us",
+      action: t(locale, "emailUs"),
       href: "mailto:info@intcoframing-us.com",
       iconClass: "intco-source-icon-email",
     },
   ];
 
   return (
-    <section className="intco-contact-index intco-contact-support-section">
+    <section id="chat" className="intco-contact-index intco-contact-support-section">
       <div className="intco-source-container px-5 min-[1601px]:px-0">
         <p className="intco-contact-desc intco-contact-desc-center" data-reveal="fade">
-          Our committed team is at your service, ensuring a smooth experience for you.
+          {t(locale, "contactSupportIntro")}
         </p>
         <ul className="intco-contact-list intco-contact-support-list">
           {contacts.map((contact, index) => (
@@ -5426,20 +5823,19 @@ function ContactSupportSection() {
   );
 }
 
-function ContactSampleSection() {
+function ContactSampleSection({ locale }: { locale: Locale }) {
+  const fields = sourceFormFields(locale);
   return (
     <section id="goinput" className="intco-contact-index intco-contact-message-section">
       <div className="intco-source-container px-5 min-[1601px]:px-0">
-        <ProductSourceTitle title="Order A SAMPLE" />
+        <ProductSourceTitle title={t(locale, "orderSample")} />
         <p className="intco-contact-form-desc" data-reveal="fade">
-          Don&apos;t Hesitate to Reach Us
-          <br />
-          We are always here to address all your concerns and provide solutions.
+          {t(locale, "contactFormIntro")}
         </p>
         <div className="intco-contact-message-grid">
           <form className="intco-contact-form" data-reveal="source-down">
             <div className="intco-contact-form-fields">
-              {PRODUCT_CONTACT_FIELDS.map((field) => (
+              {fields.map((field) => (
                 <label key={field.placeholder} className="intco-contact-field">
                   <span>{field.label}</span>
                   <span className="intco-contact-control">
@@ -5450,14 +5846,14 @@ function ContactSampleSection() {
               ))}
             </div>
             <label className="intco-contact-field intco-contact-field-message">
-              <span>留言</span>
+              <span>{t(locale, "message")}</span>
               <span className="intco-contact-control">
-                <textarea placeholder="Message" aria-label="Message" />
+                <textarea placeholder={t(locale, "message")} aria-label={t(locale, "message")} />
                 <em className="intco-contact-form-tip">*</em>
               </span>
             </label>
             <button type="button" className="intco-contact-submit">
-              提交
+              {t(locale, "submit")}
             </button>
           </form>
           <div className="intco-contact-form-image-wrap" data-reveal="source-up">
@@ -5493,9 +5889,9 @@ function ContactBand({ locale }: { locale: Locale }) {
 
 function ServicesBand({ locale }: { locale: Locale }) {
   const services = [
-    { title: t(locale, "designEngineering"), description: "Product design, cost engineering, packaging and display support.", icon: Ruler },
-    { title: t(locale, "qualityManufacturing"), description: "Vertically integrated production with quality control from source materials.", icon: Factory },
-    { title: t(locale, "globalDelivery"), description: "Flexible shipping through China, Vietnam and Malaysia production bases.", icon: PackageCheck },
+    { title: t(locale, "designEngineering"), description: t(locale, "serviceDesignDescription"), icon: Ruler },
+    { title: t(locale, "qualityManufacturing"), description: t(locale, "serviceQualityDescription"), icon: Factory },
+    { title: t(locale, "globalDelivery"), description: t(locale, "serviceDeliveryDescription"), icon: PackageCheck },
   ];
 
   return (
@@ -5761,8 +6157,9 @@ function looksGenericImage(url?: string) {
   return !url || /\/products\.png($|\?)/.test(url);
 }
 
-function parseProductDetails(product: Product) {
+function parseProductDetails(product: Product, locale: Locale) {
   const lines = contentLines(product.bodyText, 140);
+  const specLabels = productSpecLabels(locale);
   const displayTitle = lines[0] || product.title;
   const itemNumber = valueAfterLabel(lines, ["Item#:", "Item #:", "Item#:"]);
   const color = valueAfterLabel(lines, ["Color:"]);
@@ -5777,12 +6174,12 @@ function parseProductDetails(product: Product) {
   const descriptionLines = detailLines.slice(0, 1);
   const highlightLines = detailLines.slice(1).filter((line) => !/^Description$/i.test(line));
   const specs = [
-    { label: "Item#:", value: itemNumber },
-    ...(subject ? [{ label: "Subject:", value: subject }] : []),
-    ...(material ? [{ label: "Material:", value: material }] : []),
-    { label: "Color:", value: color },
-    { label: "Size:", value: sizes.join(" / ") },
-    { label: "Quantity:", value: "- / +" },
+    { label: specLabels.itemNumber, value: itemNumber },
+    ...(subject ? [{ label: specLabels.subject, value: subject }] : []),
+    ...(material ? [{ label: specLabels.material, value: material }] : []),
+    { label: specLabels.color, value: color },
+    { label: specLabels.size, value: sizes.join(" / ") },
+    { label: `${t(locale, "quantity")}:`, value: "- / +" },
   ];
   const firstSpecIndex = lines.findIndex((line) => /^Item\s?#:\s*$/i.test(line));
   const bestSellerLines = firstSpecIndex > 1 ? lines.slice(1, firstSpecIndex) : [];
@@ -5796,6 +6193,18 @@ function parseProductDetails(product: Product) {
   }
 
   return { specs, descriptionLines, highlightLines, bestSellerPairs, displayTitle };
+}
+
+function productSpecLabels(locale: Locale) {
+  const labels: Record<Locale, { itemNumber: string; subject: string; material: string; color: string; size: string }> = {
+    en: { itemNumber: "Item#:", subject: "Subject:", material: "Material:", color: "Color:", size: "Size:" },
+    es: { itemNumber: "Artículo #:", subject: "Tema:", material: "Material:", color: "Color:", size: "Tamaño:" },
+    pt: { itemNumber: "Item #:", subject: "Tema:", material: "Material:", color: "Cor:", size: "Tamanho:" },
+    fr: { itemNumber: "Réf. :", subject: "Sujet :", material: "Matériau :", color: "Couleur :", size: "Dimensions :" },
+    de: { itemNumber: "Art.-Nr.:", subject: "Motiv:", material: "Material:", color: "Farbe:", size: "Größe:" },
+    ja: { itemNumber: "品番:", subject: "テーマ:", material: "素材:", color: "カラー:", size: "サイズ:" },
+  };
+  return labels[locale];
 }
 
 function valueAfterLabel(lines: string[], labels: string[]) {

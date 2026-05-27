@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { headers } from "next/headers";
 import { Geist, Geist_Mono, Montserrat } from "next/font/google";
 import "./globals.css";
 
@@ -29,14 +30,20 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default function RootLayout({
+const supportedHtmlLangs = new Set(["en", "es", "pt", "fr", "de", "ja"]);
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const requestedLocale = requestHeaders.get("x-intco-locale") || "en";
+  const htmlLang = supportedHtmlLangs.has(requestedLocale) ? requestedLocale : "en";
+
   return (
     <html
-      lang="en"
+      lang={htmlLang}
       className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

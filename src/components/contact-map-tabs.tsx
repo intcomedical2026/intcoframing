@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Locale, t } from "@/lib/i18n";
 
 export type ContactFactory = {
   title: string;
@@ -9,7 +10,7 @@ export type ContactFactory = {
   mapUrl: string;
 };
 
-export function ContactMapTabs({ factories }: { factories: ContactFactory[] }) {
+export function ContactMapTabs({ factories, locale }: { factories: ContactFactory[]; locale: Locale }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeFactory = factories[activeIndex] || factories[0];
 
@@ -18,7 +19,7 @@ export function ContactMapTabs({ factories }: { factories: ContactFactory[] }) {
       <section className="intco-contact-index intco-contact-factory-section">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <p className="intco-contact-desc intco-contact-desc-center" data-reveal="fade">
-            Our overseas factories ensure quality manufacturing and flexible shipping.
+            {t(locale, "contactFactoryIntro")}
           </p>
           <ul className="intco-contact-list intco-contact-factory-list">
             {factories.map((factory, index) => (
