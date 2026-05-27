@@ -267,8 +267,8 @@ def build_manifest(seed: dict[str, Any]) -> list[dict[str, Any]]:
         entries.append(make_entry(f"solution.{solution.get('slug') or path_slug(path)}", "solutionDetail", path, solution.get("title") or path, "B5-solutions", "SolutionDetailView", source_url(path, solution.get("sourceUrl")), solution))
 
     entries.append(make_entry("listing.projects", "projectListing", "/projects", "Projects", "B6-projects", "ProjectsListingView", source_url("/projects")))
-    entries.append(make_entry("listing.projects.residential", "projectFilter", "/projects/residential", "Residential Projects", "B6-projects", "ProjectsListingView", source_url("/projects")))
-    entries.append(make_entry("listing.projects.commercial", "projectFilter", "/projects/commercial", "Commercial Projects", "B6-projects", "ProjectsListingView", source_url("/projects")))
+    entries.append(make_entry("listing.projects.residential", "projectFilter", "/projects/residential", "Residential", "B6-projects", "ProjectsListingView", source_url("/projects/residential")))
+    entries.append(make_entry("listing.projects.commercial", "projectFilter", "/projects/commercial", "Commercial", "B6-projects", "ProjectsListingView", source_url("/projects/commercial")))
     for project in seed.get("projects") or []:
         path = clean_path(project.get("path"))
         entries.append(make_entry(f"project.{project.get('slug') or path_slug(path)}", "projectDetail", path, project.get("title") or path, "B6-projects", "ProjectDetailView", source_url(path, project.get("sourceUrl")), project))

@@ -7,14 +7,28 @@ export function RevealRuntime() {
   const pathname = usePathname();
 
   useEffect(() => {
+    const heroNodes = Array.from(document.querySelectorAll<HTMLElement>("[data-source-hero].intco-source-hero-category"));
+    const heroTimer = window.setTimeout(() => {
+      heroNodes.forEach((node) => {
+        node.dataset.heroActive = "true";
+      });
+    }, 70);
+
     const nodes = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
-    if (!nodes.length) return;
+    if (!nodes.length) {
+      return () => window.clearTimeout(heroTimer);
+    }
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) {
+      window.clearTimeout(heroTimer);
+      heroNodes.forEach((node) => {
+        node.dataset.heroActive = "true";
+      });
       nodes.forEach((node) => {
         node.dataset.revealVisible = "true";
+        if (node.classList.contains("wow")) node.classList.add("animated");
       });
-      return;
+      return undefined;
     }
 
     const observer = new IntersectionObserver(
@@ -23,6 +37,7 @@ export function RevealRuntime() {
           if (!entry.isIntersecting) return;
           const element = entry.target as HTMLElement;
           element.dataset.revealVisible = "true";
+          if (element.classList.contains("wow")) element.classList.add("animated");
           observer.unobserve(element);
         });
       },
@@ -34,7 +49,10 @@ export function RevealRuntime() {
       observer.observe(node);
     });
 
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(heroTimer);
+      observer.disconnect();
+    };
   }, [pathname]);
 
   return null;

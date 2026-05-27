@@ -6,6 +6,7 @@ import {
   Download,
   Factory,
   Globe2,
+  Headphones,
   Layers,
   Mail,
   MapPin,
@@ -13,7 +14,6 @@ import {
   Phone,
   Ruler,
   Search,
-  ShoppingCart,
 } from "lucide-react";
 import {
   BlogPost,
@@ -36,6 +36,7 @@ import { HomeBlogSection } from "@/components/home-blog-section";
 import { SolutionsServicesSection, type SolutionsServiceItem } from "@/components/solutions-services-section";
 import { SustainabilitySavingsTabs, SustainabilityVideoButton } from "@/components/sustainability-interactions";
 import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
+import { ContactMapTabs, type ContactFactory } from "@/components/contact-map-tabs";
 
 const PRODUCT_CATALOG_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.png",
@@ -327,6 +328,71 @@ const FURNITURE_CATEGORY_COPY = [
   },
 ];
 
+const MEMO_BOARD_COLLECTION_CARDS = [
+  {
+    title: "Chalkboard",
+    path: "/memo-board/chalkboard",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g1.jpg",
+  },
+  {
+    title: "Dry Erase Board",
+    path: "/memo-board/dry-erase-board",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g2.jpg",
+  },
+  {
+    title: "Cork Board",
+    path: "/memo-board/cork-board",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g3.jpg",
+  },
+  {
+    title: "Linen Board",
+    path: "/memo-board/linen-board",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g4.jpg",
+  },
+];
+
+const MEMO_BOARD_BEST_SELLERS = [
+  {
+    title: "Chalkboard Style Board Monthly Wall Calendar 18×24 Inch",
+    path: "/chalkboard-style-board-monthly-wall-calendar-18x24-inch",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2.jpg",
+  },
+  {
+    title: "Wall Cork Board for Picture Display 20×20 Inch",
+    path: "/wall-cork-board-for-photo-display-20x20-inch",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2.jpg",
+  },
+  {
+    title: "Gold Framed Weekly Calendar Dry Erase Board 16×16 in",
+    path: "/gold-framed-weekly-calendar-dry-erase-board-16x16-in",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-1.jpg",
+  },
+  {
+    title: "Gold Aluminum Framed Linen Bulletin Board 20X28",
+    path: "/gold-aluminum-framed-linen-bulletin-board-20x28",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-3.jpg",
+  },
+];
+
+const MEMO_BOARD_CATEGORY_COPY = [
+  {
+    title: "Chalkboard",
+    body: "Chalkboards have a smooth, matte black surface made of slate, wood, or other materials. Chalkboards are commonly used in classrooms, restaurants, cafes, and homes for writing menus, announcements, or artwork.",
+  },
+  {
+    title: "Dry Erase Board",
+    body: "Dry erase boards have a smooth, glossy surface designed for writing with dry erase markers, which can be easily wiped off. They are widely used in offices, meeting rooms, classrooms, and homes for brainstorming, presentations, scheduling, and note-taking.",
+  },
+  {
+    title: "Cork Board",
+    body: "Cork boards have a textured surface made of cork, a natural and sustainable material designed for pinning and displaying papers, notes, photos, and other lightweight items using push pins or thumbtacks. Cork boards are durable and self-healing.",
+  },
+  {
+    title: "Linen Board",
+    body: "Linen boards have a fabric-covered surface made of linen stretched over a backing board. Linen boards offer a more decorative and sophisticated appearance compared to cork boards, making them suitable for upscale or professional environments.",
+  },
+];
+
 const PRODUCT_MANUALS = [
   {
     title: "Mirror",
@@ -372,6 +438,34 @@ const PRODUCT_CONTACT_FIELDS = [
   { label: "邮箱", placeholder: "Email", required: true },
   { label: "电话", placeholder: "Phone", required: true },
   { label: "WhatsApp", placeholder: "WhatsApp", required: false },
+];
+
+const CONTACT_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/lxwm.jpg";
+const CONTACT_FORM_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact_03.png";
+const CONTACT_FORM_BADGE_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact3.png";
+
+const CONTACT_FACTORIES: ContactFactory[] = [
+  {
+    title: "Zibo Factory",
+    address: "Qingtian Road, Qilu Chemical Industrial Park, Zibo, Shandong, China",
+    zip: "Zip Code: 255414",
+    mapUrl:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.8953210238024!2d118.2205699495053!3d36.80707716313149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35eaeb718bb68031%3A0x1be93d82102dfb49!2z6Iux56eR5Zu96ZmF!5e0!3m2!1sen!2s!4v1707203861992!5m2!1sen!2s",
+  },
+  {
+    title: "Shanghai Factory",
+    address: "No. 1299 Hubin Road, Fengxian District. Shanghai 201417, China",
+    zip: "Zip Code: 201417",
+    mapUrl:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3426.529914858967!2d121.44445908788926!3d30.815814515989736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35b29a062652a48d%3A0x91572df7921c48a1!2sHu%20Bin%20Lu%2C%20Feng%20Xian%20Qu%2C%20Shang%20Hai%20Shi%2C%20China%2C%20201424!5e0!3m2!1sen!2s!4v1707203884177!5m2!1sen!2s",
+  },
+  {
+    title: "Vietnam Factory",
+    address: "Lot CN - 01/02 And CN - 01/03, South Of Zone A Bim Son Industrial Park, Bac Son Ward, Bim Son Town, Thanh Hoa, Vietnam",
+    zip: "Zip Code: 444964",
+    mapUrl:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3746.735946325924!2d105.84062237598233!3d20.10332201891823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31366367ff3917ed%3A0xbfcafdb0c07ecdf7!2sIntco%20Industries%20Vietnam%20Co.%2C%20Ltd!5e0!3m2!1sen!2s!4v1707203919001!5m2!1sen!2s",
+  },
 ];
 
 const HOME_PROFILE_VIDEO_SRC = "https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC&autoplay=1&rel=0";
@@ -495,6 +589,114 @@ const HOME_PROJECT_CARDS = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS2.jpg",
   },
 ];
+
+const PROJECTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg";
+
+const PROJECTS_SOURCE_ITEMS = [
+  {
+    title: "Living Room",
+    path: "/projects/living-room",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg",
+    description:
+      "Transform your living room into a sanctuary of comfort and style with our curated collection. Our carefully selected furniture pieces seamlessly blend aesthetic…",
+  },
+  {
+    title: "Bedroom",
+    path: "/projects/bedroom",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg",
+    description:
+      "Indulge in the serenity of our bedroom collection, where tranquility meets timeless design. Our carefully curated pieces promise a sanctuary of relaxation and r…",
+  },
+  {
+    title: "Bathroom",
+    path: "/projects/bathroom",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg",
+    description:
+      "Step into a realm of tranquility with our exquisite bathroom collection, where luxury meets functionality. Elevate your daily routine in a space designed for se…",
+  },
+  {
+    title: "Dining Room",
+    path: "/projects/dining-room",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg",
+    description:
+      "Transform your dining experience into a visual feast with our dining room collection. Immerse yourself in the perfect blend of contemporary elegance and comfort…",
+  },
+  {
+    title: "Kitchen",
+    path: "/projects/kitchen",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-5-1.jpg",
+    description:
+      "Infuse your kitchen with the warmth of modern aesthetics. Embrace the art of culinary creation in a kitchen that seamlessly blends style and functionality, wher…",
+  },
+];
+
+const PROJECTS_SOURCE_CHILDRENS_ROOM = {
+  title: "Children's Room",
+  path: "/projects/childrens-room",
+  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%84%BF%E7%AB%A5.jpg",
+  description:
+    "Step into a world of imagination and whimsy with our enchanting children's room collection. Designed to spark creativity and nurture dreams, each piece is craft…",
+};
+
+const PROJECTS_SOURCE_PAGE_ITEMS: Record<number, typeof PROJECTS_SOURCE_ITEMS> = {
+  1: PROJECTS_SOURCE_ITEMS,
+  2: [
+    PROJECTS_SOURCE_CHILDRENS_ROOM,
+    {
+      title: "Hotel",
+      path: "/projects/hotel",
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-1.jpg",
+      description:
+        "Experience the epitome of luxury and sophistication in our hotel collection, where every detail is curated for an unparalleled stay.Our thoughtfully curated spa…",
+    },
+    {
+      title: "Office",
+      path: "/projects/office",
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%AE%A41.jpg",
+      description:
+        "Our exclusive decor collection designed toelevate your office space to new heights of sophistication. From sleek desk accessories to statement wall art, each pi…",
+    },
+    {
+      title: "Gallery",
+      path: "/projects/gallery",
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg",
+      description:
+        "Our art collection is a celebration of diverse styles and expressions. Wander through our gallery space, where every brushstroke tells a unique story. Elevate y…",
+    },
+    {
+      title: "Cafes",
+      path: "/projects/cafes",
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg",
+      description:
+        "Experience the sophisticated ambiance enhanced by our curated wall decor collection, transforming every corner into a gallery of visual delight. Allow the rich …",
+    },
+  ],
+  3: [
+    {
+      title: "Restaurant",
+      path: "/projects/restaurant",
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg",
+      description:
+        "Our thoughtfully selected collection transforms the dining experience, creating an atmosphere that sparks conversation and enhances the pleasure of every bite. …",
+    },
+    {
+      title: "Large Commercial Space",
+      path: "/projects/large-commercial-space",
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-6.jpg",
+      description:
+        "Transform vast expanses into dynamic hubs of innovation and style with our large commercial space solutions. Elevate the ambiance with our curated collection, o…",
+    },
+    {
+      title: "School",
+      path: "/projects/school",
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-7.jpg",
+      description:
+        "Create an inspiring and conducive learning environment with our tailored solutions for schools. Our comprehensive approach to educational spaces brings together…",
+    },
+  ],
+};
+
+const PROJECTS_SOURCE_COMMERCIAL_ITEMS = [...PROJECTS_SOURCE_PAGE_ITEMS[2].slice(1), ...PROJECTS_SOURCE_PAGE_ITEMS[3]];
 
 const HOME_BLOG_CATEGORIES = ["All", "Expo", "Industry News", "Inspiration", "New Arrivals", "Press Release", "Tips"];
 
@@ -662,6 +864,212 @@ const BUSINESS_INSIGHTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content
 const BUSINESS_INSIGHTS_MARKET_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights2.png";
 const BUSINESS_INSIGHTS_MARKET_ICON = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/BusinessInsights10.jpg";
 const BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights9.png";
+const DESIGN_ENGINEERING_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock3.png";
+const DESIGN_ENGINEERING_MAIN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock4.png";
+const MANUFACTURING_DELIVERY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/ManufacturingBg.png";
+const MANUFACTURING_DELIVERY_DOWN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/down.jpg";
+const GLOBAL_PRODUCTION_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock1.png";
+const GLOBAL_PRODUCTION_BUILDING_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/办公大楼2-1-scaled.jpg";
+const CERTIFICATION_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification1.png";
+const CERTIFICATION_BG_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/CertificationBg.png";
+const CERTIFICATION_COPY =
+  "Rest easy with our commitment to quality and compliance. Intco Framing provides outstanding products and quality services to global customers. We actively certify quality systems and cooperate with third-party audit agencies, customers, and suppliers for audit supervision.";
+const CERTIFICATION_GRID_IMAGES = [
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification2.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification3.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification4.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification5.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification6.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification7.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification8.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification9.jpg",
+];
+const CERTIFICATION_SWIPER_IMAGES = [
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification10.png",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification11.png",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification12.png",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification13.png",
+];
+const RETAILER_SUPPORT_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/未标题-2-3.jpg";
+const RETAILER_SUPPORT_TURN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSupport11.jpg";
+const RETAILER_SUPPORT_GLOBAL_DECOR = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Global_.png";
+const RETAILER_SUPPORT_GLOBAL_IMAGES = [
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/未标题-1-3.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/223.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/147.jpg",
+];
+const RETAILER_SUPPORT_DISTRIBUTION_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSuppor5-1.png";
+const RETAILER_SUPPORT_MARKETING_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSuppor6-1.png";
+const RETAILER_SUPPORT_SERVICE_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/RetailerSuppor7.png";
+const RETAILER_SUPPORT_CUSTOMER_COPY =
+  "As the only home décor manufacturer that starts with recycled materials around the world, we truly ensure quality control from the source, and pride ourselves on offering continuous assistance to ensure the prosperity of your retail business.";
+const RETAILER_SUPPORT_TURN_COPY =
+  "We offer one-stop solutions encompassing: product development, design, production, and quality control, which streamlines your shopping experience while saving you time and energy, so that you can focus on driving your business. Our comprehensive service ensures that every aspect of the process is carefully managed, providing you with a hassle-free and efficient service from concept to delivery.";
+const RETAILER_SUPPORT_GLOBAL_COPY =
+  "By strategically locating our factories in China, Vietnam or Malaysia, we enhance our resilience to external factors that may impact the supply chain and maximize efficiency and flexibility in meeting your demands. All of our factories ensure advanced production technology and equipment, quality manufacturing and flexible shipping. Operating in strict adherence to international quality standards, each factory has earned high recognition for product quality from our customers.";
+const RETAILER_SUPPORT_DISTRIBUTION_COPY =
+  "We further extend our global service capabilities by maintaining warehouses in various international locations. This strategic positioning ensures expedited deliveries, particularly beneficial for meeting urgent demands to fulfill our commitment to efficiency and customer satisfaction.";
+const RETAILER_SUPPORT_MARKETING_COPY_BEFORE =
+  "Intco Framing offers the support you need to build a first-class website with high-definition product images and room scences. Additionally, we provide samples with installation instructions and demonstration videos. To enhance customer experience, we offer an";
+const RETAILER_SUPPORT_MARKETING_COPY_AFTER =
+  "that allows you to personalize and visualize your framing choices conveniently.";
+const RETAILER_SUPPORT_SERVICE_COPY =
+  "We provide seamless communication and customied services for our clients. Our offices strategically located around the world, including in North America, Vietnam, and Malaysia, with an extensive service team boasting rich industry experience we are ready to welcome clients at any time and provide with personalized service. Our service team also conducts regular on-site visits, engaging in face-to-face discussions to better understand your needs and offer guidance. We provide 24/7 online customer support with quick responses to meet your needs promptly. We are always at your service, ready to address concerns and provide guidance at every step of our collaborative journey.";
+const GLOBAL_PRODUCTION_COPY =
+  "By strategically locating our factories in China, Vietnam and Malaysia, we enhance our resilience to external factors that may impact the supply chain and maximize efficiency and flexibility in meeting your demands. All of our factories ensure advanced production technology and equipment, quality manufacturing and flexible shipping. Operating in strict adherence to international quality standards, each factory has earned high recognition for product quality from our customers.";
+const GLOBAL_PRODUCTION_FEATURES = [
+  { label: "Flexible Shipping", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-01.png" },
+  { label: "Trade Facilitation", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-02.png" },
+  { label: "Scale and Quality", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-03.png" },
+  { label: "Supply Chain Diversification", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-04.png" },
+  { label: "Certification of Origin", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-05.png" },
+];
+
+const MANUFACTURING_DELIVERY_ROWS = [
+  {
+    key: "production",
+    title: "PRODUCTION CAPACITY",
+    body: "Intco’s vertically integrated supply chain of raw materials, we maintain control over product quality from the source, ensuring consistent excellence for initial orders and reorders. With formidable production capabilities, we have the capacity to manufacture 1.2 million boxes of PS moulding annually. We can meet the demands of large-scale production while consistently upholding rigorous standards of quality.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing2.png",
+    imageAlt: "Manufacturing2",
+  },
+  {
+    key: "digital",
+    title: "DIGITAL MANAGEMENT SYSTEM",
+    body: "We utilize advanced digital management systems to enhance our operations, ensuring efficiency and precision throughout our processes. Our comprehensive suite includes APS (Advanced Planning and Scheduling), MRP (Manufacturing Resource Planning), MES (Manufacturing Execution System), SCM (Supply Chain Management), WMS (Warehouse Management System), TMS (Transportation Management System), SRM (Supplier Relationship Management), and CRM (Customer Relationship Management). This integrated approach allows us to optimize scheduling, resource allocation,manufacturing, supply chain, warehousing, transportation, supplier and customer relationships for a responsive and effective business ecosystem.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing3.png",
+    imageAlt: "Manufacturing3",
+  },
+  {
+    key: "automation",
+    title: "AUTOMATION",
+    body: "Our production facilities achieve a high level of automation, ensuring precision and consistency in every frame we create. This strategic integration of automation not only boosts productivity but also safeguards the rights and well-being of our workers.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing4.png",
+    imageAlt: "Manufacturing4",
+  },
+  {
+    key: "flexible",
+    title: "FLEXIBLE MANUFACTURING",
+    body: "With over 20 years of manufacturing experience, Intco Framing stands out for its flexible production capabilities. Leveraging advanced production scheduling systems and digital management, coupled with sophisticated technology, our production lines and processes are flexible and adaptable. This enables us to efficiently meet your customized requirements with precision and agility.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing5.png",
+    imageAlt: "Manufacturing5",
+  },
+  {
+    key: "quality",
+    title: "QUALITY CONTROL",
+    body: "We maintain strict internal control over product quality, subjecting all items to meticulous layers of inspection. Every product undergoes rigorous checks, ensuring that only the highest quality goods reach our customers.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing6.png",
+    imageAlt: "Manufacturing6",
+  },
+];
+
+const MANUFACTURING_PACKAGING_IMAGES = [
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing7.png",
+    imageAlt: "Manufacturing7",
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing8.png",
+    imageAlt: "Manufacturing8",
+  },
+];
+
+const MANUFACTURING_PACKAGING_COPY =
+  "We can meet your specific product and packaging standards with our own in house product and package lab, if third party testing is needed, we can handle that too. We offer packaging solutions that comply with ISTA standards, ranging from ISTA-1A to 6A. Our diverse packaging options are designed to meet the varying needs of transportation and ensure the safe transit of products.";
+
+const MANUFACTURING_DELIVERY_COPY =
+  "Our stable partnerships with numerous freight companies, enables us to uphold timely deliveries even in challenging circumstances such as the ongoing pandemic. Our advanced TMS (Transportation Management System) is also your reliable partner in ensuring timely delivery commitments. Our dedication to precision in the delivery process guarantees your products reach you on time.";
+
+const DESIGN_ENGINEERING_PRODUCT_ROWS = [
+  {
+    title: "Picture Frame",
+    body: "We provide design solutions for picture frames, offering tailored designs for both face paper and backboard. Our expertise ensures that every aspect of the frame, from the front-facing aesthetic to the supporting backboard, is thoughtfully crafted to meet the highest standards of design and functionality.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock5-e1707114166904.png",
+    imageAlt: "Picture Frame",
+  },
+  {
+    title: "Mirror",
+    body: "We are dedicated to innovative design, and our mirrors showcase a diverse array of shapes. From contemporary to timeless classics, each mirror reflects our commitment to creativity.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock6.png",
+    imageAlt: "Mirror",
+    reverse: true,
+  },
+  {
+    title: "Art",
+    body: "With an exceptional team of skilled artists, our art design capabilities encompass both traditional hand-drawing and digital illustration. Paired with advanced printing technologies, our artworks come to life with unparalleled detail and vibrancy.",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock7.png",
+    imageAlt: "Art",
+  },
+];
+
+const DESIGN_ENGINEERING_FEATURES = [
+  {
+    title: "Packaging Design",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock8.png",
+    imageAlt: "shutterstock8",
+  },
+  {
+    title: "Display Design",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock9.png",
+    imageAlt: "shutterstock9",
+  },
+  {
+    title: "Product Development Skill",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock10.png",
+    imageAlt: "shutterstock10",
+  },
+  {
+    title: "Multi Materials",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock11.png",
+    imageAlt: "shutterstock11",
+  },
+];
+
+const DESIGN_ENGINEERING_LATEST_PRIMARY = [
+  {
+    title: "Mirror",
+    path: "/mirror",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/%E6%9C%AA%E6%A0%87%E9%A2%98-3.jpg",
+  },
+  {
+    title: "Picture Frame",
+    path: "/picture-frame",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/09/20240911-093414-1-e1726018748935.jpg",
+  },
+];
+
+const DESIGN_ENGINEERING_LATEST_SECONDARY = [
+  {
+    title: "Art",
+    path: "/art",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/3-1.jpg",
+  },
+  {
+    title: "Furniture",
+    path: "/furniture",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/4-1.jpg",
+  },
+  {
+    title: "Memo Board",
+    path: "/memo-board",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/product4.png",
+  },
+];
+
+const DESIGN_ENGINEERING_PROJECT_CARDS = [
+  {
+    eyebrow: "Aesthetics Works",
+    title: "Residential PROJECTS",
+    path: "/projects/residential",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS1.jpg",
+  },
+  {
+    eyebrow: "Aesthetics Works",
+    title: "Commercial PROJECTS",
+    path: "/projects/commercial",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS2.jpg",
+  },
+];
 
 const BUSINESS_INSIGHTS_TREND_SLIDES = [
   {
@@ -1226,61 +1634,50 @@ export function ProductsLandingView({
 }
 
 function ProductSourceHero({ title, locale }: { title: string; locale: Locale }) {
-  return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="relative h-[122px] overflow-hidden bg-white lg:aspect-[3.2] lg:h-auto">
-        <Image src={PRODUCTS_HERO_IMAGE} alt={title} fill priority className="object-cover object-top" sizes="100vw" />
-        <div className="absolute inset-0 hidden bg-white/30 lg:block" />
-        <div className="absolute inset-x-0 bottom-0 top-6 bg-white lg:hidden" />
-        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[26px] text-center lg:justify-center lg:pt-0">
-          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[84px]">{title}</h1>
-          <nav className="mt-4 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium text-[#484653] lg:mt-5 lg:text-xl" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#987754]">
-              Home
-            </Link>
-            <span>›</span>
-            <span>{title}</span>
-          </nav>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-[42px] lg:mt-7 lg:gap-6">
-            <a href="#goinput" className="inline-flex h-12 min-w-[130px] items-center justify-center rounded-full border-2 border-[#484653] px-3 text-base font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[200px] lg:px-6 lg:text-lg">
-              Chat With Us
-            </a>
-            <a href="#goinput" className="inline-flex h-12 min-w-[130px] items-center justify-center rounded-full border-2 border-[#484653] px-3 text-base font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[200px] lg:px-6 lg:text-lg">
-              Leave a Message
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <ProductHeroSourceFrame title={title} locale={locale} variant="products" />;
 }
 
 function ProductCategorySourceHero({ title, locale }: { title: string; locale: Locale }) {
+  return <ProductHeroSourceFrame title={title} locale={locale} variant="category" />;
+}
+
+function ProductHeroSourceFrame({ title, locale, variant }: { title: string; locale: Locale; variant: "products" | "category" }) {
+  const isProducts = variant === "products";
+
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="relative h-[452px] overflow-hidden bg-white max-lg:h-[260px]">
-        <Image src={PRODUCTS_HERO_IMAGE} alt="products" fill priority className="object-cover object-center" sizes="100vw" />
-        <div className="absolute inset-0 bg-white/30" />
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-5 text-center">
-          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[54px]">{title}</h1>
-          <nav className="mt-5 flex flex-wrap items-center justify-center gap-3 text-[15px] font-medium text-[#484653] lg:text-xl" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#987754]">
-              Home
-            </Link>
-            <span>›</span>
-            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#987754]">
-              Products
-            </Link>
-            <span>›</span>
-            <span>{title}</span>
-          </nav>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4 lg:gap-[30px]">
-            <a href="#goinput" className="inline-flex h-12 min-w-[160px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white px-6 text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[232px] lg:text-lg">
-              Chat With Us
-            </a>
-            <a href="#goinput" className="inline-flex h-12 min-w-[160px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white px-6 text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:h-[58px] lg:min-w-[232px] lg:text-lg">
-              Leave a Message
-            </a>
+    <section className={`intco-source-hero ${isProducts ? "intco-source-hero-products" : "intco-source-hero-category"}`} data-source-hero>
+      <div className="intco-source-hero-slide" data-source-hero-slide>
+        <div className="intco-source-hero-bg" data-source-hero-bg>
+          <Image src={PRODUCTS_HERO_IMAGE} alt={isProducts ? title : "products"} fill priority className="object-cover" sizes="100vw" />
+        </div>
+        <div className="intco-source-hero-content" data-source-hero-content>
+          <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
+            <div className="intco-source-hero-text" data-source-hero-text>
+              <h1 className="intco-source-hero-title" data-source-hero-title>
+                {title}
+              </h1>
+              <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
+                <Link href={localizePath(locale, "/")}>Home</Link>
+                <span className="intco-source-hero-separator">›</span>
+                {isProducts ? (
+                  <span>{title}</span>
+                ) : (
+                  <>
+                    <Link href={localizePath(locale, "/products")}>Products</Link>
+                    <span className="intco-source-hero-separator">›</span>
+                    <Link href={localizePath(locale, `/${title.toLowerCase().replace(/\s+/g, "-")}`)}>{title}</Link>
+                  </>
+                )}
+              </nav>
+            </div>
+            <div className="intco-source-hero-actions" data-source-hero-actions>
+              <a href="#goinput" data-source-hero-cta>
+                Chat With Us
+              </a>
+              <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
+                Leave a Message
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -1291,13 +1688,9 @@ function ProductCategorySourceHero({ title, locale }: { title: string; locale: L
 function ProductSourceTitle({ title, align = "center" }: { title: string; align?: "left" | "center" }) {
   const centered = align === "center";
   return (
-    <div className={`relative overflow-hidden ${centered ? "text-center" : "text-left"}`}>
-      <div className={`pointer-events-none absolute top-0 whitespace-nowrap text-[42px] font-semibold uppercase text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] lg:text-[70px] ${centered ? "left-1/2 -translate-x-1/2" : "-left-5"}`}>
+    <div className={`selefTitle intco-product-source-title ${centered ? "" : "intco-product-source-title-left"}`} data-source-title data-tit={title}>
+      <h2 className="title_text" data-source-title-text>
         {title}
-      </div>
-      <h2 className={`relative z-10 inline-block border-b border-[#484653] pb-[10px] text-[20px] font-semibold uppercase leading-none text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] lg:pb-[47px] lg:text-[45px] ${centered ? "" : "ml-0"}`}>
-        {title}
-        <span className={`absolute bottom-0 h-0.5 w-10 translate-y-1/2 bg-[#484653] lg:h-[5px] lg:w-[65px] ${centered ? "left-1/2 -translate-x-1/2" : "left-0"}`} />
       </h2>
     </div>
   );
@@ -1305,7 +1698,7 @@ function ProductSourceTitle({ title, align = "center" }: { title: string; align?
 
 function ProductSectionDescription({ first, second, className = "" }: { first: string; second: string; className?: string }) {
   return (
-    <p className={`mx-auto mt-3 max-w-[1100px] text-center text-base leading-6 text-[#363636] lg:mt-9 lg:text-lg lg:leading-[30px] ${className}`}>
+    <p className={`wow fadeInUp mx-auto mt-3 max-w-[1100px] text-center text-base leading-6 text-[#363636] lg:mt-9 lg:text-lg lg:leading-[30px] ${className}`} data-reveal="source-up">
       {first}
       <br />
       {second}
@@ -1327,8 +1720,8 @@ function ProductSourceTile({
   return (
     <Link
       href={localizePath(locale, category.path)}
-      className="group relative block overflow-hidden rounded-[20px] bg-neutral-200"
-      data-reveal
+      className="wow fadeInUp group relative block overflow-hidden rounded-[20px] bg-neutral-200"
+      data-reveal="source-up"
       style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
     >
       <div className={`relative overflow-hidden ${wide ? "h-[579px] lg:h-auto lg:aspect-[1.95]" : "h-[676px] lg:h-auto lg:aspect-[1.27]"}`}>
@@ -1354,8 +1747,8 @@ function ProductProjectTile({
   return (
     <Link
       href={localizePath(locale, project.path)}
-      className="group relative block overflow-hidden rounded-[20px] bg-neutral-200"
-      data-reveal
+      className="wow fadeInUp group relative block overflow-hidden rounded-[20px] bg-neutral-200"
+      data-reveal="source-up"
       style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
     >
       <div className="relative aspect-[1.95]">
@@ -1382,7 +1775,7 @@ function ProductCatalogSection({ title, description, locale }: { title: string; 
         <ProductSourceTitle title="Catalog" />
         <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
         <div className="mt-8 flex flex-col gap-3 lg:mt-[55px] lg:flex-row lg:gap-[39px]">
-          <div className="grid gap-3 sm:grid-cols-5 lg:flex lg:w-[370px] lg:flex-col">
+          <div className="wow fadeInUp grid gap-3 sm:grid-cols-5 lg:flex lg:w-[370px] lg:flex-col" data-reveal="source-up">
             {PRODUCT_MANUALS.map((manual, index) => (
               <Link
                 key={manual.title}
@@ -1394,7 +1787,7 @@ function ProductCatalogSection({ title, description, locale }: { title: string; 
               </Link>
             ))}
           </div>
-          <div className="bg-white p-5 lg:min-h-[520px] lg:flex-1 lg:p-[70px]">
+          <div className="wow fadeInDown bg-white p-5 lg:min-h-[520px] lg:flex-1 lg:p-[70px]" data-reveal="source-down">
             <div className="grid gap-7 lg:grid-cols-[45%_1fr] lg:gap-[5%]">
               <div className="relative mx-auto aspect-[257/300] w-full max-w-[257px] bg-neutral-100 lg:max-w-none">
                 <Image src={activeManual.imageUrl} alt={activeManual.title} fill className="object-cover" sizes="(min-width: 1024px) 28vw, 257px" />
@@ -1432,7 +1825,7 @@ function ProductTestReportSection({ title, description }: { title: string; descr
         <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
         <div className="mx-auto mt-10 grid max-w-[1230px] gap-6 sm:grid-cols-2 lg:mt-[55px] lg:grid-cols-4">
           {PRODUCT_REPORT_IMAGES.map((report, index) => (
-            <div key={report.title} className="bg-white p-2.5" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+            <div key={report.title} className="wow fadeInUp bg-white p-2.5" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
               <div className="relative aspect-[292/213] shadow-[0_0_10px_3px_#ccc]">
                 <Image src={report.imageUrl} alt={report.title} fill className="object-cover" sizes="292px" />
               </div>
@@ -1450,7 +1843,7 @@ function ProductContactSection() {
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="mx-auto max-w-[1600px]">
         <ProductSourceTitle title="GET IN TOUCH" />
-        <p className="mx-auto mt-9 max-w-[1100px] text-center text-base leading-[30px] text-[#363636] lg:mt-[55px] lg:text-lg">
+        <p className="wow fadeInUp mx-auto mt-9 max-w-[1100px] text-center text-base leading-[30px] text-[#363636] lg:mt-[55px] lg:text-lg" data-reveal="source-up">
           Don&apos;t Hesitate to Reach Us.We are always here to address all your concerns and provide solutions.
         </p>
         <form className="mx-auto mt-12 grid max-w-[1446px] gap-x-[58px] gap-y-7 lg:mt-[55px] lg:grid-cols-2">
@@ -1511,12 +1904,12 @@ function MirrorCategorySourceView({ locale }: { locale: Locale }) {
           <ProductSourceTitle title="COLLECTION" />
           <h1 className="sr-only">Mirror</h1>
           <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/07/未标题-3.jpg" alt="" width={1} height={1} className="hidden" />
-          <p className="mx-auto mb-[86px] mt-[55px] max-w-[1120px] text-center text-lg leading-[30px] text-[#363636] max-lg:mb-10 max-lg:mt-8 max-lg:text-base">
+          <p className="wow fadeInUp mx-auto mb-[86px] mt-[55px] max-w-[1120px] text-center text-lg leading-[30px] text-[#363636] max-lg:mb-10 max-lg:mt-8 max-lg:text-base" data-reveal="source-up">
             Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.
           </p>
           <ul className="grid gap-x-[67px] gap-y-[68px] md:grid-cols-2 lg:grid-cols-3">
             {MIRROR_COLLECTION_CARDS.map((card, index) => (
-              <li key={card.title} data-reveal style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
                 <Link href={localizePath(locale, card.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
                   <div className="relative aspect-[305/380]">
                     <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 33vw, 50vw" />
@@ -1549,7 +1942,7 @@ function MirrorCategorySourceView({ locale }: { locale: Locale }) {
             </button>
             <ul className="grid gap-[30px] md:grid-cols-2 lg:grid-cols-4">
               {MIRROR_BEST_SELLERS.map((item, index) => (
-                <li key={item.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <Link href={localizePath(locale, item.path)} className="group block text-center">
                     <div className="relative aspect-square rounded-full bg-white">
                       <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 25vw, 50vw" />
@@ -1585,12 +1978,12 @@ function PictureFrameCategorySourceView({ locale }: { locale: Locale }) {
       <section className="overflow-hidden bg-[#f3f3f3] pb-[5px] pt-6 lg:pb-7 lg:pt-[99px]">
         <div className="intco-source-container px-5">
           <PictureFrameSectionTitle title="COLLECTION" />
-          <p className="mx-auto mb-0 mt-4 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]">
+          <p className="wow fadeInUp mx-auto mb-0 mt-4 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
             Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.
           </p>
           <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
             {PICTURE_FRAME_COLLECTION_CARDS.map((card, index) => (
-              <li key={card.title} data-reveal style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
                 <PictureFrameCollectionCard card={card} locale={locale} />
               </li>
             ))}
@@ -1615,7 +2008,7 @@ function PictureFrameCategorySourceView({ locale }: { locale: Locale }) {
             </button>
             <div className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
               {PICTURE_FRAME_BEST_SELLERS.map((item, index) => (
-                <Link key={item.title} href={localizePath(locale, item.path)} className="group block text-center" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <Link key={item.title} href={localizePath(locale, item.path)} className="wow fadeInUp group block text-center" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <div className="relative aspect-square rounded-full bg-white">
                     <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="270px" />
                   </div>
@@ -1642,48 +2035,15 @@ function PictureFrameCategorySourceView({ locale }: { locale: Locale }) {
 }
 
 function PictureFrameSourceHero({ locale }: { locale: Locale }) {
-  return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="relative h-[122px] overflow-hidden bg-white lg:h-[450px]">
-        <Image src={PRODUCTS_HERO_IMAGE} alt="Picture frame" fill priority className="object-cover object-center" sizes="100vw" />
-        <div className="absolute inset-0 bg-white/50" />
-        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[2px] text-center lg:justify-center lg:pt-0">
-          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[42px] lg:leading-[80px]">Picture frame</h1>
-          <nav className="mt-1 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium leading-5 text-[#484653] lg:mt-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#f49c19]">
-              Home
-            </Link>
-            <span>›</span>
-            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#f49c19]">
-              Products
-            </Link>
-            <span>›</span>
-            <span>Picture frame</span>
-          </nav>
-          <div className="mt-2 flex w-full max-w-[340px] items-center justify-center gap-[30px] lg:mt-[27px] lg:max-w-none lg:gap-0">
-            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
-              Chat With Us
-            </a>
-            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center overflow-hidden whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
-              Leave a Message
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <ProductHeroSourceFrame title="Picture frame" locale={locale} variant="category" />;
 }
 
 function PictureFrameSectionTitle({ title }: { title: string }) {
   return (
-    <div className="relative h-12 text-center lg:h-[60px]">
-      <div className="pointer-events-none absolute left-1/2 top-0 z-[1] hidden -translate-x-1/2 whitespace-nowrap text-[70px] font-semibold uppercase leading-[60px] text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] lg:block">
+    <div className="selefTitle intco-product-source-title" data-source-title data-tit={title}>
+      <h2 className="title_text" data-source-title-text>
         {title}
-      </div>
-      <div className="relative z-[2] mx-auto w-fit border-b border-[#484653] pb-[17px] text-[24px] font-semibold uppercase leading-[29px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] lg:pb-5 lg:text-[36px] lg:leading-[39px]">
-        {title}
-        <span className="absolute bottom-0 left-1/2 h-[5px] w-[65px] -translate-x-1/2 translate-y-1/2 bg-[#484653]" />
-      </div>
+      </h2>
     </div>
   );
 }
@@ -1693,7 +2053,7 @@ function PictureFrameContactSection() {
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center pb-0 pt-[50px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="intco-source-container px-5">
         <PictureFrameSectionTitle title="GET IN TOUCH" />
-        <p className="mx-auto mb-[55px] mt-[55px] max-w-[1160px] text-center text-base leading-6 text-[#363636]">
+        <p className="wow fadeInUp mx-auto mb-[55px] mt-[55px] max-w-[1160px] text-center text-base leading-6 text-[#363636]" data-reveal="source-up">
           Don&apos;t Hesitate to Reach Us.We are always here to address all your concerns and provide solutions.
         </p>
         <form className="mx-auto grid max-w-[1160px] gap-y-5 pb-[77px] lg:grid-cols-2 lg:gap-x-[40px] lg:px-[77px]">
@@ -1770,12 +2130,12 @@ function ArtCategorySourceView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-[1160px]">
           <PictureFrameSectionTitle title="COLLECTION" />
           <h1 className="sr-only">Art</h1>
-          <p className="mx-auto mb-10 mt-8 max-w-[1000px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]">
+          <p className="wow fadeInUp mx-auto mb-10 mt-8 max-w-[1000px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
             Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!
           </p>
           <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
             {ART_COLLECTION_CARDS.map((card, index) => (
-              <li key={card.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                 <ArtCollectionCard card={card} locale={locale} />
               </li>
             ))}
@@ -1800,7 +2160,7 @@ function ArtCategorySourceView({ locale }: { locale: Locale }) {
             </button>
             <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
               {ART_BEST_SELLERS.map((item, index) => (
-                <li key={item.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <Link href={localizePath(locale, item.path)} className="group block text-center">
                     <div className="relative aspect-square bg-white">
                       <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
@@ -1830,36 +2190,7 @@ function ArtCategorySourceView({ locale }: { locale: Locale }) {
 }
 
 function ArtSourceHero({ locale }: { locale: Locale }) {
-  return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="relative h-[122px] overflow-hidden bg-white lg:h-[450px]">
-        <Image src={PRODUCTS_HERO_IMAGE} alt="Art" fill priority className="object-cover object-center" sizes="100vw" />
-        <div className="absolute inset-0 bg-white/50" />
-        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[2px] text-center lg:justify-center lg:pt-0">
-          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[42px] lg:leading-[80px]">Art</h1>
-          <nav className="mt-1 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium leading-5 text-[#484653] lg:mt-0 lg:text-xl lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#f49c19]">
-              Home
-            </Link>
-            <span>›</span>
-            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#f49c19]">
-              Products
-            </Link>
-            <span>›</span>
-            <span>Art</span>
-          </nav>
-          <div className="mt-2 flex w-full max-w-[340px] items-center justify-center gap-[30px] lg:mt-[27px] lg:max-w-none lg:gap-0">
-            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
-              Chat With Us
-            </a>
-            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center overflow-hidden whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
-              Leave a Message
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <ProductHeroSourceFrame title="Art" locale={locale} variant="category" />;
 }
 
 function ArtCollectionCard({
@@ -1888,12 +2219,12 @@ function FurnitureCategorySourceView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-[1160px]">
           <PictureFrameSectionTitle title="COLLECTION" />
           <h1 className="sr-only">Furniture</h1>
-          <p className="mx-auto mb-10 mt-8 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]">
+          <p className="wow fadeInUp mx-auto mb-10 mt-8 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
             Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!
           </p>
           <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
             {FURNITURE_COLLECTION_CARDS.map((card, index) => (
-              <li key={card.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                 <FurnitureCollectionCard card={card} locale={locale} />
               </li>
             ))}
@@ -1919,7 +2250,7 @@ function FurnitureCategorySourceView({ locale }: { locale: Locale }) {
             </button>
             <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
               {FURNITURE_BEST_SELLERS.map((item, index) => (
-                <li key={item.title} data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
                   <Link href={localizePath(locale, item.path)} className="group block text-center">
                     <div className="relative aspect-square bg-white">
                       <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
@@ -1949,36 +2280,7 @@ function FurnitureCategorySourceView({ locale }: { locale: Locale }) {
 }
 
 function FurnitureSourceHero({ locale }: { locale: Locale }) {
-  return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="relative h-[122px] overflow-hidden bg-white lg:h-[450px]">
-        <Image src={PRODUCTS_HERO_IMAGE} alt="Furniture" fill priority className="object-cover object-center" sizes="100vw" />
-        <div className="absolute inset-0 bg-white/50" />
-        <div className="absolute inset-0 flex flex-col items-center px-5 pt-[2px] text-center lg:justify-center lg:pt-0">
-          <h1 className="text-[32px] font-semibold leading-none text-[#484653] lg:text-[42px] lg:leading-[80px]">Furniture</h1>
-          <nav className="mt-1 flex flex-wrap items-center justify-center gap-2 text-[15px] font-medium leading-5 text-[#484653] lg:mt-0 lg:text-xl lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")} className="transition-colors duration-200 hover:text-[#f49c19]">
-              Home
-            </Link>
-            <span>›</span>
-            <Link href={localizePath(locale, "/products")} className="transition-colors duration-200 hover:text-[#f49c19]">
-              Products
-            </Link>
-            <span>›</span>
-            <span>Furniture</span>
-          </nav>
-          <div className="mt-2 flex w-full max-w-[340px] items-center justify-center gap-[30px] lg:mt-[27px] lg:max-w-none lg:gap-0">
-            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
-              Chat With Us
-            </a>
-            <a href="#goinput" className="box-content inline-flex h-12 w-[142px] items-center justify-center overflow-hidden whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-300 hover:bg-[#484653] hover:text-white lg:mx-[15px] lg:w-[232px] lg:text-lg">
-              Leave a Message
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <ProductHeroSourceFrame title="Furniture" locale={locale} variant="category" />;
 }
 
 function FurnitureCollectionCard({
@@ -1991,6 +2293,96 @@ function FurnitureCollectionCard({
   return (
     <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
       <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
+      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
+      </span>
+    </Link>
+  );
+}
+
+function MemoBoardCategorySourceView({ locale }: { locale: Locale }) {
+  return (
+    <>
+      <MemoBoardSourceHero locale={locale} />
+
+      <section className="overflow-hidden bg-[#f3f3f3] pb-[5px] pt-12 lg:pt-[99px]">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <PictureFrameSectionTitle title="COLLECTION" />
+          <h1 className="sr-only">Memo Board</h1>
+          <div className="wow fadeInUp DESC center margin86" data-reveal="source-up" aria-hidden="true" />
+          <ul className="m-0 mt-[86px] grid list-none gap-[34px] p-0 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
+            {MEMO_BOARD_COLLECTION_CARDS.map((card, index) => (
+              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+                <MemoBoardCollectionCard card={card} locale={locale} />
+              </li>
+            ))}
+          </ul>
+          <div className="mt-10 flex justify-center lg:mt-0">
+            <Link href={localizePath(locale, "/products/memo-board-all")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+              View All Products <ArrowRight className="ml-2" size={22} />
+            </Link>
+          </div>
+          <span className="sr-only">Category Products</span>
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f3f3f3] pb-10 pt-12 lg:pt-[99px]">
+        <PictureFrameSectionTitle title="BEST SELLERS" />
+        <div className="intco-source-container mt-10 px-5 lg:mt-[65px] min-[1601px]:px-[70px]">
+          <div className="relative">
+            <button type="button" aria-label="Previous best seller" className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ‹
+            </button>
+            <button type="button" aria-label="Next best seller" className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
+              ›
+            </button>
+            <ul className="m-0 grid list-none gap-[26px] p-0 md:grid-cols-2 lg:grid-cols-4">
+              {MEMO_BOARD_BEST_SELLERS.map((item, index) => (
+                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <Link href={localizePath(locale, item.path)} className="group block pb-10 text-center lg:pb-[97px]">
+                    <div className="relative aspect-square bg-white">
+                      <Image src={item.imageUrl} alt={item.title} fill loading="eager" className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
+                    </div>
+                    <div className="mx-auto mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653]">{item.title}</div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636]">
+            {MEMO_BOARD_CATEGORY_COPY.map((item) => (
+              <div key={item.title}>
+                <p>
+                  <strong className="font-semibold">{item.title}</strong>
+                </p>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <PictureFrameContactSection />
+    </>
+  );
+}
+
+function MemoBoardSourceHero({ locale }: { locale: Locale }) {
+  return <ProductHeroSourceFrame title="Memo Board" locale={locale} variant="category" />;
+}
+
+function MemoBoardCollectionCard({
+  card,
+  locale,
+}: {
+  card: (typeof MEMO_BOARD_COLLECTION_CARDS)[number];
+  locale: Locale;
+}) {
+  return (
+    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
+      <Image src={card.imageUrl} alt={card.title} fill loading="eager" className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
       <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
       </span>
@@ -2026,6 +2418,9 @@ export function ProductListingView({
   }
   if (category?.slug === "furniture") {
     return <FurnitureCategorySourceView locale={locale} />;
+  }
+  if (category?.slug === "memo-board") {
+    return <MemoBoardCategorySourceView locale={locale} />;
   }
 
   const bestSellers = products.slice(0, 4);
@@ -2154,15 +2549,29 @@ export function SolutionsListingView({
   );
 }
 
-function SolutionsSourceHero({ title, locale, imageUrl = SOLUTIONS_HERO_IMAGE, imageAlt = "Solutions" }: { title: string; locale: Locale; imageUrl?: string; imageAlt?: string }) {
+function SolutionsSourceHero({
+  title,
+  locale,
+  imageUrl = SOLUTIONS_HERO_IMAGE,
+  imageAlt = "Solutions",
+  tone = "light",
+}: {
+  title: string;
+  locale: Locale;
+  imageUrl?: string;
+  imageAlt?: string;
+  tone?: "light" | "dark";
+}) {
+  const isDark = tone === "dark";
+
   return (
     <section className="relative aspect-[1920/600] min-h-[260px] overflow-hidden">
-      <Image src={imageUrl} alt={imageAlt} fill className="object-cover" sizes="100vw" priority />
-      <div className="absolute inset-0 bg-white/30" />
+      <Image src={imageUrl} alt={imageAlt} fill className="object-cover" sizes="100vw" priority unoptimized />
+      <div className={`absolute inset-0 ${isDark ? "bg-black/[0.22]" : "bg-white/30"}`} />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
-        <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
-          <h1 className="text-[42px] font-semibold leading-none max-lg:text-[38px]">{title}</h1>
-          <div className="mt-5 flex items-center justify-center gap-3 text-lg font-medium max-lg:justify-start max-lg:text-base lg:text-xl">
+        <div className={`intco-source-container px-5 text-center max-lg:text-left ${isDark ? "text-white" : "text-[#484653]"}`}>
+          <h1 className={`text-[66px] leading-[80px] max-[1466px]:text-[40px] max-[1466px]:leading-[56px] max-[650px]:text-[26px] max-[650px]:leading-[1.2] ${isDark ? "font-semibold text-white" : "font-bold text-[#333333]"}`}>{title}</h1>
+          <div className="flex items-center justify-center gap-3 py-3 text-[26px] font-medium leading-10 max-[1466px]:text-xl max-lg:justify-start max-lg:text-base">
             <Link href={localizePath(locale, "/")}>Home</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
             <span>{title}</span>
@@ -2520,7 +2929,1017 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
   );
 }
 
-export function ProjectsListingView({ projects, category, page, locale }: { projects: Project[]; category?: string; page?: ContentPage; locale: Locale }) {
+function DesignEngineeringSourceView({ locale }: { locale: Locale }) {
+  return (
+    <div className="intco-design-source-page">
+      <DesignEngineeringHero locale={locale} />
+      <section className="bg-white pb-10 pt-10">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="OUR EXPERTISE GOES BEYOND FRAMING!" backdrop="OUR EXPERTISE GOES BEYOND FRAMING!" />
+          </div>
+          <p className="intco-design-desc mb-[58px]" data-reveal="up">
+            Collaborate with our skilled design and engineering teams for innovative product design, professional packaging design, cost engineering, captivating display design, extensive product research, and customizable solutions tailored to meet your unique needs. We prioritize innovation and aesthetic appeal, ensuring your products stand out in the competitive market.
+          </p>
+          <div className="intco-design-main-image" data-reveal="up">
+            <Image src={DESIGN_ENGINEERING_MAIN_IMAGE} alt="shutterstock4" fill className="object-cover" sizes="(min-width: 1601px) 1600px, 100vw" />
+          </div>
+          <div className="intco-design-child-title">PRODUCT DESIGN</div>
+          <p className="intco-design-desc mt-10" data-reveal="up">
+            We excel in product design, specializing in moulding with a focus on profiles, foils, and embossing. Annually, we launch over 5,000 unique designs, supported by a collection of 6000+ profiles.
+          </p>
+          <ul className="intco-design-product-list">
+            {DESIGN_ENGINEERING_PRODUCT_ROWS.map((item, index) => (
+              <li key={item.title} data-reveal="up">
+                <DesignEngineeringProductRow item={item} reverse={Boolean(item.reverse)} index={index} />
+              </li>
+            ))}
+          </ul>
+          <div className="intco-design-feature-grid">
+            {DESIGN_ENGINEERING_FEATURES.map((item, index) => (
+              <DesignEngineeringFeatureCard key={item.title} item={item} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-10 pt-10">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
+          </p>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-secondary">
+            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
+              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white pb-[95px] pt-10">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
+          </p>
+          <div className="intco-design-manufacturing" data-reveal="fade">
+            <div className="intco-design-video">
+              <iframe
+                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="intco-design-manufacturing-copy">
+              <p>
+                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
+              </p>
+              <div className="intco-design-explore-wrap">
+                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
+                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <ProjectsSourceContactBand locale={locale} />
+    </div>
+  );
+}
+
+function DesignEngineeringHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="intco-design-hero">
+      <Image src={DESIGN_ENGINEERING_HERO_IMAGE} alt="shutterstock3" fill className="object-cover" sizes="100vw" priority unoptimized />
+      <div className="absolute inset-0 bg-white/30" />
+      <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
+        <div className="intco-source-container intco-design-hero-inner px-5 text-center text-[#484653] max-lg:text-left">
+          <h1 className="intco-design-hero-title">Design &amp; Engineering</h1>
+          <nav className="flex flex-wrap items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:justify-start max-lg:py-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")}>Home</Link>
+            <ArrowRight size={18} strokeWidth={1.8} />
+            <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+            <ArrowRight size={18} strokeWidth={1.8} />
+            <span>Design &amp; Engineering</span>
+          </nav>
+          <div className="mt-[17px] flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
+            <Link href={localizePath(locale, "/contact")} className="intco-design-hero-button">
+              Chat With Us
+            </Link>
+            <Link href={localizePath(locale, "/products/#goinput")} className="intco-design-hero-button">
+              Leave a Message
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DesignEngineeringProductRow({
+  item,
+  reverse,
+  index,
+}: {
+  item: (typeof DESIGN_ENGINEERING_PRODUCT_ROWS)[number];
+  reverse: boolean;
+  index: number;
+}) {
+  const copy = (
+    <div className="intco-design-row-copy" data-reveal={reverse ? "down" : "up"} style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+      <h3>
+        {item.title}
+        <span />
+      </h3>
+      <p>{item.body}</p>
+    </div>
+  );
+  const image = (
+    <div className="intco-design-row-image" data-reveal={reverse ? "up" : "down"} style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+      <Image src={item.imageUrl} alt={item.imageAlt} fill className="object-cover transition duration-700 hover:scale-105" sizes="(min-width: 1601px) 660px, 100vw" />
+    </div>
+  );
+
+  return (
+    <div className="intco-design-product-row">
+      {reverse ? (
+        <>
+          {image}
+          {copy}
+        </>
+      ) : (
+        <>
+          {copy}
+          {image}
+        </>
+      )}
+    </div>
+  );
+}
+
+function DesignEngineeringFeatureCard({ item, index }: { item: (typeof DESIGN_ENGINEERING_FEATURES)[number]; index: number }) {
+  return (
+    <div className="intco-design-feature-card" data-reveal="up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+      <Image src={item.imageUrl} alt={item.imageAlt} fill className="object-cover transition duration-700 hover:scale-110" sizes="(min-width: 1601px) 346px, 50vw" />
+      <div>{item.title}</div>
+    </div>
+  );
+}
+
+function DesignEngineeringLatestCard({
+  item,
+  locale,
+  variant,
+  index,
+  reveal = "up",
+}: {
+  item: (typeof DESIGN_ENGINEERING_LATEST_PRIMARY)[number];
+  locale: Locale;
+  variant: "primary" | "secondary";
+  index: number;
+  reveal?: "up" | "fade";
+}) {
+  return (
+    <Link href={localizePath(locale, item.path)} className={`intco-design-latest-card ${variant === "primary" ? "intco-design-latest-card-primary" : "intco-design-latest-card-secondary"}`} data-reveal={reveal} style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+      <Image src={item.imageUrl} alt="" fill className="object-cover transition duration-500 hover:scale-105" sizes={variant === "primary" ? "(min-width: 1601px) 780px, 100vw" : "(min-width: 1601px) 510px, 100vw"} />
+      <span>
+        <strong>{item.title}</strong>
+      </span>
+    </Link>
+  );
+}
+
+function DesignEngineeringProjectCard({
+  item,
+  locale,
+  index,
+}: {
+  item: (typeof DESIGN_ENGINEERING_PROJECT_CARDS)[number];
+  locale: Locale;
+  index: number;
+}) {
+  return (
+    <Link href={localizePath(locale, item.path)} className="intco-design-project-card" data-reveal="fade" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+      <Image src={item.imageUrl} alt="" fill className="object-cover transition duration-500 hover:scale-105" sizes="(min-width: 1601px) 780px, 100vw" />
+      <span>
+        <em>{item.eyebrow}</em>
+        <strong>{item.title}</strong>
+        <i />
+      </span>
+    </Link>
+  );
+}
+
+function ManufacturingDeliverySourceView({ locale }: { locale: Locale }) {
+  return (
+    <div className="intco-md-page">
+      <ManufacturingDeliveryHero locale={locale} />
+
+      <section className="intco-md-section intco-md-section-production">
+        <div className="intco-source-container">
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[0]} variant="production" index={0} />
+        </div>
+        <div className="intco-md-bottom-bg" aria-hidden="true" />
+      </section>
+
+      <section className="intco-md-section intco-md-section-digital">
+        <div className="intco-source-container">
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[1]} variant="digital" index={1} />
+        </div>
+        <div className="intco-md-image-bg" aria-hidden="true" />
+        <div className="intco-md-left-bg" aria-hidden="true" />
+        <div className="intco-md-top-strip" aria-hidden="true" />
+      </section>
+
+      <section className="intco-md-section intco-md-section-automation">
+        <div className="intco-source-container">
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[2]} variant="automation" index={2} />
+        </div>
+      </section>
+
+      <section className="intco-md-section intco-md-section-flexible">
+        <div className="intco-source-container">
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[3]} variant="flexible" index={3} />
+        </div>
+      </section>
+
+      <section className="intco-md-section intco-md-section-quality">
+        <div className="intco-source-container">
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[4]} variant="quality" index={4} />
+        </div>
+      </section>
+
+      <section className="intco-md-section intco-md-section-packaging">
+        <div className="intco-source-container">
+          <div className="intco-md-packaging-images">
+            {MANUFACTURING_PACKAGING_IMAGES.map((item, index) => (
+              <div key={item.imageUrl} className="intco-md-packaging-image" data-reveal="fade" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                <div className="intco-md-image-box">
+                  <Image src={item.imageUrl} alt={item.imageAlt} fill className="object-cover" sizes={index === 0 ? "(min-width: 1601px) 765px, 100vw" : "(min-width: 1601px) 617px, 100vw"} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="intco-md-packaging-row">
+            <div className="intco-md-packaging-copy">
+              <ManufacturingDeliveryTitle title="PACKAGING" compact />
+              <div>{MANUFACTURING_PACKAGING_COPY}</div>
+            </div>
+            <div className="intco-md-packaging-spacer" aria-hidden="true" />
+          </div>
+        </div>
+      </section>
+
+      <section className="intco-md-down-section">
+        <div className="intco-md-down-image" data-reveal="fade">
+          <Image src={MANUFACTURING_DELIVERY_DOWN_IMAGE} alt="down" fill className="object-cover" sizes="100vw" />
+        </div>
+      </section>
+
+      <section className="intco-md-delivery-section">
+        <div className="intco-source-container">
+          <ProjectsSourceTitle title="DELIVERY" backdrop="DELIVERY" />
+          <p className="intco-md-delivery-copy">{MANUFACTURING_DELIVERY_COPY}</p>
+          <div className="intco-md-delivery-border" aria-hidden="true" />
+        </div>
+      </section>
+
+      <section className="bg-white py-10 lg:py-[40px]">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
+          </p>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-secondary">
+            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
+              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
+          </p>
+          <div className="intco-design-manufacturing" data-reveal="fade">
+            <div className="intco-design-video">
+              <iframe
+                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="intco-design-manufacturing-copy">
+              <p>
+                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
+              </p>
+              <div className="intco-design-explore-wrap">
+                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
+                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ProjectsSourceContactBand locale={locale} />
+    </div>
+  );
+}
+
+function ManufacturingDeliveryHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="intco-design-hero">
+      <Image src={MANUFACTURING_DELIVERY_HERO_IMAGE} alt="ManufacturingBg" fill className="object-cover" sizes="100vw" priority unoptimized />
+      <div className="absolute inset-0 bg-white/30" />
+      <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
+        <div className="intco-source-container intco-design-hero-inner px-5 text-center text-[#484653] max-lg:text-left">
+          <h1 className="intco-design-hero-title">Manufacturing &amp; Delivery</h1>
+          <nav className="flex flex-wrap items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:justify-start max-lg:py-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")}>Home</Link>
+            <ArrowRight size={18} strokeWidth={1.8} />
+            <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+            <ArrowRight size={18} strokeWidth={1.8} />
+            <span>Manufacturing &amp; Delivery</span>
+          </nav>
+          <div className="mt-[17px] flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
+            <Link href={localizePath(locale, "/contact")} className="intco-design-hero-button">
+              Chat With Us
+            </Link>
+            <Link href={localizePath(locale, "/products/#goinput")} className="intco-design-hero-button">
+              Leave a Message
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ManufacturingDeliveryRow({
+  item,
+  variant,
+  index,
+}: {
+  item: (typeof MANUFACTURING_DELIVERY_ROWS)[number];
+  variant: "production" | "digital" | "automation" | "flexible" | "quality";
+  index: number;
+}) {
+  const copy = (
+    <div className="intco-md-row-copy" data-reveal={variant === "digital" || variant === "flexible" ? "up" : "down"} style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+      <ManufacturingDeliveryTitle title={item.title} />
+      <div className="intco-md-row-text">{item.body}</div>
+    </div>
+  );
+  const image = (
+    <div className="intco-md-row-image" data-reveal={variant === "digital" || variant === "flexible" ? "down" : "up"} style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+      <div className="intco-md-image-box">
+        <Image src={item.imageUrl} alt={item.imageAlt} fill className="object-cover" sizes="(min-width: 1601px) 954px, 100vw" />
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={`intco-md-row intco-md-row-${variant}`}>
+      {variant === "digital" || variant === "flexible" ? (
+        <>
+          {copy}
+          {image}
+        </>
+      ) : (
+        <>
+          {image}
+          {copy}
+        </>
+      )}
+      {variant === "automation" ? <div className="intco-md-automation-square" aria-hidden="true" /> : null}
+      {variant === "quality" ? <div className="intco-md-quality-bg" aria-hidden="true" /> : null}
+    </div>
+  );
+}
+
+function ManufacturingDeliveryTitle({ title, compact = false }: { title: string; compact?: boolean }) {
+  return (
+    <div className={`intco-md-title ${compact ? "intco-md-title-compact" : ""}`}>
+      <div className="intco-md-title-text">{title}</div>
+    </div>
+  );
+}
+
+function RetailerSupportSourceView({ locale }: { locale: Locale }) {
+  return (
+    <div className="intco-retailer-page">
+      <RetailerSupportHero locale={locale} />
+
+      <section className="intco-retailer-customer-section">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="intco-retailer-title-wrap">
+            <ProjectsSourceTitle title="Customer Service" backdrop="Customer Service" />
+          </div>
+          <p className="intco-retailer-desc intco-retailer-desc-center" data-reveal="fade">
+            {RETAILER_SUPPORT_CUSTOMER_COPY}
+          </p>
+          <div className="intco-retailer-turn-row">
+            <div className="intco-retailer-turn-copy" data-reveal="up">
+              <h2>Turn Key Solutions</h2>
+              <p>{RETAILER_SUPPORT_TURN_COPY}</p>
+            </div>
+            <div className="intco-retailer-turn-image-wrap" data-reveal="down">
+              <div className="intco-retailer-turn-image">
+                <Image src={RETAILER_SUPPORT_TURN_IMAGE} alt="RetailerSupport11" fill className="object-cover" sizes="(min-width: 1601px) 730px, (min-width: 1024px) 53vw, 100vw" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="intco-retailer-global-section">
+        <div className="intco-retailer-global-layout" style={{ "--retailer-global-decor": `url(${RETAILER_SUPPORT_GLOBAL_DECOR})` } as React.CSSProperties}>
+          <div className="intco-retailer-global-left">
+            <div className="intco-retailer-global-swiper" data-reveal="up">
+              <span className="intco-retailer-swiper-arrow intco-retailer-swiper-arrow-prev" aria-hidden="true">
+                ‹
+              </span>
+              <span className="intco-retailer-swiper-arrow intco-retailer-swiper-arrow-next" aria-hidden="true">
+                ›
+              </span>
+              <div className="intco-retailer-global-track">
+                {RETAILER_SUPPORT_GLOBAL_IMAGES.map((imageUrl) => (
+                  <div key={imageUrl} className="intco-retailer-global-slide">
+                    <Image src={imageUrl} alt="" fill className="object-cover" sizes="(min-width: 1024px) 62vw, 100vw" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="intco-retailer-global-copy" data-reveal="down">
+            <h2>Global Production and Supply</h2>
+            <p>{RETAILER_SUPPORT_GLOBAL_COPY}</p>
+          </div>
+          <div className="intco-retailer-global-decor" aria-hidden="true">
+            <Image src={RETAILER_SUPPORT_GLOBAL_DECOR} alt="" fill className="object-contain" sizes="(min-width: 1024px) 861px, 100vw" />
+          </div>
+        </div>
+      </section>
+
+      <section className="intco-retailer-card-section">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <ul className="intco-retailer-card-list">
+            <li>
+              <RetailerSupportOverlayCard
+                title="International Distribution"
+                body={RETAILER_SUPPORT_DISTRIBUTION_COPY}
+                imageUrl={RETAILER_SUPPORT_DISTRIBUTION_IMAGE}
+                imageAlt="RetailerSuppor5"
+                imageFirst
+              />
+            </li>
+            <li>
+              <RetailerSupportOverlayCard
+                title="Marketing Support"
+                body={
+                  <>
+                    {RETAILER_SUPPORT_MARKETING_COPY_BEFORE}{" "}
+                    <a href="https://www.intco-framing.com/framing-studio/" target="_blank" rel="noopener noreferrer">
+                      online framing tool
+                    </a>{" "}
+                    {RETAILER_SUPPORT_MARKETING_COPY_AFTER}
+                  </>
+                }
+                imageUrl={RETAILER_SUPPORT_MARKETING_IMAGE}
+                imageAlt="RetailerSuppor6"
+                variant="reverse"
+              />
+            </li>
+            <li>
+              <div className="intco-retailer-service-row">
+                <div className="intco-retailer-service-image" data-reveal="up">
+                  <div className="intco-retailer-service-image-box">
+                    <Image src={RETAILER_SUPPORT_SERVICE_IMAGE} alt="" fill className="object-cover" sizes="(min-width: 1601px) 930px, (min-width: 1024px) 55vw, 100vw" />
+                  </div>
+                </div>
+                <div className="intco-retailer-service-copy" data-reveal="down">
+                  <p>{RETAILER_SUPPORT_SERVICE_COPY}</p>
+                  <ul className="intco-retailer-contact-list">
+                    <li data-reveal="up">
+                      <span className="intco-retailer-contact-icon">
+                        <Phone size={36} strokeWidth={1.8} />
+                      </span>
+                      <p>
+                        Telephone +86
+                        <br />
+                        13371591392
+                      </p>
+                      <a href="https://api.whatsapp.com/send?phone=8613371591392" target="_blank" rel="noopener noreferrer">
+                        Call Now
+                      </a>
+                    </li>
+                    <li data-reveal="up">
+                      <span className="intco-retailer-contact-icon">
+                        <Headphones size={36} strokeWidth={1.8} />
+                      </span>
+                      <p>Live Chat</p>
+                      <a href="#chat">Contact Now</a>
+                    </li>
+                    <li data-reveal="up">
+                      <span className="intco-retailer-contact-icon">
+                        <Mail size={36} strokeWidth={1.8} />
+                      </span>
+                      <p>
+                        Send an Email
+                        <br />
+                        info@intcoframing-us.com
+                      </p>
+                      <a href="mailto:info@intcoframing-us.com">Email Us</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="bg-white py-10">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
+          </p>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-secondary">
+            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
+              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
+          </p>
+          <div className="intco-design-manufacturing" data-reveal="fade">
+            <div className="intco-design-video">
+              <iframe
+                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="intco-design-manufacturing-copy">
+              <p>
+                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
+              </p>
+              <div className="intco-design-explore-wrap">
+                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
+                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ProjectsSourceContactBand locale={locale} />
+    </div>
+  );
+}
+
+function RetailerSupportOverlayCard({
+  title,
+  body,
+  imageUrl,
+  imageAlt,
+  imageFirst = false,
+  variant = "default",
+}: {
+  title: string;
+  body: React.ReactNode;
+  imageUrl: string;
+  imageAlt: string;
+  imageFirst?: boolean;
+  variant?: "default" | "reverse";
+}) {
+  const image = (
+    <div className="intco-retailer-overlay-image" data-reveal={variant === "reverse" ? "down" : "up"}>
+      <div className="intco-retailer-overlay-image-box">
+        <Image src={imageUrl} alt={imageAlt} fill className="object-cover" sizes="(min-width: 1601px) 760px, (min-width: 1024px) 50vw, 100vw" />
+      </div>
+    </div>
+  );
+  const content = (
+    <div className="intco-retailer-overlay-content" data-reveal={variant === "reverse" ? "up" : "down"}>
+      <div className="intco-retailer-overlay-card">
+        <h2>{title}</h2>
+        <p>{body}</p>
+      </div>
+    </div>
+  );
+
+  return (
+    <div className={`intco-retailer-overlay-row ${variant === "reverse" ? "intco-retailer-overlay-row-reverse" : ""}`}>
+      {imageFirst ? (
+        <>
+          {image}
+          {content}
+        </>
+      ) : (
+        <>
+          {content}
+          {image}
+        </>
+      )}
+    </div>
+  );
+}
+
+function RetailerSupportHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="intco-source-hero intco-source-hero-category intco-retailer-hero" data-source-hero>
+      <div className="intco-source-hero-slide" data-source-hero-slide>
+        <div className="intco-source-hero-bg" data-source-hero-bg>
+          <Image src={RETAILER_SUPPORT_HERO_IMAGE} alt="未标题-2" fill className="object-cover" sizes="100vw" priority unoptimized />
+        </div>
+        <div className="intco-source-hero-content" data-source-hero-content>
+          <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
+            <div className="intco-source-hero-text" data-source-hero-text>
+              <h1 className="intco-source-hero-title" data-source-hero-title>
+                Retailer Support
+              </h1>
+              <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
+                <Link href={localizePath(locale, "/")}>Home</Link>
+                <span className="intco-source-hero-separator">›</span>
+                <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+                <span className="intco-source-hero-separator">›</span>
+                <span>Retailer Support</span>
+              </nav>
+            </div>
+            <div className="intco-source-hero-actions" data-source-hero-actions>
+              <a href="#chat" data-source-hero-cta>
+                Chat With Us
+              </a>
+              <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
+                Leave a Message
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function CertificationSourceView({ locale }: { locale: Locale }) {
+  return (
+    <div className="intco-certification-page">
+      <CertificationHero locale={locale} />
+
+      <section className="intco-certification-section" style={{ "--certification-bg": `url(${CERTIFICATION_BG_IMAGE})` } as React.CSSProperties}>
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="intco-certification-title-wrap">
+            <ProjectsSourceTitle title="RUN, GROW AND EXPAND YOUR BUSINESS" backdrop="RUN, GROW AND EXPAND YOUR BUSINESS" />
+          </div>
+          <p className="intco-certification-desc" data-reveal="fade">
+            {CERTIFICATION_COPY}
+          </p>
+          <ul className="intco-certification-grid">
+            {CERTIFICATION_GRID_IMAGES.map((imageUrl, index) => (
+              <li key={imageUrl} data-reveal="up" style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+                <div className="intco-certification-card">
+                  <div className="intco-certification-grid-image">
+                    <Image src={imageUrl} alt="" fill className="object-cover" sizes="(min-width: 1601px) 320px, (min-width: 1024px) 25vw, 50vw" />
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <div className="intco-certification-swiper-wrap">
+            <span className="intco-certification-arrow intco-certification-arrow-prev" aria-hidden="true">
+              ‹
+            </span>
+            <span className="intco-certification-arrow intco-certification-arrow-next" aria-hidden="true">
+              ›
+            </span>
+            <div className="intco-certification-swiper-grid">
+              {CERTIFICATION_SWIPER_IMAGES.map((imageUrl, index) => (
+                <div key={imageUrl} className="intco-certification-swiper-slide" data-reveal="up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <div className="intco-certification-swiper-image">
+                    <Image src={imageUrl} alt="" fill className="object-contain" sizes="(min-width: 1601px) 250px, (min-width: 1024px) 20vw, 50vw" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-10">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
+          </p>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-secondary">
+            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
+              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
+          </p>
+          <div className="intco-design-manufacturing" data-reveal="fade">
+            <div className="intco-design-video">
+              <iframe
+                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="intco-design-manufacturing-copy">
+              <p>
+                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
+              </p>
+              <div className="intco-design-explore-wrap">
+                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
+                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ProjectsSourceContactBand locale={locale} />
+    </div>
+  );
+}
+
+function CertificationHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="intco-source-hero intco-source-hero-category" data-source-hero>
+      <div className="intco-source-hero-slide" data-source-hero-slide>
+        <div className="intco-source-hero-bg" data-source-hero-bg>
+          <Image src={CERTIFICATION_HERO_IMAGE} alt="Certification1" fill className="object-cover" sizes="100vw" priority unoptimized />
+        </div>
+        <div className="intco-source-hero-content" data-source-hero-content>
+          <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
+            <div className="intco-source-hero-text" data-source-hero-text>
+              <h1 className="intco-source-hero-title" data-source-hero-title>
+                Certification
+              </h1>
+              <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
+                <Link href={localizePath(locale, "/")}>Home</Link>
+                <span className="intco-source-hero-separator">›</span>
+                <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+                <span className="intco-source-hero-separator">›</span>
+                <span>Certification</span>
+              </nav>
+            </div>
+            <div className="intco-source-hero-actions" data-source-hero-actions>
+              <a href="#goinput" data-source-hero-cta>
+                Chat With Us
+              </a>
+              <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
+                Leave a Message
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function GlobalProductionSupplySourceView({ locale }: { locale: Locale }) {
+  return (
+    <div className="intco-global-production-page">
+      <GlobalProductionHero locale={locale} />
+
+      <section className="intco-global-production-card-section">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="intco-global-production-card">
+            <div className="intco-global-production-image" data-reveal="up">
+              <Image src={GLOBAL_PRODUCTION_BUILDING_IMAGE} alt="办公大楼2" fill className="object-cover" sizes="(min-width: 1601px) 580px, (min-width: 1024px) 36vw, 100vw" />
+            </div>
+            <div className="intco-global-production-content" data-reveal="down">
+              <p className="intco-global-production-bases">
+                Intco Vietnam
+                <br />
+                lntco Malaysia
+              </p>
+              <div className="intco-global-production-title">
+                <div className="intco-global-production-title-text">
+                  PARTNER WITH INTCO
+                  <br />
+                  FOR THE BEST QUALITY PRODUCTS
+                </div>
+              </div>
+              <ul className="intco-global-production-features">
+                {GLOBAL_PRODUCTION_FEATURES.map((item) => (
+                  <li key={item.label}>
+                    <span className="intco-global-production-icon">
+                      <Image src={item.iconUrl} alt="" width={58} height={58} />
+                    </span>
+                    <span>{item.label}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="intco-global-production-copy-section">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <p className="intco-global-production-copy" data-reveal="up">
+            {GLOBAL_PRODUCTION_COPY}
+          </p>
+        </div>
+      </section>
+
+      <section className="bg-white py-10">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
+          </p>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-secondary">
+            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
+              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
+            ))}
+          </div>
+          <div className="intco-design-latest-grid intco-design-latest-primary">
+            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
+              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <div className="mb-[55px]">
+            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
+          </div>
+          <p className="intco-design-desc mb-[58px]">
+            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
+          </p>
+          <div className="intco-design-manufacturing" data-reveal="fade">
+            <div className="intco-design-video">
+              <iframe
+                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </div>
+            <div className="intco-design-manufacturing-copy">
+              <p>
+                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
+              </p>
+              <div className="intco-design-explore-wrap">
+                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
+                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ProjectsSourceContactBand locale={locale} />
+    </div>
+  );
+}
+
+function GlobalProductionHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="intco-source-hero intco-source-hero-category" data-source-hero>
+      <div className="intco-source-hero-slide" data-source-hero-slide>
+        <div className="intco-source-hero-bg" data-source-hero-bg>
+          <Image src={GLOBAL_PRODUCTION_HERO_IMAGE} alt="shutterstock1" fill className="object-cover" sizes="100vw" priority unoptimized />
+        </div>
+        <div className="intco-source-hero-content" data-source-hero-content>
+          <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
+            <div className="intco-source-hero-text" data-source-hero-text>
+              <h1 className="intco-source-hero-title" data-source-hero-title>
+                Global Production and Supply
+              </h1>
+              <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
+                <Link href={localizePath(locale, "/")}>Home</Link>
+                <span className="intco-source-hero-separator">›</span>
+                <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+                <span className="intco-source-hero-separator">›</span>
+                <span>Global Production and Supply</span>
+              </nav>
+            </div>
+            <div className="intco-source-hero-actions" data-source-hero-actions>
+              <a href="#goinput" data-source-hero-cta>
+                Chat With Us
+              </a>
+              <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
+                Leave a Message
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function ProjectsListingView({ projects, category, page, locale, pageNumber = 1 }: { projects: Project[]; category?: string; page?: ContentPage; locale: Locale; pageNumber?: number }) {
+  if (!category) {
+    return <ProjectsSourceListingView locale={locale} pageNumber={pageNumber} />;
+  }
+  if (category === "Residential") {
+    return <ProjectsSourceListingView locale={locale} pageNumber={1} variant="residential" />;
+  }
+  if (category === "Commercial") {
+    return <ProjectsSourceListingView locale={locale} pageNumber={1} variant="commercial" />;
+  }
+
   const filtered = category ? projects.filter((project) => (project.categoryKey || project.category) === category) : projects;
   const projectNav = projects.slice(0, 5);
   const pageLines = contentLines(page?.bodyText, 40);
@@ -2579,6 +3998,195 @@ export function ProjectsListingView({ projects, category, page, locale }: { proj
       </section>
       <ContactBand locale={locale} />
     </>
+  );
+}
+
+function ProjectsSourceListingView({ locale, pageNumber, variant = "all" }: { locale: Locale; pageNumber: number; variant?: "all" | "residential" | "commercial" }) {
+  const isResidential = variant === "residential";
+  const isCommercial = variant === "commercial";
+  const activePage = isResidential || isCommercial ? 1 : PROJECTS_SOURCE_PAGE_ITEMS[pageNumber] ? pageNumber : 1;
+  const items = isCommercial ? PROJECTS_SOURCE_COMMERCIAL_ITEMS : PROJECTS_SOURCE_PAGE_ITEMS[activePage];
+  const pageHref = (page: number) => (page === 1 ? "/projects" : `/projects/page/${page}`);
+  const title = isResidential ? "Residential" : isCommercial ? "Commercial" : "PROJECTS";
+  const heroTitle = isResidential ? "Residential" : isCommercial ? "Commercial" : "Projects";
+  const paginationItems =
+    activePage === 1
+      ? [
+          { label: "1", page: 1, current: true },
+          { label: "2", page: 2 },
+          { label: "3", page: 3 },
+          { label: ">", page: 2, ariaLabel: "Next projects page" },
+        ]
+      : activePage === 2
+        ? [
+            { label: "<", page: 1, ariaLabel: "Previous projects page" },
+            { label: "1", page: 1 },
+            { label: "2", page: 2, current: true },
+            { label: "3", page: 3 },
+            { label: ">", page: 3, ariaLabel: "Next projects page" },
+          ]
+        : [
+            { label: "<", page: 2, ariaLabel: "Previous projects page" },
+            { label: "1", page: 1 },
+            { label: "2", page: 2 },
+            { label: "3", page: 3, current: true },
+          ];
+
+  return (
+    <div className="intco-projects-source-page">
+      <ProjectsSourceHero locale={locale} title={heroTitle} showProjectsCrumb={isResidential || isCommercial} />
+      <section className="bg-[#f3f3f3] pb-10 pt-5 lg:pt-[99px]">
+        <div className="intco-source-container px-5 min-[1601px]:px-0">
+          <ProjectsSourceTitle title={title} backdrop="RESIDENTIAL" />
+          <p className="intco-projects-source-intro">
+            Artistry meets functionality.
+            <br />
+            From commercial spaces to homes, our diverse products seamlessly integrate into diverse scenarios.
+          </p>
+          <nav className="flex justify-center gap-[10px] lg:gap-[130px]" aria-label="Project categories">
+            <Link href={localizePath(locale, "/projects")} aria-current={!isResidential && !isCommercial ? "page" : undefined} className={`box-border flex h-11 flex-1 items-center justify-center rounded-[29px] border-2 border-[#484653] text-sm font-semibold transition duration-700 lg:box-content lg:h-[58px] lg:w-[232px] lg:flex-none lg:text-lg ${isResidential || isCommercial ? "bg-white text-[#484653] hover:bg-[#484653] hover:text-white" : "bg-[#484653] text-white"}`}>
+              View All
+            </Link>
+            <Link href={localizePath(locale, "/projects/residential")} aria-current={isResidential ? "page" : undefined} className={`box-border flex h-11 flex-1 items-center justify-center rounded-[29px] border-2 border-[#484653] text-sm font-semibold transition duration-700 lg:box-content lg:h-[58px] lg:w-[232px] lg:flex-none lg:text-lg ${isResidential ? "bg-[#484653] text-white" : "bg-white text-[#484653] hover:bg-[#484653] hover:text-white"}`}>
+              Residential
+            </Link>
+            <Link href={localizePath(locale, "/projects/commercial")} aria-current={isCommercial ? "page" : undefined} className={`box-border flex h-11 flex-1 items-center justify-center rounded-[29px] border-2 border-[#484653] text-sm font-semibold transition duration-700 lg:box-content lg:h-[58px] lg:w-[232px] lg:flex-none lg:text-lg ${isCommercial ? "bg-[#484653] text-white" : "bg-white text-[#484653] hover:bg-[#484653] hover:text-white"}`}>
+              Commercial
+            </Link>
+          </nav>
+          <div className="pt-5 lg:pt-[59px]">
+            {items.map((project, index) => (
+              <ProjectsSourceCard key={project.title} project={project} index={index} locale={locale} />
+            ))}
+          </div>
+          {!isCommercial ? (
+            <nav className="flex h-[120px] items-start justify-center gap-[6px] py-[30px]" aria-label="Projects pagination">
+              {paginationItems.map((item, index) =>
+                item.current ? (
+                  <span key={`${item.label}-${index}`} className="flex size-[30px] items-center justify-center bg-[#484653] text-base leading-[30px] text-white" aria-current="page">
+                    {item.label}
+                  </span>
+                ) : (
+                  <Link key={`${item.label}-${index}`} href={localizePath(locale, pageHref(item.page))} className="flex size-[30px] items-center justify-center bg-[#f3f3f3] text-base leading-[30px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white" aria-label={item.ariaLabel}>
+                    {item.label}
+                  </Link>
+                ),
+              )}
+            </nav>
+          ) : null}
+        </div>
+      </section>
+      <ProjectsSourceContactBand locale={locale} />
+    </div>
+  );
+}
+
+function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { locale: Locale; title: string; showProjectsCrumb?: boolean }) {
+  const isProjectsIndex = title === "Projects";
+
+  return (
+    <section className="relative aspect-[1920/600] min-h-[122px] overflow-hidden lg:min-h-[260px]">
+      <Image src={PROJECTS_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" priority />
+      <div className="absolute inset-0 bg-white/30" />
+      <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
+        <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
+          <h1 className={`text-[32px] leading-[48px] lg:text-[66px] lg:leading-[80px] ${isProjectsIndex ? "font-bold text-[#333333]" : "font-semibold text-[#484653]"}`}>{title}</h1>
+          <nav className="flex items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:py-0 lg:text-xl lg:leading-10" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")}>Home</Link>
+            <ArrowRight size={18} strokeWidth={1.8} />
+            {showProjectsCrumb ? (
+              <>
+                <Link href={localizePath(locale, "/projects")}>Projects</Link>
+                <ArrowRight size={18} strokeWidth={1.8} />
+                <span>{title}</span>
+              </>
+            ) : (
+              <span>Projects</span>
+            )}
+          </nav>
+          <div className="mt-4 flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
+            <Link
+              href={localizePath(locale, "/contact")}
+              className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
+            >
+              Chat With Us
+            </Link>
+            <Link
+              href={localizePath(locale, "/products/#goinput")}
+              className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
+            >
+              Leave a Message
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProjectsSourceTitle({ title, backdrop }: { title: string; backdrop: string }) {
+  return (
+    <div className="intco-projects-source-title" data-reveal="fade">
+      <div className="intco-projects-source-title-backdrop" aria-hidden="true">
+        {backdrop}
+      </div>
+      <div className="intco-projects-source-title-text">
+        {title}
+      </div>
+    </div>
+  );
+}
+
+function ProjectsSourceCard({ project, index, locale }: { project: (typeof PROJECTS_SOURCE_ITEMS)[number]; index: number; locale: Locale }) {
+  const textReveal = index % 2 === 0 ? "up" : "down";
+  const imageReveal = index % 2 === 0 ? "down" : "up";
+  const text = (
+    <div className="intco-project-card-text" data-reveal={textReveal}>
+      <div className="intco-project-card-title">{project.title}</div>
+      <p className="intco-project-card-desc">{project.description}</p>
+    </div>
+  );
+  const image = (
+    <div className="intco-project-card-image" data-reveal={imageReveal}>
+      <div className="intco-project-card-image-inner">
+        <Image src={project.imageUrl} alt={project.title} fill className="object-cover transition duration-[1500ms] hover:scale-105" sizes="(min-width: 1601px) 1106px, (min-width: 1024px) 50vw, 100vw" />
+      </div>
+    </div>
+  );
+
+  return (
+    <Link href={localizePath(locale, project.path)} className={`intco-project-card ${index % 2 === 0 ? "flex-col-reverse lg:flex-row" : "flex-col lg:flex-row"}`}>
+      {index % 2 === 0 ? (
+        <>
+          {text}
+          {image}
+        </>
+      ) : (
+        <>
+          {image}
+          {text}
+        </>
+      )}
+    </Link>
+  );
+}
+
+function ProjectsSourceContactBand({ locale }: { locale: Locale }) {
+  return (
+    <section className="relative mb-[30px] bg-cover bg-center p-5 lg:mb-[55px] lg:px-0 lg:py-[98px]" style={{ backgroundImage: `url(${SOLUTIONS_CONTACT_BG})` }}>
+      <span className="sr-only">GET IN TOUCH</span>
+      <div className="intco-source-container flex flex-col items-center justify-center rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:min-h-[321px] lg:px-0 lg:py-[8vh]" data-reveal="fade">
+        <h2 className="w-full text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">Looking for the Perfect Solution?</h2>
+        <p className="my-8 w-full text-lg font-normal lg:text-2xl lg:leading-9">Contact us today for your decor solution needs.</p>
+        <Link
+          href={localizePath(locale, "/contact")}
+          className="mx-auto box-content inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium leading-[54px] text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
+        >
+          <Phone className="mr-[9px]" size={22} />
+          Contact Us
+        </Link>
+      </div>
+    </section>
   );
 }
 
@@ -2810,6 +4418,21 @@ export function SolutionDetailView({
 }) {
   if (solution.slug === "business-insights-trends") {
     return <BusinessInsightsSourceView locale={locale} />;
+  }
+  if (solution.slug === "design-engineering") {
+    return <DesignEngineeringSourceView locale={locale} />;
+  }
+  if (solution.slug === "manufacturing-delivery") {
+    return <ManufacturingDeliverySourceView locale={locale} />;
+  }
+  if (solution.slug === "global-production-and-supply") {
+    return <GlobalProductionSupplySourceView locale={locale} />;
+  }
+  if (solution.slug === "certification") {
+    return <CertificationSourceView locale={locale} />;
+  }
+  if (solution.slug === "retailer-support") {
+    return <RetailerSupportSourceView locale={locale} />;
   }
 
   const sections = sectionize(contentLines(solution.bodyText, 120));
@@ -3570,7 +5193,7 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
   return (
     <>
       <span className="sr-only">Our Mission & Vision | Intco Framing</span>
-      <SolutionsSourceHero title="Philosophy" locale={locale} imageUrl={PHILOSOPHY_HERO_IMAGE} imageAlt="Philosophy1" />
+      <SolutionsSourceHero title="Philosophy" locale={locale} imageUrl={PHILOSOPHY_HERO_IMAGE} imageAlt="Philosophy1" tone="dark" />
 
       <section className="bg-white bg-center bg-no-repeat pt-[99px] max-lg:pt-10" style={{ backgroundImage: `url(${PHILOSOPHY_BG})` }}>
         <div className="intco-source-container px-5">
@@ -3698,85 +5321,156 @@ export function ContentPageView({ page, locale }: { page: ContentPage; locale: L
   return <DetailView item={page} label="INTCO" locale={locale} />;
 }
 
-export function ContactView({ page, locale }: { page: ContentPage; locale: Locale }) {
-  const lines = contentLines(page.bodyText, 80);
-  const factories = parseFactories(lines);
-  const contacts = [
-    { title: t(locale, "telephone"), value: "+86 13371591392", action: t(locale, "callNow"), href: "tel:+8613371591392", icon: Phone },
-    { title: t(locale, "liveChat"), value: "+86 17753315610", action: t(locale, "contactNow"), href: "tel:+8617753315610", icon: Search },
-    { title: t(locale, "sendEmail"), value: "info@intcoframing-us.com", action: t(locale, "emailUs"), href: "mailto:info@intcoframing-us.com", icon: Mail },
-    { title: t(locale, "orderSample"), value: t(locale, "quote"), action: t(locale, "myCart"), href: localizePath(locale, "/enquiry-list"), icon: ShoppingCart },
-  ];
+export function ContactView({ locale }: { page: ContentPage; locale: Locale }) {
   return (
-    <>
-      <PageHero title={page.title} description={page.description} imageUrl={page.imageUrl} label="INTCO" />
-      <section className="bg-white py-14">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8" data-reveal="fade">
-          <p className="text-sm font-bold uppercase text-emerald-700">{t(locale, "contactUs")}</p>
-          <h2 className="mt-3 text-balance text-3xl font-semibold text-neutral-950">{lines[0] || "Connect with INTCO Framing"}</h2>
-          <p className="mx-auto mt-4 max-w-3xl text-pretty text-lg leading-8 text-neutral-600">
-            {lines.find((line) => line.includes("overseas factories")) || lines[1] || page.description}
-          </p>
-          {lines.find((line) => line.includes("committed team")) ? (
-            <p className="mx-auto mt-3 max-w-3xl text-pretty leading-7 text-neutral-600">{lines.find((line) => line.includes("committed team"))}</p>
-          ) : null}
+    <div className="intco-contact-source-page">
+      <ContactSourceHero locale={locale} />
+      <ContactMapTabs factories={CONTACT_FACTORIES} />
+      <ContactSupportSection />
+      <ContactSampleSection />
+    </div>
+  );
+}
+
+function ContactSourceHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="intco-source-hero intco-source-hero-category intco-contact-hero" data-source-hero>
+      <div className="intco-source-hero-slide" data-source-hero-slide>
+        <div className="intco-source-hero-bg" data-source-hero-bg>
+          <Image src={CONTACT_HERO_IMAGE} alt="lxwm" fill priority unoptimized className="object-cover" sizes="100vw" />
         </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
-          {factories.map((factory, index) => (
-            <div key={factory.title} className="bg-neutral-50 p-6 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
-              <div className="flex size-12 items-center justify-center bg-emerald-700 text-white">
-                <MapPin size={22} />
-              </div>
-              <h3 className="mt-5 text-balance text-xl font-semibold text-neutral-950">{factory.title}</h3>
-              <p className="mt-3 text-pretty text-sm leading-7 text-neutral-600">{factory.address}</p>
-              <p className="mt-2 text-sm font-semibold text-neutral-900">{factory.zip}</p>
+        <div className="intco-source-hero-content" data-source-hero-content>
+          <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
+            <div className="intco-source-hero-text" data-source-hero-text>
+              <h1 className="intco-source-hero-title" data-source-hero-title>
+                Contact
+              </h1>
+              <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
+                <Link href={localizePath(locale, "/")}>Home</Link>
+                <span className="intco-source-hero-separator">›</span>
+                <span>Contact</span>
+              </nav>
             </div>
-          ))}
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {contacts.map((item, index) => (
-            <Link
-              key={item.title}
-              href={item.href}
-              className="group block bg-neutral-50 p-6 ring-1 ring-black/5 transition duration-200 hover:-translate-y-1 hover:bg-neutral-950 hover:text-white"
-              data-reveal
-              style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}
-            >
-              <div className="flex size-11 items-center justify-center bg-emerald-700 text-white">
-                <item.icon size={20} />
-              </div>
-              <div className="mt-4 text-sm font-bold uppercase text-emerald-700">{item.title}</div>
-              <div className="mt-4 text-xl font-semibold">{item.value}</div>
-              <div className="mt-2 text-sm font-semibold text-neutral-500 group-hover:text-white/70">{item.action}</div>
-            </Link>
-          ))}
-        </div>
-        <div className="mx-auto mt-10 grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[.9fr_1.1fr] lg:px-8">
-          <div className="bg-neutral-950 p-8 text-white" data-reveal="left">
-            <h2 className="text-balance text-3xl font-semibold">{t(locale, "perfectSolution")}</h2>
-            <div className="mt-6 space-y-4 text-pretty text-sm leading-7 text-white/75">
-              {linesFromBody(page.bodyText, 8).map((line) => (
-                <p key={line}>{line}</p>
-              ))}
+            <div className="intco-source-hero-actions" data-source-hero-actions>
+              <a href="#chat" data-source-hero-cta>
+                Chat With Us
+              </a>
+              <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
+                Leave a Message
+              </a>
             </div>
           </div>
-          <form className="grid gap-4 bg-neutral-100 p-6" data-reveal="right">
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder={t(locale, "name")} />
-              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder={t(locale, "email")} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactSupportSection() {
+  const contacts = [
+    {
+      title: "Telephone",
+      description: (
+        <>
+          <a href="https://api.whatsapp.com/send?phone=8613371591392&text=Hello" target="_blank" rel="noopener noreferrer">
+            +86 13371591392
+          </a>
+          <br />
+          <a href="https://api.whatsapp.com/send?phone=8617753315610&text=Hello" target="_blank" rel="noopener noreferrer">
+            +86 17753315610
+          </a>
+        </>
+      ),
+      action: "Call Now",
+      href: "https://api.whatsapp.com/send?phone=8613371591392&text=Hello",
+      iconClass: "intco-source-icon-phone",
+    },
+    {
+      title: "Live Chat",
+      description: null,
+      action: "Contact Now",
+      href: "#chat",
+      iconClass: "intco-source-icon-service",
+    },
+    {
+      title: "Send an Email",
+      description: <a href="mailto:info@intcoframing-us.com">info@intcoframing-us.com</a>,
+      action: "Email Us",
+      href: "mailto:info@intcoframing-us.com",
+      iconClass: "intco-source-icon-email",
+    },
+  ];
+
+  return (
+    <section className="intco-contact-index intco-contact-support-section">
+      <div className="intco-source-container px-5 min-[1601px]:px-0">
+        <p className="intco-contact-desc intco-contact-desc-center" data-reveal="fade">
+          Our committed team is at your service, ensuring a smooth experience for you.
+        </p>
+        <ul className="intco-contact-list intco-contact-support-list">
+          {contacts.map((contact, index) => (
+            <li key={contact.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+              <i className={`intco-source-iconfont ${contact.iconClass}`} aria-hidden="true" />
+              <div className="intco-contact-center-item">
+                <div className="intco-contact-item-title">{contact.title}</div>
+                <div className="intco-contact-item-desc">{contact.description}</div>
+              </div>
+              <a href={contact.href} target={contact.href.startsWith("http") ? "_blank" : undefined} rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined} className="intco-contact-view-button">
+                <span>{contact.action}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function ContactSampleSection() {
+  return (
+    <section id="goinput" className="intco-contact-index intco-contact-message-section">
+      <div className="intco-source-container px-5 min-[1601px]:px-0">
+        <ProductSourceTitle title="Order A SAMPLE" />
+        <p className="intco-contact-form-desc" data-reveal="fade">
+          Don&apos;t Hesitate to Reach Us
+          <br />
+          We are always here to address all your concerns and provide solutions.
+        </p>
+        <div className="intco-contact-message-grid">
+          <form className="intco-contact-form" data-reveal="source-down">
+            <div className="intco-contact-form-fields">
+              {PRODUCT_CONTACT_FIELDS.map((field) => (
+                <label key={field.placeholder} className="intco-contact-field">
+                  <span>{field.label}</span>
+                  <span className="intco-contact-control">
+                    <input placeholder={field.placeholder} aria-label={field.placeholder} />
+                    {field.required ? <em className="intco-contact-form-tip">*</em> : null}
+                  </span>
+                </label>
+              ))}
             </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder={t(locale, "phone")} />
-              <input className="h-12 border border-neutral-200 bg-white px-4 text-sm outline-none" placeholder={t(locale, "company")} />
-            </div>
-            <textarea className="min-h-36 border border-neutral-200 bg-white p-4 text-sm outline-none" placeholder={t(locale, "quote")} />
-            <button type="button" className="w-fit rounded bg-emerald-700 px-7 py-3 text-sm font-bold uppercase tracking-wide text-white transition-colors duration-200 hover:bg-neutral-950">
-              {t(locale, "contactUs")}
+            <label className="intco-contact-field intco-contact-field-message">
+              <span>留言</span>
+              <span className="intco-contact-control">
+                <textarea placeholder="Message" aria-label="Message" />
+                <em className="intco-contact-form-tip">*</em>
+              </span>
+            </label>
+            <button type="button" className="intco-contact-submit">
+              提交
             </button>
           </form>
+          <div className="intco-contact-form-image-wrap" data-reveal="source-up">
+            <div className="intco-contact-form-image">
+              <Image src={CONTACT_FORM_IMAGE} alt="" fill className="object-cover" sizes="(min-width: 1024px) 509px, 80vw" />
+            </div>
+            <div className="intco-contact-form-badge">
+              <Image src={CONTACT_FORM_BADGE_IMAGE} alt="" fill className="object-cover" sizes="163px" />
+            </div>
+          </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
 
@@ -4179,37 +5873,4 @@ function looksLikeHeading(line: string) {
   if (known.has(line)) return true;
   if (line.length > 52 || /[.!?]$/.test(line)) return false;
   return /^[A-Z0-9& /-]+$/.test(line) && /[A-Z]/.test(line);
-}
-
-function parseFactories(lines: string[]) {
-  const factories: Array<{ title: string; address: string; zip: string }> = [];
-  lines.forEach((line, index) => {
-    if (!/Factory$/i.test(line)) return;
-    factories.push({
-      title: line,
-      address: lines[index + 1] || "",
-      zip: lines[index + 2] || "",
-    });
-  });
-
-  if (!factories.length) {
-    const start = lines.length >= 9 ? 2 : -1;
-    if (start >= 0) {
-      for (let index = start; index + 2 < lines.length && factories.length < 3; index += 3) {
-        factories.push({
-          title: lines[index],
-          address: lines[index + 1],
-          zip: lines[index + 2],
-        });
-      }
-    }
-  }
-
-  return factories.length
-    ? factories
-    : [
-        { title: "Zibo Factory", address: "Qingtian Road, Qilu Chemical Industrial Park, Zibo, Shandong, China", zip: "Zip Code: 255414" },
-        { title: "Shanghai Factory", address: "No. 1299 Hubin Road, Fengxian District. Shanghai 201417, China", zip: "Zip Code: 201417" },
-        { title: "Vietnam Factory", address: "Lot CN - 01/02 And CN - 01/03, South Of Zone A Bim Son Industrial Park, Thanh Hoa, Vietnam", zip: "Zip Code: 444964" },
-      ];
 }

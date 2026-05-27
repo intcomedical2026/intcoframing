@@ -86,6 +86,8 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
   if (solution) return <SolutionDetailView solution={solution} products={data.products} projects={data.projects} locale={locale} />;
 
   if (path === "/projects") return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
+  if (path === "/projects/page/2") return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} pageNumber={2} />;
+  if (path === "/projects/page/3") return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} pageNumber={3} />;
   if (path === "/projects/residential") return <ProjectsListingView projects={data.projects} category="Residential" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
   if (path === "/projects/commercial") return <ProjectsListingView projects={data.projects} category="Commercial" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
   const project = data.projects.find((item) => item.path === path || path === `/projects/${item.slug}`);
@@ -134,12 +136,30 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
 }
 
 function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteData>>) {
+  if (path === "/projects" || path === "/projects/page/2" || path === "/projects/page/3") {
+    return {
+      title: "Transforming Residential and Commercial Spaces | Intco Framing Projects",
+      description: "Discover our impressive portfolio of Intco Framing Projects for both residential and commercial spaces. Get inspired and start your own project today!",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg",
+      imageAlt: "Projects",
+    };
+  }
+
   if (path === "/solutions/business-insights-trends") {
     return {
       title: "Latest Business Insights & Trend Reports | Intco Framing",
       description: "Unlock key business insights and industry trends with Intco Framing. Read our detailed reports to stay competitive and informed.",
       image: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights1.png",
       imageAlt: "BusinessInsights1",
+    };
+  }
+
+  if (path === "/contact") {
+    return {
+      title: "Connect with Intco Framing: Tel, Email, Live Chat",
+      description: "Contact Intco Framing for assistance via telephone, email, or live chat. Our support team is available 24/7 to answer your questions about our overseas factories and services.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/lxwm.jpg",
+      imageAlt: "Contact",
     };
   }
 

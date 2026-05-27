@@ -20,12 +20,12 @@ const HEADER_LANGUAGE_MAP_IMAGE = "https://www.intcoframing-us.com/wp-content/th
 const SOURCE_FOOTER_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/footer.png";
 
 const footerSocialLinks = [
-  { label: "f", href: "https://www.facebook.com/IntcoFraming.cn/" },
-  { label: "y", href: "https://www.youtube.com/@intcoframing" },
-  { label: "in", href: "https://www.linkedin.com/company/intcoframing/" },
-  { label: "x", href: "https://twitter.com/intco_framing" },
-  { label: "ig", href: "https://www.instagram.com/intcoframing/" },
-  { label: "p", href: "https://www.pinterest.com/intco_framing/" },
+  { label: "Facebook", href: "https://www.facebook.com/IntcoFraming.cn/", iconClass: "intco-social-facebook" },
+  { label: "YouTube", href: "https://www.youtube.com/@intcoframing", iconClass: "intco-social-youtube" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/intcoframing/", iconClass: "intco-social-linkedin" },
+  { label: "Twitter", href: "https://twitter.com/intco_framing", iconClass: "intco-social-twitter" },
+  { label: "Instagram", href: "https://www.instagram.com/intcoframing/", iconClass: "intco-social-instagram" },
+  { label: "Pinterest", href: "https://www.pinterest.com/intco_framing/", iconClass: "intco-social-pinterest" },
 ];
 
 const ABOUT_INTCO_NAV = [
@@ -94,10 +94,17 @@ function Header({
           </div>
           <div className="relative flex items-center pr-[125px]">
             <div className="flex items-center gap-1">
-              {["f", "y", "in", "x", "ig", "p"].map((label) => (
-                <span key={label} className="flex size-[30px] items-center justify-center rounded-full bg-[#959595] text-[10px] font-bold uppercase text-[#484652]">
-                  <SocialGlyph label={label} />
-                </span>
+              {footerSocialLinks.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={item.label}
+                  className="flex size-[30px] items-center justify-center rounded-full bg-[#959595] text-[#484652] transition hover:bg-white"
+                >
+                  <SocialGlyph iconClass={item.iconClass} />
+                </Link>
               ))}
             </div>
             <Link href={href("/enquiry-list")} className="ml-4 flex h-[34px] w-[171px] items-center justify-center rounded-full border-2 border-white text-lg font-semibold text-white">
@@ -287,20 +294,8 @@ function HeaderSecondNav({
   );
 }
 
-function SocialGlyph({ label }: { label: string }) {
-  const key = label.toLowerCase();
-  if (key === "y") {
-    return <span className="ml-0.5 block h-0 w-0 border-y-[5px] border-l-[8px] border-y-transparent border-l-[#484652]" />;
-  }
-  if (key === "ig") {
-    return (
-      <span className="relative block size-[15px] rounded-[4px] border-2 border-[#484652]">
-        <span className="absolute left-1/2 top-1/2 block size-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full border border-[#484652]" />
-        <span className="absolute right-[2px] top-[2px] block size-[2px] rounded-full bg-[#484652]" />
-      </span>
-    );
-  }
-  return <span className="text-[13px] font-bold leading-none lowercase">{key}</span>;
+function SocialGlyph({ iconClass }: { iconClass: string }) {
+  return <i className={`intco-social-iconfont ${iconClass}`} aria-hidden="true" />;
 }
 
 function Footer({ settings, categories, locale }: { settings: SiteSettings; categories: ProductCategory[]; locale: Locale }) {
@@ -378,7 +373,7 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
                       aria-label={item.label}
                       className="flex size-8 items-center justify-center rounded-full bg-[#959595] text-xs font-bold text-[#484653] transition hover:bg-white min-[1601px]:size-[50px] min-[1601px]:text-lg"
                     >
-                      <SocialGlyph label={item.label} />
+                      <SocialGlyph iconClass={item.iconClass} />
                     </Link>
                   ))}
                 </div>
