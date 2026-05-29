@@ -1,0 +1,22 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "staging",
+  "apiVersion": "2026-05-20",
+  "ok": true,
+  "requestedAclMode": "public",
+  "result": {
+    "action": "exists",
+    "dataset": "staging",
+    "aclMode": "public"
+  },
+  "availableDatasets": [
+    {
+      "name": "production",
+      "aclMode": "public"
+    },
+    {
+      "name": "staging",
+      "aclMode": "public"
+    }
+  ]
+}

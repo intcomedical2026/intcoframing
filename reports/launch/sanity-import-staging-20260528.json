@@ -1,0 +1,94 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "staging",
+  "apiVersion": "2026-05-20",
+  "ok": true,
+  "dryRun": false,
+  "uploadAssets": false,
+  "locales": [
+    "en",
+    "es",
+    "pt",
+    "fr",
+    "de",
+    "ja"
+  ],
+  "totalDocuments": 1452,
+  "counts": {
+    "en": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "es": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "pt": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "fr": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "de": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "ja": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    }
+  },
+  "missing": {
+    "seo": 0,
+    "imageAlt": 0,
+    "legacyUrls": 0,
+    "language": 0,
+    "translationGroup": 0
+  },
+  "productSpecs": {
+    "total": 648,
+    "sku": 216,
+    "brand": 648,
+    "material": 15,
+    "dimensions": 108,
+    "offers": 648
+  }
+}

@@ -1,0 +1,140 @@
+{
+  "dataset": "production",
+  "baseUrl": "http://127.0.0.1:3001",
+  "generatedAt": "2026-05-28T09:10:26.475Z",
+  "samples": [
+    {
+      "path": "/",
+      "status": 200,
+      "expectedLocale": "en",
+      "htmlLang": "en",
+      "canonical": "https://intcoframing-wheat.vercel.app",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/es",
+      "status": 200,
+      "expectedLocale": "es",
+      "htmlLang": "es",
+      "canonical": "https://intcoframing-wheat.vercel.app/es",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/pt/products",
+      "status": 200,
+      "expectedLocale": "pt",
+      "htmlLang": "pt",
+      "canonical": "https://intcoframing-wheat.vercel.app/pt/products",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/fr/solutions/design-engineering",
+      "status": 200,
+      "expectedLocale": "fr",
+      "htmlLang": "fr",
+      "canonical": "https://intcoframing-wheat.vercel.app/fr/solutions/design-engineering",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/de/contact",
+      "status": 200,
+      "expectedLocale": "de",
+      "htmlLang": "de",
+      "canonical": "https://intcoframing-wheat.vercel.app/de/contact",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/ja/news/the-major-materials-of-medicine-mirror-cabinet",
+      "status": 200,
+      "expectedLocale": "ja",
+      "htmlLang": "ja",
+      "canonical": "https://intcoframing-wheat.vercel.app/ja/news/the-major-materials-of-medicine-mirror-cabinet",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/mirror/led-mirror/classic-led-mirror",
+      "status": 200,
+      "expectedLocale": "en",
+      "htmlLang": "en",
+      "canonical": "https://intcoframing-wheat.vercel.app/mirror/led-mirror/classic-led-mirror",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/es/mirror/led-mirror/classic-led-mirror",
+      "status": 200,
+      "expectedLocale": "es",
+      "htmlLang": "es",
+      "canonical": "https://intcoframing-wheat.vercel.app/es/mirror/led-mirror/classic-led-mirror",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/pt/projects",
+      "status": 200,
+      "expectedLocale": "pt",
+      "htmlLang": "pt",
+      "canonical": "https://intcoframing-wheat.vercel.app/pt/projects",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/fr/blog",
+      "status": 200,
+      "expectedLocale": "fr",
+      "htmlLang": "fr",
+      "canonical": "https://intcoframing-wheat.vercel.app/fr/blog",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/de/memo-board",
+      "status": 200,
+      "expectedLocale": "de",
+      "htmlLang": "de",
+      "canonical": "https://intcoframing-wheat.vercel.app/de/memo-board",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    },
+    {
+      "path": "/ja/art/canvas-art",
+      "status": 200,
+      "expectedLocale": "ja",
+      "htmlLang": "ja",
+      "canonical": "https://intcoframing-wheat.vercel.app/ja/art/canvas-art",
+      "alternateCount": 7,
+      "hasXDefault": true,
+      "markerFound": false,
+      "ok": true
+    }
+  ],
+  "ok": true
+}

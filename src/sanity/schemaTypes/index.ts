@@ -8,7 +8,20 @@ import {
   siteSettings,
   solution,
 } from "./documents";
-import { companyProfile, footerColumn, heroSlide, introBlock, link, statItem } from "./objects";
+import {
+  companyProfile,
+  contactPoint,
+  evidenceItem,
+  faqItem,
+  footerColumn,
+  heroSlide,
+  inquiryRouting,
+  introBlock,
+  link,
+  offerItem,
+  seoFields,
+  statItem,
+} from "./objects";
 
 export const schemaTypes = [
   link,
@@ -17,6 +30,12 @@ export const schemaTypes = [
   statItem,
   companyProfile,
   introBlock,
+  seoFields,
+  faqItem,
+  evidenceItem,
+  offerItem,
+  inquiryRouting,
+  contactPoint,
   siteSettings,
   homePage,
   productCategory,

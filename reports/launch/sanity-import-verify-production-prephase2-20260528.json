@@ -1,0 +1,449 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "production",
+  "apiVersion": "2026-05-20",
+  "locales": [
+    "en",
+    "es",
+    "pt",
+    "fr",
+    "de",
+    "ja"
+  ],
+  "ok": false,
+  "expectedCounts": {
+    "en": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "es": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "pt": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "fr": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "de": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "ja": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    }
+  },
+  "actualCounts": {
+    "en": {
+      "siteSettings": 0,
+      "homePage": 0,
+      "productCategory": 0,
+      "product": 0,
+      "solution": 0,
+      "project": 0,
+      "blogPost": 0,
+      "contentPage": 0
+    },
+    "es": {
+      "siteSettings": 0,
+      "homePage": 0,
+      "productCategory": 0,
+      "product": 0,
+      "solution": 0,
+      "project": 0,
+      "blogPost": 0,
+      "contentPage": 0
+    },
+    "pt": {
+      "siteSettings": 0,
+      "homePage": 0,
+      "productCategory": 0,
+      "product": 0,
+      "solution": 0,
+      "project": 0,
+      "blogPost": 0,
+      "contentPage": 0
+    },
+    "fr": {
+      "siteSettings": 0,
+      "homePage": 0,
+      "productCategory": 0,
+      "product": 0,
+      "solution": 0,
+      "project": 0,
+      "blogPost": 0,
+      "contentPage": 0
+    },
+    "de": {
+      "siteSettings": 0,
+      "homePage": 0,
+      "productCategory": 0,
+      "product": 0,
+      "solution": 0,
+      "project": 0,
+      "blogPost": 0,
+      "contentPage": 0
+    },
+    "ja": {
+      "siteSettings": 0,
+      "homePage": 0,
+      "productCategory": 0,
+      "product": 0,
+      "solution": 0,
+      "project": 0,
+      "blogPost": 0,
+      "contentPage": 0
+    }
+  },
+  "countFailures": [
+    {
+      "locale": "en",
+      "type": "siteSettings",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "en",
+      "type": "homePage",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "en",
+      "type": "productCategory",
+      "expected": 25,
+      "actual": 0
+    },
+    {
+      "locale": "en",
+      "type": "product",
+      "expected": 108,
+      "actual": 0
+    },
+    {
+      "locale": "en",
+      "type": "solution",
+      "expected": 6,
+      "actual": 0
+    },
+    {
+      "locale": "en",
+      "type": "project",
+      "expected": 13,
+      "actual": 0
+    },
+    {
+      "locale": "en",
+      "type": "blogPost",
+      "expected": 80,
+      "actual": 0
+    },
+    {
+      "locale": "en",
+      "type": "contentPage",
+      "expected": 8,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "siteSettings",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "homePage",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "productCategory",
+      "expected": 25,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "product",
+      "expected": 108,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "solution",
+      "expected": 6,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "project",
+      "expected": 13,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "blogPost",
+      "expected": 80,
+      "actual": 0
+    },
+    {
+      "locale": "es",
+      "type": "contentPage",
+      "expected": 8,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "siteSettings",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "homePage",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "productCategory",
+      "expected": 25,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "product",
+      "expected": 108,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "solution",
+      "expected": 6,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "project",
+      "expected": 13,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "blogPost",
+      "expected": 80,
+      "actual": 0
+    },
+    {
+      "locale": "pt",
+      "type": "contentPage",
+      "expected": 8,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "siteSettings",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "homePage",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "productCategory",
+      "expected": 25,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "product",
+      "expected": 108,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "solution",
+      "expected": 6,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "project",
+      "expected": 13,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "blogPost",
+      "expected": 80,
+      "actual": 0
+    },
+    {
+      "locale": "fr",
+      "type": "contentPage",
+      "expected": 8,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "siteSettings",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "homePage",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "productCategory",
+      "expected": 25,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "product",
+      "expected": 108,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "solution",
+      "expected": 6,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "project",
+      "expected": 13,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "blogPost",
+      "expected": 80,
+      "actual": 0
+    },
+    {
+      "locale": "de",
+      "type": "contentPage",
+      "expected": 8,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "siteSettings",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "homePage",
+      "expected": 1,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "productCategory",
+      "expected": 25,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "product",
+      "expected": 108,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "solution",
+      "expected": 6,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "project",
+      "expected": 13,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "blogPost",
+      "expected": 80,
+      "actual": 0
+    },
+    {
+      "locale": "ja",
+      "type": "contentPage",
+      "expected": 8,
+      "actual": 0
+    }
+  ],
+  "missing": {
+    "imageAlt": 0,
+    "language": 242,
+    "legacyUrls": 0,
+    "productBrand": 0,
+    "productOffers": 0,
+    "seo": 0,
+    "translationGroup": 0
+  },
+  "missingFailures": {
+    "language": 242
+  },
+  "productSpecs": {
+    "brand": 0,
+    "dimensions": 0,
+    "material": 0,
+    "offers": 0,
+    "sku": 0,
+    "total": 0
+  },
+  "sampleDocs": []
+}

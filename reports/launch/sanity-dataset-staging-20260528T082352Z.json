@@ -1,0 +1,13 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "staging",
+  "apiVersion": "2026-05-20",
+  "ok": false,
+  "requestedAclMode": "public",
+  "error": {
+    "message": "Unauthorized - User is missing required grant sanity.project.datasets/read to perform this operation (traceId: 1833689e15ef5125d2604bed796ed39c)",
+    "statusCode": 401,
+    "traceId": "1833689e15ef5125d2604bed796ed39c",
+    "responseMessage": "User is missing required grant sanity.project.datasets/read to perform this operation"
+  }
+}

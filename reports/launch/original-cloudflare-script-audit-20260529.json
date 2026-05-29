@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-05-29T06:16:49.633Z",
+  "conclusion": "Do not add Cloudflare Web Analytics unless a real Cloudflare Web Analytics token is provided. The current original WordPress/Cloudflare pages do not include static.cloudflareinsights.com/beacon.min.js or data-cf-beacon; they only include Cloudflare platform scripts injected by hosting/security features.",
+  "results": [
+    {
+      "url": "https://www.intcoframing-us.com/",
+      "status": 200,
+      "cloudflareWebAnalyticsBeacon": false,
+      "cloudflareRocketLoader": true,
+      "cloudflareEmailDecode": true,
+      "cloudflareChallenge": true,
+      "gtm": true,
+      "leadscloudForm": true,
+      "leadscloudChat": true
+    },
+    {
+      "url": "https://www.intcoframing-us.com/products/",
+      "status": 200,
+      "cloudflareWebAnalyticsBeacon": false,
+      "cloudflareRocketLoader": true,
+      "cloudflareEmailDecode": true,
+      "cloudflareChallenge": true,
+      "gtm": true,
+      "leadscloudForm": true,
+      "leadscloudChat": true
+    },
+    {
+      "url": "https://www.intcoframing-us.com/contact/",
+      "status": 200,
+      "cloudflareWebAnalyticsBeacon": false,
+      "cloudflareRocketLoader": true,
+      "cloudflareEmailDecode": true,
+      "cloudflareChallenge": true,
+      "gtm": true,
+      "leadscloudForm": true,
+      "leadscloudChat": true
+    },
+    {
+      "url": "https://www.intcoframing-us.com/enquiry-list/",
+      "status": 200,
+      "cloudflareWebAnalyticsBeacon": false,
+      "cloudflareRocketLoader": true,
+      "cloudflareEmailDecode": true,
+      "cloudflareChallenge": true,
+      "gtm": true,
+      "leadscloudForm": true,
+      "leadscloudChat": true
+    },
+    {
+      "url": "https://www.intcoframing-us.com/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf/",
+      "status": 200,
+      "cloudflareWebAnalyticsBeacon": false,
+      "cloudflareRocketLoader": true,
+      "cloudflareEmailDecode": true,
+      "cloudflareChallenge": true,
+      "gtm": true,
+      "leadscloudForm": true,
+      "leadscloudChat": true
+    }
+  ]
+}

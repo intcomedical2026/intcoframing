@@ -1,0 +1,279 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "production",
+  "apiVersion": "2026-05-20",
+  "locales": [
+    "en",
+    "es",
+    "pt",
+    "fr",
+    "de",
+    "ja"
+  ],
+  "ok": true,
+  "expectedCounts": {
+    "en": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "es": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "pt": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "fr": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "de": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "ja": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    }
+  },
+  "actualCounts": {
+    "en": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "es": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "pt": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "fr": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "de": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    },
+    "ja": {
+      "siteSettings": 1,
+      "homePage": 1,
+      "productCategory": 25,
+      "product": 108,
+      "solution": 6,
+      "project": 13,
+      "blogPost": 80,
+      "contentPage": 8
+    }
+  },
+  "countFailures": [],
+  "missing": {
+    "imageAlt": 0,
+    "language": 0,
+    "legacyUrls": 0,
+    "productBrand": 0,
+    "productOffers": 0,
+    "seo": 0,
+    "translationGroup": 0
+  },
+  "missingFailures": {},
+  "productSpecs": {
+    "brand": 648,
+    "dimensions": 108,
+    "material": 15,
+    "offers": 648,
+    "sku": 216,
+    "total": 648
+  },
+  "sampleDocs": [
+    {
+      "_id": "i18n.de.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "_type": "blogPost",
+      "canonicalPath": "/news/28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "language": "de",
+      "path": "/news/28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "seoTitle": "28 originelle Rahmenideen, um die Kunstfertigkeit Ihres Raums zu verbessern | INTCO Insights",
+      "slug": "28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "translationGroup": "blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space"
+    },
+    {
+      "_id": "i18n.de.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "_type": "blogPost",
+      "canonicalPath": "/news/4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "language": "de",
+      "path": "/news/4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "seoTitle": "4 Gründe, eine Tafel in Ihre Inneneinrichtung zu integrieren | INTCO Insights",
+      "slug": "4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "translationGroup": "blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor"
+    },
+    {
+      "_id": "i18n.de.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "_type": "blogPost",
+      "canonicalPath": "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "language": "de",
+      "path": "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "seoTitle": "5 Möglichkeiten, wie ein LED-Badezimmerspiegel Ihren Raum verschönern kann | INTCO Insights",
+      "slug": "5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "translationGroup": "blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space"
+    },
+    {
+      "_id": "i18n.de.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "_type": "blogPost",
+      "canonicalPath": "/news/6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "language": "de",
+      "path": "/news/6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "seoTitle": "6 Arten von Bilderrahmen: So wählen Sie den perfekten Rahmen für Sie aus | INTCO Insights",
+      "slug": "6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "translationGroup": "blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you"
+    },
+    {
+      "_id": "i18n.de.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "_type": "blogPost",
+      "canonicalPath": "/news/a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "language": "de",
+      "path": "/news/a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "seoTitle": "Eine DIY-Anleitung zum Erstellen einer Galeriewand mit Ihren Lieblingsfotos | INTCO Insights",
+      "slug": "a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "translationGroup": "blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos"
+    },
+    {
+      "_id": "i18n.de.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "_type": "blogPost",
+      "canonicalPath": "/news/affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "language": "de",
+      "path": "/news/affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "seoTitle": "Erschwingliche Wandkunst: Dekorieren Sie Ihr Zuhause, ohne die Bank zu sprengen | INTCO Insights",
+      "slug": "affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "translationGroup": "blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank"
+    },
+    {
+      "_id": "i18n.de.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "_type": "blogPost",
+      "canonicalPath": "/news/beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "language": "de",
+      "path": "/news/beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "seoTitle": "Über das Gewöhnliche hinaus: Werten Sie Ihren Bilderrahmen mit einzigartigen Akzenten auf | INTCO Insights",
+      "slug": "beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "translationGroup": "blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches"
+    },
+    {
+      "_id": "i18n.de.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "_type": "blogPost",
+      "canonicalPath": "/news/brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "language": "de",
+      "path": "/news/brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "seoTitle": "Verschönern Sie Ihr Badezimmer: Eleganz mit sicheren, langlebigen und energieeffizienten LED-Spiegeln | INTCO Insights",
+      "slug": "brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "translationGroup": "blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors"
+    },
+    {
+      "_id": "i18n.de.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "_type": "blogPost",
+      "canonicalPath": "/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "language": "de",
+      "path": "/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "seoTitle": "Großbestellungen von Bilderrahmen für Großkäufer: Ein vollständiger Leitfaden | INTCO Insights",
+      "slug": "bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "translationGroup": "blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide"
+    },
+    {
+      "_id": "i18n.de.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "_type": "blogPost",
+      "canonicalPath": "/news/canvas-art-a-perfect-addition-to-your-home-decor",
+      "language": "de",
+      "path": "/news/canvas-art-a-perfect-addition-to-your-home-decor",
+      "seoTitle": "Leinwandkunst: Eine perfekte Ergänzung für Ihre Inneneinrichtung | INTCO Insights",
+      "slug": "canvas-art-a-perfect-addition-to-your-home-decor",
+      "translationGroup": "blogPost.canvas-art-a-perfect-addition-to-your-home-decor"
+    },
+    {
+      "_id": "i18n.de.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "_type": "blogPost",
+      "canonicalPath": "/news/choosing-the-right-led-mirror-a-comprehensive-guide",
+      "language": "de",
+      "path": "/news/choosing-the-right-led-mirror-a-comprehensive-guide",
+      "seoTitle": "Auswahl des richtigen LED-Spiegels: Ein umfassender Leitfaden | INTCO Insights",
+      "slug": "choosing-the-right-led-mirror-a-comprehensive-guide",
+      "translationGroup": "blogPost.choosing-the-right-led-mirror-a-comprehensive-guide"
+    },
+    {
+      "_id": "i18n.de.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "_type": "blogPost",
+      "canonicalPath": "/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "language": "de",
+      "path": "/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "seoTitle": "Kreative Ideen für Galeriewände: Verwandeln Sie Ihre Wände mit Rahmen, Kunst- und Notiztafeln | INTCO Insights",
+      "slug": "creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "translationGroup": "blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards"
+    }
+  ]
+}

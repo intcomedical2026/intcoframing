@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-05-28T06:33:20Z",
+  "sourceIndex": "https://www.intcoframing-us.com/wp-sitemap.xml",
+  "totalUrls": 262,
+  "bySourceType": {
+    "wp-sitemap-posts-news-1": 80,
+    "wp-sitemap-posts-page-1": 26,
+    "wp-sitemap-posts-post-1": 108,
+    "wp-sitemap-posts-project-1": 13,
+    "wp-sitemap-taxonomies-blog-1": 5,
+    "wp-sitemap-taxonomies-category-1": 25,
+    "wp-sitemap-taxonomies-project_category-1": 2,
+    "wp-sitemap-users-1": 3
+  },
+  "csv": "reports/launch/legacy-wordpress-urls-20260528T063320Z.csv"
+}

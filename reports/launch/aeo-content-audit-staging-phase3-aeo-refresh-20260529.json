@@ -1,0 +1,38 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "staging",
+  "apiVersion": "2026-05-20",
+  "locales": [
+    "en",
+    "es",
+    "pt",
+    "fr",
+    "de",
+    "ja"
+  ],
+  "checkedAt": "2026-05-29T06:29:28.951Z",
+  "ok": true,
+  "thresholds": {
+    "minFaqsPerDoc": 3,
+    "nonJapaneseFaqAnswerWords": "20-90",
+    "japaneseFaqAnswerCharacters": "40-260",
+    "requiredEvidenceFields": [
+      "claim",
+      "methodology",
+      "sourceName",
+      "sourceUrl",
+      "collectedAt",
+      "limitations"
+    ]
+  },
+  "summary": {
+    "totalDocs": 324,
+    "docsWithThreeFaqs": 324,
+    "docsWithEvidence": 324,
+    "docsWithDateModified": 324,
+    "totalFaqs": 972,
+    "totalEvidence": 324
+  },
+  "failureCount": 0,
+  "failures": []
+}

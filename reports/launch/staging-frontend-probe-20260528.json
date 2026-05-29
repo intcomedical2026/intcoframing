@@ -1,0 +1,91 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "staging",
+  "documentId": "homePage",
+  "field": "heroSlides[0].title",
+  "marker": "STAGING_FRONTEND_PROBE_1779957774162",
+  "originalTitle": "INTCO FRAMING",
+  "patchedAt": "2026-05-28T08:42:55.573Z",
+  "restored": true,
+  "originalHeroSlides": [
+    {
+      "imageUrl": "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20240229-145653.jpg",
+      "primaryCta": {
+        "label": "Latest Products",
+        "path": "/products"
+      },
+      "secondaryCta": {
+        "label": "Solutions",
+        "path": "/solutions"
+      },
+      "subtitle": "We are committed to offering you turnkey service and ready to create retail solutions custom tailored to fulfill all your needs.",
+      "title": "INTCO FRAMING"
+    },
+    {
+      "imageUrl": "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-1.jpg",
+      "primaryCta": {
+        "label": "Explore More",
+        "path": "/mirror"
+      },
+      "secondaryCta": {
+        "label": "Contact Us",
+        "path": "/contact"
+      },
+      "subtitle": "Decorating your wall with a mirror can add depth and fascination into your room. Intco Framing offers a range of mirrors suitable for any room in your home.",
+      "title": "Mirror"
+    },
+    {
+      "imageUrl": "https://www.intcoframing-us.com/wp-content/uploads/2024/02/image.jpg",
+      "primaryCta": {
+        "label": "Explore More",
+        "path": "/picture-frame"
+      },
+      "secondaryCta": {
+        "label": "Contact Us",
+        "path": "/contact"
+      },
+      "subtitle": "Our picture frames are all made of environmentally friendly materials. Explore picture frames in various shapes and styles at Intco Framing.",
+      "title": "Picture Frame"
+    },
+    {
+      "imageUrl": "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4.jpg",
+      "primaryCta": {
+        "label": "Explore More",
+        "path": "/art"
+      },
+      "secondaryCta": {
+        "label": "Contact Us",
+        "path": "/contact"
+      },
+      "subtitle": "Create your own gallery with wall art from Intco Framing. Our diverse selection of art ensures your home is as exceptional as your individual taste.",
+      "title": "Wall Art"
+    },
+    {
+      "imageUrl": "https://www.intcoframing-us.com/wp-content/uploads/2024/02/111.jpg",
+      "primaryCta": {
+        "label": "Explore More",
+        "path": "/solutions/manufacturing-delivery"
+      },
+      "secondaryCta": {
+        "label": "Contact Us",
+        "path": "/contact"
+      },
+      "subtitle": "With over 20 years of manufacturing experience, Intco Framing stands out for its flexible manufacturing capabilities.",
+      "title": "Flexible Manufacturing"
+    }
+  ],
+  "frontendCheck": {
+    "url": "http://127.0.0.1:3001/",
+    "status": 200,
+    "markerFound": false,
+    "checkedAt": "2026-05-28T08:43:49.511Z"
+  },
+  "frontendRebuildCheck": {
+    "url": "http://127.0.0.1:3001/",
+    "status": 200,
+    "markerFound": true,
+    "checkedAt": "2026-05-28T08:46:13.984Z"
+  },
+  "restoredAt": "2026-05-28T08:46:47.009Z",
+  "restoredTitle": "INTCO FRAMING"
+}

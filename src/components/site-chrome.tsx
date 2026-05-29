@@ -3,8 +3,10 @@ import Link from "next/link";
 import { Mail, MapPin, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
+import { LeadsCloudFormsRuntime } from "@/components/leadscloud-runtime";
 import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
+import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
 import type { ProductCategory, SiteSettings, Solution } from "@/lib/site-data";
 
 type ChromeProps = {
@@ -78,6 +80,7 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
       <Footer settings={settings} categories={categories} locale={locale} />
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
       <CookieBanner locale={locale} currentPath={currentPath} />
+      <LeadsCloudFormsRuntime />
     </div>
   );
 }
@@ -163,7 +166,7 @@ function Header({
               width={101}
               height={87}
               className="h-10 w-auto object-contain lg:h-[87px]"
-              priority
+              preload
             />
           ) : (
             <span className="text-xl font-bold tracking-wide">{settings.title}</span>
@@ -372,18 +375,9 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
 
             <div>
               <h3 className="pb-3 text-2xl font-semibold leading-tight text-white min-[1601px]:pb-12 min-[1601px]:text-[34px]">{t(locale, "newsletter")}</h3>
-              <form action={href("/contact")} className="relative flex h-[50px] w-full max-w-[388px] overflow-hidden rounded-md bg-white min-[1601px]:h-[78px]">
-                <input
-                  type="email"
-                  name="email"
-                  aria-label={t(locale, "email")}
-                  placeholder={t(locale, "email")}
-                  className="h-full min-w-0 flex-1 border-0 bg-white px-5 text-base font-light text-[#727272] outline-0 min-[1601px]:px-8 min-[1601px]:text-2xl"
-                />
-                <button type="submit" className="h-full w-[50px] shrink-0 bg-[#484653] text-center text-sm font-semibold text-white transition hover:bg-[#3b3945] min-[1601px]:w-[82px] min-[1601px]:text-base">
-                  {t(locale, "submit")}
-                </button>
-              </form>
+              <div className="h-search intco-leadscloud-newsletter" aria-label={t(locale, "newsletter")}>
+                <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.footerNewsletter)} />
+              </div>
               <div className="mt-[25px] text-base font-semibold leading-3 text-white min-[1601px]:mt-[74px] min-[1601px]:text-xl">
                 {t(locale, "followUs")}
                 <div className="mt-[25px] flex flex-wrap gap-2.5">

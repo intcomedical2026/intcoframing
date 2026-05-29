@@ -2073,6 +2073,58 @@ summary::-webkit-details-marker {
   color: #ffffff;
 }
 
+.intco-catalog-modal {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 24px;
+  position: fixed;
+  z-index: 9999;
+}
+
+.intco-catalog-dialog {
+  background: #ffffff;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+  box-sizing: border-box;
+  max-height: calc(100vh - 48px);
+  max-width: 560px;
+  overflow: auto;
+  padding: 42px 42px 36px;
+  position: relative;
+  width: min(100%, 560px);
+}
+
+.intco-catalog-dialog-close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #666666;
+  cursor: pointer;
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 34px;
+}
+
+.intco-catalog-dialog-title {
+  color: #333333;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin: 0 0 24px;
+  text-align: center;
+}
+
+.intco-catalog-download-form .xhl_form {
+  margin: 0 auto;
+}
+
 .intco-contact-form-image-wrap {
   border-radius: 50%;
   position: relative;

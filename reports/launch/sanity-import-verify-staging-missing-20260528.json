@@ -1,0 +1,15 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "staging",
+  "apiVersion": "2026-05-20",
+  "locales": [
+    "en",
+    "es",
+    "pt",
+    "fr",
+    "de",
+    "ja"
+  ],
+  "ok": false,
+  "error": "Dataset not found - Dataset \"staging\" not found for project ID \"o10sbz2i\" (traceId: e4b6f582b617108a05b7e54f09659357)"
+}

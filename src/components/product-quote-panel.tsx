@@ -9,8 +9,24 @@ type CartItem = {
   slug: string;
   title: string;
   path: string;
+  sourceId?: number;
+  sourceUrl?: string;
+  sku?: string;
   imageUrl?: string;
   quantity: number;
+};
+
+type LeadsCloudProductItem = {
+  productId: string;
+  productLink: string;
+  productName: string;
+  productImg: string;
+  productQuantity: number;
+  productColor: string | null;
+  productItem: string;
+  productSize: string | null;
+  newcolor: Array<{ color: string; item: string }>;
+  newsize: string[];
 };
 
 export function ProductQuotePanel({
@@ -18,7 +34,7 @@ export function ProductQuotePanel({
   product,
 }: {
   locale: Locale;
-  product: { slug: string; title: string; path: string; imageUrl?: string };
+  product: { slug: string; title: string; path: string; sourceId?: number; sourceUrl?: string; sku?: string; imageUrl?: string };
 }) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
@@ -32,6 +48,7 @@ export function ProductQuotePanel({
       current.push({ ...product, quantity });
     }
     localStorage.setItem("intco-enquiry-cart", JSON.stringify(current));
+    syncLeadsCloudProductList(current);
     setAdded(true);
   }
 
@@ -79,4 +96,22 @@ export function ProductQuotePanel({
       ) : null}
     </div>
   );
+}
+
+function syncLeadsCloudProductList(items: CartItem[]) {
+  const productList: LeadsCloudProductItem[] = items.map((item) => ({
+    productId: item.sourceId ? String(item.sourceId) : item.slug,
+    productLink: item.sourceUrl || new URL(item.path, window.location.origin).toString(),
+    productName: item.title,
+    productImg: item.imageUrl || "",
+    productQuantity: item.quantity,
+    productColor: null,
+    productItem: item.sku || item.title,
+    productSize: null,
+    newcolor: [],
+    newsize: [],
+  }));
+
+  localStorage.setItem("productList", JSON.stringify(productList));
+  document.cookie = "withProduct=true; path=/; max-age=2592000";
 }

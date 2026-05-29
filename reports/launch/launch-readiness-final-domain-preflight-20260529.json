@@ -1,0 +1,731 @@
+{
+  "generatedAt": "2026-05-29T07:16:15.595Z",
+  "fetchBase": "https://www.intcoframing-us.com",
+  "expectedOrigin": "https://www.intcoframing-us.com",
+  "checks": {
+    "robots": {
+      "ok": false,
+      "url": "https://www.intcoframing-us.com/robots.txt",
+      "status": 200,
+      "hasUserAgent": true,
+      "allowsRoot": true,
+      "disallowsStudio": false,
+      "hasExpectedSitemap": false,
+      "hasExpectedHost": false
+    },
+    "sitemap": {
+      "ok": false,
+      "url": "https://www.intcoframing-us.com/sitemap.xml",
+      "status": 404,
+      "locCount": 0,
+      "uniqueLocCount": 0,
+      "expectedCount": 1476,
+      "wrongOrigin": [],
+      "queryOrHash": [],
+      "missingRequired": [
+        "/",
+        "/products",
+        "/es/products",
+        "/contact",
+        "/ja/contact"
+      ]
+    },
+    "pages": {
+      "ok": false,
+      "checked": 11,
+      "samples": [
+        {
+          "label": "home",
+          "path": "/",
+          "url": "https://www.intcoframing-us.com/",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "products",
+          "path": "/products",
+          "url": "https://www.intcoframing-us.com/products",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/products",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "spanish products",
+          "path": "/es/products",
+          "url": "https://www.intcoframing-us.com/products/",
+          "status": 200,
+          "expectedLocale": "es",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/es/products",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "contact",
+          "path": "/contact",
+          "url": "https://www.intcoframing-us.com/contact",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/contact",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "ContactPage",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "japanese contact",
+          "path": "/ja/contact",
+          "url": "https://www.intcoframing-us.com/contact/",
+          "status": 200,
+          "expectedLocale": "ja",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/ja/contact",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "ContactPage",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "product detail",
+          "path": "/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
+          "url": "https://www.intcoframing-us.com/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "BreadcrumbList",
+            "Product"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "blog detail",
+          "path": "/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "url": "https://www.intcoframing-us.com/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "BreadcrumbList",
+            "BlogPosting"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": false,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "solution detail",
+          "path": "/solutions/business-insights-trends",
+          "url": "https://www.intcoframing-us.com/solutions/business-insights-trends",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/solutions/business-insights-trends",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "BreadcrumbList",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "french solution detail",
+          "path": "/fr/solutions/design-engineering",
+          "url": "https://www.intcoframing-us.com/solutions-center/design-engineering/",
+          "status": 200,
+          "expectedLocale": "fr",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/fr/solutions/design-engineering",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "BreadcrumbList",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "german solution detail",
+          "path": "/de/solutions/manufacturing-delivery",
+          "url": "https://www.intcoframing-us.com/solutions/manufacturing-delivery/",
+          "status": 200,
+          "expectedLocale": "de",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/de/solutions/manufacturing-delivery",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage",
+            "BreadcrumbList",
+            "FAQPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": false,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": true,
+          "ok": false
+        },
+        {
+          "label": "enquiry list",
+          "path": "/enquiry-list",
+          "url": "https://www.intcoframing-us.com/enquiry-list",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": null,
+          "expectedCanonical": "https://www.intcoframing-us.com/enquiry-list",
+          "missingAlternates": [
+            "en",
+            "es",
+            "pt",
+            "fr",
+            "de",
+            "ja",
+            "x-default"
+          ],
+          "jsonLdTypes": [],
+          "missingJsonLd": [
+            "Organization",
+            "WebSite",
+            "WebPage"
+          ],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": false,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": false,
+          "ok": false
+        }
+      ]
+    },
+    "legacyRedirects": {
+      "ok": false,
+      "csvPath": "reports/launch/legacy-wordpress-urls-20260528T063320Z.csv",
+      "checked": 40,
+      "totalRows": 262,
+      "limited": true,
+      "failures": [
+        {
+          "legacyPath": "/news/28-original-frame-ideas-to-enhance-the-artistry-of-your-space/",
+          "suggestedPath": "/news/28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/28-original-frame-ideas-to-enhance-the-artistry-of-your-space/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/4-reasons-to-integrate-a-blackboard-into-your-home-decor/",
+          "suggestedPath": "/news/4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/4-reasons-to-integrate-a-blackboard-into-your-home-decor/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space/",
+          "suggestedPath": "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you/",
+          "suggestedPath": "/news/6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos/",
+          "suggestedPath": "/news/a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/affordable-wall-art-decorating-your-home-without-breaking-the-bank/",
+          "suggestedPath": "/news/affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/affordable-wall-art-decorating-your-home-without-breaking-the-bank/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches/",
+          "suggestedPath": "/news/beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors/",
+          "suggestedPath": "/news/brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide/",
+          "suggestedPath": "/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/canvas-art-a-perfect-addition-to-your-home-decor/",
+          "suggestedPath": "/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/canvas-art-a-perfect-addition-to-your-home-decor/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/choosing-the-right-led-mirror-a-comprehensive-guide/",
+          "suggestedPath": "/news/choosing-the-right-led-mirror-a-comprehensive-guide",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/choosing-the-right-led-mirror-a-comprehensive-guide/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards/",
+          "suggestedPath": "/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/custom-frames-diverse-materials-and-styles-for-varied-decor-needs/",
+          "suggestedPath": "/news/custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/custom-frames-diverse-materials-and-styles-for-varied-decor-needs/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/discover-advanced-storage-solutions-for-a-modern-medicine-cabinet/",
+          "suggestedPath": "/news/discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/discover-advanced-storage-solutions-for-a-modern-medicine-cabinet/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/discover-the-charm-how-led-mirrors-enhance-your-home-decor/",
+          "suggestedPath": "/news/discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/discover-the-charm-how-led-mirrors-enhance-your-home-decor/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/discover-the-latest-trends-in-vanity-mirrors/",
+          "suggestedPath": "/news/discover-the-latest-trends-in-vanity-mirrors",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/discover-the-latest-trends-in-vanity-mirrors/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/dry-erase-board-checklist-essential-tips-for-efficient-planning/",
+          "suggestedPath": "/news/dry-erase-board-checklist-essential-tips-for-efficient-planning",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/dry-erase-board-checklist-essential-tips-for-efficient-planning/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/durability-insights-are-wood-document-frames-a-worthy-choice/",
+          "suggestedPath": "/news/durability-insights-are-wood-document-frames-a-worthy-choice",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/durability-insights-are-wood-document-frames-a-worthy-choice/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/easy-wall-frame-ideas-to-instantly-elevate-your-home-decor/",
+          "suggestedPath": "/news/easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/easy-wall-frame-ideas-to-instantly-elevate-your-home-decor/",
+          "ok": false
+        },
+        {
+          "legacyPath": "/news/effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic/",
+          "suggestedPath": "/news/effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+          "firstStatus": 200,
+          "firstLocation": null,
+          "finalStatus": 200,
+          "finalUrl": "https://www.intcoframing-us.com/news/effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic/",
+          "ok": false
+        }
+      ]
+    },
+    "leadsCloudDomain": {
+      "ok": true,
+      "endpoint": "https://fetchip.leadscloud.com/visitor-chat/track/getStatus",
+      "enterpriseId": "200365",
+      "expectedHost": "www.intcoframing-us.com",
+      "hostCheckedByOriginalScript": "intcoframing-us.com",
+      "status": 200,
+      "statusListLength": 1,
+      "enabled": true,
+      "statusList": [
+        {
+          "orgId": 200365,
+          "useStatus": 1,
+          "matomoSiteId": 25957,
+          "container": "4FufP67P"
+        }
+      ]
+    },
+    "sanityCors": {
+      "ok": false,
+      "projectId": "o10sbz2i",
+      "dataset": "production",
+      "expectedOrigin": "https://www.intcoframing-us.com",
+      "confirmedByFlag": false,
+      "tokenPresent": true,
+      "endpointStatus": 401,
+      "matchingOrigin": false,
+      "error": "User is missing required grant sanity.project.cors/read to perform this operation"
+    },
+    "manualGates": {
+      "ok": false,
+      "gates": [
+        {
+          "id": "formSubmission",
+          "ok": false,
+          "message": "A real Contact/product/enquiry LeadsCloud submission must be tested only after the owner confirms it is safe to send a test lead."
+        },
+        {
+          "id": "richResults",
+          "ok": false,
+          "message": "Representative final-domain URLs must pass Google Rich Results validation or manual structured-data review."
+        },
+        {
+          "id": "searchConsole",
+          "ok": false,
+          "message": "Google Search Console domain ownership and sitemap submission must be completed for the final domain."
+        }
+      ]
+    }
+  },
+  "failures": [
+    {
+      "check": "robots",
+      "external": false,
+      "summary": "Check failed"
+    },
+    {
+      "check": "sitemap",
+      "external": false,
+      "summary": "Missing required URLs: /, /products, /es/products, /contact, /ja/contact"
+    },
+    {
+      "check": "pages",
+      "external": false,
+      "summary": "/ failed; /products failed; /es/products failed"
+    },
+    {
+      "check": "legacyRedirects",
+      "external": false,
+      "summary": "20 sampled legacy redirects failed"
+    },
+    {
+      "check": "sanityCors",
+      "external": true,
+      "summary": "User is missing required grant sanity.project.cors/read to perform this operation"
+    },
+    {
+      "check": "manualGates",
+      "external": true,
+      "summary": "Check failed"
+    }
+  ],
+  "externalPending": [
+    {
+      "check": "sanityCors",
+      "message": "Sanity CORS is not confirmed for the expected origin. Confirm it in Sanity project settings or rerun with --sanity-cors-confirmed after manual verification."
+    },
+    {
+      "check": "formSubmission",
+      "message": "A real Contact/product/enquiry LeadsCloud submission must be tested only after the owner confirms it is safe to send a test lead."
+    },
+    {
+      "check": "richResults",
+      "message": "Representative final-domain URLs must pass Google Rich Results validation or manual structured-data review."
+    },
+    {
+      "check": "searchConsole",
+      "message": "Google Search Console domain ownership and sitemap submission must be completed for the final domain."
+    }
+  ],
+  "ready": false,
+  "automatedOk": false,
+  "externalOk": false
+}

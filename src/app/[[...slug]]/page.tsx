@@ -17,7 +17,7 @@ import {
   SolutionDetailView,
   SolutionsListingView,
 } from "@/components/site-views";
-import { getSiteData, type BlogPost, type Product } from "@/lib/site-data";
+import { getSiteData, type BlogPost, type EvidenceItem, type FaqItem, type OfferItem, type Product } from "@/lib/site-data";
 import { languageAlternates, localizePath, parseLocalizedSegments, t, type Locale } from "@/lib/i18n";
 import { absoluteUrl, siteOrigin } from "@/lib/site-url";
 
@@ -50,7 +50,7 @@ type JsonLdNode = Record<string, unknown>;
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug = [] } = await params;
   const { locale, path } = parseLocalizedSegments(slug);
-  const data = await getSiteData(locale);
+  const data = await getSiteData(locale, path);
   const meta = resolveRouteMeta(path, data, locale);
   const alternates = languageAlternates(path);
 
@@ -62,6 +62,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       canonical: localizePath(locale, path),
       languages: alternates,
     },
+    robots: meta.noIndex ? { index: false, follow: false } : undefined,
     openGraph: {
       title: meta.title,
       description: meta.description,
@@ -75,8 +76,9 @@ export default async function SitePage({ params, searchParams }: PageProps) {
   const { slug = [] } = await params;
   const query = (await searchParams) || {};
   const { locale, path } = parseLocalizedSegments(slug);
-  const data = await getSiteData(locale);
+  const data = await getSiteData(locale, path);
   const jsonLd = buildStructuredData(path, data, locale);
+  const routeItem = structuredDataItemForPath(path, data);
 
   return (
     <SiteChrome settings={data.siteSettings} categories={data.productCategories} solutions={data.solutions} locale={locale} currentPath={path}>
@@ -89,7 +91,113 @@ export default async function SitePage({ params, searchParams }: PageProps) {
         />
       ))}
       {renderRoute(path, data, locale, query)}
+      <SeoContentSections item={routeItem} locale={locale} />
     </SiteChrome>
+  );
+}
+
+type SeoContentItem = {
+  faqs?: FaqItem[];
+  evidence?: EvidenceItem[];
+};
+
+const seoSectionLabels: Record<Locale, { faq: string; evidence: string; methodology: string; source: string; limitations: string }> = {
+  en: {
+    faq: "Frequently Asked Questions",
+    evidence: "Evidence and Claims",
+    methodology: "Methodology",
+    source: "Source",
+    limitations: "Limitations",
+  },
+  es: {
+    faq: "Preguntas frecuentes",
+    evidence: "Evidencia y afirmaciones",
+    methodology: "Metodología",
+    source: "Fuente",
+    limitations: "Limitaciones",
+  },
+  pt: {
+    faq: "Perguntas frequentes",
+    evidence: "Evidências e afirmações",
+    methodology: "Metodologia",
+    source: "Fonte",
+    limitations: "Limitações",
+  },
+  fr: {
+    faq: "Questions fréquentes",
+    evidence: "Preuves et affirmations",
+    methodology: "Méthodologie",
+    source: "Source",
+    limitations: "Limites",
+  },
+  de: {
+    faq: "Häufige Fragen",
+    evidence: "Nachweise und Aussagen",
+    methodology: "Methodik",
+    source: "Quelle",
+    limitations: "Einschränkungen",
+  },
+  ja: {
+    faq: "よくある質問",
+    evidence: "根拠と主張",
+    methodology: "方法",
+    source: "出典",
+    limitations: "制限事項",
+  },
+};
+
+function SeoContentSections({ item, locale }: { item?: SeoContentItem; locale: Locale }) {
+  const faqs = item?.faqs?.filter((faq) => faq.question && faq.answer) || [];
+  const evidence = item?.evidence?.filter((entry) => entry.claim) || [];
+  if (!faqs.length && !evidence.length) return null;
+
+  const labels = seoSectionLabels[locale];
+  return (
+    <section className="bg-white py-14">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:px-8">
+        {faqs.length ? (
+          <div id="faq" className="max-w-4xl">
+            <h2 className="text-3xl font-semibold text-neutral-950">{labels.faq}</h2>
+            <div className="mt-6 divide-y divide-neutral-200 border-y border-neutral-200">
+              {faqs.map((faq, index) => (
+                <details key={`${faq.anchorId || faq.question}-${index}`} id={faq.anchorId} className="group py-5">
+                  <summary className="cursor-pointer list-none text-lg font-semibold text-neutral-950">
+                    {faq.question}
+                  </summary>
+                  <p className="mt-3 text-base leading-7 text-neutral-600">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        ) : null}
+        {evidence.length ? (
+          <div className="max-w-5xl">
+            <h2 className="text-3xl font-semibold text-neutral-950">{labels.evidence}</h2>
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {evidence.map((entry, index) => (
+                <article key={`${entry.claim}-${index}`} className="border border-neutral-200 p-5">
+                  <h3 className="text-lg font-semibold text-neutral-950">{entry.claim}</h3>
+                  {entry.methodology ? <p className="mt-3 text-sm leading-6 text-neutral-600">{labels.methodology}: {entry.methodology}</p> : null}
+                  {entry.sourceUrl || entry.sourceName ? (
+                    <p className="mt-3 text-sm leading-6 text-neutral-600">
+                      {labels.source}:{" "}
+                      {entry.sourceUrl ? (
+                        <a href={entry.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-700 hover:text-neutral-950">
+                          {entry.sourceName || entry.sourceUrl}
+                        </a>
+                      ) : (
+                        entry.sourceName
+                      )}
+                    </p>
+                  ) : null}
+                  {entry.limitations ? <p className="mt-3 text-sm leading-6 text-neutral-500">{labels.limitations}: {entry.limitations}</p> : null}
+                </article>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </div>
+    </section>
   );
 }
 
@@ -174,6 +282,7 @@ type RouteMeta = {
   description: string;
   image?: string;
   imageAlt?: string;
+  noIndex?: boolean;
 };
 
 const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
@@ -281,7 +390,7 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
   if (path === "/projects" || path === "/projects/page/2" || path === "/projects/page/3" || path === "/projects/residential" || path === "/projects/commercial") {
     const page = data.pages.find((entry) => entry.path === "/projects");
     const defaults = routeMetaDefaults["/projects"][locale] || routeMetaDefaults["/projects"].en;
-    const meta = metadataFromItem(page, data, defaults);
+    const meta = metadataFromItem(page, data, defaults, locale);
     const pageMatch = path.match(/^\/projects\/page\/(\d+)$/);
     if (pageMatch) {
       const suffix = pageNumberLabels[locale](pageMatch[1]);
@@ -312,41 +421,64 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
   }
 
   const defaults = routeMetaDefaults[path]?.[locale] || routeMetaDefaults[path]?.en;
-  return metadataFromItem(item, data, defaults);
+  return metadataFromItem(item, data, defaults, locale);
 }
 
 type MetadataItem = {
   title: string;
   metaTitle?: string;
   metaDescription?: string;
+  seo?: {
+    seoTitle?: string;
+    seoDescription?: string;
+    ogImageUrl?: string;
+    imageAlt?: string;
+    noIndex?: boolean;
+  };
   description?: string;
   excerpt?: string;
   imageUrl?: string;
   imageAlt?: string;
 };
 
-function metadataFromItem(item: MetadataItem | undefined, data: Awaited<ReturnType<typeof getSiteData>>, defaults?: RouteMeta): RouteMeta {
+function metadataFromItem(item: MetadataItem | undefined, data: Awaited<ReturnType<typeof getSiteData>>, defaults?: RouteMeta, locale: Locale = "en"): RouteMeta {
   if (!item) {
     return defaults || { title: "INTCO Framing", description: data.siteSettings.description || "" };
   }
+  const metaTitle = localizeMetaTitleSuffix(item.metaTitle, locale);
   return {
-    title: item.metaTitle || defaults?.title || `${item.title} | INTCO Framing`,
+    title: item.seo?.seoTitle || metaTitle || defaults?.title || `${item.title} | INTCO Framing`,
     description:
+      item.seo?.seoDescription ||
       item.metaDescription ||
       defaults?.description ||
       item.description ||
       item.excerpt ||
       data.siteSettings.description ||
       "",
-    image: item.imageUrl || defaults?.image,
-    imageAlt: item.imageAlt || defaults?.imageAlt || item.title,
+    image: item.seo?.ogImageUrl || item.imageUrl || defaults?.image,
+    imageAlt: item.seo?.imageAlt || item.imageAlt || defaults?.imageAlt || item.title,
+    noIndex: item.seo?.noIndex,
   };
+}
+
+function localizeMetaTitleSuffix(title: string | undefined, locale: Locale) {
+  if (!title || locale === "en") return title;
+  const suffix: Record<Exclude<Locale, "en">, string> = {
+    es: "Soluciones INTCO",
+    pt: "Soluções INTCO",
+    fr: "Solutions INTCO",
+    de: "INTCO Lösungen",
+    ja: "INTCO ソリューション",
+  };
+  return title.replace(/\|\s*INTCO Solutions\b/g, `| ${suffix[locale]}`);
 }
 
 function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale): JsonLdNode[] {
   const meta = resolveRouteMeta(path, data, locale);
   const localizedPath = localizePath(locale, path);
   const currentUrl = absoluteUrl(localizedPath);
+  const routeItem = structuredDataItemForPath(path, data);
   const organizationId = `${siteOrigin}/#organization`;
   const websiteId = `${siteOrigin}/#website`;
   const image = meta.image ? absoluteUrl(meta.image) : undefined;
@@ -362,13 +494,23 @@ function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSi
       description: data.siteSettings.description,
       email: data.siteSettings.email,
       telephone: data.siteSettings.phone,
+      contactPoint: data.siteSettings.contactPoints?.length
+        ? data.siteSettings.contactPoints.map((point) => ({
+            "@type": "ContactPoint",
+            contactType: point.contactType,
+            telephone: point.phone,
+            email: point.email,
+            areaServed: point.areaServed,
+            availableLanguage: point.availableLanguages,
+          }))
+        : undefined,
       address: data.siteSettings.address
         ? {
             "@type": "PostalAddress",
             streetAddress: data.siteSettings.address,
           }
         : undefined,
-      sameAs: socialProfiles,
+      sameAs: data.siteSettings.sameAs?.length ? data.siteSettings.sameAs : socialProfiles,
     },
     {
       "@context": "https://schema.org",
@@ -401,6 +543,8 @@ function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSi
             caption: meta.imageAlt || meta.title,
           }
         : undefined,
+      datePublished: validIsoDate(routeItem?.datePublished),
+      dateModified: validIsoDate(routeItem?.dateModified),
     },
   ];
 
@@ -417,11 +561,15 @@ function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSi
       url: currentUrl,
       image: absoluteOptionalUrl(product.imageUrl),
       description: product.metaDescription || product.description || product.bodyText,
+      sku: product.sku,
       brand: {
         "@type": "Brand",
-        name: "INTCO Framing",
+        name: product.brand || "INTCO Framing",
       },
       category: resolveProductCategory(product, data),
+      material: product.material,
+      size: product.dimensions,
+      offers: productOffers(product.offers, currentUrl),
     });
   }
 
@@ -436,13 +584,62 @@ function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSi
       image: absoluteOptionalUrl(post.imageUrl),
       description: post.metaDescription || post.excerpt || post.bodyText,
       datePublished: validIsoDate(post.publishedAt),
+      dateModified: validIsoDate(post.dateModified),
       author: { "@id": organizationId },
       publisher: { "@id": organizationId },
       inLanguage: locale,
     });
   }
 
+  if (routeItem?.faqs?.length) {
+    nodes.push({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "@id": `${currentUrl}#faq`,
+      mainEntity: routeItem.faqs.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    });
+  }
+
   return nodes;
+}
+
+function structuredDataItemForPath(path: string, data: Awaited<ReturnType<typeof getSiteData>>) {
+  if (path === "/") return data.homePage;
+  return (
+    data.products.find((entry) => entry.path === path || path.endsWith(`/${entry.slug}`)) ||
+    data.blogPosts.find((entry) => entry.path === path || path === `/news/${entry.slug}`) ||
+    data.projects.find((entry) => entry.path === path || path === `/projects/${entry.slug}`) ||
+    data.solutions.find((entry) => entry.path === path || path.endsWith(`/${entry.slug}`)) ||
+    data.pages.find((entry) => entry.path === path) ||
+    data.productCategories.find((entry) => entry.path === path)
+  );
+}
+
+function productOffers(offers: OfferItem[] | undefined, currentUrl: string) {
+  if (!offers?.length) return undefined;
+  const mapped = offers
+    .map((offer) => {
+      const hasPrice = typeof offer.price === "number";
+      if (!hasPrice && !offer.url) return undefined;
+      return {
+        "@type": "Offer",
+        price: offer.price,
+        priceCurrency: offer.priceCurrency || "USD",
+        availability: offer.availability,
+        url: offer.url || currentUrl,
+        validFrom: offer.validFrom,
+        validThrough: offer.validThrough,
+      };
+    })
+    .filter(Boolean);
+  return mapped.length ? mapped : undefined;
 }
 
 function buildBreadcrumbList(path: string, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale): JsonLdNode | undefined {

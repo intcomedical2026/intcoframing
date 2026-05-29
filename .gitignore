@@ -24,6 +24,7 @@
 # misc
 .DS_Store
 *.pem
+backups/
 sanity/seed/.translation-cache.json
 .omx/
 /reports/intco-parity/screenshots/

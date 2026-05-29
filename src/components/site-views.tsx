@@ -28,8 +28,23 @@ import {
   Solution,
 } from "@/lib/site-data";
 import { Locale, blogCategoryLabel, localizePath, t } from "@/lib/i18n";
+import {
+  BUSINESS_INSIGHTS_PAGE,
+  CERTIFICATION_PAGE,
+  DESIGN_ENGINEERING_PAGE,
+  GLOBAL_PRODUCTION_PAGE,
+  LATEST_PRIMARY_CARDS,
+  LATEST_SECONDARY_CARDS,
+  MANUFACTURING_DELIVERY_PAGE,
+  PROJECT_CARDS,
+  RETAILER_SUPPORT_PAGE,
+  SECTION_TITLES,
+  pick,
+} from "@/lib/solution-page-content";
 import { ProductQuotePanel } from "@/components/product-quote-panel";
+import { CatalogDownloadButton } from "@/components/catalog-download-dialog";
 import { EnquiryList } from "@/components/enquiry-list";
+import { LeadsCloudChatLink } from "@/components/leadscloud-chat-link";
 import { CountUpStat } from "@/components/count-up-stat";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { HomeBlogSection } from "@/components/home-blog-section";
@@ -37,6 +52,7 @@ import { SolutionsServicesSection, type SolutionsServiceItem } from "@/component
 import { SustainabilitySavingsTabs, SustainabilityVideoButton } from "@/components/sustainability-interactions";
 import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
 import { ContactMapTabs, type ContactFactory } from "@/components/contact-map-tabs";
+import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
 
 const PRODUCT_CATALOG_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.png",
@@ -716,17 +732,6 @@ function localizedCategoryIntro(category: ProductCategory | undefined, fallback:
   return locale === "en" ? fallback : category?.description || fallback;
 }
 
-function sourceFormFields(locale: Locale) {
-  return [
-    { label: t(locale, "name"), placeholder: t(locale, "name"), required: true },
-    { label: t(locale, "companyName"), placeholder: t(locale, "companyName"), required: true },
-    { label: t(locale, "country"), placeholder: t(locale, "country"), required: true },
-    { label: t(locale, "email"), placeholder: t(locale, "email"), required: true },
-    { label: t(locale, "phone"), placeholder: t(locale, "phone"), required: true },
-    { label: "WhatsApp", placeholder: "WhatsApp", required: false },
-  ];
-}
-
 const PROJECTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg";
 
 const PROJECTS_SOURCE_ITEMS = [
@@ -977,7 +982,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "The Clear Difference: Picture Frame vs Photo Frame Explained",
     path: "/news/the-clear-difference-picture-frame-vs-photo-frame-explained",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/06/微信图片3_20240611140721.jpg",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/06/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%873_20240611140721.jpg",
     date: "Jun 13, 2024",
     description: "A picture frame is a decorative edging designed to encase and protect artwork, p...",
     category: "Tips",
@@ -1006,11 +1011,9 @@ const DESIGN_ENGINEERING_MAIN_IMAGE = "https://www.intcoframing-us.com/wp-conten
 const MANUFACTURING_DELIVERY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/ManufacturingBg.png";
 const MANUFACTURING_DELIVERY_DOWN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/down.jpg";
 const GLOBAL_PRODUCTION_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock1.png";
-const GLOBAL_PRODUCTION_BUILDING_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/办公大楼2-1-scaled.jpg";
+const GLOBAL_PRODUCTION_BUILDING_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%A4%A7%E6%A5%BC2-1-scaled.jpg";
 const CERTIFICATION_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification1.png";
 const CERTIFICATION_BG_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/CertificationBg.png";
-const CERTIFICATION_COPY =
-  "Rest easy with our commitment to quality and compliance. Intco Framing provides outstanding products and quality services to global customers. We actively certify quality systems and cooperate with third-party audit agencies, customers, and suppliers for audit supervision.";
 const CERTIFICATION_GRID_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification2.jpg",
   "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification3.jpg",
@@ -1027,79 +1030,17 @@ const CERTIFICATION_SWIPER_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification12.png",
   "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification13.png",
 ];
-const RETAILER_SUPPORT_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/未标题-2-3.jpg";
+const RETAILER_SUPPORT_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E6%9C%AA%E6%A0%87%E9%A2%98-2-3.jpg";
 const RETAILER_SUPPORT_TURN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSupport11.jpg";
 const RETAILER_SUPPORT_GLOBAL_DECOR = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Global_.png";
 const RETAILER_SUPPORT_GLOBAL_IMAGES = [
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/未标题-1-3.jpg",
+  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E6%9C%AA%E6%A0%87%E9%A2%98-1-3.jpg",
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/223.jpg",
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/147.jpg",
 ];
 const RETAILER_SUPPORT_DISTRIBUTION_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSuppor5-1.png";
 const RETAILER_SUPPORT_MARKETING_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSuppor6-1.png";
 const RETAILER_SUPPORT_SERVICE_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/RetailerSuppor7.png";
-const RETAILER_SUPPORT_CUSTOMER_COPY =
-  "As the only home décor manufacturer that starts with recycled materials around the world, we truly ensure quality control from the source, and pride ourselves on offering continuous assistance to ensure the prosperity of your retail business.";
-const RETAILER_SUPPORT_TURN_COPY =
-  "We offer one-stop solutions encompassing: product development, design, production, and quality control, which streamlines your shopping experience while saving you time and energy, so that you can focus on driving your business. Our comprehensive service ensures that every aspect of the process is carefully managed, providing you with a hassle-free and efficient service from concept to delivery.";
-const RETAILER_SUPPORT_GLOBAL_COPY =
-  "By strategically locating our factories in China, Vietnam or Malaysia, we enhance our resilience to external factors that may impact the supply chain and maximize efficiency and flexibility in meeting your demands. All of our factories ensure advanced production technology and equipment, quality manufacturing and flexible shipping. Operating in strict adherence to international quality standards, each factory has earned high recognition for product quality from our customers.";
-const RETAILER_SUPPORT_DISTRIBUTION_COPY =
-  "We further extend our global service capabilities by maintaining warehouses in various international locations. This strategic positioning ensures expedited deliveries, particularly beneficial for meeting urgent demands to fulfill our commitment to efficiency and customer satisfaction.";
-const RETAILER_SUPPORT_MARKETING_COPY_BEFORE =
-  "Intco Framing offers the support you need to build a first-class website with high-definition product images and room scences. Additionally, we provide samples with installation instructions and demonstration videos. To enhance customer experience, we offer an";
-const RETAILER_SUPPORT_MARKETING_COPY_AFTER =
-  "that allows you to personalize and visualize your framing choices conveniently.";
-const RETAILER_SUPPORT_SERVICE_COPY =
-  "We provide seamless communication and customied services for our clients. Our offices strategically located around the world, including in North America, Vietnam, and Malaysia, with an extensive service team boasting rich industry experience we are ready to welcome clients at any time and provide with personalized service. Our service team also conducts regular on-site visits, engaging in face-to-face discussions to better understand your needs and offer guidance. We provide 24/7 online customer support with quick responses to meet your needs promptly. We are always at your service, ready to address concerns and provide guidance at every step of our collaborative journey.";
-const GLOBAL_PRODUCTION_COPY =
-  "By strategically locating our factories in China, Vietnam and Malaysia, we enhance our resilience to external factors that may impact the supply chain and maximize efficiency and flexibility in meeting your demands. All of our factories ensure advanced production technology and equipment, quality manufacturing and flexible shipping. Operating in strict adherence to international quality standards, each factory has earned high recognition for product quality from our customers.";
-const GLOBAL_PRODUCTION_FEATURES = [
-  { label: "Flexible Shipping", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-01.png" },
-  { label: "Trade Facilitation", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-02.png" },
-  { label: "Scale and Quality", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-03.png" },
-  { label: "Supply Chain Diversification", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-04.png" },
-  { label: "Certification of Origin", iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-05.png" },
-];
-
-const MANUFACTURING_DELIVERY_ROWS = [
-  {
-    key: "production",
-    title: "PRODUCTION CAPACITY",
-    body: "Intco’s vertically integrated supply chain of raw materials, we maintain control over product quality from the source, ensuring consistent excellence for initial orders and reorders. With formidable production capabilities, we have the capacity to manufacture 1.2 million boxes of PS moulding annually. We can meet the demands of large-scale production while consistently upholding rigorous standards of quality.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing2.png",
-    imageAlt: "Manufacturing2",
-  },
-  {
-    key: "digital",
-    title: "DIGITAL MANAGEMENT SYSTEM",
-    body: "We utilize advanced digital management systems to enhance our operations, ensuring efficiency and precision throughout our processes. Our comprehensive suite includes APS (Advanced Planning and Scheduling), MRP (Manufacturing Resource Planning), MES (Manufacturing Execution System), SCM (Supply Chain Management), WMS (Warehouse Management System), TMS (Transportation Management System), SRM (Supplier Relationship Management), and CRM (Customer Relationship Management). This integrated approach allows us to optimize scheduling, resource allocation,manufacturing, supply chain, warehousing, transportation, supplier and customer relationships for a responsive and effective business ecosystem.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing3.png",
-    imageAlt: "Manufacturing3",
-  },
-  {
-    key: "automation",
-    title: "AUTOMATION",
-    body: "Our production facilities achieve a high level of automation, ensuring precision and consistency in every frame we create. This strategic integration of automation not only boosts productivity but also safeguards the rights and well-being of our workers.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing4.png",
-    imageAlt: "Manufacturing4",
-  },
-  {
-    key: "flexible",
-    title: "FLEXIBLE MANUFACTURING",
-    body: "With over 20 years of manufacturing experience, Intco Framing stands out for its flexible production capabilities. Leveraging advanced production scheduling systems and digital management, coupled with sophisticated technology, our production lines and processes are flexible and adaptable. This enables us to efficiently meet your customized requirements with precision and agility.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing5.png",
-    imageAlt: "Manufacturing5",
-  },
-  {
-    key: "quality",
-    title: "QUALITY CONTROL",
-    body: "We maintain strict internal control over product quality, subjecting all items to meticulous layers of inspection. Every product undergoes rigorous checks, ensuring that only the highest quality goods reach our customers.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing6.png",
-    imageAlt: "Manufacturing6",
-  },
-];
-
 const MANUFACTURING_PACKAGING_IMAGES = [
   {
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing7.png",
@@ -1108,103 +1049,6 @@ const MANUFACTURING_PACKAGING_IMAGES = [
   {
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing8.png",
     imageAlt: "Manufacturing8",
-  },
-];
-
-const MANUFACTURING_PACKAGING_COPY =
-  "We can meet your specific product and packaging standards with our own in house product and package lab, if third party testing is needed, we can handle that too. We offer packaging solutions that comply with ISTA standards, ranging from ISTA-1A to 6A. Our diverse packaging options are designed to meet the varying needs of transportation and ensure the safe transit of products.";
-
-const MANUFACTURING_DELIVERY_COPY =
-  "Our stable partnerships with numerous freight companies, enables us to uphold timely deliveries even in challenging circumstances such as the ongoing pandemic. Our advanced TMS (Transportation Management System) is also your reliable partner in ensuring timely delivery commitments. Our dedication to precision in the delivery process guarantees your products reach you on time.";
-
-const DESIGN_ENGINEERING_PRODUCT_ROWS = [
-  {
-    title: "Picture Frame",
-    body: "We provide design solutions for picture frames, offering tailored designs for both face paper and backboard. Our expertise ensures that every aspect of the frame, from the front-facing aesthetic to the supporting backboard, is thoughtfully crafted to meet the highest standards of design and functionality.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock5-e1707114166904.png",
-    imageAlt: "Picture Frame",
-  },
-  {
-    title: "Mirror",
-    body: "We are dedicated to innovative design, and our mirrors showcase a diverse array of shapes. From contemporary to timeless classics, each mirror reflects our commitment to creativity.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock6.png",
-    imageAlt: "Mirror",
-    reverse: true,
-  },
-  {
-    title: "Art",
-    body: "With an exceptional team of skilled artists, our art design capabilities encompass both traditional hand-drawing and digital illustration. Paired with advanced printing technologies, our artworks come to life with unparalleled detail and vibrancy.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock7.png",
-    imageAlt: "Art",
-  },
-];
-
-const DESIGN_ENGINEERING_FEATURES = [
-  {
-    title: "Packaging Design",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock8.png",
-    imageAlt: "shutterstock8",
-  },
-  {
-    title: "Display Design",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock9.png",
-    imageAlt: "shutterstock9",
-  },
-  {
-    title: "Product Development Skill",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock10.png",
-    imageAlt: "shutterstock10",
-  },
-  {
-    title: "Multi Materials",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock11.png",
-    imageAlt: "shutterstock11",
-  },
-];
-
-const DESIGN_ENGINEERING_LATEST_PRIMARY = [
-  {
-    title: "Mirror",
-    path: "/mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/%E6%9C%AA%E6%A0%87%E9%A2%98-3.jpg",
-  },
-  {
-    title: "Picture Frame",
-    path: "/picture-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/09/20240911-093414-1-e1726018748935.jpg",
-  },
-];
-
-const DESIGN_ENGINEERING_LATEST_SECONDARY = [
-  {
-    title: "Art",
-    path: "/art",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/3-1.jpg",
-  },
-  {
-    title: "Furniture",
-    path: "/furniture",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/4-1.jpg",
-  },
-  {
-    title: "Memo Board",
-    path: "/memo-board",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/product4.png",
-  },
-];
-
-const DESIGN_ENGINEERING_PROJECT_CARDS = [
-  {
-    eyebrow: "Aesthetics Works",
-    title: "Residential PROJECTS",
-    path: "/projects/residential",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS1.jpg",
-  },
-  {
-    eyebrow: "Aesthetics Works",
-    title: "Commercial PROJECTS",
-    path: "/projects/commercial",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS2.jpg",
   },
 ];
 
@@ -1223,36 +1067,7 @@ const BUSINESS_INSIGHTS_TREND_SLIDES = [
   },
 ];
 
-const BUSINESS_INSIGHTS_REPORTS = [
-  {
-    title: "The Major Materials of Medicine Mirror Cabinet",
-    date: "29 Jan 2024",
-    excerpt: "Bathroom medicine cabinets are available in various materials - you can choose f...",
-    path: "/news/the-major-materials-of-medicine-mirror-cabinet",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
-  },
-  {
-    title: "5 Ways an LED Bathroom Vanity Mirror Can lmprove Your Space",
-    date: "29 Jan 2024",
-    excerpt: "Looking to revitalise your bathroom? Heres how an LED bathroom vanity mirror wit...",
-    path: "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Bathroom-Round-Wall-Mirror-Ideas.jpg",
-  },
-];
-
-const BUSINESS_INSIGHTS_COPY = {
-  market:
-    "You can gain a competitive edge with our comprehensive market survey. Dive deep into consumer preferences and purchasing behavior. Our comprehensive survey provides reliable data, empowering you to refine your strategies and capture new opportunities.",
-  trend:
-    "Understand the latest consumer trends, technological advancements, and design preferences. Our insights offer a forward-looking perspective, enabling you to align your products or services with evolving market demands. Anticipate change and position your brand as an industry trendsetter.",
-  recommendation:
-    "Explore bestsellers recommendations to stay informed about the best-selling styles, sizes, shapes, and materials. Discover effective sales and marketing strategies that have propelled products to best-seller status.",
-  manufacturingIntro: "Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.",
-  manufacturing:
-    "Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.",
-};
-
-const WHO_WE_ARE_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/微信图片_20240205105129.jpg";
+const WHO_WE_ARE_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240205105129.jpg";
 const WHO_WE_ARE_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs2.png";
 const WHO_WE_ARE_STATS_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/hc-about-us-page.jpg";
 const WHO_WE_ARE_MAP_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/map-hc-bg-01.png";
@@ -1263,6 +1078,42 @@ const WHO_WE_ARE_STATS = [
   { value: "30+", label: "Years Experience", Icon: Globe2 },
   { value: "4000+", label: "Employees", Icon: PackageCheck },
 ];
+
+const WHO_WE_ARE_INTRO_COPY: Record<Locale, string[]> = {
+  en: [
+    "Intco Framing (stock symbol 688087), a leading interior décor manufacturer specializing in picture frames, art, mirrors, memo boards and furniture.",
+    "We provide customized solutions for diverse applications, tailoring designs to complement residential, commercial, and office spaces.",
+  ],
+  es: [
+    "Intco Framing (código bursátil 688087) es un fabricante líder de decoración de interiores especializado en marcos, arte, espejos, tableros de notas y muebles.",
+    "Ofrecemos soluciones personalizadas para distintos usos, con diseños adaptados a espacios residenciales, comerciales y de oficina.",
+  ],
+  pt: [
+    "A Intco Framing (código de ações 688087) é uma fabricante líder de decoração de interiores, especializada em molduras, arte, espelhos, quadros de notas e móveis.",
+    "Oferecemos soluções personalizadas para diferentes aplicações, com designs pensados para ambientes residenciais, comerciais e corporativos.",
+  ],
+  fr: [
+    "Intco Framing (code boursier 688087) est un fabricant majeur de décoration intérieure, spécialisé dans les cadres, l'art mural, les miroirs, les tableaux mémo et le mobilier.",
+    "Nous proposons des solutions personnalisées pour de nombreux usages, avec des designs adaptés aux espaces résidentiels, commerciaux et professionnels.",
+  ],
+  de: [
+    "Intco Framing (Börsenkürzel 688087) ist ein führender Hersteller für Innendekoration mit Schwerpunkt auf Bilderrahmen, Kunst, Spiegeln, Memoboards und Möbeln.",
+    "Wir entwickeln maßgeschneiderte Lösungen für vielfältige Anwendungen und stimmen Designs auf Wohn-, Gewerbe- und Büroräume ab.",
+  ],
+  ja: [
+    "Intco Framing（証券コード 688087）は、額縁、アート、ミラー、メモボード、家具を手がけるインテリア装飾メーカーです。",
+    "住宅、商業施設、オフィスなど多様な空間に合わせて、用途に応じたカスタムソリューションを提供しています。",
+  ],
+};
+
+const WHO_WE_ARE_GLOBAL_MARKET_INTRO: Record<Locale, string> = {
+  en: "Operating on a global scale, we have established a widespread presence in the market, collaborating with numerous high-quality retail partners worldwide",
+  es: "Con operaciones a escala global, hemos construido una amplia presencia en el mercado y colaboramos con numerosos socios minoristas de alta calidad en todo el mundo.",
+  pt: "Com atuação global, consolidamos ampla presença no mercado e colaboramos com diversos parceiros varejistas de alta qualidade em todo o mundo.",
+  fr: "Présents à l'échelle mondiale, nous avons développé une large présence sur le marché et collaborons avec de nombreux partenaires distributeurs de qualité.",
+  de: "Mit globaler Ausrichtung haben wir eine starke Marktpräsenz aufgebaut und arbeiten weltweit mit zahlreichen hochwertigen Handelspartnern zusammen.",
+  ja: "グローバルに事業を展開し、世界各地の優良小売パートナーと連携しながら、幅広い市場プレゼンスを築いています。",
+};
 
 const WHO_WE_ARE_HISTORY = [
   { year: "2002", title: "Shanghai Base", description: "Picture Frame Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2002.jpg" },
@@ -1280,6 +1131,89 @@ const WHO_WE_ARE_HISTORY = [
   { year: "2022", title: "Lu'an Basell", description: "Multi-category Decorative Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2022.jpg" },
   { year: "2022", title: "Vietnam Base", description: "Frame / Decorative Mouldings Picture / Mirror Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2022_2.jpg" },
 ];
+
+const WHO_WE_ARE_HISTORY_TRANSLATIONS: Partial<Record<Locale, Array<{ title: string; description: string }>>> = {
+  es: [
+    { title: "Base de Shanghái", description: "Molduras para marcos" },
+    { title: "Base de Shandong", description: "Arte / marcos / espejos" },
+    { title: "Base de Shanghái", description: "Molduras Greenwood" },
+    { title: "Base de Lu'an", description: "Molduras para marcos" },
+    { title: "Base de Zhenjiang", description: "Máquinas de reciclaje GREENMAX" },
+    { title: "Centro de marketing nacional", description: "25 oficinas de exhibición en China" },
+    { title: "Base de Shandong II", description: "Marcos MDF y de aluminio" },
+    { title: "Base de Malasia", description: "100.000 toneladas de pellets r-PS" },
+    { title: "Integración de dos redes", description: "Reciclaje de espuma comprimida en Shanghái" },
+    { title: "Base de Malasia II", description: "50.000 toneladas de pellets r-PET" },
+    { title: "Base de Shandong III", description: "Marcos de aluminio, lienzos y arte enmarcado" },
+    { title: "Salida a bolsa en Shanghái", description: "Código bursátil: 688087" },
+    { title: "Base de Lu'an II", description: "Molduras decorativas multicategoría" },
+    { title: "Base de Vietnam", description: "Marcos, molduras decorativas, cuadros y espejos" },
+  ],
+  pt: [
+    { title: "Base de Xangai", description: "Molduras para porta-retratos" },
+    { title: "Base de Shandong", description: "Arte / molduras / espelhos" },
+    { title: "Base de Xangai", description: "Molduras Greenwood" },
+    { title: "Base de Lu'an", description: "Molduras para porta-retratos" },
+    { title: "Base de Zhenjiang", description: "Máquinas de reciclagem GREENMAX" },
+    { title: "Centro de marketing nacional", description: "25 escritórios de exposição na China" },
+    { title: "Base de Shandong II", description: "Molduras MDF e de alumínio" },
+    { title: "Base da Malásia", description: "100.000 toneladas de pellets r-PS" },
+    { title: "Integração de duas redes", description: "Reciclagem de espuma comprimida em Xangai" },
+    { title: "Base da Malásia II", description: "50.000 toneladas de pellets r-PET" },
+    { title: "Base de Shandong III", description: "Molduras de alumínio, canvas art e arte emoldurada" },
+    { title: "IPO em Xangai", description: "Código de ações: 688087" },
+    { title: "Base de Lu'an II", description: "Molduras decorativas multicategoria" },
+    { title: "Base do Vietnã", description: "Molduras, perfis decorativos, quadros e espelhos" },
+  ],
+  fr: [
+    { title: "Base de Shanghai", description: "Moulures pour cadres photo" },
+    { title: "Base du Shandong", description: "Art / cadres / miroirs" },
+    { title: "Base de Shanghai", description: "Moulures Greenwood" },
+    { title: "Base de Lu'an", description: "Moulures pour cadres photo" },
+    { title: "Base de Zhenjiang", description: "Machines de recyclage GREENMAX" },
+    { title: "Centre marketing national", description: "25 bureaux d'exposition en Chine" },
+    { title: "Base du Shandong II", description: "Cadres MDF et aluminium" },
+    { title: "Base de Malaisie", description: "100 000 tonnes de granulés r-PS" },
+    { title: "Intégration de deux réseaux", description: "Recyclage de mousse compressée à Shanghai" },
+    { title: "Base de Malaisie II", description: "50 000 tonnes de granulés r-PET" },
+    { title: "Base du Shandong III", description: "Cadres aluminium, canvas et cadres d'art" },
+    { title: "IPO à Shanghai", description: "Code boursier : 688087" },
+    { title: "Base de Lu'an II", description: "Moulures décoratives multi-catégories" },
+    { title: "Base du Vietnam", description: "Cadres, moulures décoratives, tableaux et miroirs" },
+  ],
+  de: [
+    { title: "Standort Shanghai", description: "Bilderrahmenleisten" },
+    { title: "Standort Shandong", description: "Kunst / Bilder / Spiegelrahmen" },
+    { title: "Standort Shanghai", description: "Greenwood Bilderrahmenleisten" },
+    { title: "Standort Lu'an", description: "Bilderrahmenleisten" },
+    { title: "Standort Zhenjiang", description: "GREENMAX Recyclingmaschinen" },
+    { title: "Nationales Marketingzentrum", description: "25 Ausstellungsbüros in China" },
+    { title: "Standort Shandong II", description: "MDF- und Aluminiumrahmen" },
+    { title: "Standort Malaysia", description: "100.000 Tonnen r-PS-Pellets" },
+    { title: "Integration zweier Netzwerke", description: "Recycling von Pressschaum in Shanghai" },
+    { title: "Standort Malaysia II", description: "50.000 Tonnen r-PET-Pellets" },
+    { title: "Standort Shandong III", description: "Aluminiumrahmen, Leinwandkunst und Kunstrahmen" },
+    { title: "Börsengang in Shanghai", description: "Börsenkürzel: 688087" },
+    { title: "Standort Lu'an II", description: "Dekorleisten für mehrere Kategorien" },
+    { title: "Standort Vietnam", description: "Rahmen, Dekorleisten, Bilder- und Spiegelrahmen" },
+  ],
+  ja: [
+    { title: "上海拠点", description: "額縁モールディング" },
+    { title: "山東拠点", description: "アート / 額縁 / ミラーフレーム" },
+    { title: "上海拠点", description: "Greenwood ブランド額縁モールディング" },
+    { title: "六安拠点", description: "額縁モールディング" },
+    { title: "鎮江拠点", description: "GREENMAX リサイクル機械" },
+    { title: "国内マーケティングセンター", description: "中国に25カ所の展示オフィス" },
+    { title: "山東拠点 II", description: "MDF フレーム、アルミフレーム" },
+    { title: "マレーシア拠点", description: "r-PS ペレット 10万トン" },
+    { title: "2つのネットワークを統合", description: "上海で圧縮フォームをリサイクル" },
+    { title: "マレーシア拠点 II", description: "r-PET ペレット 5万トン" },
+    { title: "山東拠点 III", description: "アルミフレーム、キャンバスアート、アートフレーム" },
+    { title: "上海で上場", description: "証券コード: 688087" },
+    { title: "六安拠点 II", description: "多カテゴリ装飾モールディング" },
+    { title: "ベトナム拠点", description: "フレーム、装飾モールディング、額縁、ミラーフレーム" },
+  ],
+};
 
 const WHO_WE_ARE_MARKETS = [
   { continent: "North America", countries: ["United States", "Canada", "Mexico", "Panama"], top: "22%", right: "81.97%", color: "#c00000", scale: 1.5 },
@@ -1355,18 +1289,90 @@ const SUSTAINABILITY_EXTERNAL_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-06.png",
 ];
 
-const SUSTAINABILITY_INTRO_COPY = [
-  "Intco Recycling(688087.SH) is a high-tech manufacturer in resource recycling, and its affiliate, Intco Framing is one of the world’s largest makers of frames.",
-  "We have developed an innovative end-to-end process of plastic recycling and reuse, that transforming recycled plastics into trendy, high-quality household and consumer goods.",
-  "As a global leader in resource recycling, INTCO Recycling launched its PET recycling base in Malaysia in 2018. Spanning the recycling of multiple types of plastics, this facility transforms beverage bottles into food-grade plastic.",
-  "Sustainable materials, net-zero and a circular economy. Intco Recycling has been committed to ESG for more than 20 years. What is the future of resource regeneration? We can’t wait to see it.",
-];
+const SUSTAINABILITY_INTRO_COPY: Record<Locale, string[]> = {
+  en: [
+    "Intco Recycling(688087.SH) is a high-tech manufacturer in resource recycling, and its affiliate, Intco Framing is one of the world’s largest makers of frames.",
+    "We have developed an innovative end-to-end process of plastic recycling and reuse, that transforming recycled plastics into trendy, high-quality household and consumer goods.",
+    "As a global leader in resource recycling, INTCO Recycling launched its PET recycling base in Malaysia in 2018. Spanning the recycling of multiple types of plastics, this facility transforms beverage bottles into food-grade plastic.",
+    "Sustainable materials, net-zero and a circular economy. Intco Recycling has been committed to ESG for more than 20 years. What is the future of resource regeneration? We can’t wait to see it.",
+  ],
+  es: [
+    "INTCO Recycling (688087.SH) es un fabricante de alta tecnología especializado en reciclaje de recursos, y su filial INTCO Framing es uno de los mayores fabricantes de marcos del mundo.",
+    "Hemos desarrollado un proceso integral e innovador de reciclaje y reutilización de plásticos, transformando materiales reciclados en productos para el hogar y consumo modernos y de alta calidad.",
+    "Como líder global en reciclaje de recursos, INTCO Recycling inauguró en 2018 su base de reciclaje PET en Malasia. La planta procesa varios tipos de plástico y convierte botellas de bebidas en plástico apto para uso alimentario.",
+    "Materiales sostenibles, cero emisiones netas y economía circular. INTCO Recycling lleva más de 20 años comprometida con ESG, y el futuro de la regeneración de recursos apenas empieza.",
+  ],
+  pt: [
+    "A INTCO Recycling (688087.SH) é uma fabricante de alta tecnologia focada em reciclagem de recursos, e sua afiliada INTCO Framing está entre as maiores fabricantes de molduras do mundo.",
+    "Desenvolvemos um processo integrado e inovador de reciclagem e reutilização de plásticos, transformando materiais reciclados em produtos domésticos e de consumo modernos e de alta qualidade.",
+    "Como líder global em reciclagem de recursos, a INTCO Recycling lançou em 2018 sua base de reciclagem PET na Malásia. A unidade processa diversos tipos de plástico e converte garrafas em plástico de grau alimentício.",
+    "Materiais sustentáveis, neutralidade de carbono e economia circular. A INTCO Recycling mantém há mais de 20 anos um compromisso com ESG e com o futuro da regeneração de recursos.",
+  ],
+  fr: [
+    "INTCO Recycling (688087.SH) est un fabricant de haute technologie spécialisé dans le recyclage des ressources, et sa filiale INTCO Framing compte parmi les plus grands fabricants de cadres au monde.",
+    "Nous avons développé un processus intégré et innovant de recyclage et de réutilisation des plastiques, transformant les matériaux recyclés en produits de maison et de consommation tendance et de haute qualité.",
+    "Leader mondial du recyclage des ressources, INTCO Recycling a lancé en 2018 sa base de recyclage PET en Malaisie. Ce site traite plusieurs types de plastiques et transforme les bouteilles en plastique de qualité alimentaire.",
+    "Matériaux durables, neutralité carbone et économie circulaire. INTCO Recycling s'engage depuis plus de 20 ans dans l'ESG et dans l'avenir de la régénération des ressources.",
+  ],
+  de: [
+    "INTCO Recycling (688087.SH) ist ein Hightech-Hersteller im Bereich Ressourcenrecycling, und die Tochtergesellschaft INTCO Framing zählt zu den größten Rahmenherstellern der Welt.",
+    "Wir haben einen innovativen End-to-End-Prozess für Kunststoffrecycling und Wiederverwendung entwickelt, der recycelte Materialien in moderne, hochwertige Haushalts- und Konsumgüter verwandelt.",
+    "Als globaler Vorreiter im Ressourcenrecycling eröffnete INTCO Recycling 2018 seine PET-Recyclingbasis in Malaysia. Dort werden verschiedene Kunststoffarten verarbeitet und Getränkeflaschen zu lebensmitteltauglichem Kunststoff recycelt.",
+    "Nachhaltige Materialien, Netto-Null und Kreislaufwirtschaft. INTCO Recycling engagiert sich seit mehr als 20 Jahren für ESG und für die Zukunft der Ressourcenerneuerung.",
+  ],
+  ja: [
+    "INTCO Recycling（688087.SH）は資源リサイクル分野のハイテクメーカーであり、その関連会社であるINTCO Framingは世界有数のフレームメーカーです。",
+    "当社はプラスチックのリサイクルと再利用を一貫して行う革新的なプロセスを構築し、再生素材を高品質で現代的な家庭用品・消費財へと生まれ変わらせています。",
+    "資源リサイクルのグローバルリーダーとして、INTCO Recyclingは2018年にマレーシアでPETリサイクル拠点を稼働しました。この施設では複数種類のプラスチックを処理し、飲料ボトルを食品グレードのプラスチックへ再生しています。",
+    "持続可能な素材、ネットゼロ、循環型経済。INTCO Recyclingは20年以上にわたりESGと資源再生の未来に取り組み続けています。",
+  ],
+};
+
+const SUSTAINABILITY_ENVIRONMENTAL_COPY: Record<Locale, string> = {
+  en: "Intco Recycling has reduced 200,000 tons of carbon emissions, saved 300,000 tons of crude oil, and protected 2 million trees every year, an elegant and profitable solution for the recycling of waste EPS foam.",
+  es: "INTCO Recycling reduce cada año 200,000 toneladas de emisiones de carbono, ahorra 300,000 toneladas de petróleo crudo y protege 2 millones de árboles, aportando una solución eficaz y rentable para reciclar residuos de espuma EPS.",
+  pt: "A INTCO Recycling reduz todos os anos 200.000 toneladas de emissões de carbono, economiza 300.000 toneladas de petróleo bruto e protege 2 milhões de árvores, oferecendo uma solução eficiente e rentável para reciclar resíduos de espuma EPS.",
+  fr: "INTCO Recycling réduit chaque année 200 000 tonnes d'émissions carbone, économise 300 000 tonnes de pétrole brut et protège 2 millions d'arbres, grâce à une solution efficace et rentable pour recycler les déchets de mousse EPS.",
+  de: "INTCO Recycling reduziert jedes Jahr 200.000 Tonnen CO₂-Emissionen, spart 300.000 Tonnen Rohöl und schützt 2 Millionen Bäume. So entsteht eine effiziente und rentable Lösung für das Recycling von EPS-Schaumabfällen.",
+  ja: "INTCO Recyclingは毎年20万トンの炭素排出量を削減し、30万トンの原油を節約し、200万本の木を守っています。これは廃EPSフォームのリサイクルに向けた効率的で収益性の高い解決策です。",
+};
 
 const SUSTAINABILITY_TREE_ITEMS = [
   { value: "15", unit: "Pieces", label: "Art Frames" },
   { value: "60", unit: "Meters", label: "Baseboards" },
   { value: "100", unit: "Pieces", label: "Picture Frames" },
 ];
+
+type SustainabilityTreeItem = (typeof SUSTAINABILITY_TREE_ITEMS)[number];
+
+const SUSTAINABILITY_TREE_ITEMS_LOCALIZED: Record<Locale, SustainabilityTreeItem[]> = {
+  en: SUSTAINABILITY_TREE_ITEMS,
+  es: [
+    { value: "15", unit: "piezas", label: "Marcos de arte" },
+    { value: "60", unit: "metros", label: "Rodapiés" },
+    { value: "100", unit: "piezas", label: "Marcos de fotos" },
+  ],
+  pt: [
+    { value: "15", unit: "peças", label: "Molduras de arte" },
+    { value: "60", unit: "metros", label: "Rodapés" },
+    { value: "100", unit: "peças", label: "Porta-retratos" },
+  ],
+  fr: [
+    { value: "15", unit: "pièces", label: "Cadres d'art" },
+    { value: "60", unit: "mètres", label: "Plinthes" },
+    { value: "100", unit: "pièces", label: "Cadres photo" },
+  ],
+  de: [
+    { value: "15", unit: "Stück", label: "Kunstrahmen" },
+    { value: "60", unit: "Meter", label: "Sockelleisten" },
+    { value: "100", unit: "Stück", label: "Bilderrahmen" },
+  ],
+  ja: [
+    { value: "15", unit: "点", label: "アートフレーム" },
+    { value: "60", unit: "メートル", label: "幅木" },
+    { value: "100", unit: "点", label: "額縁" },
+  ],
+};
 
 const SUSTAINABILITY_ACTION_CARDS = [
   {
@@ -1389,6 +1395,100 @@ const SUSTAINABILITY_ACTION_CARDS = [
   },
 ];
 
+const SUSTAINABILITY_ACTION_CARD_COPY: Record<Locale, Array<Pick<(typeof SUSTAINABILITY_ACTION_CARDS)[number], "title" | "description">>> = {
+  en: SUSTAINABILITY_ACTION_CARDS.map(({ title, description }) => ({ title, description })),
+  es: [
+    {
+      title: "Innovación en modelos de economía circular",
+      description:
+        "INTCO considera el impacto ambiental durante todo el ciclo de vida del producto. Con tecnología avanzada de reciclaje y productos fabricados con plástico reciclado, impulsa el reciclaje de alto valor y conecta toda la cadena industrial para crear un modelo distintivo de economía circular integrada.",
+    },
+    {
+      title: "Iniciativas ambientales integrales",
+      description:
+        "Ante el desafío del cambio climático, reducimos nuestra huella de carbono, optimizamos el uso de recursos en todas las operaciones y convertimos residuos en recursos valiosos, manteniendo altos estándares ambientales en cada parte del negocio.",
+    },
+    {
+      title: "Un entorno laboral diverso e inclusivo",
+      description:
+        "Fomentamos una cultura de cuidado genuino hacia los empleados. Valoramos la diversidad de nacionalidades, etnias y trayectorias, y promovemos oportunidades inclusivas, incluidas posiciones adaptadas para empleados con discapacidad.",
+    },
+  ],
+  pt: [
+    {
+      title: "Inovação em modelos de economia circular",
+      description:
+        "A INTCO considera o impacto ambiental em todo o ciclo de vida do produto. Com tecnologia avançada de reciclagem e produtos de plástico reciclado, realiza reciclagem de alto valor e integra toda a cadeia industrial em um modelo próprio de economia circular.",
+    },
+    {
+      title: "Iniciativas ambientais abrangentes",
+      description:
+        "Diante das mudanças climáticas, reduzimos a pegada de carbono, usamos recursos com responsabilidade em todas as operações e transformamos resíduos em recursos valiosos, mantendo padrões ambientais rigorosos em todo o negócio.",
+    },
+    {
+      title: "Ambiente de trabalho diverso e inclusivo",
+      description:
+        "Promovemos uma cultura de cuidado genuíno com os colaboradores. Valorizamos nacionalidades, etnias e origens diversas e buscamos oportunidades inclusivas, incluindo posições adaptadas para colaboradores com deficiência.",
+    },
+  ],
+  fr: [
+    {
+      title: "Innovation dans les modèles d'économie circulaire",
+      description:
+        "INTCO prend en compte l'impact environnemental sur tout le cycle de vie des produits. Grâce à des technologies avancées de recyclage et aux plastiques recyclés, l'entreprise valorise les matériaux et relie toute la chaîne industrielle dans un modèle intégré d'économie circulaire.",
+    },
+    {
+      title: "Initiatives environnementales complètes",
+      description:
+        "Face au changement climatique, nous réduisons notre empreinte carbone, optimisons l'utilisation des ressources dans toutes nos opérations et transformons les déchets en ressources utiles, tout en respectant des standards environnementaux élevés.",
+    },
+    {
+      title: "Un environnement de travail diversifié et inclusif",
+      description:
+        "Nous développons une culture d'entreprise attentive aux collaborateurs. Nous valorisons la diversité des nationalités, origines et parcours, et favorisons des opportunités inclusives, y compris pour les personnes en situation de handicap.",
+    },
+  ],
+  de: [
+    {
+      title: "Innovation für Kreislaufwirtschaftsmodelle",
+      description:
+        "INTCO betrachtet die Umweltauswirkungen über den gesamten Produktlebenszyklus. Mit fortschrittlicher Recyclingtechnologie und Produkten aus recyceltem Kunststoff ermöglicht das Unternehmen hochwertige Wiederverwertung und verbindet die gesamte industrielle Kette zu einem integrierten Kreislaufwirtschaftsmodell.",
+    },
+    {
+      title: "Umfassende Umweltinitiativen",
+      description:
+        "Als Antwort auf den Klimawandel reduzieren wir unseren CO₂-Fußabdruck, setzen Ressourcen in allen Abläufen verantwortungsvoll ein und verwandeln Abfälle in wertvolle Ressourcen, während wir hohe Umweltstandards einhalten.",
+    },
+    {
+      title: "Ein vielfältiges und inklusives Arbeitsumfeld",
+      description:
+        "Wir fördern eine Unternehmenskultur, die echte Fürsorge für Mitarbeitende lebt. Unterschiedliche Nationalitäten, Ethnien und Hintergründe werden wertgeschätzt; zugleich schaffen wir inklusive Chancen, auch für Mitarbeitende mit Behinderung.",
+    },
+  ],
+  ja: [
+    {
+      title: "循環型経済モデルの革新",
+      description:
+        "INTCOは製品ライフサイクル全体の環境負荷を重視しています。高度なリサイクル技術と再生プラスチック製品により、プラスチックの高付加価値リサイクルを実現し、産業チェーン全体をつなぐ独自の循環型経済モデルを構築しています。",
+    },
+    {
+      title: "包括的な環境への取り組み",
+      description:
+        "気候変動への対応として、当社はカーボンフットプリントの削減、事業全体での資源の有効活用、廃棄物の資源化を推進し、あらゆる業務で高い環境基準を守っています。",
+    },
+    {
+      title: "多様でインクルーシブな職場環境",
+      description:
+        "当社は従業員を大切にする企業文化を育んでいます。国籍、民族、背景の違いを尊重し、障がいのある従業員向けの職務を含め、誰もが活躍できる機会づくりに取り組んでいます。",
+    },
+  ],
+};
+
+function localizedSustainabilityActionCards(locale: Locale) {
+  const copy = SUSTAINABILITY_ACTION_CARD_COPY[locale];
+  return SUSTAINABILITY_ACTION_CARDS.map((card, index) => ({ ...card, ...copy[index] }));
+}
+
 const PHILOSOPHY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy1.png";
 const PHILOSOPHY_CEO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy2.png";
 const PHILOSOPHY_QUOTE_TOP = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy11.png";
@@ -1398,8 +1498,14 @@ const PHILOSOPHY_CENTER_BG = "https://www.intcoframing-us.com/wp-content/themes/
 const PHILOSOPHY_TEAM_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy8.png";
 const PHILOSOPHY_CONTACT_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy9.png";
 
-const PHILOSOPHY_QUOTE =
-  "We have a dynamic and hardworking team making concerted efforts on adifficult but worthwhile cause. The recycling industry has a profound impact on the environment and society, leading to sustainable development.";
+const PHILOSOPHY_QUOTE: Record<Locale, string> = {
+  en: "We have a dynamic and hardworking team making concerted efforts on adifficult but worthwhile cause. The recycling industry has a profound impact on the environment and society, leading to sustainable development.",
+  es: "Contamos con un equipo dinámico y trabajador que une esfuerzos en una causa difícil, pero valiosa. La industria del reciclaje tiene un impacto profundo en el medio ambiente y la sociedad, e impulsa el desarrollo sostenible.",
+  pt: "Temos uma equipe dinâmica e dedicada que trabalha em conjunto por uma causa difícil, mas valiosa. A indústria da reciclagem tem impacto profundo no meio ambiente e na sociedade, impulsionando o desenvolvimento sustentável.",
+  fr: "Nous avons une équipe dynamique et engagée qui unit ses efforts autour d'une cause exigeante, mais essentielle. L'industrie du recyclage a un impact majeur sur l'environnement et la société, et favorise le développement durable.",
+  de: "Wir haben ein dynamisches und engagiertes Team, das gemeinsam an einer anspruchsvollen, aber wertvollen Aufgabe arbeitet. Die Recyclingbranche hat einen tiefgreifenden Einfluss auf Umwelt und Gesellschaft und fördert nachhaltige Entwicklung.",
+  ja: "私たちには、困難でありながら価値ある使命に一丸となって取り組む、活力ある勤勉なチームがあります。リサイクル産業は環境と社会に大きな影響を与え、持続可能な発展を支えています。",
+};
 
 const PHILOSOPHY_VALUES = [
   {
@@ -1434,6 +1540,57 @@ const PHILOSOPHY_VALUES = [
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p6.png",
   },
 ];
+
+type PhilosophyValue = (typeof PHILOSOPHY_VALUES)[number];
+
+const PHILOSOPHY_VALUE_COPY: Record<Locale, Array<Pick<PhilosophyValue, "title" | "body" | "details">>> = {
+  en: PHILOSOPHY_VALUES.map(({ title, body, details }) => ({ title, body, details })),
+  es: [
+    { title: "Misión", body: "Centrarnos en el reciclaje de recursos para el desarrollo sostenible de la Tierra" },
+    { title: "Visión", body: "Convertirnos en un líder global en fabricación de alta tecnología con recursos reciclados" },
+    { title: "Espíritu", body: "Honestidad e integridad, diligencia y esfuerzo, profesionalismo, trabajo en equipo, cliente primero" },
+    { title: "Valores", body: "Amor, bondad y verdad" },
+    { title: "Objetivo", body: "Servir las necesidades humanas con sabiduría humana" },
+    { title: "Mejora e innovación", body: "Cada sugerencia será valorada, cada mejora será reconocida", details: ["Nuestro deber con la empresa:", "Hacer crecer el negocio", "Nuestro deber con la sociedad:", "Actuar con ética"] },
+  ],
+  pt: [
+    { title: "Missão", body: "Focar na reciclagem de recursos para o desenvolvimento sustentável da Terra" },
+    { title: "Visão", body: "Tornar-se líder global em fabricação de alta tecnologia com recursos reciclados" },
+    { title: "Espírito", body: "Honestidade e integridade, diligência e trabalho árduo, profissionalismo, trabalho em equipe, cliente em primeiro lugar" },
+    { title: "Valores", body: "Amor, bondade e verdade" },
+    { title: "Objetivo", body: "Usar a sabedoria humana para atender às necessidades humanas" },
+    { title: "Melhoria e inovação", body: "Cada sugestão será valorizada, cada melhoria será reconhecida", details: ["Nosso dever com a empresa:", "Expandir o negócio", "Nosso dever com a sociedade:", "Praticar conduta ética"] },
+  ],
+  fr: [
+    { title: "Mission", body: "Se concentrer sur le recyclage des ressources pour le développement durable de la Terre" },
+    { title: "Vision", body: "Devenir un leader mondial de la fabrication high-tech à partir de ressources recyclées" },
+    { title: "Esprit", body: "Honnêteté et intégrité, diligence et effort, professionnalisme, travail d'équipe, client d'abord" },
+    { title: "Valeurs", body: "Amour, bonté et vérité" },
+    { title: "Objectif", body: "Mettre la sagesse humaine au service des besoins humains" },
+    { title: "Amélioration et innovation", body: "Chaque suggestion sera valorisée, chaque amélioration sera reconnue", details: ["Notre devoir envers l'entreprise :", "Développer l'activité", "Notre devoir envers la société :", "Agir avec éthique"] },
+  ],
+  de: [
+    { title: "Mission", body: "Fokus auf Ressourcenrecycling für die nachhaltige Entwicklung der Erde" },
+    { title: "Vision", body: "Ein globaler Marktführer in der Hightech-Fertigung mit recycelten Ressourcen werden" },
+    { title: "Geist", body: "Ehrlichkeit und Integrität, Fleiß und Einsatz, Professionalität, Teamarbeit, Kunde zuerst" },
+    { title: "Werte", body: "Liebe, Güte und Wahrheit" },
+    { title: "Ziel", body: "Mit menschlicher Weisheit menschlichen Bedürfnissen dienen" },
+    { title: "Verbesserung und Innovation", body: "Jeder Vorschlag wird geschätzt, jede Verbesserung wird anerkannt", details: ["Unsere Pflicht gegenüber dem Unternehmen:", "Unser Geschäft ausbauen", "Unsere Pflicht gegenüber der Gesellschaft:", "Ethisch handeln"] },
+  ],
+  ja: [
+    { title: "ミッション", body: "地球の持続可能な発展のため、資源リサイクルに注力する" },
+    { title: "ビジョン", body: "再生資源を活用するハイテク製造のグローバルリーダーになる" },
+    { title: "精神", body: "誠実と公正、勤勉と努力、プロフェッショナリズム、チームワーク、顧客第一" },
+    { title: "価値観", body: "愛、善、真実" },
+    { title: "目的", body: "人間の知恵で人々のニーズに応える" },
+    { title: "改善と革新", body: "すべての提案を大切にし、すべての改善を評価する", details: ["企業への責任：", "事業を成長させる", "社会への責任：", "倫理的に行動する"] },
+  ],
+};
+
+function localizedPhilosophyValues(locale: Locale): PhilosophyValue[] {
+  const copy = PHILOSOPHY_VALUE_COPY[locale];
+  return PHILOSOPHY_VALUES.map((value, index) => ({ ...value, ...copy[index] }));
+}
 
 const PHILOSOPHY_GALLERY_TOP = [
   { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy3.png", label: "WORLD CLASS CUSTOMER SERVICE" },
@@ -1841,13 +1998,13 @@ function HomeBottomContactBand({ locale }: { locale: Locale }) {
           {t(locale, "contactToday")}
         </p>
         <div className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": "180ms" } as React.CSSProperties}>
-          <Link
-            href={localizePath(locale, "/contact#chat")}
+          <LeadsCloudChatLink
+            fallbackHref={localizePath(locale, "/contact#chat")}
             className="mx-auto box-content flex h-[58px] w-[200px] items-center justify-center rounded-[33px] border-2 border-white bg-white p-0 text-lg font-medium leading-[54px] text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
           >
             <i className="intco-source-iconfont intco-source-icon-phone-loudspeaker mr-[9px]" aria-hidden="true" style={{ fontSize: 24 }} />
             {t(locale, "contactUs")}
-          </Link>
+          </LeadsCloudChatLink>
         </div>
       </div>
     </section>
@@ -1960,7 +2117,7 @@ function ProductHeroSourceFrame({ title, locale, variant, categoryPath }: { titl
       {!isProducts && locale === "en" ? <span className="sr-only">Category</span> : null}
       <div className="intco-source-hero-slide" data-source-hero-slide>
         <div className="intco-source-hero-bg" data-source-hero-bg>
-          <Image src={PRODUCTS_HERO_IMAGE} alt={isProducts ? title : "products"} fill priority className="object-cover" sizes="100vw" />
+          <Image src={PRODUCTS_HERO_IMAGE} alt={isProducts ? title : "products"} fill preload className="object-cover" sizes="100vw" />
         </div>
         <div className="intco-source-hero-content" data-source-hero-content>
           <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
@@ -1983,9 +2140,9 @@ function ProductHeroSourceFrame({ title, locale, variant, categoryPath }: { titl
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <a href="#goinput" data-source-hero-cta>
+              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
                 {t(locale, "chatWithUs")}
-              </a>
+              </LeadsCloudChatLink>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
                 {t(locale, "leaveMessage")}
               </a>
@@ -2100,15 +2257,14 @@ function ProductCatalogSection({ title, description, categories, locale }: { tit
         <div className="mt-8 flex flex-col gap-3 lg:mt-[55px] lg:flex-row lg:gap-[39px]">
           <div className="wow fadeInUp grid gap-3 sm:grid-cols-5 lg:flex lg:w-[370px] lg:flex-col" data-reveal="source-up">
             {localizedManuals.map((manual, index) => (
-              <Link
-                key={manual.title}
-                href={manual.pdfUrl}
-                target="_blank"
-                className={`flex h-14 items-center justify-center px-4 text-center text-base font-semibold transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[127px] lg:text-2xl ${index === 0 ? "bg-[#484653] text-white" : "bg-white text-[#3e3e3e]"}`}
-              >
-                {manual.title}
-              </Link>
-            ))}
+                <CatalogDownloadButton
+                  key={manual.title}
+                  pdfUrl={manual.pdfUrl}
+                  className={`flex h-14 items-center justify-center px-4 text-center text-base font-semibold transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[127px] lg:text-2xl ${index === 0 ? "bg-[#484653] text-white" : "bg-white text-[#3e3e3e]"}`}
+                >
+                  {manual.title}
+                </CatalogDownloadButton>
+              ))}
           </div>
           <div className="wow fadeInDown bg-white p-5 lg:min-h-[520px] lg:flex-1 lg:p-[70px]" data-reveal="source-down">
             <div className="grid gap-7 lg:grid-cols-[45%_1fr] lg:gap-[5%]">
@@ -2120,9 +2276,9 @@ function ProductCatalogSection({ title, description, categories, locale }: { tit
                   <h3 className="text-3xl font-semibold leading-[39px] text-[#3e3e3e] lg:text-[38px]">{localizedActiveManual.title}</h3>
                   <p className="mt-8 text-base leading-[30px] text-[#363636] lg:mt-10 lg:text-lg">{localizedActiveManual.description}</p>
                 </div>
-                <Link href={activeManual.pdfUrl} target="_blank" className="mt-10 inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:mt-[120px]">
+                <CatalogDownloadButton pdfUrl={activeManual.pdfUrl} className="mt-10 inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:mt-[120px]">
                   {t(locale, "exploreMore")} <Download className="ml-2" size={20} />
-                </Link>
+                </CatalogDownloadButton>
               </div>
             </div>
             <div className="sr-only">
@@ -2162,7 +2318,6 @@ function ProductTestReportSection({ title, description, locale }: { title: strin
 }
 
 function ProductContactSection({ locale }: { locale: Locale }) {
-  const fields = sourceFormFields(locale);
   return (
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="mx-auto max-w-[1600px]">
@@ -2170,51 +2325,11 @@ function ProductContactSection({ locale }: { locale: Locale }) {
         <p className="wow fadeInUp mx-auto mt-9 max-w-[1100px] text-center text-base leading-[30px] text-[#363636] lg:mt-[55px] lg:text-lg" data-reveal="source-up">
           {t(locale, "contactFormIntro")}
         </p>
-        <form className="mx-auto mt-12 grid max-w-[1446px] gap-x-[58px] gap-y-7 lg:mt-[55px] lg:grid-cols-2">
-          {fields.map((field) => (
-            <ProductContactField key={field.label} label={field.label} placeholder={field.placeholder} required={field.required} />
-          ))}
-          <ProductContactField label={t(locale, "message")} placeholder={t(locale, "message")} required multiline />
-          <div className="flex justify-center lg:col-span-2">
-            <button type="button" className="h-16 w-[240px] rounded-md border-2 border-[#484653] bg-transparent text-xl font-normal text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:h-20 lg:w-[300px] lg:text-2xl">
-              {t(locale, "submit")}
-            </button>
-          </div>
-        </form>
+        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1446px] lg:mt-[55px]">
+          <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
+        </div>
       </div>
     </section>
-  );
-}
-
-function ProductContactField({
-  label,
-  placeholder,
-  required,
-  multiline,
-}: {
-  label: string;
-  placeholder: string;
-  required: boolean;
-  multiline?: boolean;
-}) {
-  const id = `product-contact-${placeholder.toLowerCase().replace(/\s+/g, "-")}`;
-  const inputClass =
-    "w-full rounded-md border border-[#717171] bg-white px-5 text-2xl font-light text-[#727272] outline-none placeholder:text-[#727272] placeholder:opacity-100";
-
-  return (
-    <div className={multiline ? "lg:col-span-2" : ""}>
-      <label htmlFor={id} className="block text-sm leading-[18px] text-[#666]">
-        {label}
-      </label>
-      <div className="relative mt-[9px]">
-        {multiline ? (
-          <textarea id={id} readOnly placeholder={placeholder} className={`${inputClass} h-[272px] resize-none py-5`} />
-        ) : (
-          <input id={id} readOnly type="text" placeholder={placeholder} className={`${inputClass} h-20 leading-[80px]`} />
-        )}
-        {required ? <span className="absolute right-[-11px] top-1/2 -translate-y-1/2 text-sm leading-none text-red-600">*</span> : null}
-      </div>
-    </div>
   );
 }
 
@@ -2230,7 +2345,7 @@ function MirrorCategorySourceView({ locale, category, categories, products }: { 
         <div className="mx-auto max-w-[1160px]">
           <ProductSourceTitle title={t(locale, "collection")} />
           <h1 className="sr-only">{category?.title || "Mirror"}</h1>
-          <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/07/未标题-3.jpg" alt="" width={1} height={1} className="hidden" />
+      <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/07/%E6%9C%AA%E6%A0%87%E9%A2%98-3.jpg" alt="" width={1} height={1} className="hidden" />
           <p className="wow fadeInUp mx-auto mb-[86px] mt-[55px] max-w-[1120px] text-center text-lg leading-[30px] text-[#363636] max-lg:mb-10 max-lg:mt-8 max-lg:text-base" data-reveal="source-up">
             {localizedCategoryIntro(category, "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.", locale)}
           </p>
@@ -2375,7 +2490,6 @@ function PictureFrameSectionTitle({ title }: { title: string }) {
 }
 
 function PictureFrameContactSection({ locale }: { locale: Locale }) {
-  const fields = sourceFormFields(locale);
   return (
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center pb-0 pt-[50px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="intco-source-container px-5">
@@ -2383,51 +2497,11 @@ function PictureFrameContactSection({ locale }: { locale: Locale }) {
         <p className="wow fadeInUp mx-auto mb-[55px] mt-[55px] max-w-[1160px] text-center text-base leading-6 text-[#363636]" data-reveal="source-up">
           {t(locale, "contactFormIntro")}
         </p>
-        <form className="mx-auto grid max-w-[1160px] gap-y-5 pb-[77px] lg:grid-cols-2 lg:gap-x-[40px] lg:px-[77px]">
-          {fields.map((field) => (
-            <PictureFrameContactField key={field.label} label={field.label} placeholder={field.placeholder} required={field.required} />
-          ))}
-          <PictureFrameContactField label={t(locale, "message")} placeholder={t(locale, "message")} required multiline />
-          <div className="flex justify-center lg:col-span-2">
-            <button type="button" className="h-16 w-[240px] rounded-md border-2 border-[#484653] bg-transparent text-xl font-normal text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:h-20 lg:w-[300px] lg:text-2xl">
-              {t(locale, "submit")}
-            </button>
-          </div>
-        </form>
+        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto max-w-[1160px] pb-[77px] lg:px-[77px]">
+          <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
+        </div>
       </div>
     </section>
-  );
-}
-
-function PictureFrameContactField({
-  label,
-  placeholder,
-  required,
-  multiline,
-}: {
-  label: string;
-  placeholder: string;
-  required: boolean;
-  multiline?: boolean;
-}) {
-  const id = `picture-frame-contact-${placeholder.toLowerCase().replace(/\s+/g, "-")}`;
-  const inputClass =
-    "w-full rounded-md border border-[#717171] bg-white px-5 text-2xl font-light text-[#727272] outline-none placeholder:text-[#727272] placeholder:opacity-100";
-
-  return (
-    <div className={multiline ? "lg:col-span-2" : ""}>
-      <label htmlFor={id} className="block text-sm leading-[18px] text-[#666]">
-        {label}
-      </label>
-      <div className="relative mt-[18px]">
-        {multiline ? (
-          <textarea id={id} readOnly placeholder={placeholder} className={`${inputClass} h-[272px] resize-none py-5`} />
-        ) : (
-          <input id={id} readOnly type="text" placeholder={placeholder} className={`${inputClass} h-20 leading-[80px]`} />
-        )}
-        {required ? <span className="absolute right-[-11px] top-1/2 -translate-y-1/2 text-sm leading-none text-red-600">*</span> : null}
-      </div>
-    </div>
   );
 }
 
@@ -2905,7 +2979,7 @@ function SolutionsSourceHero({
 
   return (
     <section className="relative aspect-[1920/600] min-h-[260px] overflow-hidden">
-      <Image src={imageUrl} alt={imageAlt} fill className="object-cover" sizes="100vw" priority unoptimized />
+      <Image src={imageUrl} alt={imageAlt} fill className="object-cover" sizes="100vw" preload unoptimized />
       <div className={`absolute inset-0 ${isDark ? "bg-black/[0.22]" : "bg-white/30"}`} />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
         <div className={`intco-source-container px-5 text-center max-lg:text-left ${isDark ? "text-white" : "text-[#484653]"}`}>
@@ -2916,12 +2990,12 @@ function SolutionsSourceHero({
             <span>{title}</span>
           </div>
           <div className="mt-4 flex flex-wrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <Link
-              href={localizePath(locale, "/contact")}
+            <LeadsCloudChatLink
+              fallbackHref={localizePath(locale, "/contact#chat")}
               className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
               {t(locale, "chatWithUs")}
-            </Link>
+            </LeadsCloudChatLink>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
@@ -3048,45 +3122,46 @@ function SolutionsContactBand({ locale }: { locale: Locale }) {
       <div className="intco-source-container rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:py-[8vh]" data-reveal="fade">
         <h2 className="text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">{t(locale, "perfectSolution")}</h2>
         <p className="my-8 text-2xl font-normal">{t(locale, "contactToday")}</p>
-        <Link
-          href={localizePath(locale, "/contact")}
+        <LeadsCloudChatLink
+          fallbackHref={localizePath(locale, "/contact#chat")}
           className="mx-auto inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
         >
           <Phone className="mr-[9px]" size={22} />
           {t(locale, "contactUs")}
-        </Link>
+        </LeadsCloudChatLink>
       </div>
     </section>
   );
 }
 
 function BusinessInsightsHero({ locale }: { locale: Locale }) {
+  const title = pick(BUSINESS_INSIGHTS_PAGE.heroTitle, locale);
   return (
     <section className="relative aspect-[1920/600] min-h-[260px] overflow-hidden">
-      <Image src={BUSINESS_INSIGHTS_HERO_IMAGE} alt="BusinessInsights1" fill className="object-cover" sizes="100vw" priority />
+      <Image src={BUSINESS_INSIGHTS_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" preload />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
         <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
-          <h1 className="text-[42px] font-bold leading-[80px] text-[#333333] max-lg:text-[38px] max-lg:leading-tight">Business Insights & Trends</h1>
+          <h1 className="text-[42px] font-bold leading-[80px] text-[#333333] max-lg:text-[38px] max-lg:leading-tight">{title}</h1>
           <nav className="flex items-center justify-center gap-3 py-3 text-lg font-medium leading-10 max-lg:justify-start max-lg:text-base lg:text-xl" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>Home</Link>
+            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
             <span>›</span>
-            <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+            <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
             <span>›</span>
-            <span>Business Insights & Trends</span>
+            <span>{title}</span>
           </nav>
           <div className="flex flex-wrap justify-center max-lg:justify-start">
-            <Link
-              href={localizePath(locale, "/contact")}
+            <LeadsCloudChatLink
+              fallbackHref={localizePath(locale, "/contact#chat")}
               className="m-[15px] box-content inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold leading-[48px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
-              Chat With Us
-            </Link>
+              {t(locale, "chatWithUs")}
+            </LeadsCloudChatLink>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="m-[15px] box-content inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold leading-[48px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
-              Leave a Message
+              {t(locale, "leaveMessage")}
             </Link>
           </div>
         </div>
@@ -3150,7 +3225,7 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
 
         <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-0 pt-[29px] sm:px-6">
         <div className="mx-auto max-w-[1160px]">
-          <BusinessInsightsTitle title="BUSINESS INSIGHTS & TRENDS" />
+          <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.main, locale)} />
           <div className="mt-[58px] grid bg-white lg:grid-cols-[61.25%_1fr]" data-reveal="fade">
             <div className="relative aspect-[710/478] overflow-hidden">
               <Image src={BUSINESS_INSIGHTS_MARKET_IMAGE} alt="BusinessInsights2" fill className="object-cover" sizes="(min-width: 1024px) 61vw, 100vw" />
@@ -3159,8 +3234,8 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
               <div className="relative mx-auto size-[170px] overflow-hidden rounded-full max-lg:size-[120px]">
                 <Image src={BUSINESS_INSIGHTS_MARKET_ICON} alt="" fill className="object-cover" sizes="170px" />
               </div>
-              <h2 className="mx-auto mb-[42px] mt-[65px] text-2xl font-semibold leading-9 text-[#3e3e3e] max-lg:my-6">Market Survey</h2>
-              <p className="text-left text-base font-normal leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{BUSINESS_INSIGHTS_COPY.market}</p>
+              <h2 className="mx-auto mb-[42px] mt-[65px] text-2xl font-semibold leading-9 text-[#3e3e3e] max-lg:my-6">{pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.market, locale)}</h2>
+              <p className="text-left text-base font-normal leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{pick(BUSINESS_INSIGHTS_PAGE.copy.market, locale)}</p>
             </div>
           </div>
         </div>
@@ -3170,10 +3245,10 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-[1160px]">
           <div className="grid items-start gap-[100px] lg:grid-cols-[480px_580px]">
             <div className="flex flex-col items-start" data-reveal="fade">
-              <BusinessInsightsTitle title="TREND INSIGHTS" align="left" />
-              <p className="mb-[77px] mt-[58px] max-w-[551px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-8">{BUSINESS_INSIGHTS_COPY.trend}</p>
+              <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.trend, locale)} align="left" />
+              <p className="mb-[77px] mt-[58px] max-w-[551px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-8">{pick(BUSINESS_INSIGHTS_PAGE.copy.trend, locale)}</p>
               <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends")} width={306}>
-                Explore More
+                {t(locale, "exploreMore")}
               </BusinessInsightsOutlineLink>
             </div>
             <div className="relative overflow-hidden bg-white" data-reveal="fade">
@@ -3196,26 +3271,29 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
 
       <section className="overflow-hidden bg-white px-4 pb-0 pt-10 sm:px-6">
         <div className="mx-auto max-w-[1160px]">
-          <BusinessInsightsTitle title="INDUSTRY REPORT" align="left" />
-          <p className="mb-[34px] mt-[58px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{BUSINESS_INSIGHTS_COPY.trend}</p>
+          <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.industryReport, locale)} align="left" />
+          <p className="mb-[34px] mt-[58px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{pick(BUSINESS_INSIGHTS_PAGE.copy.trend, locale)}</p>
           <ul className="-mx-[41px] grid md:grid-cols-3">
-            {BUSINESS_INSIGHTS_REPORTS.map((report, index) => (
-              <li key={report.title} className="box-border px-[41px] pb-0 max-md:mb-10" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                <article>
-                  <Link href={localizePath(locale, report.path)} className="group block">
-                    <div className="relative aspect-[332/257] overflow-hidden bg-neutral-100">
-                      <Image src={report.imageUrl} alt={report.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 332px, 100vw" />
+            {BUSINESS_INSIGHTS_PAGE.reports.map((report, index) => {
+              const reportTitle = pick(report.title, locale);
+              return (
+                <li key={reportTitle} className="box-border px-[41px] pb-0 max-md:mb-10" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <article>
+                    <Link href={localizePath(locale, report.path)} className="group block">
+                      <div className="relative aspect-[332/257] overflow-hidden bg-neutral-100">
+                        <Image src={report.imageUrl} alt={reportTitle} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 332px, 100vw" />
+                      </div>
+                      <h3 className="mt-[29px] line-clamp-2 h-[3em] text-[26px] font-semibold leading-[1.5] text-[#484653] max-lg:text-xl">{reportTitle}</h3>
+                    </Link>
+                    <div className="mt-[14px] text-base font-light leading-[39px] text-[#999]">{report.date}</div>
+                    <p className="text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{pick(report.excerpt, locale)}</p>
+                    <div className="mb-[45px] mt-[39px] max-lg:mb-10">
+                      <BusinessInsightsOutlineLink href={localizePath(locale, report.path)}>{t(locale, "readMore")}</BusinessInsightsOutlineLink>
                     </div>
-                    <h3 className="mt-[29px] line-clamp-2 h-[3em] text-[26px] font-semibold leading-[1.5] text-[#484653] max-lg:text-xl">{report.title}</h3>
-                  </Link>
-                  <div className="mt-[14px] text-base font-light leading-[39px] text-[#999]">{report.date}</div>
-                  <p className="text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{report.excerpt}</p>
-                  <div className="mb-[45px] mt-[39px] max-lg:mb-10">
-                    <BusinessInsightsOutlineLink href={localizePath(locale, report.path)}>Read More</BusinessInsightsOutlineLink>
-                  </div>
-                </article>
-              </li>
-            ))}
+                  </article>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </section>
@@ -3227,10 +3305,10 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
               <Image src={BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE} alt="BusinessInsights9" fill className="object-cover" sizes="(min-width: 1024px) 564px, 100vw" />
             </div>
             <div data-reveal="fade">
-              <BusinessInsightsTitle title="BESTSELLERS RECOMMENDATIONS" align="left" narrow />
-              <p className="mt-[58px] max-w-[599px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mt-8">{BUSINESS_INSIGHTS_COPY.recommendation}</p>
+              <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.bestsellers, locale)} align="left" narrow />
+              <p className="mt-[58px] max-w-[599px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mt-8">{pick(BUSINESS_INSIGHTS_PAGE.copy.recommendation, locale)}</p>
               <div className="mt-[90px] max-lg:mt-8">
-                <BusinessInsightsOutlineLink href={localizePath(locale, "/products")}>Explore More</BusinessInsightsOutlineLink>
+                <BusinessInsightsOutlineLink href={localizePath(locale, "/products")}>{t(locale, "exploreMore")}</BusinessInsightsOutlineLink>
               </div>
             </div>
           </div>
@@ -3239,8 +3317,8 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
 
       <section className="overflow-hidden bg-[#f8f8f8] px-4 pb-10 pt-10 sm:px-6 max-lg:pb-10">
         <div className="mx-auto max-w-[1160px]">
-          <BusinessInsightsTitle title="OUR MANUFACTURING" />
-          <p className="mx-auto mb-[58px] mt-[55px] max-w-[1320px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{BUSINESS_INSIGHTS_COPY.manufacturingIntro}</p>
+          <BusinessInsightsTitle title={t(locale, "ourManufacturing")} />
+          <p className="mx-auto mb-[58px] mt-[55px] max-w-[1320px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{t(locale, "sourceManufacturingIntro")}</p>
           <div className="mb-[55px] flex overflow-hidden rounded-md bg-white shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:flex-col" data-reveal="fade">
             <div className="w-[58%] overflow-hidden rounded-md max-lg:w-full">
               <div className="aspect-video w-full overflow-hidden bg-black">
@@ -3256,9 +3334,9 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
               </div>
             </div>
             <div className="flex w-[42%] flex-col justify-center px-[5%] py-10 text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:w-full">
-              <p>{BUSINESS_INSIGHTS_COPY.manufacturing}</p>
+              <p>{t(locale, "sourceManufacturingDescription")}</p>
               <div className="mt-[6vh] text-right max-lg:mt-8 max-lg:text-left">
-                <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/manufacturing-delivery")}>Explore More</BusinessInsightsOutlineLink>
+                <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/manufacturing-delivery")}>{t(locale, "exploreMore")}</BusinessInsightsOutlineLink>
               </div>
             </div>
           </div>
@@ -3278,115 +3356,62 @@ function DesignEngineeringSourceView({ locale }: { locale: Locale }) {
       <section className="bg-white pb-10 pt-10">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <div className="mb-[55px]">
-            <ProjectsSourceTitle title="OUR EXPERTISE GOES BEYOND FRAMING!" backdrop="OUR EXPERTISE GOES BEYOND FRAMING!" />
+            <ProjectsSourceTitle title={pick(SECTION_TITLES.ourExpertise, locale)} backdrop={pick(SECTION_TITLES.ourExpertise, locale)} />
           </div>
           <p className="intco-design-desc mb-[58px]" data-reveal="up">
-            Collaborate with our skilled design and engineering teams for innovative product design, professional packaging design, cost engineering, captivating display design, extensive product research, and customizable solutions tailored to meet your unique needs. We prioritize innovation and aesthetic appeal, ensuring your products stand out in the competitive market.
+            {pick(DESIGN_ENGINEERING_PAGE.copy.intro, locale)}
           </p>
           <div className="intco-design-main-image" data-reveal="up">
             <Image src={DESIGN_ENGINEERING_MAIN_IMAGE} alt="shutterstock4" fill className="object-cover" sizes="(min-width: 1601px) 1600px, 100vw" />
           </div>
-          <div className="intco-design-child-title">PRODUCT DESIGN</div>
+          <div className="intco-design-child-title">{pick(DESIGN_ENGINEERING_PAGE.sectionTitles.productDesign, locale)}</div>
           <p className="intco-design-desc mt-10" data-reveal="up">
-            We excel in product design, specializing in moulding with a focus on profiles, foils, and embossing. Annually, we launch over 5,000 unique designs, supported by a collection of 6000+ profiles.
+            {pick(DESIGN_ENGINEERING_PAGE.copy.productDesignDescription, locale)}
           </p>
           <ul className="intco-design-product-list">
-            {DESIGN_ENGINEERING_PRODUCT_ROWS.map((item, index) => (
-              <li key={item.title} data-reveal="up">
-                <DesignEngineeringProductRow item={item} reverse={Boolean(item.reverse)} index={index} />
+            {DESIGN_ENGINEERING_PAGE.productRows.map((item, index) => (
+              <li key={item.imageAlt} data-reveal="up">
+                <DesignEngineeringProductRow item={item} reverse={Boolean(item.reverse)} index={index} locale={locale} />
               </li>
             ))}
           </ul>
           <div className="intco-design-feature-grid">
-            {DESIGN_ENGINEERING_FEATURES.map((item, index) => (
-              <DesignEngineeringFeatureCard key={item.title} item={item} index={index} />
+            {DESIGN_ENGINEERING_PAGE.features.map((item, index) => (
+              <DesignEngineeringFeatureCard key={item.imageAlt} item={item} index={index} locale={locale} />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white pb-10 pt-10">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
-          </p>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-secondary">
-            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
-              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white pb-[95px] pt-10">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
-          </p>
-          <div className="intco-design-manufacturing" data-reveal="fade">
-            <div className="intco-design-video">
-              <iframe
-                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-            <div className="intco-design-manufacturing-copy">
-              <p>
-                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
-              </p>
-              <div className="intco-design-explore-wrap">
-                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
-                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <LatestCollectionBlock locale={locale} />
+      <OurManufacturingBlock locale={locale} variant="design" />
       <ProjectsSourceContactBand locale={locale} />
     </div>
   );
 }
 
 function DesignEngineeringHero({ locale }: { locale: Locale }) {
+  const title = pick(DESIGN_ENGINEERING_PAGE.heroTitle, locale);
   return (
     <section className="intco-design-hero">
-      <Image src={DESIGN_ENGINEERING_HERO_IMAGE} alt="shutterstock3" fill className="object-cover" sizes="100vw" priority unoptimized />
+      <Image src={DESIGN_ENGINEERING_HERO_IMAGE} alt="shutterstock3" fill className="object-cover" sizes="100vw" preload unoptimized />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
         <div className="intco-source-container intco-design-hero-inner px-5 text-center text-[#484653] max-lg:text-left">
-          <h1 className="intco-design-hero-title">Design &amp; Engineering</h1>
+          <h1 className="intco-design-hero-title">{title}</h1>
           <nav className="flex flex-wrap items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:justify-start max-lg:py-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>Home</Link>
+            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
-            <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+            <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
-            <span>Design &amp; Engineering</span>
+            <span>{title}</span>
           </nav>
           <div className="mt-[17px] flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <Link href={localizePath(locale, "/contact")} className="intco-design-hero-button">
-              Chat With Us
-            </Link>
+            <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} className="intco-design-hero-button">
+              {t(locale, "chatWithUs")}
+            </LeadsCloudChatLink>
             <Link href={localizePath(locale, "/products/#goinput")} className="intco-design-hero-button">
-              Leave a Message
+              {t(locale, "leaveMessage")}
             </Link>
           </div>
         </div>
@@ -3399,23 +3424,25 @@ function DesignEngineeringProductRow({
   item,
   reverse,
   index,
+  locale,
 }: {
-  item: (typeof DESIGN_ENGINEERING_PRODUCT_ROWS)[number];
+  item: (typeof DESIGN_ENGINEERING_PAGE.productRows)[number];
   reverse: boolean;
   index: number;
+  locale: Locale;
 }) {
   const copy = (
     <div className="intco-design-row-copy" data-reveal={reverse ? "down" : "up"} style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
       <h3>
-        {item.title}
+        {pick(item.title, locale)}
         <span />
       </h3>
-      <p>{item.body}</p>
+      <p>{pick(item.body, locale)}</p>
     </div>
   );
   const image = (
     <div className="intco-design-row-image" data-reveal={reverse ? "up" : "down"} style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-      <Image src={item.imageUrl} alt={item.imageAlt} fill className="object-cover transition duration-700 hover:scale-105" sizes="(min-width: 1601px) 660px, 100vw" />
+      <Image src={item.imageUrl} alt={pick(item.title, locale)} fill className="object-cover transition duration-700 hover:scale-105" sizes="(min-width: 1601px) 660px, 100vw" />
     </div>
   );
 
@@ -3436,11 +3463,19 @@ function DesignEngineeringProductRow({
   );
 }
 
-function DesignEngineeringFeatureCard({ item, index }: { item: (typeof DESIGN_ENGINEERING_FEATURES)[number]; index: number }) {
+function DesignEngineeringFeatureCard({
+  item,
+  index,
+  locale,
+}: {
+  item: (typeof DESIGN_ENGINEERING_PAGE.features)[number];
+  index: number;
+  locale: Locale;
+}) {
   return (
     <div className="intco-design-feature-card" data-reveal="up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-      <Image src={item.imageUrl} alt={item.imageAlt} fill className="object-cover transition duration-700 hover:scale-110" sizes="(min-width: 1601px) 346px, 50vw" />
-      <div>{item.title}</div>
+      <Image src={item.imageUrl} alt={pick(item.title, locale)} fill className="object-cover transition duration-700 hover:scale-110" sizes="(min-width: 1601px) 346px, 50vw" />
+      <div>{pick(item.title, locale)}</div>
     </div>
   );
 }
@@ -3452,7 +3487,7 @@ function DesignEngineeringLatestCard({
   index,
   reveal = "up",
 }: {
-  item: (typeof DESIGN_ENGINEERING_LATEST_PRIMARY)[number];
+  item: (typeof LATEST_PRIMARY_CARDS)[number];
   locale: Locale;
   variant: "primary" | "secondary";
   index: number;
@@ -3462,7 +3497,7 @@ function DesignEngineeringLatestCard({
     <Link href={localizePath(locale, item.path)} className={`intco-design-latest-card ${variant === "primary" ? "intco-design-latest-card-primary" : "intco-design-latest-card-secondary"}`} data-reveal={reveal} style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
       <Image src={item.imageUrl} alt="" fill className="object-cover transition duration-500 hover:scale-105" sizes={variant === "primary" ? "(min-width: 1601px) 780px, 100vw" : "(min-width: 1601px) 510px, 100vw"} />
       <span>
-        <strong>{item.title}</strong>
+        <strong>{pick(item.title, locale)}</strong>
       </span>
     </Link>
   );
@@ -3473,7 +3508,7 @@ function DesignEngineeringProjectCard({
   locale,
   index,
 }: {
-  item: (typeof DESIGN_ENGINEERING_PROJECT_CARDS)[number];
+  item: (typeof PROJECT_CARDS)[number];
   locale: Locale;
   index: number;
 }) {
@@ -3481,11 +3516,76 @@ function DesignEngineeringProjectCard({
     <Link href={localizePath(locale, item.path)} className="intco-design-project-card" data-reveal="fade" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
       <Image src={item.imageUrl} alt="" fill className="object-cover transition duration-500 hover:scale-105" sizes="(min-width: 1601px) 780px, 100vw" />
       <span>
-        <em>{item.eyebrow}</em>
-        <strong>{item.title}</strong>
+        <em>{pick(item.eyebrow, locale)}</em>
+        <strong>{pick(item.title, locale)}</strong>
         <i />
       </span>
     </Link>
+  );
+}
+
+// Shared "Latest Collection" block, used by 4 source views (Design / Manufacturing / Retailer / Certification / Global)
+function LatestCollectionBlock({ locale }: { locale: Locale }) {
+  return (
+    <section className="bg-white pb-10 pt-10 lg:py-[40px]">
+      <div className="intco-source-container px-5 min-[1601px]:px-0">
+        <div className="mb-[55px]">
+          <ProjectsSourceTitle title={t(locale, "latestCollection")} backdrop={t(locale, "latestCollection")} />
+        </div>
+        <p className="intco-design-desc mb-[58px]">
+          {t(locale, "productLandingIntroTitle")} {t(locale, "productLandingIntroDescription")}
+        </p>
+        <div className="intco-design-latest-grid intco-design-latest-primary">
+          {LATEST_PRIMARY_CARDS.map((item, index) => (
+            <DesignEngineeringLatestCard key={item.path} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
+          ))}
+        </div>
+        <div className="intco-design-latest-grid intco-design-latest-secondary">
+          {LATEST_SECONDARY_CARDS.map((item, index) => (
+            <DesignEngineeringLatestCard key={item.path} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
+          ))}
+        </div>
+        <div className="intco-design-latest-grid intco-design-latest-primary">
+          {PROJECT_CARDS.map((item, index) => (
+            <DesignEngineeringProjectCard key={item.path} item={item} locale={locale} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Shared "Our Manufacturing" block with embedded YouTube + Explore More
+function OurManufacturingBlock({ locale, variant = "default" }: { locale: Locale; variant?: "default" | "design" }) {
+  return (
+    <section className={`bg-white py-10 ${variant === "design" ? "pb-[95px]" : "lg:pb-[96px] lg:pt-[40px]"}`}>
+      <div className="intco-source-container px-5 min-[1601px]:px-0">
+        <div className="mb-[55px]">
+          <ProjectsSourceTitle title={t(locale, "ourManufacturing")} backdrop={t(locale, "ourManufacturing")} />
+        </div>
+        <p className="intco-design-desc mb-[58px]">
+          {t(locale, "sourceManufacturingIntro")}
+        </p>
+        <div className="intco-design-manufacturing" data-reveal="fade">
+          <div className="intco-design-video">
+            <iframe
+              src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+          <div className="intco-design-manufacturing-copy">
+            <p>{t(locale, "sourceManufacturingDescription")}</p>
+            <div className="intco-design-explore-wrap">
+              <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
+                {t(locale, "exploreMore")} <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -3496,14 +3596,14 @@ function ManufacturingDeliverySourceView({ locale }: { locale: Locale }) {
 
       <section className="intco-md-section intco-md-section-production">
         <div className="intco-source-container">
-          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[0]} variant="production" index={0} />
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_PAGE.rows[0]} variant="production" index={0} locale={locale} />
         </div>
         <div className="intco-md-bottom-bg" aria-hidden="true" />
       </section>
 
       <section className="intco-md-section intco-md-section-digital">
         <div className="intco-source-container">
-          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[1]} variant="digital" index={1} />
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_PAGE.rows[1]} variant="digital" index={1} locale={locale} />
         </div>
         <div className="intco-md-image-bg" aria-hidden="true" />
         <div className="intco-md-left-bg" aria-hidden="true" />
@@ -3512,19 +3612,19 @@ function ManufacturingDeliverySourceView({ locale }: { locale: Locale }) {
 
       <section className="intco-md-section intco-md-section-automation">
         <div className="intco-source-container">
-          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[2]} variant="automation" index={2} />
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_PAGE.rows[2]} variant="automation" index={2} locale={locale} />
         </div>
       </section>
 
       <section className="intco-md-section intco-md-section-flexible">
         <div className="intco-source-container">
-          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[3]} variant="flexible" index={3} />
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_PAGE.rows[3]} variant="flexible" index={3} locale={locale} />
         </div>
       </section>
 
       <section className="intco-md-section intco-md-section-quality">
         <div className="intco-source-container">
-          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_ROWS[4]} variant="quality" index={4} />
+          <ManufacturingDeliveryRow item={MANUFACTURING_DELIVERY_PAGE.rows[4]} variant="quality" index={4} locale={locale} />
         </div>
       </section>
 
@@ -3541,8 +3641,8 @@ function ManufacturingDeliverySourceView({ locale }: { locale: Locale }) {
           </div>
           <div className="intco-md-packaging-row">
             <div className="intco-md-packaging-copy">
-              <ManufacturingDeliveryTitle title="PACKAGING" compact />
-              <div>{MANUFACTURING_PACKAGING_COPY}</div>
+              <ManufacturingDeliveryTitle title={pick(MANUFACTURING_DELIVERY_PAGE.sectionTitles.packaging, locale)} compact />
+              <div>{pick(MANUFACTURING_DELIVERY_PAGE.packagingCopy, locale)}</div>
             </div>
             <div className="intco-md-packaging-spacer" aria-hidden="true" />
           </div>
@@ -3557,95 +3657,41 @@ function ManufacturingDeliverySourceView({ locale }: { locale: Locale }) {
 
       <section className="intco-md-delivery-section">
         <div className="intco-source-container">
-          <ProjectsSourceTitle title="DELIVERY" backdrop="DELIVERY" />
-          <p className="intco-md-delivery-copy">{MANUFACTURING_DELIVERY_COPY}</p>
+          <ProjectsSourceTitle title={pick(MANUFACTURING_DELIVERY_PAGE.sectionTitles.delivery, locale)} backdrop={pick(MANUFACTURING_DELIVERY_PAGE.sectionTitles.delivery, locale)} />
+          <p className="intco-md-delivery-copy">{pick(MANUFACTURING_DELIVERY_PAGE.deliveryCopy, locale)}</p>
           <div className="intco-md-delivery-border" aria-hidden="true" />
         </div>
       </section>
 
-      <section className="bg-white py-10 lg:py-[40px]">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
-          </p>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-secondary">
-            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
-              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
-          </p>
-          <div className="intco-design-manufacturing" data-reveal="fade">
-            <div className="intco-design-video">
-              <iframe
-                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-            <div className="intco-design-manufacturing-copy">
-              <p>
-                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
-              </p>
-              <div className="intco-design-explore-wrap">
-                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
-                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <LatestCollectionBlock locale={locale} />
+      <OurManufacturingBlock locale={locale} />
       <ProjectsSourceContactBand locale={locale} />
     </div>
   );
 }
 
 function ManufacturingDeliveryHero({ locale }: { locale: Locale }) {
+  const title = pick(MANUFACTURING_DELIVERY_PAGE.heroTitle, locale);
   return (
     <section className="intco-design-hero">
-      <Image src={MANUFACTURING_DELIVERY_HERO_IMAGE} alt="ManufacturingBg" fill className="object-cover" sizes="100vw" priority unoptimized />
+      <Image src={MANUFACTURING_DELIVERY_HERO_IMAGE} alt="ManufacturingBg" fill className="object-cover" sizes="100vw" preload unoptimized />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
         <div className="intco-source-container intco-design-hero-inner px-5 text-center text-[#484653] max-lg:text-left">
-          <h1 className="intco-design-hero-title">Manufacturing &amp; Delivery</h1>
+          <h1 className="intco-design-hero-title">{title}</h1>
           <nav className="flex flex-wrap items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:justify-start max-lg:py-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>Home</Link>
+            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
-            <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+            <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
             <ArrowRight size={18} strokeWidth={1.8} />
-            <span>Manufacturing &amp; Delivery</span>
+            <span>{title}</span>
           </nav>
           <div className="mt-[17px] flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <Link href={localizePath(locale, "/contact")} className="intco-design-hero-button">
-              Chat With Us
-            </Link>
+            <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} className="intco-design-hero-button">
+              {t(locale, "chatWithUs")}
+            </LeadsCloudChatLink>
             <Link href={localizePath(locale, "/products/#goinput")} className="intco-design-hero-button">
-              Leave a Message
+              {t(locale, "leaveMessage")}
             </Link>
           </div>
         </div>
@@ -3658,15 +3704,17 @@ function ManufacturingDeliveryRow({
   item,
   variant,
   index,
+  locale,
 }: {
-  item: (typeof MANUFACTURING_DELIVERY_ROWS)[number];
+  item: (typeof MANUFACTURING_DELIVERY_PAGE.rows)[number];
   variant: "production" | "digital" | "automation" | "flexible" | "quality";
   index: number;
+  locale: Locale;
 }) {
   const copy = (
     <div className="intco-md-row-copy" data-reveal={variant === "digital" || variant === "flexible" ? "up" : "down"} style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
-      <ManufacturingDeliveryTitle title={item.title} />
-      <div className="intco-md-row-text">{item.body}</div>
+      <ManufacturingDeliveryTitle title={pick(item.title, locale)} />
+      <div className="intco-md-row-text">{pick(item.body, locale)}</div>
     </div>
   );
   const image = (
@@ -3712,15 +3760,15 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
       <section className="intco-retailer-customer-section">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <div className="intco-retailer-title-wrap">
-            <ProjectsSourceTitle title="Customer Service" backdrop="Customer Service" />
+            <ProjectsSourceTitle title={pick(RETAILER_SUPPORT_PAGE.sectionTitles.customerService, locale)} backdrop={pick(RETAILER_SUPPORT_PAGE.sectionTitles.customerService, locale)} />
           </div>
           <p className="intco-retailer-desc intco-retailer-desc-center" data-reveal="fade">
-            {RETAILER_SUPPORT_CUSTOMER_COPY}
+            {pick(RETAILER_SUPPORT_PAGE.customerCopy, locale)}
           </p>
           <div className="intco-retailer-turn-row">
             <div className="intco-retailer-turn-copy" data-reveal="up">
-              <h2>Turn Key Solutions</h2>
-              <p>{RETAILER_SUPPORT_TURN_COPY}</p>
+              <h2>{pick(RETAILER_SUPPORT_PAGE.sectionTitles.turnKey, locale)}</h2>
+              <p>{pick(RETAILER_SUPPORT_PAGE.turnCopy, locale)}</p>
             </div>
             <div className="intco-retailer-turn-image-wrap" data-reveal="down">
               <div className="intco-retailer-turn-image">
@@ -3751,8 +3799,8 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
             </div>
           </div>
           <div className="intco-retailer-global-copy" data-reveal="down">
-            <h2>Global Production and Supply</h2>
-            <p>{RETAILER_SUPPORT_GLOBAL_COPY}</p>
+            <h2>{pick(RETAILER_SUPPORT_PAGE.sectionTitles.globalSupply, locale)}</h2>
+            <p>{pick(RETAILER_SUPPORT_PAGE.globalCopy, locale)}</p>
           </div>
           <div className="intco-retailer-global-decor" aria-hidden="true">
             <Image src={RETAILER_SUPPORT_GLOBAL_DECOR} alt="" fill className="object-contain" sizes="(min-width: 1024px) 861px, 100vw" />
@@ -3765,8 +3813,8 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
           <ul className="intco-retailer-card-list">
             <li>
               <RetailerSupportOverlayCard
-                title="International Distribution"
-                body={RETAILER_SUPPORT_DISTRIBUTION_COPY}
+                title={pick(RETAILER_SUPPORT_PAGE.sectionTitles.distribution, locale)}
+                body={pick(RETAILER_SUPPORT_PAGE.distributionCopy, locale)}
                 imageUrl={RETAILER_SUPPORT_DISTRIBUTION_IMAGE}
                 imageAlt="RetailerSuppor5"
                 imageFirst
@@ -3774,14 +3822,14 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
             </li>
             <li>
               <RetailerSupportOverlayCard
-                title="Marketing Support"
+                title={pick(RETAILER_SUPPORT_PAGE.sectionTitles.marketing, locale)}
                 body={
                   <>
-                    {RETAILER_SUPPORT_MARKETING_COPY_BEFORE}{" "}
+                    {pick(RETAILER_SUPPORT_PAGE.marketingCopyBefore, locale)}{" "}
                     <a href="https://www.intco-framing.com/framing-studio/" target="_blank" rel="noopener noreferrer">
-                      online framing tool
+                      {pick(RETAILER_SUPPORT_PAGE.marketingLinkLabel, locale)}
                     </a>{" "}
-                    {RETAILER_SUPPORT_MARKETING_COPY_AFTER}
+                    {pick(RETAILER_SUPPORT_PAGE.marketingCopyAfter, locale)}
                   </>
                 }
                 imageUrl={RETAILER_SUPPORT_MARKETING_IMAGE}
@@ -3797,38 +3845,38 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
                   </div>
                 </div>
                 <div className="intco-retailer-service-copy" data-reveal="down">
-                  <p>{RETAILER_SUPPORT_SERVICE_COPY}</p>
+                  <p>{pick(RETAILER_SUPPORT_PAGE.serviceCopy, locale)}</p>
                   <ul className="intco-retailer-contact-list">
                     <li data-reveal="up">
                       <span className="intco-retailer-contact-icon">
                         <Phone size={36} strokeWidth={1.8} />
                       </span>
                       <p>
-                        Telephone +86
+                        {t(locale, "telephone")} {RETAILER_SUPPORT_PAGE.contact.telephoneNumber.split(" ")[0]}
                         <br />
-                        13371591392
+                        {RETAILER_SUPPORT_PAGE.contact.telephoneNumber.split(" ")[1]}
                       </p>
-                      <a href="https://api.whatsapp.com/send?phone=8613371591392" target="_blank" rel="noopener noreferrer">
-                        Call Now
+                      <a href={RETAILER_SUPPORT_PAGE.contact.whatsappUrl} target="_blank" rel="noopener noreferrer">
+                        {t(locale, "callNow")}
                       </a>
                     </li>
                     <li data-reveal="up">
                       <span className="intco-retailer-contact-icon">
                         <Headphones size={36} strokeWidth={1.8} />
                       </span>
-                      <p>Live Chat</p>
-                      <a href={localizePath(locale, "/contact#chat")}>Contact Now</a>
+                      <p>{t(locale, "liveChat")}</p>
+                      <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")}>{t(locale, "contactNow")}</LeadsCloudChatLink>
                     </li>
                     <li data-reveal="up">
                       <span className="intco-retailer-contact-icon">
                         <Mail size={36} strokeWidth={1.8} />
                       </span>
                       <p>
-                        Send an Email
+                        {t(locale, "sendEmail")}
                         <br />
-                        info@intcoframing-us.com
+                        {RETAILER_SUPPORT_PAGE.contact.email}
                       </p>
-                      <a href="mailto:info@intcoframing-us.com">Email Us</a>
+                      <a href={`mailto:${RETAILER_SUPPORT_PAGE.contact.email}`}>{t(locale, "emailUs")}</a>
                     </li>
                   </ul>
                 </div>
@@ -3838,63 +3886,8 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="bg-white py-10">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
-          </p>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-secondary">
-            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
-              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
-          </p>
-          <div className="intco-design-manufacturing" data-reveal="fade">
-            <div className="intco-design-video">
-              <iframe
-                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-            <div className="intco-design-manufacturing-copy">
-              <p>
-                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
-              </p>
-              <div className="intco-design-explore-wrap">
-                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
-                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <LatestCollectionBlock locale={locale} />
+      <OurManufacturingBlock locale={locale} />
       <ProjectsSourceContactBand locale={locale} />
     </div>
   );
@@ -3949,32 +3942,33 @@ function RetailerSupportOverlayCard({
 }
 
 function RetailerSupportHero({ locale }: { locale: Locale }) {
+  const title = pick(RETAILER_SUPPORT_PAGE.heroTitle, locale);
   return (
     <section className="intco-source-hero intco-source-hero-category intco-retailer-hero" data-source-hero>
       <div className="intco-source-hero-slide" data-source-hero-slide>
         <div className="intco-source-hero-bg" data-source-hero-bg>
-          <Image src={RETAILER_SUPPORT_HERO_IMAGE} alt="未标题-2" fill className="object-cover" sizes="100vw" priority unoptimized />
+          <Image src={RETAILER_SUPPORT_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" preload unoptimized />
         </div>
         <div className="intco-source-hero-content" data-source-hero-content>
           <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
             <div className="intco-source-hero-text" data-source-hero-text>
               <h1 className="intco-source-hero-title" data-source-hero-title>
-                Retailer Support
+                {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>Home</Link>
+                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
                 <span className="intco-source-hero-separator">›</span>
-                <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+                <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
                 <span className="intco-source-hero-separator">›</span>
-                <span>Retailer Support</span>
+                <span>{title}</span>
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <a href={localizePath(locale, "/contact#chat")} data-source-hero-cta>
-                Chat With Us
-              </a>
+              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
+                {t(locale, "chatWithUs")}
+              </LeadsCloudChatLink>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
-                Leave a Message
+                {t(locale, "leaveMessage")}
               </a>
             </div>
           </div>
@@ -3992,10 +3986,10 @@ function CertificationSourceView({ locale }: { locale: Locale }) {
       <section className="intco-certification-section" style={{ "--certification-bg": `url(${CERTIFICATION_BG_IMAGE})` } as React.CSSProperties}>
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <div className="intco-certification-title-wrap">
-            <ProjectsSourceTitle title="RUN, GROW AND EXPAND YOUR BUSINESS" backdrop="RUN, GROW AND EXPAND YOUR BUSINESS" />
+            <ProjectsSourceTitle title={pick(CERTIFICATION_PAGE.sectionTitle, locale)} backdrop={pick(CERTIFICATION_PAGE.sectionTitle, locale)} />
           </div>
           <p className="intco-certification-desc" data-reveal="fade">
-            {CERTIFICATION_COPY}
+            {pick(CERTIFICATION_PAGE.copy, locale)}
           </p>
           <ul className="intco-certification-grid">
             {CERTIFICATION_GRID_IMAGES.map((imageUrl, index) => (
@@ -4028,95 +4022,41 @@ function CertificationSourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="bg-white py-10">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
-          </p>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-secondary">
-            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
-              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
-          </p>
-          <div className="intco-design-manufacturing" data-reveal="fade">
-            <div className="intco-design-video">
-              <iframe
-                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-            <div className="intco-design-manufacturing-copy">
-              <p>
-                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
-              </p>
-              <div className="intco-design-explore-wrap">
-                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
-                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <LatestCollectionBlock locale={locale} />
+      <OurManufacturingBlock locale={locale} />
       <ProjectsSourceContactBand locale={locale} />
     </div>
   );
 }
 
 function CertificationHero({ locale }: { locale: Locale }) {
+  const title = pick(CERTIFICATION_PAGE.heroTitle, locale);
   return (
     <section className="intco-source-hero intco-source-hero-category" data-source-hero>
       <div className="intco-source-hero-slide" data-source-hero-slide>
         <div className="intco-source-hero-bg" data-source-hero-bg>
-          <Image src={CERTIFICATION_HERO_IMAGE} alt="Certification1" fill className="object-cover" sizes="100vw" priority unoptimized />
+          <Image src={CERTIFICATION_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" preload unoptimized />
         </div>
         <div className="intco-source-hero-content" data-source-hero-content>
           <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
             <div className="intco-source-hero-text" data-source-hero-text>
               <h1 className="intco-source-hero-title" data-source-hero-title>
-                Certification
+                {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>Home</Link>
+                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
                 <span className="intco-source-hero-separator">›</span>
-                <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+                <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
                 <span className="intco-source-hero-separator">›</span>
-                <span>Certification</span>
+                <span>{title}</span>
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <a href="#goinput" data-source-hero-cta>
-                Chat With Us
-              </a>
+              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
+                {t(locale, "chatWithUs")}
+              </LeadsCloudChatLink>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
-                Leave a Message
+                {t(locale, "leaveMessage")}
               </a>
             </div>
           </div>
@@ -4135,28 +4075,24 @@ function GlobalProductionSupplySourceView({ locale }: { locale: Locale }) {
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <div className="intco-global-production-card">
             <div className="intco-global-production-image" data-reveal="up">
-              <Image src={GLOBAL_PRODUCTION_BUILDING_IMAGE} alt="办公大楼2" fill className="object-cover" sizes="(min-width: 1601px) 580px, (min-width: 1024px) 36vw, 100vw" />
+              <Image src={GLOBAL_PRODUCTION_BUILDING_IMAGE} alt="Intco" fill className="object-cover" sizes="(min-width: 1601px) 580px, (min-width: 1024px) 36vw, 100vw" />
             </div>
             <div className="intco-global-production-content" data-reveal="down">
-              <p className="intco-global-production-bases">
-                Intco Vietnam
-                <br />
-                lntco Malaysia
+              <p className="intco-global-production-bases" style={{ whiteSpace: "pre-line" }}>
+                {pick(GLOBAL_PRODUCTION_PAGE.basesLines, locale)}
               </p>
               <div className="intco-global-production-title">
-                <div className="intco-global-production-title-text">
-                  PARTNER WITH INTCO
-                  <br />
-                  FOR THE BEST QUALITY PRODUCTS
+                <div className="intco-global-production-title-text" style={{ whiteSpace: "pre-line" }}>
+                  {pick(GLOBAL_PRODUCTION_PAGE.partnerTitle, locale)}
                 </div>
               </div>
               <ul className="intco-global-production-features">
-                {GLOBAL_PRODUCTION_FEATURES.map((item) => (
-                  <li key={item.label}>
+                {GLOBAL_PRODUCTION_PAGE.features.map((item) => (
+                  <li key={item.iconUrl}>
                     <span className="intco-global-production-icon">
                       <Image src={item.iconUrl} alt="" width={58} height={58} />
                     </span>
-                    <span>{item.label}</span>
+                    <span>{pick(item.label, locale)}</span>
                   </li>
                 ))}
               </ul>
@@ -4168,100 +4104,46 @@ function GlobalProductionSupplySourceView({ locale }: { locale: Locale }) {
       <section className="intco-global-production-copy-section">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <p className="intco-global-production-copy" data-reveal="up">
-            {GLOBAL_PRODUCTION_COPY}
+            {pick(GLOBAL_PRODUCTION_PAGE.copy, locale)}
           </p>
         </div>
       </section>
 
-      <section className="bg-white py-10">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="LATEST COLLECTION" backdrop="LATEST COLLECTION" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Making your space more than just a place. Discover the perfect accents for your room with our exceptional collections.
-          </p>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_LATEST_PRIMARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="primary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-secondary">
-            {DESIGN_ENGINEERING_LATEST_SECONDARY.map((item, index) => (
-              <DesignEngineeringLatestCard key={item.title} item={item} locale={locale} variant="secondary" index={index} reveal="fade" />
-            ))}
-          </div>
-          <div className="intco-design-latest-grid intco-design-latest-primary">
-            {DESIGN_ENGINEERING_PROJECT_CARDS.map((item, index) => (
-              <DesignEngineeringProjectCard key={item.title} item={item} locale={locale} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-10 lg:pb-[96px] lg:pt-[40px]">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="mb-[55px]">
-            <ProjectsSourceTitle title="OUR MANUFACTURING" backdrop="OUR MANUFACTURING" />
-          </div>
-          <p className="intco-design-desc mb-[58px]">
-            Founded in 2002, Intco Framing upholds the reputation for high quality, great designs to fulfill all aspects of a project – from artistry to functionality.
-          </p>
-          <div className="intco-design-manufacturing" data-reveal="fade">
-            <div className="intco-design-video">
-              <iframe
-                src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-              />
-            </div>
-            <div className="intco-design-manufacturing-copy">
-              <p>
-                Intco Framing is a high-tech manufacturer that produces picture frame mouldings, wall art picture frames, mirror frames, and other home decorative products. We continuously bring valuable designs and sales success to our clients, who are spread across 120+ countries and regions.
-              </p>
-              <div className="intco-design-explore-wrap">
-                <Link href={localizePath(locale, "/solutions/business-insights-trends")} className="intco-design-explore">
-                  Explore More <ArrowRight className="ml-2" size={22} strokeWidth={1.6} />
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
+      <LatestCollectionBlock locale={locale} />
+      <OurManufacturingBlock locale={locale} />
       <ProjectsSourceContactBand locale={locale} />
     </div>
   );
 }
 
 function GlobalProductionHero({ locale }: { locale: Locale }) {
+  const title = pick(GLOBAL_PRODUCTION_PAGE.heroTitle, locale);
   return (
     <section className="intco-source-hero intco-source-hero-category" data-source-hero>
       <div className="intco-source-hero-slide" data-source-hero-slide>
         <div className="intco-source-hero-bg" data-source-hero-bg>
-          <Image src={GLOBAL_PRODUCTION_HERO_IMAGE} alt="shutterstock1" fill className="object-cover" sizes="100vw" priority unoptimized />
+          <Image src={GLOBAL_PRODUCTION_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" preload unoptimized />
         </div>
         <div className="intco-source-hero-content" data-source-hero-content>
           <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
             <div className="intco-source-hero-text" data-source-hero-text>
               <h1 className="intco-source-hero-title" data-source-hero-title>
-                Global Production and Supply
+                {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>Home</Link>
+                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
                 <span className="intco-source-hero-separator">›</span>
-                <Link href={localizePath(locale, "/solutions")}>Solutions</Link>
+                <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
                 <span className="intco-source-hero-separator">›</span>
-                <span>Global Production and Supply</span>
+                <span>{title}</span>
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <a href="#goinput" data-source-hero-cta>
-                Chat With Us
-              </a>
+              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
+                {t(locale, "chatWithUs")}
+              </LeadsCloudChatLink>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
-                Leave a Message
+                {t(locale, "leaveMessage")}
               </a>
             </div>
           </div>
@@ -4450,7 +4332,7 @@ function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { loca
 
   return (
     <section className="relative aspect-[1920/600] min-h-[122px] overflow-hidden lg:min-h-[260px]">
-      <Image src={PROJECTS_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" priority />
+      <Image src={PROJECTS_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" preload />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
         <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
@@ -4469,12 +4351,12 @@ function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { loca
             )}
           </nav>
           <div className="mt-4 flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <Link
-              href={localizePath(locale, "/contact")}
+            <LeadsCloudChatLink
+              fallbackHref={localizePath(locale, "/contact#chat")}
               className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
             >
               {t(locale, "chatWithUs")}
-            </Link>
+            </LeadsCloudChatLink>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
@@ -4543,13 +4425,13 @@ function ProjectsSourceContactBand({ locale }: { locale: Locale }) {
       <div className="intco-source-container flex flex-col items-center justify-center rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:min-h-[321px] lg:px-0 lg:py-[8vh]" data-reveal="fade">
         <h2 className="w-full text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">{t(locale, "perfectSolution")}</h2>
         <p className="my-8 w-full text-lg font-normal lg:text-2xl lg:leading-9">{t(locale, "contactToday")}</p>
-        <Link
-          href={localizePath(locale, "/contact")}
+        <LeadsCloudChatLink
+          fallbackHref={localizePath(locale, "/contact#chat")}
           className="mx-auto box-content inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium leading-[54px] text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
         >
           <Phone className="mr-[9px]" size={22} />
           {t(locale, "contactUs")}
-        </Link>
+        </LeadsCloudChatLink>
       </div>
     </section>
   );
@@ -4567,7 +4449,7 @@ export function BlogListingView({ posts, locale, activeCategory, page }: { posts
   return (
     <>
       <PageHero
-        title={page?.title || "Blog"}
+        title={page?.title || t(locale, "blog")}
         description={page?.description || "Home decor, interior design, product material, exhibition and industry trend articles from INTCO Framing."}
         imageUrl={page?.imageUrl}
       />
@@ -4665,13 +4547,13 @@ export function ProductDetailView({
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:px-8">
           <div data-reveal="left">
             <div className="relative aspect-square overflow-hidden bg-neutral-100">
-              {primary ? <Image src={primary} alt={product.imageAlt || displayTitle} fill className="object-contain" sizes="(min-width: 1024px) 52vw, 100vw" priority /> : null}
+              {primary ? <Image src={primary} alt={product.imageAlt || displayTitle} fill loading="eager" className="object-contain" sizes="(min-width: 1024px) 52vw, 100vw" /> : null}
             </div>
             {gallery.length > 1 ? (
               <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-8">
                 {gallery.slice(0, 8).map((image, index) => (
                   <div key={image} className="relative aspect-square bg-neutral-100 ring-1 ring-black/5" data-reveal style={{ "--reveal-delay": `${index * 50}ms` } as React.CSSProperties}>
-                    <Image src={image} alt={product.imageAlt || displayTitle} fill className="object-contain" sizes="120px" />
+                    <Image src={image} alt={product.imageAlt || displayTitle} fill loading={index === 0 ? "eager" : undefined} className="object-contain" sizes="120px" />
                   </div>
                 ))}
               </div>
@@ -4716,7 +4598,7 @@ export function ProductDetailView({
                 </div>
               ))}
             </dl>
-            <ProductQuotePanel locale={locale} product={{ slug: product.slug, title: displayTitle, path: product.path, imageUrl: primary }} />
+            <ProductQuotePanel locale={locale} product={{ slug: product.slug, title: displayTitle, path: product.path, sourceId: product.sourceId, sourceUrl: product.sourceUrl, sku: product.sku, imageUrl: primary }} />
           </article>
         </div>
       </section>
@@ -4781,22 +4663,22 @@ export function SolutionDetailView({
   projects: Project[];
   locale: Locale;
 }) {
-  if (locale === "en" && solution.slug === "business-insights-trends") {
+  if (solution.slug === "business-insights-trends") {
     return <BusinessInsightsSourceView locale={locale} />;
   }
-  if (locale === "en" && solution.slug === "design-engineering") {
+  if (solution.slug === "design-engineering") {
     return <DesignEngineeringSourceView locale={locale} />;
   }
-  if (locale === "en" && solution.slug === "manufacturing-delivery") {
+  if (solution.slug === "manufacturing-delivery") {
     return <ManufacturingDeliverySourceView locale={locale} />;
   }
-  if (locale === "en" && solution.slug === "global-production-and-supply") {
+  if (solution.slug === "global-production-and-supply") {
     return <GlobalProductionSupplySourceView locale={locale} />;
   }
-  if (locale === "en" && solution.slug === "certification") {
+  if (solution.slug === "certification") {
     return <CertificationSourceView locale={locale} />;
   }
-  if (locale === "en" && solution.slug === "retailer-support") {
+  if (solution.slug === "retailer-support") {
     return <RetailerSupportSourceView locale={locale} />;
   }
 
@@ -4934,7 +4816,7 @@ export function ProjectDetailView({
       </section>
       {inspirationLines.length ? (
         <section className="bg-neutral-100 py-16">
-          <SectionTitle eyebrow="Blog" title="GET MORE INSPIRATION" />
+          <SectionTitle eyebrow={t(locale, "blog")} title={t(locale, "getMoreInspiration").toUpperCase()} />
           <div className="mx-auto mt-8 grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
             {inspirationLines.map((line, index) => (
               <div key={`${line}-${index}`} className="bg-white p-5 text-sm font-semibold leading-6 text-neutral-700 ring-1 ring-black/5">
@@ -4953,11 +4835,11 @@ export function BlogPostView({ post, posts, locale }: { post: BlogPost; posts: B
   const lines = contentLines(post.bodyText, 120);
   const gallery = itemGallery(post);
   const popularPosts = posts.filter((item) => item.slug !== post.slug).slice(0, 5);
-  const supplementalLines = blogSourceSupplementLines(post.slug).filter((line) => !containsRenderedLine(lines, line));
+  const supplementalLines = locale === "en" ? blogSourceSupplementLines(post.slug).filter((line) => !containsRenderedLine(lines, line)) : [];
 
   return (
     <>
-      <PageHero title={post.title} description={post.excerpt} imageUrl={post.imageUrl} label={post.category || "Blog"} />
+      <PageHero title={post.title} description={post.excerpt} imageUrl={post.imageUrl} label={post.category || t(locale, "blog")} />
       <section className="bg-white py-14">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_320px] lg:px-8">
           <article data-reveal="left">
@@ -5040,6 +4922,7 @@ export function DetailView({
   const body = "bodyText" in item ? item.bodyText : "";
   const lines = linesFromBody(body, 22);
   const gallery = item.galleryUrls?.filter(Boolean).slice(0, 6) || [];
+  const detailProduct = label === "Product" && "slug" in item ? (item as Product) : null;
 
   return (
     <>
@@ -5073,10 +4956,18 @@ export function DetailView({
                 <p key={line}>{line}</p>
               ))}
             </div>
-            {label === "Product" && "slug" in item ? (
+            {detailProduct ? (
               <ProductQuotePanel
                 locale={locale}
-                product={{ slug: item.slug, title: item.title, path: item.path, imageUrl: item.imageUrl }}
+                product={{
+                  slug: detailProduct.slug,
+                  title: detailProduct.title,
+                  path: detailProduct.path,
+                  sourceId: detailProduct.sourceId,
+                  sourceUrl: detailProduct.sourceUrl,
+                  sku: detailProduct.sku,
+                  imageUrl: detailProduct.imageUrl,
+                }}
               />
             ) : null}
           </article>
@@ -5109,17 +5000,8 @@ export function EnquiryListView({ locale }: { locale: Locale }) {
 
 function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Locale }) {
   const href = (path: string) => localizePath(locale, path);
-  const aboutLines = contentLines(page.bodyText, 8);
-  const aboutIntro = locale === "en"
-    ? [
-        "Intco Framing (stock symbol 688087), a leading interior décor manufacturer specializing in picture frames, art, mirrors, memo boards and furniture.",
-        "We provide customized solutions for diverse applications, tailoring designs to complement residential, commercial, and office spaces.",
-      ]
-    : aboutLines.slice(0, 2);
-  const globalMarketIntro =
-    locale === "en"
-      ? "Operating on a global scale, we have established a widespread presence in the market, collaborating with numerous high-quality retail partners worldwide"
-      : page.description || aboutLines[2] || t(locale, "globalMarket");
+  const aboutIntro = WHO_WE_ARE_INTRO_COPY[locale];
+  const globalMarketIntro = WHO_WE_ARE_GLOBAL_MARKET_INTRO[locale];
   const statKeys: Record<string, string> = {
     "Business Units": "businessUnits",
     "Production Bases": "productionBases",
@@ -5128,6 +5010,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
   };
   const stats = WHO_WE_ARE_STATS.map((stat) => ({ ...stat, label: t(locale, statKeys[stat.label] || stat.label) }));
   const markets = WHO_WE_ARE_MARKETS.map((market) => localizeWhoWeAreMarket(market, locale));
+  const history = localizeWhoWeAreHistory(locale);
 
   return (
     <>
@@ -5190,7 +5073,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
         <div className="intco-source-container px-5">
           <WhoWeAreSourceTitle title={t(locale, "ourHistory")} align="left" />
           <div className="mt-16">
-            <WhoWeAreHistoryCarousel items={WHO_WE_ARE_HISTORY} />
+            <WhoWeAreHistoryCarousel items={history} />
           </div>
         </div>
       </section>
@@ -5248,7 +5131,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pb-[100px] pt-16 max-lg:pb-16">
         <div className="intco-source-container px-5">
-          <WhoWeAreSourceTitle title={locale === "en" ? "OUR PARTNERS" : t(locale, "aboutIntco")} />
+          <WhoWeAreSourceTitle title={t(locale, "ourPartners")} />
           <ul className="mt-16 grid grid-cols-2 gap-x-[6.25%] gap-y-[57px] sm:grid-cols-3 lg:grid-cols-5" data-reveal="fade">
             {WHO_WE_ARE_PARTNER_LOGOS.map((logo, index) => (
               <li key={logo} className="flex justify-center" style={{ "--reveal-delay": `${(index % 5) * 50}ms` } as React.CSSProperties}>
@@ -5263,7 +5146,7 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 
       <section className="bg-white pb-[116px] max-lg:pb-16">
         <div className="intco-source-container px-5">
-          <WhoWeAreSourceTitle title={locale === "en" ? "AN INTELLIGENT COMPANY TO PARTNER WITH" : t(locale, "aboutIntco")} align="left" wide />
+          <WhoWeAreSourceTitle title={t(locale, "intelligentCompanyPartner")} align="left" wide />
           <p className="mt-[55px] max-w-[1104px] text-lg leading-8 text-[#363636]" data-reveal="left">
             {aboutIntro[0] || page.description}
           </p>
@@ -5285,6 +5168,16 @@ function WhoWeAreSourceView({ page, locale }: { page: ContentPage; locale: Local
 function localizeWhoWeAreMarket(market: (typeof WHO_WE_ARE_MARKETS)[number], locale: Locale) {
   const translated = WHO_WE_ARE_MARKET_TRANSLATIONS[locale]?.[market.continent];
   return translated ? { ...market, ...translated } : market;
+}
+
+function localizeWhoWeAreHistory(locale: Locale) {
+  const translated = WHO_WE_ARE_HISTORY_TRANSLATIONS[locale];
+  if (!translated) return WHO_WE_ARE_HISTORY;
+  return WHO_WE_ARE_HISTORY.map((item, index) => ({
+    ...item,
+    title: translated[index]?.title || item.title,
+    description: translated[index]?.description || item.description,
+  }));
 }
 
 function WhoWeAreMarketMarker({ market }: { market: (typeof WHO_WE_ARE_MARKETS)[number] }) {
@@ -5333,7 +5226,7 @@ function SustainabilitySourceHero({ locale }: { locale: Locale }) {
   const labels = SUSTAINABILITY_LABELS[locale];
   return (
     <section className="relative aspect-[1920/600] min-h-[320px] overflow-hidden max-[650px]:min-h-0">
-      <Image src={SUSTAINABILITY_HERO_IMAGE} alt="Sustainability1" fill className="object-cover" sizes="100vw" priority />
+      <Image src={SUSTAINABILITY_HERO_IMAGE} alt="Sustainability1" fill className="object-cover" sizes="100vw" preload />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center max-[650px]:hidden">
         <div className="intco-source-container px-5 text-center text-white">
@@ -5347,12 +5240,12 @@ function SustainabilitySourceHero({ locale }: { locale: Locale }) {
             <SustainabilityVideoButton src={SUSTAINABILITY_VIDEO_SRC} label={labels.watchVideo} />
           </div>
           <div className="mt-6 flex justify-center gap-[30px] max-sm:flex-col max-sm:items-center max-sm:gap-3">
-            <Link
-              href={localizePath(locale, "/contact")}
+            <LeadsCloudChatLink
+              fallbackHref={localizePath(locale, "/contact#chat")}
               className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
             >
               {t(locale, "chatWithUs")}
-            </Link>
+            </LeadsCloudChatLink>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
@@ -5412,7 +5305,7 @@ function SustainabilityExternalRatings({ locale }: { locale: Locale }) {
   );
 }
 
-function SustainabilityTreeCard({ item, index }: { item: (typeof SUSTAINABILITY_TREE_ITEMS)[number]; index: number }) {
+function SustainabilityTreeCard({ item, index }: { item: SustainabilityTreeItem; index: number }) {
   return (
     <li data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
       <div className="flex min-h-[211px] justify-between rounded-md bg-[#f3f3f3] pb-12 pl-10 pr-[49px] pt-3 max-lg:px-6">
@@ -5440,6 +5333,9 @@ function SustainabilityTreeCard({ item, index }: { item: (typeof SUSTAINABILITY_
 
 function SustainabilitySourceView({ locale }: { locale: Locale }) {
   const labels = SUSTAINABILITY_LABELS[locale];
+  const introCopy = SUSTAINABILITY_INTRO_COPY[locale];
+  const treeItems = SUSTAINABILITY_TREE_ITEMS_LOCALIZED[locale];
+  const actionCards = localizedSustainabilityActionCards(locale);
   return (
     <>
       <span className="sr-only">{labels.inAction}</span>
@@ -5449,7 +5345,7 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
         <div className="intco-source-container">
           <div className="grid gap-[101px] lg:grid-cols-2">
             <div className="text-lg leading-[1.55] text-[#363636]" data-reveal="left">
-              {SUSTAINABILITY_INTRO_COPY.map((line) => (
+              {introCopy.map((line) => (
                 <p key={line} className="mb-10 last:mb-0">
                   {line}
                 </p>
@@ -5485,17 +5381,17 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
         <div className="intco-source-container px-5">
           <SustainabilitySourceTitle title={labels.environmentalContribution} />
           <p className="mx-auto mb-[86px] mt-16 max-w-[1320px] text-center text-lg leading-8 text-[#363636]" data-reveal="fade">
-            Intco Recycling has reduced 200,000 tons of carbon emissions, saved 300,000 tons of crude oil, and protected 2 million trees every year, an elegant and profitable solution for the recycling of waste EPS foam.
+            {SUSTAINABILITY_ENVIRONMENTAL_COPY[locale]}
           </p>
         </div>
-        <SustainabilitySavingsTabs />
+        <SustainabilitySavingsTabs locale={locale} />
       </section>
 
       <section className="bg-white px-5 pt-[100px]">
         <div className="intco-source-container">
           <SustainabilitySourceTitle title={labels.protectTree} />
           <ul className="mt-16 grid gap-12 lg:grid-cols-3">
-            {SUSTAINABILITY_TREE_ITEMS.map((item, index) => (
+            {treeItems.map((item, index) => (
               <SustainabilityTreeCard key={item.label} item={item} index={index} />
             ))}
           </ul>
@@ -5506,7 +5402,7 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
         <div className="intco-source-container">
           <SustainabilitySourceTitle title={labels.inAction} />
           <ul className="mt-16 grid gap-[55px] lg:grid-cols-3">
-            {SUSTAINABILITY_ACTION_CARDS.map((card, index) => (
+            {actionCards.map((card, index) => (
               <li key={card.title} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
                 <div className="group relative aspect-[436/300] overflow-hidden">
                   <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-110" sizes="(min-width: 1024px) 33vw, 100vw" />
@@ -5546,7 +5442,7 @@ function PhilosophySourceTitle({ title, align = "center" }: { title: string; ali
   );
 }
 
-function PhilosophyValueCard({ item, index }: { item: (typeof PHILOSOPHY_VALUES)[number]; index: number }) {
+function PhilosophyValueCard({ item, index }: { item: PhilosophyValue; index: number }) {
   return (
     <li className={`${index % 2 === 1 ? "lg:border-l-2 lg:border-[#bdbdbd]" : ""} mb-[70px]`} data-reveal style={{ "--reveal-delay": `${(index % 2) * 80}ms` } as React.CSSProperties}>
       <div className="flex gap-6 pl-[74px] max-lg:pl-4 max-sm:flex-col">
@@ -5587,9 +5483,10 @@ function PhilosophyGalleryTile({ imageUrl, label, locale }: { imageUrl: string; 
 }
 
 function PhilosophySourceView({ locale }: { locale: Locale }) {
+  const values = localizedPhilosophyValues(locale);
   return (
     <>
-      <span className="sr-only">Our Mission & Vision | Intco Framing</span>
+      <span className="sr-only">{t(locale, "philosophy")} | INTCO Framing</span>
       <SolutionsSourceHero title={t(locale, "philosophy")} locale={locale} imageUrl={PHILOSOPHY_HERO_IMAGE} imageAlt={t(locale, "philosophy")} tone="dark" />
 
       <section className="bg-white bg-center bg-no-repeat pt-[99px] max-lg:pt-10" style={{ backgroundImage: `url(${PHILOSOPHY_BG})` }}>
@@ -5608,7 +5505,7 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
                     <Image src={PHILOSOPHY_QUOTE_TOP} alt="" fill className="object-contain" sizes="32px" />
                   </div>
                 </div>
-                <p className="max-w-[481px] text-lg leading-[1.68] text-[#363636]">{PHILOSOPHY_QUOTE}</p>
+                <p className="max-w-[481px] text-lg leading-[1.68] text-[#363636]">{PHILOSOPHY_QUOTE[locale]}</p>
                 <p className="mt-[100px] w-full text-right text-2xl font-semibold leading-[30px] text-[#484653] max-lg:mt-10">—— Frank Liu，CEO</p>
                 <div className="absolute bottom-0 right-[91px] w-full max-w-[310px] max-lg:hidden">
                   <div className="relative aspect-[310/272]">
@@ -5622,7 +5519,7 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
           <div className="mt-[100px]">
             <PhilosophySourceTitle title={t(locale, "philosophy").toUpperCase()} />
             <ul className="mt-[70px] grid lg:grid-cols-2">
-              {PHILOSOPHY_VALUES.map((item, index) => (
+              {values.map((item, index) => (
                 <PhilosophyValueCard key={item.title} item={item} index={index} />
               ))}
             </ul>
@@ -5734,7 +5631,7 @@ function ContactSourceHero({ locale }: { locale: Locale }) {
     <section className="intco-source-hero intco-source-hero-category intco-contact-hero" data-source-hero>
       <div className="intco-source-hero-slide" data-source-hero-slide>
         <div className="intco-source-hero-bg" data-source-hero-bg>
-          <Image src={CONTACT_HERO_IMAGE} alt="lxwm" fill priority unoptimized className="object-cover" sizes="100vw" />
+          <Image src={CONTACT_HERO_IMAGE} alt="lxwm" fill preload unoptimized className="object-cover" sizes="100vw" />
         </div>
         <div className="intco-source-hero-content" data-source-hero-content>
           <div className="intco-source-container intco-source-hero-inner px-5 min-[1601px]:px-0">
@@ -5749,9 +5646,9 @@ function ContactSourceHero({ locale }: { locale: Locale }) {
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <a href="#chat" data-source-hero-cta>
+              <LeadsCloudChatLink fallbackHref="#chat" data-source-hero-cta>
                 {t(locale, "chatWithUs")}
-              </a>
+              </LeadsCloudChatLink>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
                 {t(locale, "leaveMessage")}
               </a>
@@ -5812,9 +5709,15 @@ function ContactSupportSection({ locale }: { locale: Locale }) {
                 <div className="intco-contact-item-title">{contact.title}</div>
                 <div className="intco-contact-item-desc">{contact.description}</div>
               </div>
-              <a href={contact.href} target={contact.href.startsWith("http") ? "_blank" : undefined} rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined} className="intco-contact-view-button">
-                <span>{contact.action}</span>
-              </a>
+              {contact.href === "#chat" ? (
+                <LeadsCloudChatLink fallbackHref="#chat" className="intco-contact-view-button">
+                  <span>{contact.action}</span>
+                </LeadsCloudChatLink>
+              ) : (
+                <a href={contact.href} target={contact.href.startsWith("http") ? "_blank" : undefined} rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined} className="intco-contact-view-button">
+                  <span>{contact.action}</span>
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -5824,7 +5727,6 @@ function ContactSupportSection({ locale }: { locale: Locale }) {
 }
 
 function ContactSampleSection({ locale }: { locale: Locale }) {
-  const fields = sourceFormFields(locale);
   return (
     <section id="goinput" className="intco-contact-index intco-contact-message-section">
       <div className="intco-source-container px-5 min-[1601px]:px-0">
@@ -5833,29 +5735,9 @@ function ContactSampleSection({ locale }: { locale: Locale }) {
           {t(locale, "contactFormIntro")}
         </p>
         <div className="intco-contact-message-grid">
-          <form className="intco-contact-form" data-reveal="source-down">
-            <div className="intco-contact-form-fields">
-              {fields.map((field) => (
-                <label key={field.placeholder} className="intco-contact-field">
-                  <span>{field.label}</span>
-                  <span className="intco-contact-control">
-                    <input placeholder={field.placeholder} aria-label={field.placeholder} />
-                    {field.required ? <em className="intco-contact-form-tip">*</em> : null}
-                  </span>
-                </label>
-              ))}
-            </div>
-            <label className="intco-contact-field intco-contact-field-message">
-              <span>{t(locale, "message")}</span>
-              <span className="intco-contact-control">
-                <textarea placeholder={t(locale, "message")} aria-label={t(locale, "message")} />
-                <em className="intco-contact-form-tip">*</em>
-              </span>
-            </label>
-            <button type="button" className="intco-contact-submit">
-              {t(locale, "submit")}
-            </button>
-          </form>
+          <div className={`intco-contact-form ${leadsCloudBuryClass("5d7b74d8ea0b4f4fb26aa05682c8ae4e")}`} data-reveal="source-down">
+            <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
+          </div>
           <div className="intco-contact-form-image-wrap" data-reveal="source-up">
             <div className="intco-contact-form-image">
               <Image src={CONTACT_FORM_IMAGE} alt="" fill className="object-cover" sizes="(min-width: 1024px) 509px, 80vw" />
@@ -5940,7 +5822,7 @@ function RelatedGrid({ title, items, locale, kind }: { title: string; items: Arr
 function PageHero({ title, description, imageUrl, label }: { title: string; description?: string; imageUrl?: string; label?: string }) {
   return (
     <section className="relative overflow-hidden bg-neutral-950 text-white">
-      {imageUrl ? <Image src={imageUrl} alt={title} fill className="object-cover opacity-55" sizes="100vw" priority /> : null}
+      {imageUrl ? <Image src={imageUrl} alt={title} fill className="object-cover opacity-55" sizes="100vw" preload /> : null}
       <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,0,0,.76),rgba(0,0,0,.38))]" />
       <div className="intco-page-hero-copy relative mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8">
         <p className="text-sm font-bold uppercase tracking-[0.28em] text-emerald-300">{label || "INTCO Framing"}</p>
@@ -6087,13 +5969,40 @@ function contentLines(bodyText?: string, max = 80) {
   return lines.slice(0, max);
 }
 
+const sourceNoiseFragments = [
+  "undefined array key",
+  "clave de matriz",
+  "chave de matriz",
+  "clé de tableau",
+  "undefinierter array",
+  "未定義の配列キー",
+  "attempt to read property",
+  "/wp-content/themes/",
+  "services we provide",
+  "servicios que ofrecemos",
+  "serviços que oferecemos",
+  "services que nous proposons",
+  "dienstleistungen, die wir bieten",
+  "当社が提供するサービス",
+  "qingtian",
+  "zibo, shandong",
+  "previous",
+  "popular posts",
+  "entradas populares",
+  "postagens populares",
+  "articles populaires",
+  "beliebte beiträge",
+  "人気の投稿",
+];
+
 function isSourceNoiseLine(line: string) {
   const lowered = line.toLowerCase();
   return (
     line === "Warning" ||
-    lowered.includes("undefined array key") ||
-    lowered.includes("attempt to read property") ||
-    lowered.includes("/wp-content/themes/") ||
+    lowered === "blogue" ||
+    lowered === "ブログ" ||
+    lowered.includes("cookie") ||
+    sourceNoiseFragments.some((fragment) => lowered.includes(fragment)) ||
     lowered === "on line"
   );
 }
