@@ -8,6 +8,8 @@ import type { Locale } from "@/lib/i18n";
 import { localizePath } from "@/lib/i18n";
 
 type HeroSlide = NonNullable<HomePage["heroSlides"]>[number];
+const HERO_FIRST_ROTATION_DELAY_MS = 14000;
+const HERO_ROTATION_DELAY_MS = 9000;
 
 export function HeroCarousel({
   slides,
@@ -25,11 +27,11 @@ export function HeroCarousel({
 
   useEffect(() => {
     if (items.length < 2 || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const timer = window.setInterval(() => {
+    const timer = window.setTimeout(() => {
       setActive((index) => (index + 1) % items.length);
-    }, 9000);
-    return () => window.clearInterval(timer);
-  }, [items.length, paused]);
+    }, activeIndex === 0 ? HERO_FIRST_ROTATION_DELAY_MS : HERO_ROTATION_DELAY_MS);
+    return () => window.clearTimeout(timer);
+  }, [activeIndex, items.length, paused]);
 
   return (
     <section
@@ -44,9 +46,11 @@ export function HeroCarousel({
         {items.map((slide, index) => {
           const hasText = Boolean(slide.title || slide.subtitle);
           const hasActions = Boolean(slide.primaryCta || slide.secondaryCta);
+          const isAnimatedSlide = Boolean(slide.imageUrl?.toLowerCase().endsWith(".gif"));
+          const shouldRenderImage = !isAnimatedSlide || index === activeIndex;
           return (
             <div key={`${slide.title || slide.imageUrl || fallbackTitle}-${index}`} className="intco-hero-slide relative h-full w-full shrink-0" data-active={index === activeIndex}>
-              {slide.imageUrl ? (
+              {slide.imageUrl && shouldRenderImage ? (
                 <Image
                   src={slide.imageUrl}
                   alt={slide.title || fallbackTitle}

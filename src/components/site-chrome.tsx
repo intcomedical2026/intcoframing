@@ -336,8 +336,9 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
   ];
 
   return (
-    <footer className="bg-[#484653] bg-cover bg-bottom bg-no-repeat text-white" style={{ backgroundImage: `url(${SOURCE_FOOTER_BG})` }}>
-      <div className="intco-source-container px-5">
+    <footer className="relative overflow-hidden bg-[#484653] text-white">
+      <Image src={SOURCE_FOOTER_BG} alt="" fill className="object-cover object-bottom" sizes="100vw" />
+      <div className="intco-source-container relative z-10 px-5">
         <div className="box-border flex min-h-[360px] flex-col justify-between pt-10 lg:min-h-[488px] min-[1601px]:min-h-[454px] min-[1601px]:pt-[74px]">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.3fr_0.85fr_0.85fr_1fr] lg:gap-5 xl:gap-[60px]">
             <div>

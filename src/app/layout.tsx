@@ -63,7 +63,7 @@ export default async function RootLayout({
         <Script id="intco-gtm" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NFFXV4DP');`}
         </Script>
-        <Script id="intco-leadscloud-chat" strategy="afterInteractive">
+        <Script id="intco-leadscloud-chat" strategy="lazyOnload">
           {`if(!window._XHL){(function(x,h,l,j,s){x[j]=x[j]||function(){(x[j].a=x[j].a||[]).push(arguments)};s=h.createElement(l);z=h.getElementsByTagName(l)[0];s.async=true;s.charset='UTF-8';s.src='https://libtx.leadscloud.com/xhltrackingwithchat.js';z.parentNode.insertBefore(s,z);})(window,document,'script','_XHL');_XHL("entID",200365)}`}
         </Script>
       </body>

@@ -48,6 +48,7 @@ import { LeadsCloudChatLink } from "@/components/leadscloud-chat-link";
 import { CountUpStat } from "@/components/count-up-stat";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { HomeBlogSection } from "@/components/home-blog-section";
+import { LazyVideoEmbed } from "@/components/lazy-video-embed";
 import { SolutionsServicesSection, type SolutionsServiceItem } from "@/components/solutions-services-section";
 import { SustainabilitySavingsTabs, SustainabilityVideoButton } from "@/components/sustainability-interactions";
 import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
@@ -1811,17 +1812,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
               </div>
             </div>
             <div className="flex items-end lg:w-1/2">
-              <div className="aspect-video w-full overflow-hidden bg-black">
-                <iframe
-                  className="size-full"
-                  srcDoc={HOME_PROFILE_VIDEO_SRC_DOC}
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                />
-              </div>
+              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={HOME_PROFILE_VIDEO_SRC_DOC} title="YouTube video player" />
             </div>
           </div>
         </div>
@@ -1983,14 +1974,14 @@ function HomeProjectTile({ project, locale }: { project: (typeof HOME_PROJECT_CA
 function HomeBottomContactBand({ locale }: { locale: Locale }) {
   return (
     <section
-      className="relative mb-[55px] overflow-hidden bg-cover bg-center py-[98px] max-[650px]:mb-5 max-[650px]:p-5"
+      className="relative mb-[55px] overflow-hidden bg-[#484653] py-[98px] max-[650px]:mb-5 max-[650px]:p-5"
       style={{
-        backgroundImage: `url(${SOLUTIONS_CONTACT_BG})`,
         fontFamily: "var(--font-montserrat), var(--font-geist-sans), Arial, Helvetica, sans-serif",
       }}
     >
+      <Image src={SOLUTIONS_CONTACT_BG} alt="" fill className="object-cover object-center" sizes="100vw" />
       <span className="sr-only">{t(locale, "getInTouch")}</span>
-      <div className="mx-auto box-border flex max-w-[1600px] flex-col items-center justify-between rounded-md bg-[rgba(72,70,83,0.8)] px-0 py-[8vh] text-center text-white max-[1600px]:max-w-[1466px] max-[1366px]:max-w-[1200px] max-[650px]:h-fit max-[650px]:p-8">
+      <div className="relative z-10 mx-auto box-border flex max-w-[1600px] flex-col items-center justify-between rounded-md bg-[rgba(72,70,83,0.8)] px-0 py-[8vh] text-center text-white max-[1600px]:max-w-[1466px] max-[1366px]:max-w-[1200px] max-[650px]:h-fit max-[650px]:p-8">
         <h2 className="wow fadeInUp w-full text-[38px] font-semibold leading-[15px] text-white max-[650px]:text-lg max-[650px]:leading-5" data-reveal="source-up">
           {t(locale, "perfectSolution")}
         </h2>
@@ -3321,17 +3312,7 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
           <p className="mx-auto mb-[58px] mt-[55px] max-w-[1320px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{t(locale, "sourceManufacturingIntro")}</p>
           <div className="mb-[55px] flex overflow-hidden rounded-md bg-white shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:flex-col" data-reveal="fade">
             <div className="w-[58%] overflow-hidden rounded-md max-lg:w-full">
-              <div className="aspect-video w-full overflow-hidden bg-black">
-                <iframe
-                  className="size-full"
-                  srcDoc={HOME_PROFILE_VIDEO_SRC_DOC}
-                  title="YouTube video player"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                />
-              </div>
+              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={HOME_PROFILE_VIDEO_SRC_DOC} title="YouTube video player" />
             </div>
             <div className="flex w-[42%] flex-col justify-center px-[5%] py-10 text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:w-full">
               <p>{t(locale, "sourceManufacturingDescription")}</p>

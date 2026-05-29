@@ -163,6 +163,15 @@ Inquiry tasks:
 - Add validation, success state, error state, spam protection, and server-side handling.
 - Confirm notifications or CRM records are created.
 
+Performance tasks:
+
+- Preserve original-site visual parity while improving the Vercel test site's Core Web Vitals.
+- Optimize homepage LCP, Speed Index, and Total Blocking Time on desktop and mobile.
+- Improve image cache lifetime and image delivery without removing required source-site sections.
+- Delay non-critical third-party chat/form runtime so it does not compete with the first paint.
+- Keep GTM and LeadsCloud IDs/configuration matching the original site; only adjust loading priority unless the owner approves a vendor/config change.
+- Record optimization evidence in `docs/phase-3-performance-optimization-20260529.md`.
+
 Exit criteria:
 
 - SEO/GEO P0/P1 checks pass.
@@ -199,6 +208,8 @@ Current evidence:
   - `/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf`: 389,758 bytes
 - Reverification after query slimming on 2026-05-29: `npm run lint`, `npm run build`, `npm run intco:routes -- --base http://127.0.0.1:3000 --all`, local HTML smoke for representative SEO/inquiry pages, and `git diff --check` all passed. The full route run completed 1482/1482 routes with exit code 0, and the sampled dev-server log no longer showed the previous Next.js data-cache size warning.
 - Product-detail LCP image warning addressed on 2026-05-29 by migrating Next.js Image hero priority handling to the Next 16 `preload`/`loading="eager"` APIs. Headless Chrome console verification for `/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf` reported 0 image/LCP warnings and 0 non-analytics browser errors; follow-up `npm run lint` and `npm run build` passed.
+- Homepage performance optimization plan added on 2026-05-29 after owner PageSpeed test showed desktop performance 82 and mobile performance 72 on `https://intcoframing-wheat.vercel.app/`. First-pass scope: image cache/format policy, homepage LCP/SI, third-party script timing/TBT, mobile cookie timing, and post-deploy retest. Plan: `docs/phase-3-performance-optimization-20260529.md`.
+- Homepage performance first pass implemented on 2026-05-29. Local verification passed `npm run lint`, `npm run build`, visual screenshots at 1440px/390px, and Chrome network capture with no early hero GIF, YouTube thumbnail, LeadsCloud form script, 3840w image, footer background, or bottom CTA background request in the first 8 seconds. Launch verifier passed automated checks with configured Vercel test origin: `reports/launch/launch-readiness-local-performance-site-origin-20260529.json`.
 - Representative Open Graph/social preview metadata verified locally on 2026-05-29 for `/`, `/products`, `/es/products`, `/contact`, `/ja/contact`, `/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf`, `/news/canvas-art-a-perfect-addition-to-your-home-decor`, `/solutions/business-insights-trends`, `/fr/solutions/design-engineering`, and `/de/solutions/manufacturing-delivery`. Each checked page returned status 200 and had title, meta description, `og:title`, `og:description`, `og:image`, `og:image:alt`, `twitter:card`, and `twitter:image`.
 - Original-site Cloudflare script audit completed on 2026-05-29. Report: `reports/launch/original-cloudflare-script-audit-20260529.json`. The checked WordPress pages do not contain a Cloudflare Web Analytics beacon (`static.cloudflareinsights.com/beacon.min.js` or `data-cf-beacon`); they only contain Cloudflare platform scripts injected by hosting/security features. Do not add a Cloudflare Web Analytics beacon unless a real Cloudflare Web Analytics token is provided.
 - FAQ/evidence content was refreshed and re-imported on 2026-05-29 with a stricter AEO audit. New script: `npm run sanity:audit:aeo`. Staging and production imports both wrote 1452/1452 documents and passed `sanity:verify:import`. Production AEO report `reports/launch/aeo-content-audit-production-phase3-aeo-refresh-20260529.json` passed with 324/324 intelligence documents having at least 3 FAQs, evidence, and `dateModified`, totaling 972 FAQs and 324 evidence items with 0 failures.

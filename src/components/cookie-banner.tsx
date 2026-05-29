@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { t } from "@/lib/i18n";
 
+const COOKIE_BANNER_DELAY_MS = 3000;
+
 export function CookieBanner({ locale, currentPath }: { locale: Locale; currentPath?: string }) {
   const shouldRender = !currentPath || currentPath === "/";
   const [visible, setVisible] = useState(false);
@@ -12,7 +14,7 @@ export function CookieBanner({ locale, currentPath }: { locale: Locale; currentP
     if (!shouldRender) return;
     const timer = window.setTimeout(() => {
       setVisible(localStorage.getItem("intco-cookie-choice") === null);
-    }, 0);
+    }, COOKIE_BANNER_DELAY_MS);
     return () => window.clearTimeout(timer);
   }, [shouldRender]);
 
