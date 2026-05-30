@@ -6,7 +6,7 @@ This file is the durable source of truth for the relaunch work. Keep it updated 
 
 ## Goal
 
-Prepare the refreshed INTCO Framing multilingual website for production launch with stable i18n, complete Sanity content modeling, clean data import, SEO/GEO readiness, inquiry form integration, and safe migration from the old WordPress site.
+Prepare the refreshed INTCO Framing multilingual website for production launch with stable i18n, complete Sanity content modeling, clean data import, SEO/GEO readiness, inquiry form integration, full original-site visual parity, and safe migration from the old WordPress site.
 
 ## Current Operating Principles
 
@@ -18,6 +18,8 @@ Prepare the refreshed INTCO Framing multilingual website for production launch w
 - Sanity schema must be finalized before production data import.
 - Use staging import before production import.
 - Old WordPress URLs must be mapped to new URLs before launch.
+- Original-site visual parity is a launch gate. Performance work must not remove or materially change source-site sections, typography, animation, imagery, or interaction behavior without explicit owner approval.
+- LeadsCloud/询盘云, GTM, Google verification, Sanity wiring, Vercel deployment behavior, SEO/hreflang/canonical rules, sitemap/robots, and redirect behavior are protected configuration while visual parity work is underway.
 
 ## Phase 0: Baseline Freeze
 
@@ -222,9 +224,38 @@ Current evidence:
 - External launch gates now have explicit required evidence in `docs/phase-3-external-launch-gates-20260529.md`: final Vercel production env/domain, Sanity CORS, LeadsCloud domain status, live LeadsCloud submission records, Rich Results validation, and Search Console sitemap/ownership.
 - Final-domain preflight on 2026-05-29 proved `https://www.intcoframing-us.com` is still serving the old Cloudflare/WordPress site, not the refreshed Next/Vercel deployment. Report: `reports/launch/launch-readiness-final-domain-preflight-20260529.json`; note: `docs/final-domain-preflight-20260529.md`. The preflight failed robots, sitemap, representative page metadata/JSON-LD, and sampled legacy redirects, while confirming `leadsCloudDomain.ok=true` for the effective host `intcoframing-us.com`.
 
+## Phase 3.5: Full Visual Parity Restoration
+
+Status: Required before Phase 4
+
+Purpose: Correct the post-optimization drift between the refreshed site and the original WordPress site. Every page family must be audited and restored section by section while preserving completed Sanity, LeadsCloud, SEO/GEO, i18n, redirect, analytics, and performance configuration.
+
+Plan:
+
+- Follow the durable roadmap in `docs/visual-parity-restoration-roadmap.md`.
+- Capture original and refreshed screenshots before style edits.
+- Work by route family, not by scattered one-off changes:
+  - Batch A: shared chrome and homepage.
+  - Batch B: product landing, category pages, and product details.
+  - Batch C: solution landing and detail pages.
+  - Batch D: project listing, pagination, categories, and details.
+  - Batch E: contact and company pages.
+  - Batch F: blog/news.
+  - Batch G: multilingual visual pass for `/es`, `/pt`, `/fr`, `/de`, and `/ja`.
+- Record section-level differences and fixes under `reports/visual-parity/`.
+- Keep visual fixes scoped to style, layout, animation timing, responsive behavior, and original-site structural parity unless a protected integration mismatch is proven and documented.
+
+Exit criteria:
+
+- Each batch has original/current screenshot evidence and an audit note.
+- P0 and P1 visual mismatches are fixed or explicitly accepted by the owner.
+- Representative desktop and mobile screenshots match the original site section-by-section.
+- Header, navigation, breadcrumbs, language switcher, product enquiry/cart, LeadsCloud embeds, CTA blocks, footer, mobile menu, sliders/videos, and forms continue to work.
+- `npm run lint`, `npm run build`, and launch verifier automated checks pass after each completed batch.
+
 ## Phase 4: Migration and Launch Readiness
 
-Status: Blocked by Phases 1-3
+Status: Blocked by Phases 1-3.5
 
 Purpose: Prepare final domain switch and prevent traffic/SEO loss.
 
@@ -262,6 +293,7 @@ The site should not be launched until all of these are true:
 - Sitemap contains final canonical URLs only.
 - 301 redirect map is implemented and tested locally, then re-tested on the final production domain.
 - Contact and inquiry forms submit successfully.
+- Full visual parity batches are complete or owner-accepted.
 - Search Console domain ownership is verified.
 - New sitemap is submitted.
 - `npm run lint` passes.
@@ -270,6 +302,6 @@ The site should not be launched until all of these are true:
 
 ## Immediate Next Step
 
-Continue Phase 3.
+Continue Phase 3.5 before final-domain launch work.
 
-First concrete next task: point `https://www.intcoframing-us.com` to the refreshed Vercel Production deployment, set Vercel Production `NEXT_PUBLIC_SITE_URL=https://www.intcoframing-us.com`, redeploy, confirm Sanity CORS for the final origin, then rerun `npm run launch:verify -- --base https://www.intcoframing-us.com --expected-origin https://www.intcoframing-us.com --expected-sitemap-count 1476 --legacy-limit all --report reports/launch/launch-readiness-final-YYYYMMDD.json`. Do not pass the manual confirmation flags until Sanity CORS, live LeadsCloud submissions, Rich Results, and Search Console have actually been verified.
+First concrete next task: start Batch A from `docs/visual-parity-restoration-roadmap.md`. Capture original/current screenshots for shared chrome and the homepage at desktop and mobile widths, create the Batch A audit under `reports/visual-parity/audits/`, list every section-level mismatch, then fix the highest-impact P0/P1 differences without changing protected LeadsCloud, Sanity, SEO, i18n, redirect, analytics, or Vercel configuration.
