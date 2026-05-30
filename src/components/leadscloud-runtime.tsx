@@ -10,6 +10,7 @@ import {
 } from "@/lib/leadscloud";
 
 type LeadsCloudQueue = ((...args: unknown[]) => void) & { a?: unknown[][] };
+type LeadsCloudChatQueue = ((...args: unknown[]) => void) & { a?: unknown[][] | { openChat?: () => void } };
 
 declare global {
   interface Window {
@@ -19,13 +20,21 @@ declare global {
 }
 
 const FORM_SCRIPT_SRC = "https://libtx.leadscloud.com/Front-Form/buryForm/xhlform_NEW.js";
+const CHAT_SCRIPT_SRC = "https://libtx.leadscloud.com/xhltrackingwithchat.js";
+const CHAT_SCRIPT_ID = "intco-leadscloud-chat-script";
 const CATALOG_DOWNLOAD_EVENT = "intco:catalog-download-complete";
 const FORM_IDLE_FALLBACK_MS = 12000;
 const FORM_VIEWPORT_MARGIN = "700px 0px";
+const CHAT_IDLE_FALLBACK_MS = 12000;
 
 type IdleWindow = Window & {
   requestIdleCallback?: (callback: () => void, options?: { timeout?: number }) => number;
   cancelIdleCallback?: (handle: number) => void;
+};
+
+type ChatRuntimeWindow = Window & {
+  _XHL?: LeadsCloudChatQueue;
+  __intcoLoadLeadsCloudChat?: () => void;
 };
 
 function ensureDownloadAnchor() {
@@ -141,4 +150,70 @@ export function LeadsCloudFormsRuntime() {
   }, [pathname]);
 
   return null;
+}
+
+function loadLeadsCloudChat() {
+  const runtimeWindow = window as ChatRuntimeWindow;
+
+  if (!runtimeWindow._XHL) {
+    const queue = ((...args: unknown[]) => {
+      const queued = Array.isArray(queue.a) ? queue.a : [];
+      queued.push(args);
+      queue.a = queued;
+    }) as LeadsCloudChatQueue;
+    queue.a = [];
+    runtimeWindow._XHL = queue;
+  }
+
+  if (typeof runtimeWindow._XHL === "function") {
+    runtimeWindow._XHL("entID", LEADSCLOUD_ENTERPRISE_ID);
+  }
+
+  if (document.getElementById(CHAT_SCRIPT_ID)) return;
+
+  const script = document.createElement("script");
+  script.id = CHAT_SCRIPT_ID;
+  script.async = true;
+  script.charset = "UTF-8";
+  script.src = CHAT_SCRIPT_SRC;
+  script.dataset.intcoLeadscloudChat = "true";
+  document.head.appendChild(script);
+}
+
+export function LeadsCloudChatRuntime() {
+  useEffect(() => {
+    const runtimeWindow = window as ChatRuntimeWindow;
+    let loaded = false;
+
+    const loadOnce = () => {
+      if (loaded) return;
+      loaded = true;
+      loadLeadsCloudChat();
+    };
+
+    runtimeWindow.__intcoLoadLeadsCloudChat = loadOnce;
+
+    const timer = window.setTimeout(loadOnce, CHAT_IDLE_FALLBACK_MS);
+    const intentEvents: Array<keyof WindowEventMap> = ["pointerdown", "keydown", "touchstart"];
+    intentEvents.forEach((eventName) => {
+      window.addEventListener(eventName, loadOnce, { once: true, passive: true });
+    });
+
+    return () => {
+      window.clearTimeout(timer);
+      intentEvents.forEach((eventName) => window.removeEventListener(eventName, loadOnce));
+      if (runtimeWindow.__intcoLoadLeadsCloudChat === loadOnce) {
+        delete runtimeWindow.__intcoLoadLeadsCloudChat;
+      }
+    };
+  }, []);
+
+  return (
+    <span
+      hidden
+      data-intco-leadscloud-chat={CHAT_SCRIPT_SRC}
+      data-intco-leadscloud-command="entID"
+      data-intco-leadscloud-enterprise={LEADSCLOUD_ENTERPRISE_ID}
+    />
+  );
 }

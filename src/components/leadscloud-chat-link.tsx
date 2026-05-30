@@ -2,13 +2,14 @@
 
 import type { AnchorHTMLAttributes, ReactNode } from "react";
 
+type LeadsCloudChatApi = ((...args: unknown[]) => void) & {
+  a?: unknown[] | { openChat?: () => void };
+};
+
 declare global {
   interface Window {
-    _XHL?: {
-      a?: {
-        openChat?: () => void;
-      };
-    };
+    _XHL?: LeadsCloudChatApi;
+    __intcoLoadLeadsCloudChat?: () => void;
   }
 }
 
@@ -27,11 +28,14 @@ export function LeadsCloudChatLink({
       {...props}
       href={fallbackHref}
       onClick={(event) => {
-        const openChat = window._XHL?.a?.openChat;
+        const chatApi = window._XHL?.a as { openChat?: () => void } | undefined;
+        const openChat = chatApi?.openChat;
         if (openChat) {
           event.preventDefault();
           openChat();
+          return;
         }
+        window.__intcoLoadLeadsCloudChat?.();
       }}
     >
       {children}

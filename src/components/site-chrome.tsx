@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Menu, Phone, Search } from "lucide-react";
+import { Languages, Mail, MapPin, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
-import { LeadsCloudFormsRuntime } from "@/components/leadscloud-runtime";
+import { LeadsCloudChatRuntime, LeadsCloudFormsRuntime } from "@/components/leadscloud-runtime";
 import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
 import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
@@ -80,6 +80,7 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
       <Footer settings={settings} categories={categories} locale={locale} />
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
       <CookieBanner locale={locale} currentPath={currentPath} />
+      <LeadsCloudChatRuntime />
       <LeadsCloudFormsRuntime />
     </div>
   );
@@ -136,24 +137,12 @@ function Header({
             <Link href={href("/enquiry-list")} className="ml-4 flex h-[34px] w-[171px] items-center justify-center rounded-full border-2 border-white text-lg font-semibold text-white">
               {t(locale, "myCart")}
             </Link>
-            <details className="absolute right-0 top-0 h-[53px] w-[95px]">
-              <summary
-                className="block h-[53px] w-[95px] cursor-pointer list-none bg-center bg-no-repeat"
-                style={{ backgroundImage: `url(${HEADER_LANGUAGE_MAP_IMAGE})` }}
-                aria-label="Change language"
-              />
-              <div className="absolute right-0 top-[53px] z-50 w-44 bg-white p-2 text-left shadow-xl ring-1 ring-black/10">
-                {locales.map((item) => (
-                  <Link
-                    key={item}
-                    href={localizePath(item, currentPath)}
-                    className="block px-3 py-2 text-sm font-semibold text-neutral-700 hover:bg-neutral-100"
-                  >
-                    {localeLabels[item]}
-                  </Link>
-                ))}
-              </div>
-            </details>
+            <LanguageSwitcher locale={locale} currentPath={currentPath} />
+            <span
+              className="absolute right-0 top-0 block h-[53px] w-[95px] bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${HEADER_LANGUAGE_MAP_IMAGE})` }}
+              aria-hidden="true"
+            />
           </div>
         </div>
       </div>
@@ -206,12 +195,13 @@ function Header({
             className="sr-only"
           />
         </form>
-        <div className="flex items-center gap-8 text-[#484653] lg:hidden">
+        <div className="flex items-center gap-5 text-[#484653] lg:hidden">
           <Link href={href("/index.php")} aria-label={t(locale, "search")}>
             <Search size={28} strokeWidth={2.8} />
           </Link>
+          <LanguageSwitcher locale={locale} currentPath={currentPath} compact />
           <details className="relative">
-            <summary className="cursor-pointer list-none" aria-label={t(locale, "language")}>
+            <summary className="cursor-pointer list-none" aria-label="Open menu">
               <Menu size={32} strokeWidth={2.8} />
             </summary>
             <div className="absolute right-0 top-10 z-50 w-64 bg-white p-3 shadow-xl ring-1 ring-black/10">
@@ -239,6 +229,41 @@ function Header({
         </div>
       </div>
     </header>
+  );
+}
+
+function LanguageSwitcher({ locale, currentPath, compact = false }: { locale: Locale; currentPath: string; compact?: boolean }) {
+  const currentCode = locale.toUpperCase();
+  return (
+    <details className={`group relative ${compact ? "" : "ml-3"}`}>
+      <summary
+        className={`inline-flex cursor-pointer list-none items-center justify-center gap-1.5 rounded-full font-semibold uppercase transition-colors duration-200 [&::-webkit-details-marker]:hidden ${
+          compact
+            ? "h-9 border border-[#484653]/25 px-3 text-sm text-[#484653] hover:bg-[#f3f3f3]"
+            : "h-[34px] border border-white/80 px-3 text-sm text-white hover:bg-white hover:text-[#484653]"
+        }`}
+        aria-label={t(locale, "language")}
+      >
+        <Languages size={compact ? 17 : 16} strokeWidth={2.4} />
+        <span>{currentCode}</span>
+      </summary>
+      <div
+        className={`absolute right-0 z-50 w-44 bg-white p-2 text-left shadow-xl ring-1 ring-black/10 ${
+          compact ? "top-11" : "top-11"
+        }`}
+      >
+        {locales.map((item) => (
+          <Link
+            key={item}
+            href={localizePath(item, currentPath)}
+            aria-current={item === locale ? "page" : undefined}
+            className="block rounded px-3 py-2 text-sm font-semibold normal-case text-neutral-700 hover:bg-neutral-100 aria-current:bg-neutral-100 aria-current:text-[#484653]"
+          >
+            {localeLabels[item]}
+          </Link>
+        ))}
+      </div>
+    </details>
   );
 }
 

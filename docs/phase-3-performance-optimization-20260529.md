@@ -113,3 +113,92 @@ Post-deploy verification still required:
 - Push to `main` so Vercel redeploys `https://intcoframing-wheat.vercel.app/`.
 - Rerun PageSpeed/Lighthouse on the Vercel deployment, because local Chrome network capture is not a replacement for Google's lab score.
 - If TBT remains high after deploy, the next candidate is moving GTM from `afterInteractive` to `lazyOnload`, but only after confirming analytics timing is acceptable.
+
+## Second Pass Owner Retest
+
+Recorded on 2026-05-30 from owner PageSpeed screenshots and hands-on browsing feedback.
+
+Desktop:
+
+- Performance: 98
+- Accessibility: 96
+- Best Practices: 100
+- SEO: 92
+- Field data: none yet.
+- Lab metrics shown by owner: FCP 0.3 s, LCP 0.7 s, TBT 70 ms, Speed Index 1.5 s, CLS 0.
+- Desktop score is now excellent, but the owner reports real desktop browsing feels worse because images can take several seconds, sometimes around 10+ seconds, to appear.
+
+Mobile:
+
+- Performance: 72
+- Accessibility: 92
+- Best Practices: 100
+- SEO: 92
+- Lab metrics shown by owner: FCP 1.2 s, LCP 6.5 s, TBT 270 ms, Speed Index 2.2 s, CLS 0.
+- The mobile LCP screenshot appears to select a near-first-screen featured product image, not the hero image.
+- Remaining diagnostics include render-blocking requests, LCP request discovery, unused JavaScript, and long main-thread tasks.
+
+UX correction:
+
+- The language switcher must be a new explicit button/dropdown. It must not reuse the original top-bar map/language artwork as the only switch control.
+
+## Second Pass Plan
+
+1. Restore fast real-image perception without undoing the first-pass gains.
+   - Keep the first hero image preload.
+   - Promote the first visible homepage product/category image, and only the minimum adjacent near-fold images, from lazy loading to eager/high fetch priority so mobile LCP can discover the request early.
+   - Avoid making every image eager because that would regress mobile network contention and real scroll behavior.
+
+2. Reduce mobile TBT without changing original vendor configuration.
+   - Keep GTM ID `GTM-NFFXV4DP` and LeadsCloud enterprise ID `200365`.
+   - Move the LeadsCloud chat runtime from generic `lazyOnload` to a client runtime that loads after user intent or a later idle delay.
+   - Preserve an explicit LeadsCloud runtime marker in the HTML so launch verification still proves the original chat configuration is present.
+   - Do not move GTM later unless a separate analytics-timing decision is made.
+
+3. Add a separate language switching control.
+   - Preserve the original header artwork.
+   - Add a visible desktop language button with the current locale and a dropdown of all six URLs.
+   - Add a compact mobile language button near search/menu so language switching is not hidden inside the menu icon.
+   - Keep URL-based switching only: `/path` for English and `/{locale}/path` for the other languages.
+
+4. Verify the change against both lab and real-use risks.
+   - Run `npm run lint`.
+   - Run `npm run build`.
+   - Use Chrome/Playwright to inspect the homepage on desktop and mobile.
+   - Check the first-load network: no early hero GIF, no footer/CTA background, no LeadsCloud form script, and no immediate LeadsCloud chat script before user intent/delay.
+   - Confirm the first homepage product image is no longer lazy-delayed on mobile.
+   - After deployment, rerun PageSpeed and compare mobile LCP/TBT plus desktop hands-on image loading.
+
+## Second Pass Implementation
+
+Completed locally on 2026-05-30:
+
+- Promoted the first row of homepage product/category images to eager loading, with the first image using `fetchPriority="high"` so the mobile LCP candidate can be discovered earlier.
+- Moved LeadsCloud chat out of the root `lazyOnload` script and into a client runtime that loads on user intent or a 12-second idle fallback.
+- Kept original LeadsCloud configuration intact: chat script URL `https://libtx.leadscloud.com/xhltrackingwithchat.js` and enterprise ID `200365`.
+- Added a hidden LeadsCloud runtime marker so launch verification can still prove the original chat configuration is present without forcing the script into the first-load network.
+- Added separate desktop and mobile language switcher buttons, while keeping the original top-bar artwork as non-interactive visual chrome.
+
+Local verification:
+
+- `npm run lint`: passed.
+- `npm run build`: passed.
+- `git diff --check`: passed.
+- Headless Chrome mobile network capture over the first 10.5 seconds showed:
+  - no LeadsCloud chat script request;
+  - no LeadsCloud form script request;
+  - no animated hero GIF request;
+  - no footer background request;
+  - no bottom CTA background request;
+  - exactly one high-priority optimized image request.
+- Local launch verifier report:
+  - `reports/launch/launch-readiness-local-performance-second-pass-20260530.json`
+  - `automatedOk=true`
+  - `ready=false` remains expected because final-domain external gates are still pending.
+
+Post-deploy verification still required:
+
+- Rerun PageSpeed on `https://intcoframing-wheat.vercel.app/` after Vercel deploys this commit.
+- Confirm mobile LCP improves from the 6.5 s owner retest baseline.
+- Confirm mobile TBT improves from the 270 ms owner retest baseline.
+- Manually browse desktop with a cleared cache and then a warm cache. If only the first cold visit is slow, the likely remaining cause is Vercel on-demand image optimization cache warming; if repeated warm visits are still slow, investigate selective image `unoptimized` usage or asset migration for non-LCP WordPress images.

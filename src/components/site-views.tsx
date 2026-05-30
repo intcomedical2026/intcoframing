@@ -1765,8 +1765,15 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         <HomeSourceTitle title={t(locale, "featuredProducts").toUpperCase()} />
         <div className="intco-source-container mt-8 px-5 lg:mt-[65px]">
           <div className="grid gap-5 lg:grid-cols-2 lg:gap-[30px]">
-            {parentCategories.slice(0, 2).map((category) => (
-              <HomeProductTile key={category.slug} category={category} locale={locale} wide />
+            {parentCategories.slice(0, 2).map((category, index) => (
+              <HomeProductTile
+                key={category.slug}
+                category={category}
+                locale={locale}
+                wide
+                eager
+                fetchPriority={index === 0 ? "high" : "auto"}
+              />
             ))}
           </div>
           <div className="mt-[30px] grid gap-5 lg:grid-cols-3 lg:gap-[30px]">
@@ -1914,13 +1921,35 @@ function SourcePillLink({ href, children, compact }: { href: string; children: R
   );
 }
 
-function HomeProductTile({ category, locale, wide }: { category: ProductCategory; locale: Locale; wide?: boolean }) {
+function HomeProductTile({
+  category,
+  locale,
+  wide,
+  eager,
+  fetchPriority,
+}: {
+  category: ProductCategory;
+  locale: Locale;
+  wide?: boolean;
+  eager?: boolean;
+  fetchPriority?: "high" | "low" | "auto";
+}) {
   const copy = locale === "en" ? HOME_PRODUCT_COPY[category.slug] || { title: category.title, description: category.description || "" } : { title: category.title, description: category.description || "" };
   const imageUrl = category.imageUrl || category.navImageUrl || "";
   return (
     <Link href={localizePath(locale, category.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
       <div className={`relative ${wide ? "aspect-[1.78]" : "aspect-[1.16]"}`}>
-        {imageUrl ? <Image src={imageUrl} alt={category.imageAlt || copy.title} fill className="object-cover" sizes={wide ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 33vw, 100vw"} /> : null}
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt={category.imageAlt || copy.title}
+            fill
+            className="object-cover"
+            loading={eager ? "eager" : "lazy"}
+            fetchPriority={fetchPriority}
+            sizes={wide ? "(min-width: 1024px) 50vw, 100vw" : "(min-width: 1024px) 33vw, 100vw"}
+          />
+        ) : null}
       </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center rounded-[20px] bg-black/45 px-[5%] text-center text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100">
         <h3 className="text-balance text-3xl font-semibold leading-none">{copy.title}</h3>
