@@ -207,3 +207,71 @@ Post-deploy verification still required:
 - Confirm mobile LCP improves from the 6.5 s owner retest baseline.
 - Confirm mobile TBT improves from the 270 ms owner retest baseline.
 - Manually browse desktop with a cleared cache and then a warm cache. If only the first cold visit is slow, the likely remaining cause is Vercel on-demand image optimization cache warming; if repeated warm visits are still slow, investigate selective image `unoptimized` usage or asset migration for non-LCP WordPress images.
+
+## Third Pass Owner Feedback
+
+Recorded on 2026-05-30 from owner hands-on testing and PageSpeed diagnostics.
+
+Owner-reported issues:
+
+- Images are still somewhat slow in real browsing.
+- Breadcrumb navigation feels delayed; clicking a breadcrumb can take about 1 second before the page switches.
+
+PageSpeed diagnostics supplied by owner:
+
+- Render-blocking CSS remains, estimated around 190 ms. The listed CSS files are small, so this is a lower-risk item than image delivery and navigation responsiveness.
+- LCP request discovery says the LCP image is detected in initial HTML and is not lazy-loaded, but the LCP request should carry high fetch priority.
+- Image delivery still flags oversized solution/card images such as `Manufacturing & Delivery` and `Design & Engineering`, where downloaded candidates are larger than the displayed size.
+- The original top-bar artwork `lg-bg-h.png` is also listed, but it is a small asset and should not drive the next optimization by itself.
+
+Third-pass plan:
+
+1. Improve LCP request priority without adding extra competing requests.
+   - Follow the Next.js 16 image guidance: avoid mixing `preload` and `fetchPriority`.
+   - Change the first hero image from `preload` to explicit `loading="eager"` plus `fetchPriority="high"`.
+   - Keep animated/non-active carousel slides out of the initial network.
+
+2. Reduce oversized image candidates on homepage card grids.
+   - Narrow homepage solution card `sizes` so desktop cards request approximately their real grid width instead of broad 33vw/50vw candidates.
+   - Review the first homepage product eager images so only the true LCP/near-fold image receives high priority; avoid turning the whole homepage into eager loading.
+   - Preserve image quality and layout; do not crop or replace source imagery.
+
+3. Make breadcrumb navigation feel faster.
+   - Use explicit full-route prefetch for breadcrumb links because the site is served through a catch-all dynamic App Router route.
+   - Add a lightweight prefetching breadcrumb link helper instead of changing every ordinary content link.
+   - Keep URLs, canonical, hreflang, and visual breadcrumb structure unchanged.
+
+4. Verification for this pass.
+   - Run `npm run lint`, `npm run build`, and `git diff --check`.
+   - Run local production Chrome checks for homepage network and breadcrumb prefetch behavior.
+   - Run local and remote launch verifier automated checks after deploy.
+
+## Third Pass Implementation
+
+Completed locally on 2026-05-30.
+
+Code changes:
+
+- Updated the homepage hero carousel first image to use `loading="eager"` and `fetchPriority="high"` instead of a direct `preload` prop. This keeps the LCP image discoverable from the initial HTML while satisfying the PageSpeed request for high fetch priority on the generated image preload.
+- Tightened homepage solution/card image `sizes` so desktop cards request candidates closer to their rendered width. This targets the `Manufacturing & Delivery` and `Design & Engineering` image-delivery warnings without changing the original visuals.
+- Converted the small top-bar `lg-bg-h.png` map artwork from a CSS background image to a Next image with `sizes="95px"`, preserving the visual placement while allowing optimized delivery.
+- Added a focused `BreadcrumbLink` helper that sets `prefetch={true}` for breadcrumb links only. This makes dynamic catch-all routes prefetch full route data for high-intent breadcrumb navigation without increasing prefetch pressure on every content link.
+
+Local verification:
+
+- `npm run lint`: passed.
+- `git diff --check`: passed.
+- `npm run build`: passed with Next.js 16.2.6 / Turbopack.
+- Local homepage HTML now includes the LCP hero image with `loading="eager"` and `fetchPriority="high"`; Next still emits the appropriate image preload, now with the high fetch priority attribute.
+- Local Chrome production check on `/mirror` found 33 RSC prefetch requests after idle time, including `/_rsc` prefetches for `/products` and `/`. Clicking the `Products` breadcrumb changed the path to `/products` in about 66 ms.
+- Local launch verifier report: `reports/launch/launch-readiness-local-performance-third-pass-20260530.json`
+  - `automatedOk=true`
+  - `ready=false` remains expected because LeadsCloud domain status, Sanity CORS confirmation, real form submissions, Rich Results, and Search Console are still external launch gates.
+
+Post-deploy verification still required:
+
+- Rerun PageSpeed on `https://intcoframing-wheat.vercel.app/` after Vercel deploys this commit.
+- Confirm the LCP request discovery warning is gone or reduced because the generated hero preload now carries high fetch priority.
+- Confirm homepage solution/card image-delivery savings improve without visible quality loss.
+- Manually click breadcrumbs on product, solution, project, and contact detail pages with a normal browser cache. Expected behavior is near-immediate visual transition after the route has been prefetched.
+- If image loading still feels slow on warm visits, investigate whether Vercel image optimization is reprocessing remote WordPress images too often; the next escalation would be selective asset migration to Sanity/public storage rather than further front-end-only tuning.

@@ -1966,7 +1966,15 @@ function HomeSolutionTile({ solution, locale }: { solution: Solution; locale: Lo
   return (
     <Link href={localizePath(locale, solution.path)} className="group block overflow-hidden bg-white shadow-[0_10px_22px_rgba(0,0,0,0.06)]">
       <div className="relative aspect-[487/363] overflow-hidden bg-neutral-100">
-        {solution.imageUrl ? <Image src={solution.imageUrl} alt={solution.imageAlt || solution.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 33vw, 50vw" /> : null}
+        {solution.imageUrl ? (
+          <Image
+            src={solution.imageUrl}
+            alt={solution.imageAlt || solution.title}
+            fill
+            className="object-cover transition duration-500 group-hover:scale-105"
+            sizes="(min-width: 1601px) 487px, (min-width: 1280px) calc((100vw - 150px) / 3), (min-width: 1024px) calc((100vw - 80px) / 3), (min-width: 640px) calc((100vw - 80px) / 2), calc(100vw - 58px)"
+          />
+        ) : null}
       </div>
       <div className="min-h-[306px] bg-white px-9 py-12 text-[#363636]">
         <h3 className="border-b border-[#484653] pb-4 text-balance text-lg font-semibold leading-6 text-[#363636]">{solution.title}</h3>
@@ -2146,15 +2154,15 @@ function ProductHeroSourceFrame({ title, locale, variant, categoryPath }: { titl
                 {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
                 {isProducts ? (
                   <span>{title}</span>
                 ) : (
                   <>
-                    <Link href={localizePath(locale, "/products")}>{t(locale, "products")}</Link>
+                    <BreadcrumbLink href={localizePath(locale, "/products")}>{t(locale, "products")}</BreadcrumbLink>
                     <span className="intco-source-hero-separator">›</span>
-                    <Link href={localizePath(locale, categoryPath || `/${title.toLowerCase().replace(/\s+/g, "-")}`)}>{title}</Link>
+                    <BreadcrumbLink href={localizePath(locale, categoryPath || `/${title.toLowerCase().replace(/\s+/g, "-")}`)}>{title}</BreadcrumbLink>
                   </>
                 )}
               </nav>
@@ -3005,7 +3013,7 @@ function SolutionsSourceHero({
         <div className={`intco-source-container px-5 text-center max-lg:text-left ${isDark ? "text-white" : "text-[#484653]"}`}>
           <h1 className={`text-[66px] leading-[80px] max-[1466px]:text-[40px] max-[1466px]:leading-[56px] max-[650px]:text-[26px] max-[650px]:leading-[1.2] ${isDark ? "font-semibold text-white" : "font-bold text-[#333333]"}`}>{title}</h1>
           <div className="flex items-center justify-center gap-3 py-3 text-[26px] font-medium leading-10 max-[1466px]:text-xl max-lg:justify-start max-lg:text-base">
-            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
             <ArrowRight size={18} strokeWidth={1.8} />
             <span>{title}</span>
           </div>
@@ -3164,9 +3172,9 @@ function BusinessInsightsHero({ locale }: { locale: Locale }) {
         <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
           <h1 className="text-[42px] font-bold leading-[80px] text-[#333333] max-lg:text-[38px] max-lg:leading-tight">{title}</h1>
           <nav className="flex items-center justify-center gap-3 py-3 text-lg font-medium leading-10 max-lg:justify-start max-lg:text-base lg:text-xl" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
             <span>›</span>
-            <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</BreadcrumbLink>
             <span>›</span>
             <span>{title}</span>
           </nav>
@@ -3410,9 +3418,9 @@ function DesignEngineeringHero({ locale }: { locale: Locale }) {
         <div className="intco-source-container intco-design-hero-inner px-5 text-center text-[#484653] max-lg:text-left">
           <h1 className="intco-design-hero-title">{title}</h1>
           <nav className="flex flex-wrap items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:justify-start max-lg:py-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
             <ArrowRight size={18} strokeWidth={1.8} />
-            <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</BreadcrumbLink>
             <ArrowRight size={18} strokeWidth={1.8} />
             <span>{title}</span>
           </nav>
@@ -3690,9 +3698,9 @@ function ManufacturingDeliveryHero({ locale }: { locale: Locale }) {
         <div className="intco-source-container intco-design-hero-inner px-5 text-center text-[#484653] max-lg:text-left">
           <h1 className="intco-design-hero-title">{title}</h1>
           <nav className="flex flex-wrap items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:justify-start max-lg:py-0 lg:text-[26px] lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
             <ArrowRight size={18} strokeWidth={1.8} />
-            <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</BreadcrumbLink>
             <ArrowRight size={18} strokeWidth={1.8} />
             <span>{title}</span>
           </nav>
@@ -3966,9 +3974,9 @@ function RetailerSupportHero({ locale }: { locale: Locale }) {
                 {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
-                <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
                 <span>{title}</span>
               </nav>
@@ -4054,9 +4062,9 @@ function CertificationHero({ locale }: { locale: Locale }) {
                 {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
-                <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
                 <span>{title}</span>
               </nav>
@@ -4141,9 +4149,9 @@ function GlobalProductionHero({ locale }: { locale: Locale }) {
                 {title}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
-                <Link href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
                 <span>{title}</span>
               </nav>
@@ -4348,11 +4356,11 @@ function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { loca
         <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
           <h1 className={`text-[32px] leading-[48px] lg:text-[66px] lg:leading-[80px] ${isProjectsIndex ? "font-bold text-[#333333]" : "font-semibold text-[#484653]"}`}>{title}</h1>
           <nav className="flex items-center justify-center gap-3 py-3 text-sm font-medium leading-[19px] text-[#484653] max-lg:py-0 lg:text-xl lg:leading-10" aria-label="Breadcrumb">
-            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
             <ArrowRight size={18} strokeWidth={1.8} />
             {showProjectsCrumb ? (
               <>
-                <Link href={localizePath(locale, "/projects")}>{t(locale, "projects")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/projects")}>{t(locale, "projects")}</BreadcrumbLink>
                 <ArrowRight size={18} strokeWidth={1.8} />
                 <span>{title}</span>
               </>
@@ -5242,7 +5250,7 @@ function SustainabilitySourceHero({ locale }: { locale: Locale }) {
         <div className="intco-source-container px-5 text-center text-white">
           <h1 className="text-[66px] font-semibold leading-none max-[1466px]:text-[40px] max-[650px]:text-[32px]">{t(locale, "sustainability")}</h1>
           <div className="mt-5 flex items-center justify-center gap-3 text-lg font-medium max-[650px]:text-base">
-            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+            <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
             <ArrowRight size={18} strokeWidth={1.8} />
             <span>{t(locale, "sustainability")}</span>
           </div>
@@ -5650,7 +5658,7 @@ function ContactSourceHero({ locale }: { locale: Locale }) {
                 {t(locale, "contact")}
               </h1>
               <nav className="intco-source-hero-crumbs" data-source-hero-crumbs aria-label="Breadcrumb">
-                <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+                <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
                 <span className="intco-source-hero-separator">›</span>
                 <span>{t(locale, "contact")}</span>
               </nav>
@@ -5826,6 +5834,14 @@ function RelatedGrid({ title, items, locale, kind }: { title: string; items: Arr
         )}
       </div>
     </div>
+  );
+}
+
+function BreadcrumbLink({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <Link href={href} prefetch={true}>
+      {children}
+    </Link>
   );
 }
 

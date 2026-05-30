@@ -139,10 +139,11 @@ function Header({
             </Link>
             <LanguageSwitcher locale={locale} currentPath={currentPath} />
             <span
-              className="absolute right-0 top-0 block h-[53px] w-[95px] bg-center bg-no-repeat"
-              style={{ backgroundImage: `url(${HEADER_LANGUAGE_MAP_IMAGE})` }}
+              className="absolute right-0 top-0 block h-[53px] w-[95px] overflow-hidden"
               aria-hidden="true"
-            />
+            >
+              <Image src={HEADER_LANGUAGE_MAP_IMAGE} alt="" fill className="object-cover" sizes="95px" />
+            </span>
           </div>
         </div>
       </div>

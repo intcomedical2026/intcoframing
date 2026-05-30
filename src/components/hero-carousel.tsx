@@ -55,7 +55,8 @@ export function HeroCarousel({
                   src={slide.imageUrl}
                   alt={slide.title || fallbackTitle}
                   fill
-                  preload={index === 0}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchPriority={index === 0 ? "high" : "auto"}
                   unoptimized={slide.imageUrl?.endsWith(".gif")}
                   className="object-cover"
                   sizes="100vw"
