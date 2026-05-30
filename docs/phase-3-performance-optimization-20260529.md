@@ -195,6 +195,11 @@ Local verification:
   - `reports/launch/launch-readiness-local-performance-second-pass-20260530.json`
   - `automatedOk=true`
   - `ready=false` remains expected because final-domain external gates are still pending.
+- Vercel deployment verification after push:
+  - `https://intcoframing-wheat.vercel.app/` served the second-pass markup with the new language switcher marker.
+  - Remote launch verifier report: `reports/launch/launch-readiness-vercel-performance-second-pass-20260530.json`
+  - `automatedOk=true`
+  - `ready=false` remains expected because test-domain LeadsCloud status, Sanity CORS confirmation, real form submissions, Rich Results, and Search Console are still external launch gates.
 
 Post-deploy verification still required:
 
