@@ -275,3 +275,14 @@ Post-deploy verification still required:
 - Confirm homepage solution/card image-delivery savings improve without visible quality loss.
 - Manually click breadcrumbs on product, solution, project, and contact detail pages with a normal browser cache. Expected behavior is near-immediate visual transition after the route has been prefetched.
 - If image loading still feels slow on warm visits, investigate whether Vercel image optimization is reprocessing remote WordPress images too often; the next escalation would be selective asset migration to Sanity/public storage rather than further front-end-only tuning.
+
+## Third Pass Remote Verification
+
+Completed after pushing commit `7366456` on 2026-05-30.
+
+- Remote homepage HTML on `https://intcoframing-wheat.vercel.app/` includes the generated hero image preload with `fetchPriority="high"` and `imageSizes="100vw"`.
+- Remote homepage server payload includes the tightened homepage solution/card `sizes` string for solution tiles.
+- Remote top-bar map artwork now renders as a Next image with `sizes="95px"` instead of a raw CSS background request.
+- Remote launch verifier report: `reports/launch/launch-readiness-vercel-performance-third-pass-20260530.json`
+  - `automatedOk=true`
+  - `ready=false` remains expected because LeadsCloud domain status, Sanity CORS confirmation, real form submissions, Rich Results, and Search Console are still external launch gates.
