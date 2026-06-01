@@ -1,0 +1,55 @@
+{
+  "capturedAt": "2026-06-01T01:21:22.612Z",
+  "summary": [
+    {
+      "target": "current-form-wait",
+      "url": "http://127.0.0.1:3002/products",
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 900,
+        "mobile": false
+      },
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 4209,
+        "width": 1456,
+        "height": 860,
+        "top": 4217,
+        "text": "GET IN TOUCH Don't Hesitate to Reach Us. We are always here to address all your concerns and provide solutions. 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "formHtml": "姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "className": "overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]",
+        "backgroundImage": "url(\"https://www.intcoframing-us.com/wp-content/themes/chengpin/images/orderBg.png\")",
+        "paddingTop": "100px",
+        "paddingBottom": "77px",
+        "screenshot": "reports/visual-parity/products-get-in-touch/before/current/products-desktop-1440-goinput-form-wait.png"
+      }
+    },
+    {
+      "target": "current-form-wait",
+      "url": "http://127.0.0.1:3002/products",
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844,
+        "mobile": true
+      },
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 7095,
+        "width": 406,
+        "height": 794,
+        "top": 7104,
+        "text": "GET IN TOUCH Don't Hesitate to Reach Us. We are always here to address all your concerns and provide solutions. 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "formHtml": "姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "className": "overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]",
+        "backgroundImage": "url(\"https://www.intcoframing-us.com/wp-content/themes/chengpin/images/orderBg.png\")",
+        "paddingTop": "50px",
+        "paddingBottom": "64px",
+        "screenshot": "reports/visual-parity/products-get-in-touch/before/current/products-mobile-390-goinput-form-wait.png"
+      }
+    }
+  ]
+}

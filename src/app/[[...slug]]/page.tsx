@@ -17,7 +17,7 @@ import {
   SolutionDetailView,
   SolutionsListingView,
 } from "@/components/site-views";
-import { getSiteData, type BlogPost, type EvidenceItem, type FaqItem, type OfferItem, type Product } from "@/lib/site-data";
+import { getSiteData, type BlogPost, type OfferItem, type Product } from "@/lib/site-data";
 import { languageAlternates, localizePath, parseLocalizedSegments, t, type Locale } from "@/lib/i18n";
 import { absoluteUrl, siteOrigin } from "@/lib/site-url";
 
@@ -78,7 +78,6 @@ export default async function SitePage({ params, searchParams }: PageProps) {
   const { locale, path } = parseLocalizedSegments(slug);
   const data = await getSiteData(locale, path);
   const jsonLd = buildStructuredData(path, data, locale);
-  const routeItem = structuredDataItemForPath(path, data);
 
   return (
     <SiteChrome settings={data.siteSettings} categories={data.productCategories} solutions={data.solutions} locale={locale} currentPath={path}>
@@ -91,113 +90,7 @@ export default async function SitePage({ params, searchParams }: PageProps) {
         />
       ))}
       {renderRoute(path, data, locale, query)}
-      <SeoContentSections item={routeItem} locale={locale} />
     </SiteChrome>
-  );
-}
-
-type SeoContentItem = {
-  faqs?: FaqItem[];
-  evidence?: EvidenceItem[];
-};
-
-const seoSectionLabels: Record<Locale, { faq: string; evidence: string; methodology: string; source: string; limitations: string }> = {
-  en: {
-    faq: "Frequently Asked Questions",
-    evidence: "Evidence and Claims",
-    methodology: "Methodology",
-    source: "Source",
-    limitations: "Limitations",
-  },
-  es: {
-    faq: "Preguntas frecuentes",
-    evidence: "Evidencia y afirmaciones",
-    methodology: "Metodología",
-    source: "Fuente",
-    limitations: "Limitaciones",
-  },
-  pt: {
-    faq: "Perguntas frequentes",
-    evidence: "Evidências e afirmações",
-    methodology: "Metodologia",
-    source: "Fonte",
-    limitations: "Limitações",
-  },
-  fr: {
-    faq: "Questions fréquentes",
-    evidence: "Preuves et affirmations",
-    methodology: "Méthodologie",
-    source: "Source",
-    limitations: "Limites",
-  },
-  de: {
-    faq: "Häufige Fragen",
-    evidence: "Nachweise und Aussagen",
-    methodology: "Methodik",
-    source: "Quelle",
-    limitations: "Einschränkungen",
-  },
-  ja: {
-    faq: "よくある質問",
-    evidence: "根拠と主張",
-    methodology: "方法",
-    source: "出典",
-    limitations: "制限事項",
-  },
-};
-
-function SeoContentSections({ item, locale }: { item?: SeoContentItem; locale: Locale }) {
-  const faqs = item?.faqs?.filter((faq) => faq.question && faq.answer) || [];
-  const evidence = item?.evidence?.filter((entry) => entry.claim) || [];
-  if (!faqs.length && !evidence.length) return null;
-
-  const labels = seoSectionLabels[locale];
-  return (
-    <section className="bg-white py-14">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:px-8">
-        {faqs.length ? (
-          <div id="faq" className="max-w-4xl">
-            <h2 className="text-3xl font-semibold text-neutral-950">{labels.faq}</h2>
-            <div className="mt-6 divide-y divide-neutral-200 border-y border-neutral-200">
-              {faqs.map((faq, index) => (
-                <details key={`${faq.anchorId || faq.question}-${index}`} id={faq.anchorId} className="group py-5">
-                  <summary className="cursor-pointer list-none text-lg font-semibold text-neutral-950">
-                    {faq.question}
-                  </summary>
-                  <p className="mt-3 text-base leading-7 text-neutral-600">{faq.answer}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        ) : null}
-        {evidence.length ? (
-          <div className="max-w-5xl">
-            <h2 className="text-3xl font-semibold text-neutral-950">{labels.evidence}</h2>
-            <div className="mt-6 grid gap-4 md:grid-cols-2">
-              {evidence.map((entry, index) => (
-                <article key={`${entry.claim}-${index}`} className="border border-neutral-200 p-5">
-                  <h3 className="text-lg font-semibold text-neutral-950">{entry.claim}</h3>
-                  {entry.methodology ? <p className="mt-3 text-sm leading-6 text-neutral-600">{labels.methodology}: {entry.methodology}</p> : null}
-                  {entry.sourceUrl || entry.sourceName ? (
-                    <p className="mt-3 text-sm leading-6 text-neutral-600">
-                      {labels.source}:{" "}
-                      {entry.sourceUrl ? (
-                        <a href={entry.sourceUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-emerald-700 hover:text-neutral-950">
-                          {entry.sourceName || entry.sourceUrl}
-                        </a>
-                      ) : (
-                        entry.sourceName
-                      )}
-                    </p>
-                  ) : null}
-                  {entry.limitations ? <p className="mt-3 text-sm leading-6 text-neutral-500">{labels.limitations}: {entry.limitations}</p> : null}
-                </article>
-              ))}
-            </div>
-          </div>
-        ) : null}
-      </div>
-    </section>
   );
 }
 

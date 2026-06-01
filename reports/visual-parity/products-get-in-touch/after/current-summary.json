@@ -1,0 +1,390 @@
+{
+  "capturedAt": "2026-06-01T01:51:38.715Z",
+  "base": "http://127.0.0.1:3002",
+  "summary": [
+    {
+      "route": "/products",
+      "viewport": "desktop-1440",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 4209,
+        "width": 1456,
+        "height": 1155,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 217,
+          "y": 371,
+          "w": 483,
+          "h": 80
+        },
+        "message": {
+          "x": 217,
+          "y": 779,
+          "w": 1006,
+          "h": 272
+        },
+        "submit": {
+          "x": 568,
+          "y": 1071,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/products/desktop-1440-goinput.png"
+      }
+    },
+    {
+      "route": "/products",
+      "viewport": "mobile-390",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 7095,
+        "width": 406,
+        "height": 1216,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 20,
+          "y": 184,
+          "w": 350,
+          "h": 40
+        },
+        "message": {
+          "x": 20,
+          "y": 760,
+          "w": 350,
+          "h": 272
+        },
+        "submit": {
+          "x": 43,
+          "y": 1052,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/products/mobile-390-goinput.png"
+      }
+    },
+    {
+      "route": "/mirror",
+      "viewport": "desktop-1440",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 3333,
+        "width": 1456,
+        "height": 1155,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 217,
+          "y": 371,
+          "w": 483,
+          "h": 80
+        },
+        "message": {
+          "x": 217,
+          "y": 779,
+          "w": 1006,
+          "h": 272
+        },
+        "submit": {
+          "x": 568,
+          "y": 1071,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/mirror/desktop-1440-goinput.png"
+      }
+    },
+    {
+      "route": "/mirror",
+      "viewport": "mobile-390",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 6279,
+        "width": 406,
+        "height": 1216,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 20,
+          "y": 184,
+          "w": 350,
+          "h": 40
+        },
+        "message": {
+          "x": 20,
+          "y": 760,
+          "w": 350,
+          "h": 272
+        },
+        "submit": {
+          "x": 43,
+          "y": 1052,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/mirror/mobile-390-goinput.png"
+      }
+    },
+    {
+      "route": "/picture-frame",
+      "viewport": "desktop-1440",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 3319,
+        "width": 1456,
+        "height": 1155,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 217,
+          "y": 371,
+          "w": 483,
+          "h": 80
+        },
+        "message": {
+          "x": 217,
+          "y": 779,
+          "w": 1006,
+          "h": 272
+        },
+        "submit": {
+          "x": 568,
+          "y": 1071,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/picture-frame/desktop-1440-goinput.png"
+      }
+    },
+    {
+      "route": "/picture-frame",
+      "viewport": "mobile-390",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 4856,
+        "width": 406,
+        "height": 1229,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 20,
+          "y": 184,
+          "w": 350,
+          "h": 40
+        },
+        "message": {
+          "x": 20,
+          "y": 760,
+          "w": 350,
+          "h": 272
+        },
+        "submit": {
+          "x": 43,
+          "y": 1052,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/picture-frame/mobile-390-goinput.png"
+      }
+    },
+    {
+      "route": "/art",
+      "viewport": "desktop-1440",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 2514,
+        "width": 1456,
+        "height": 1155,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 217,
+          "y": 371,
+          "w": 483,
+          "h": 80
+        },
+        "message": {
+          "x": 217,
+          "y": 779,
+          "w": 1006,
+          "h": 272
+        },
+        "submit": {
+          "x": 568,
+          "y": 1071,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/art/desktop-1440-goinput.png"
+      }
+    },
+    {
+      "route": "/art",
+      "viewport": "mobile-390",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 4074,
+        "width": 406,
+        "height": 1229,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 20,
+          "y": 184,
+          "w": 350,
+          "h": 40
+        },
+        "message": {
+          "x": 20,
+          "y": 760,
+          "w": 350,
+          "h": 272
+        },
+        "submit": {
+          "x": 43,
+          "y": 1052,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/art/mobile-390-goinput.png"
+      }
+    },
+    {
+      "route": "/furniture",
+      "viewport": "desktop-1440",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 2394,
+        "width": 1456,
+        "height": 1155,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 217,
+          "y": 371,
+          "w": 483,
+          "h": 80
+        },
+        "message": {
+          "x": 217,
+          "y": 779,
+          "w": 1006,
+          "h": 272
+        },
+        "submit": {
+          "x": 568,
+          "y": 1071,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/furniture/desktop-1440-goinput.png"
+      }
+    },
+    {
+      "route": "/furniture",
+      "viewport": "mobile-390",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 3460,
+        "width": 406,
+        "height": 1229,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 20,
+          "y": 184,
+          "w": 350,
+          "h": 40
+        },
+        "message": {
+          "x": 20,
+          "y": 760,
+          "w": 350,
+          "h": 272
+        },
+        "submit": {
+          "x": 43,
+          "y": 1052,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/furniture/mobile-390-goinput.png"
+      }
+    },
+    {
+      "route": "/memo-board",
+      "viewport": "desktop-1440",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 2933,
+        "width": 1456,
+        "height": 1155,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 217,
+          "y": 371,
+          "w": 483,
+          "h": 80
+        },
+        "message": {
+          "x": 217,
+          "y": 779,
+          "w": 1006,
+          "h": 272
+        },
+        "submit": {
+          "x": 568,
+          "y": 1071,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/memo-board/desktop-1440-goinput.png"
+      }
+    },
+    {
+      "route": "/memo-board",
+      "viewport": "mobile-390",
+      "section": {
+        "hasForm": true,
+        "x": 0,
+        "y": 5211,
+        "width": 406,
+        "height": 1229,
+        "text": "GET IN TOUCH 姓名 * 公司名称 * 国家地区 * 邮箱 * 电话 * WhatsApp 留言 * 提交",
+        "firstInput": {
+          "x": 20,
+          "y": 184,
+          "w": 350,
+          "h": 40
+        },
+        "message": {
+          "x": 20,
+          "y": 760,
+          "w": 350,
+          "h": 272
+        },
+        "submit": {
+          "x": 43,
+          "y": 1052,
+          "w": 304,
+          "h": 84
+        },
+        "visibleFaq": false,
+        "screenshot": "reports/visual-parity/products-get-in-touch/after/current/memo-board/mobile-390-goinput.png"
+      }
+    }
+  ]
+}

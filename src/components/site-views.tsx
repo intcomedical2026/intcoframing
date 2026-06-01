@@ -2350,10 +2350,7 @@ function ProductContactSection({ locale }: { locale: Locale }) {
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="mx-auto max-w-[1600px]">
         <ProductSourceTitle title={t(locale, "getInTouch")} />
-        <p className="wow fadeInUp mx-auto mt-9 max-w-[1100px] text-center text-base leading-[30px] text-[#363636] lg:mt-[55px] lg:text-lg" data-reveal="source-up">
-          {t(locale, "contactFormIntro")}
-        </p>
-        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1446px] lg:mt-[55px]">
+        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1006px] lg:mt-[55px]">
           <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
         </div>
       </div>
@@ -2522,10 +2519,7 @@ function PictureFrameContactSection({ locale }: { locale: Locale }) {
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center pb-0 pt-[50px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="intco-source-container px-5">
         <PictureFrameSectionTitle title={t(locale, "getInTouch")} />
-        <p className="wow fadeInUp mx-auto mb-[55px] mt-[55px] max-w-[1160px] text-center text-base leading-6 text-[#363636]" data-reveal="source-up">
-          {t(locale, "contactFormIntro")}
-        </p>
-        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto max-w-[1160px] pb-[77px] lg:px-[77px]">
+        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1006px] pb-[77px] lg:mt-[55px]">
           <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
         </div>
       </div>
