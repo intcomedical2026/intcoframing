@@ -1373,7 +1373,7 @@ summary::-webkit-details-marker {
   font-weight: 400;
   line-height: 27px;
   margin: 0 auto 58px;
-  max-width: 1160px;
+  max-width: 100%;
   text-align: center;
 }
 
@@ -1412,14 +1412,19 @@ summary::-webkit-details-marker {
 
 .intco-certification-swiper-grid {
   display: flex;
-  gap: 28px;
+  gap: 0;
   overflow: hidden;
 }
 
 .intco-certification-swiper-slide {
-  flex: 0 0 100%;
+  flex: 0 0 calc((100% - 210px) / 4);
+  margin-right: 70px;
   padding-bottom: 150px;
   position: relative;
+}
+
+.intco-certification-swiper-slide:last-child {
+  margin-right: 0;
 }
 
 .intco-certification-swiper-image {
@@ -2109,12 +2114,20 @@ summary::-webkit-details-marker {
   padding: 9vh 0;
 }
 
+.intco-contact-sample-title {
+  margin: 0 0 55px;
+}
+
+.intco-contact-message-section .intco-contact-sample-title .title_text {
+  padding-bottom: 20px;
+}
+
 .intco-contact-form-desc {
   color: #363636;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  margin: 55px 0;
+  margin: 0 0 55px;
   text-align: left;
 }
 
@@ -2126,6 +2139,114 @@ summary::-webkit-details-marker {
   box-sizing: border-box;
   padding-right: 5%;
   width: 55%;
+}
+
+.intco-contact-form .xhl_form {
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  width: 100%;
+}
+
+.intco-contact-form fieldset {
+  border: 0 !important;
+  column-gap: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+}
+
+.intco-contact-form .xhl-control-group {
+  box-sizing: border-box;
+  margin: 0 0 20px !important;
+  min-width: 0;
+}
+
+.intco-contact-form .xhl-form-text,
+.intco-contact-form .xhl-footer {
+  grid-column: 1 / -1;
+}
+
+.intco-contact-form .xhl-control-label {
+  color: #868686;
+  display: block;
+  font-size: 14px;
+  height: 36px;
+  line-height: 36px;
+  margin: 0;
+  overflow: visible;
+}
+
+.intco-contact-form .xhl-controls {
+  position: relative;
+}
+
+.intco-contact-form .xhl-input-xlarge,
+.intco-contact-form .xhl-textarea {
+  background: #ffffff;
+  border: 1px solid #717171;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #777777;
+  display: inline-block;
+  font-size: 16px;
+  outline: none;
+  width: 100%;
+}
+
+.intco-contact-form .xhl-input-xlarge {
+  height: 80px;
+  line-height: normal;
+  padding: 0 14px;
+}
+
+.intco-contact-form .xhl-textarea {
+  height: 272px;
+  line-height: normal;
+  padding: 20px 14px;
+  resize: vertical;
+}
+
+.intco-contact-form .xhl-form-tip {
+  color: #ff0000;
+  line-height: 24px;
+  position: absolute;
+  right: -10px;
+  top: 0;
+  width: 11px;
+}
+
+.intco-contact-form .xhl-footer {
+  clear: both;
+  margin: 0 !important;
+  padding: 0;
+  text-align: center;
+}
+
+.intco-contact-form #xhlFormSubmit {
+  background: rgba(152, 119, 84, 0);
+  border: 2px solid #484653;
+  border-radius: 6px;
+  box-sizing: content-box;
+  color: #484653;
+  cursor: pointer;
+  display: block;
+  font-size: 24px;
+  height: 89px;
+  line-height: 89px;
+  margin: 0 -4px 0 0;
+  padding: 0;
+  text-align: center;
+  text-transform: capitalize;
+  transition: all 600ms;
+  width: 100%;
+}
+
+.intco-contact-form #xhlFormSubmit:hover {
+  background: #484653;
+  color: #ffffff;
 }
 
 .intco-contact-form-fields {
@@ -2980,6 +3101,11 @@ summary::-webkit-details-marker {
     gap: 0;
   }
 
+  .intco-certification-swiper-slide {
+    flex: 0 0 100%;
+    margin-right: 0;
+  }
+
   .intco-certification-arrow {
     display: none;
   }
@@ -3446,6 +3572,57 @@ summary::-webkit-details-marker {
   .selefTitle.intco-product-source-title .title_text::after {
     height: 2px;
     width: 40px;
+  }
+
+  .intco-contact-message-section {
+    padding: 20px 0 0;
+  }
+
+  .intco-contact-message-section .selefTitle.intco-contact-sample-title {
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+
+  .intco-contact-message-section .selefTitle.intco-contact-sample-title .title_text {
+    padding-bottom: 10px;
+  }
+
+  .intco-contact-form-desc {
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0 0 30px;
+  }
+
+  .intco-contact-message-grid {
+    flex-direction: column;
+  }
+
+  .intco-contact-form-image-wrap {
+    display: none;
+  }
+
+  .intco-contact-form .xhl_form {
+    max-width: none;
+  }
+
+  .intco-contact-form fieldset {
+    display: block;
+  }
+
+  .intco-contact-form .xhl-input-xlarge {
+    height: 60px;
+    line-height: 60px;
+    padding: 0 17.5px;
+  }
+
+  .intco-contact-form .xhl-textarea {
+    height: 150px;
+    padding: 20px 17.5px;
+  }
+
+  .intco-contact-form #xhlFormSubmit {
+    height: 60px;
+    line-height: 60px;
   }
 }
 

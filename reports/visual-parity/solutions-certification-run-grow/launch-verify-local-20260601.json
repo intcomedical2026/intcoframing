@@ -1,0 +1,442 @@
+{
+  "generatedAt": "2026-06-01T03:51:34.761Z",
+  "fetchBase": "http://127.0.0.1:3002",
+  "expectedOrigin": "https://intcoframing-wheat.vercel.app",
+  "checks": {
+    "robots": {
+      "ok": true,
+      "url": "http://127.0.0.1:3002/robots.txt",
+      "status": 200,
+      "hasUserAgent": true,
+      "allowsRoot": true,
+      "disallowsStudio": true,
+      "hasExpectedSitemap": true,
+      "hasExpectedHost": true
+    },
+    "sitemap": {
+      "ok": true,
+      "url": "http://127.0.0.1:3002/sitemap.xml",
+      "status": 200,
+      "locCount": 1476,
+      "uniqueLocCount": 1476,
+      "wrongOrigin": [],
+      "queryOrHash": [],
+      "missingRequired": []
+    },
+    "pages": {
+      "ok": true,
+      "checked": 11,
+      "samples": [
+        {
+          "label": "home",
+          "path": "/",
+          "url": "http://127.0.0.1:3002/",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": "https://intcoframing-wheat.vercel.app",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "FAQPage",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "products",
+          "path": "/products",
+          "url": "http://127.0.0.1:3002/products",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": "https://intcoframing-wheat.vercel.app/products",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/products",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "FAQPage",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "spanish products",
+          "path": "/es/products",
+          "url": "http://127.0.0.1:3002/es/products",
+          "status": 200,
+          "expectedLocale": "es",
+          "htmlLang": "es",
+          "canonical": "https://intcoframing-wheat.vercel.app/es/products",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/es/products",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "FAQPage",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "contact",
+          "path": "/contact",
+          "url": "http://127.0.0.1:3002/contact",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": "https://intcoframing-wheat.vercel.app/contact",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/contact",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "ContactPage",
+            "FAQPage",
+            "Organization",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "japanese contact",
+          "path": "/ja/contact",
+          "url": "http://127.0.0.1:3002/ja/contact",
+          "status": 200,
+          "expectedLocale": "ja",
+          "htmlLang": "ja",
+          "canonical": "https://intcoframing-wheat.vercel.app/ja/contact",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/ja/contact",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "ContactPage",
+            "FAQPage",
+            "Organization",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "product detail",
+          "path": "/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
+          "url": "http://127.0.0.1:3002/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": "https://intcoframing-wheat.vercel.app/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "Organization",
+            "Product",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "blog detail",
+          "path": "/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "url": "http://127.0.0.1:3002/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": "https://intcoframing-wheat.vercel.app/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/news/canvas-art-a-perfect-addition-to-your-home-decor",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BlogPosting",
+            "BreadcrumbList",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "solution detail",
+          "path": "/solutions/business-insights-trends",
+          "url": "http://127.0.0.1:3002/solutions/business-insights-trends",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": "https://intcoframing-wheat.vercel.app/solutions/business-insights-trends",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/solutions/business-insights-trends",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "FAQPage",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "french solution detail",
+          "path": "/fr/solutions/design-engineering",
+          "url": "http://127.0.0.1:3002/fr/solutions/design-engineering",
+          "status": 200,
+          "expectedLocale": "fr",
+          "htmlLang": "fr",
+          "canonical": "https://intcoframing-wheat.vercel.app/fr/solutions/design-engineering",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/fr/solutions/design-engineering",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "FAQPage",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "german solution detail",
+          "path": "/de/solutions/manufacturing-delivery",
+          "url": "http://127.0.0.1:3002/de/solutions/manufacturing-delivery",
+          "status": 200,
+          "expectedLocale": "de",
+          "htmlLang": "de",
+          "canonical": "https://intcoframing-wheat.vercel.app/de/solutions/manufacturing-delivery",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/de/solutions/manufacturing-delivery",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "FAQPage",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": true,
+          "hasTwitter": true,
+          "requireSocial": true,
+          "ok": true
+        },
+        {
+          "label": "enquiry list",
+          "path": "/enquiry-list",
+          "url": "http://127.0.0.1:3002/enquiry-list",
+          "status": 200,
+          "expectedLocale": "en",
+          "htmlLang": "en",
+          "canonical": "https://intcoframing-wheat.vercel.app/enquiry-list",
+          "expectedCanonical": "https://intcoframing-wheat.vercel.app/enquiry-list",
+          "missingAlternates": [],
+          "jsonLdTypes": [
+            "BreadcrumbList",
+            "Organization",
+            "WebPage",
+            "WebSite"
+          ],
+          "missingJsonLd": [],
+          "missingForms": [],
+          "hasGtm": true,
+          "hasGoogleVerification": true,
+          "hasLeadsCloudChat": true,
+          "hasTitle": true,
+          "hasDescription": true,
+          "hasOg": false,
+          "hasTwitter": false,
+          "requireSocial": false,
+          "ok": true
+        }
+      ]
+    },
+    "legacyRedirects": {
+      "ok": true,
+      "csvPath": "reports/launch/legacy-wordpress-urls-20260528T063320Z.csv",
+      "checked": 40,
+      "totalRows": 262,
+      "limited": true,
+      "failures": []
+    },
+    "leadsCloudDomain": {
+      "ok": false,
+      "endpoint": "https://fetchip.leadscloud.com/visitor-chat/track/getStatus",
+      "enterpriseId": "200365",
+      "expectedHost": "intcoframing-wheat.vercel.app",
+      "hostCheckedByOriginalScript": "intcoframing-wheat.vercel.app",
+      "status": 200,
+      "statusListLength": 0,
+      "enabled": false,
+      "statusList": []
+    },
+    "sanityCors": {
+      "ok": false,
+      "projectId": "o10sbz2i",
+      "dataset": "production",
+      "expectedOrigin": "https://intcoframing-wheat.vercel.app",
+      "confirmedByFlag": false,
+      "tokenPresent": true,
+      "endpointStatus": 401,
+      "matchingOrigin": false,
+      "error": "User is missing required grant sanity.project.cors/read to perform this operation"
+    },
+    "manualGates": {
+      "ok": false,
+      "gates": [
+        {
+          "id": "formSubmission",
+          "ok": false,
+          "message": "A real Contact/product/enquiry LeadsCloud submission must be tested only after the owner confirms it is safe to send a test lead."
+        },
+        {
+          "id": "richResults",
+          "ok": false,
+          "message": "Representative final-domain URLs must pass Google Rich Results validation or manual structured-data review."
+        },
+        {
+          "id": "searchConsole",
+          "ok": false,
+          "message": "Google Search Console domain ownership and sitemap submission must be completed for the final domain."
+        }
+      ]
+    }
+  },
+  "failures": [
+    {
+      "check": "leadsCloudDomain",
+      "external": true,
+      "summary": "Check failed"
+    },
+    {
+      "check": "sanityCors",
+      "external": true,
+      "summary": "User is missing required grant sanity.project.cors/read to perform this operation"
+    },
+    {
+      "check": "manualGates",
+      "external": true,
+      "summary": "Check failed"
+    }
+  ],
+  "externalPending": [
+    {
+      "check": "leadsCloudDomain",
+      "message": "LeadsCloud has no enabled statusList entry for intcoframing-wheat.vercel.app. Add the launch domain in LeadsCloud or point the configured original domain to this deployment."
+    },
+    {
+      "check": "sanityCors",
+      "message": "Sanity CORS is not confirmed for the expected origin. Confirm it in Sanity project settings or rerun with --sanity-cors-confirmed after manual verification."
+    },
+    {
+      "check": "formSubmission",
+      "message": "A real Contact/product/enquiry LeadsCloud submission must be tested only after the owner confirms it is safe to send a test lead."
+    },
+    {
+      "check": "richResults",
+      "message": "Representative final-domain URLs must pass Google Rich Results validation or manual structured-data review."
+    },
+    {
+      "check": "searchConsole",
+      "message": "Google Search Console domain ownership and sitemap submission must be completed for the final domain."
+    }
+  ],
+  "ready": false,
+  "automatedOk": true,
+  "externalOk": false
+}

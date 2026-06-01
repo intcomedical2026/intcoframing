@@ -5739,18 +5739,34 @@ function ContactSupportSection({ locale }: { locale: Locale }) {
 }
 
 function ContactSampleSection({ locale }: { locale: Locale }) {
+  const intro = t(locale, "contactFormIntro");
+  const contactIntro =
+    locale === "en" ? (
+      <>
+        Don&apos;t Hesitate to Reach Us
+        <br />
+        We are always here to address all your concerns and provide solutions.
+      </>
+    ) : (
+      intro
+    );
+
   return (
-    <section id="goinput" className="intco-contact-index intco-contact-message-section">
+    <section id="goinput" className="index-message-grid contact-index intco-contact-index intco-contact-message-section">
       <div className="intco-source-container px-5 min-[1601px]:px-0">
-        <ProductSourceTitle title={t(locale, "orderSample")} />
-        <p className="intco-contact-form-desc" data-reveal="fade">
-          {t(locale, "contactFormIntro")}
-        </p>
-        <div className="intco-contact-message-grid">
-          <div className={`intco-contact-form ${leadsCloudBuryClass("5d7b74d8ea0b4f4fb26aa05682c8ae4e")}`} data-reveal="source-down">
+        <div className="selefTitle intco-product-source-title intco-contact-sample-title margin55" data-source-title data-tit={t(locale, "orderSample")}>
+          <h2 className="title_text" data-source-title-text>
+            {t(locale, "orderSample")}
+          </h2>
+        </div>
+        <div className="DESC leftTitle margin55 intco-contact-form-desc" data-reveal="fade">
+          {contactIntro}
+        </div>
+        <div className="msg-grid intco-contact-message-grid">
+          <div className={`text intco-contact-form ${leadsCloudBuryClass("5d7b74d8ea0b4f4fb26aa05682c8ae4e")}`} data-reveal="source-down">
             <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
           </div>
-          <div className="intco-contact-form-image-wrap" data-reveal="source-up">
+          <div className="imgshow intco-contact-form-image-wrap" data-reveal="source-up">
             <div className="intco-contact-form-image">
               <Image src={CONTACT_FORM_IMAGE} alt="" fill className="object-cover" sizes="(min-width: 1024px) 509px, 80vw" />
             </div>
