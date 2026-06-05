@@ -15,6 +15,7 @@ type ChromeProps = {
   solutions: Solution[];
   locale: Locale;
   currentPath: string;
+  languagePath?: string;
   children: React.ReactNode;
 };
 
@@ -71,11 +72,11 @@ function chromeLabel(locale: Locale, path: string, fallback: string) {
   return labels[path] || fallback;
 }
 
-export function SiteChrome({ settings, categories, solutions, locale, currentPath, children }: ChromeProps) {
+export function SiteChrome({ settings, categories, solutions, locale, currentPath, languagePath = currentPath, children }: ChromeProps) {
   return (
     <div lang={locale}>
       <RevealRuntime />
-      <Header settings={settings} categories={categories} solutions={solutions} locale={locale} currentPath={currentPath} />
+      <Header settings={settings} categories={categories} solutions={solutions} locale={locale} currentPath={currentPath} languagePath={languagePath} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
@@ -92,12 +93,14 @@ function Header({
   solutions,
   locale,
   currentPath,
+  languagePath,
 }: {
   settings: SiteSettings;
   categories: ProductCategory[];
   solutions: Solution[];
   locale: Locale;
   currentPath: string;
+  languagePath: string;
 }) {
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
   const solutionNav = solutions.slice().sort((a, b) => (a.order || 0) - (b.order || 0)).slice(0, 6);
@@ -137,7 +140,7 @@ function Header({
             <Link href={href("/enquiry-list")} className="ml-4 flex h-[34px] w-[171px] items-center justify-center rounded-full border-2 border-white text-lg font-semibold text-white">
               {t(locale, "myCart")}
             </Link>
-            <LanguageSwitcher locale={locale} currentPath={currentPath} />
+            <LanguageSwitcher locale={locale} currentPath={languagePath} />
             <span
               className="absolute right-0 top-0 block h-[53px] w-[95px] overflow-hidden"
               aria-hidden="true"
@@ -200,7 +203,7 @@ function Header({
           <Link href={href("/index.php")} aria-label={t(locale, "search")}>
             <Search size={28} strokeWidth={2.8} />
           </Link>
-          <LanguageSwitcher locale={locale} currentPath={currentPath} compact />
+          <LanguageSwitcher locale={locale} currentPath={languagePath} compact />
           <details className="relative">
             <summary className="cursor-pointer list-none" aria-label="Open menu">
               <Menu size={32} strokeWidth={2.8} />
@@ -221,7 +224,7 @@ function Header({
                 </div>
               ))}
               {locales.map((item) => (
-                <Link key={item} href={localizePath(item, currentPath)} className="block px-3 py-2 text-sm font-semibold text-neutral-600 hover:bg-neutral-100">
+                <Link key={item} href={localizePath(item, languagePath)} className="block px-3 py-2 text-sm font-semibold text-neutral-600 hover:bg-neutral-100">
                   {localeLabels[item]}
                 </Link>
               ))}

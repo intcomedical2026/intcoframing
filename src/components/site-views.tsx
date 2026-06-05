@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { existsSync, readFileSync } from "node:fs";
+import path from "node:path";
 import {
   ArrowRight,
   CheckCircle2,
@@ -53,7 +55,16 @@ import { SolutionsServicesSection, type SolutionsServiceItem } from "@/component
 import { SustainabilitySavingsTabs, SustainabilityVideoButton } from "@/components/sustainability-interactions";
 import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
 import { ContactMapTabs, type ContactFactory } from "@/components/contact-map-tabs";
+import {
+  SourceProductAboutTabs,
+  SourceProductGallery,
+  SourceProductPurchaseControls,
+  SourceRelatedProductsCarousel,
+  type SourceColorChoice,
+  type SourceRelatedProductItem,
+} from "@/components/product-detail-source-interactions";
 import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
+import { SOURCE_EMPTY_SEARCH_RESULTS, SOURCE_SEARCH_PAGE_SIZE, type SourceSearchResultItem } from "@/lib/source-search-results";
 
 const PRODUCT_CATALOG_IMAGES = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.png",
@@ -497,7 +508,48 @@ function localizedContactFactories(locale: Locale) {
 
 const HOME_PROFILE_VIDEO_SRC = "https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC&autoplay=1&rel=0";
 const HOME_PROFILE_VIDEO_THUMB = "https://i.ytimg.com/vi/N7I6CgHXCZQ/maxresdefault.jpg";
-const HOME_PROFILE_VIDEO_SRC_DOC = `
+const HOME_PROFILE_VIDEO_COPY: Record<Locale, { ariaLabel: string; title: string; watch: string; playerTitle: string }> = {
+  en: {
+    ariaLabel: "Play INTCO Framing YouTube video",
+    title: "End-to-end Home Decor Solutions",
+    watch: "Watch on platform",
+    playerTitle: "INTCO Framing video player",
+  },
+  es: {
+    ariaLabel: "Reproducir video de YouTube de INTCO Framing",
+    title: "Soluciones integrales de decoración",
+    watch: "Ver en la plataforma",
+    playerTitle: "Reproductor de video de INTCO Framing",
+  },
+  pt: {
+    ariaLabel: "Reproduzir vídeo do YouTube da INTCO Framing",
+    title: "Soluções completas de decoração",
+    watch: "Ver na plataforma",
+    playerTitle: "Reprodutor de vídeo da INTCO Framing",
+  },
+  fr: {
+    ariaLabel: "Lire la vidéo YouTube de INTCO Framing",
+    title: "Solutions décoration de bout en bout",
+    watch: "Voir sur la plateforme",
+    playerTitle: "Lecteur vidéo INTCO Framing",
+  },
+  de: {
+    ariaLabel: "YouTube-Video von INTCO Framing abspielen",
+    title: "End-to-End-Dekorationslösungen",
+    watch: "Auf der Plattform ansehen",
+    playerTitle: "INTCO Framing Videoplayer",
+  },
+  ja: {
+    ariaLabel: "INTCO Framing の YouTube 動画を再生",
+    title: "総合ホームデコレーションソリューション",
+    watch: "プラットフォームで見る",
+    playerTitle: "INTCO Framing 動画プレーヤー",
+  },
+};
+
+function homeProfileVideoSrcDoc(locale: Locale) {
+  const copy = HOME_PROFILE_VIDEO_COPY[locale];
+  return `
 <!doctype html>
 <html>
 <head>
@@ -506,12 +558,13 @@ const HOME_PROFILE_VIDEO_SRC_DOC = `
 </style>
 </head>
 <body>
-<a href="${HOME_PROFILE_VIDEO_SRC}" aria-label="Play INTCO Framing YouTube video">
+<a href="${HOME_PROFILE_VIDEO_SRC}" aria-label="${copy.ariaLabel}">
 <img src="${HOME_PROFILE_VIDEO_THUMB}" alt="">
-<span class="shade"></span><span class="badge">INTCO</span><span class="title">Intco Framing | End-to-end Home Decor Solutions</span><span class="channel">INTCO Framing</span><span class="play"></span><span class="watch">前往平台观看</span><span class="yt">YouTube</span>
+<span class="shade"></span><span class="badge">INTCO</span><span class="title">INTCO Framing | ${copy.title}</span><span class="channel">INTCO Framing</span><span class="play"></span><span class="watch">${copy.watch}</span><span class="yt">YouTube</span>
 </a>
 </body>
 </html>`;
+}
 
 const SOURCE_HOME_HERO_SLIDES: NonNullable<SiteData["homePage"]["heroSlides"]> = [
   {
@@ -558,29 +611,51 @@ const SOURCE_HOME_HERO_SLIDES: NonNullable<SiteData["homePage"]["heroSlides"]> =
   },
 ];
 
-const HOME_PRODUCT_COPY: Record<string, { title: string; description: string }> = {
-  mirror: {
-    title: "Mirror",
-    description: "Decorating your wall with a mirror can add depth and fascination into rooms. Intco Framing offers a range of mirrors suitable for any room in home!",
-  },
-  "picture-frame": {
-    title: "Picture Frame",
-    description:
+const HOME_PRODUCT_COPY: Record<Locale, Record<string, string>> = {
+  en: {
+    mirror: "Decorating your wall with a mirror can add depth and fascination into rooms. Intco Framing offers a range of mirrors suitable for any room in home!",
+    "picture-frame":
       "Our picture frames are all made of environmentally friendly materials. Explore picture frames in various shapes and styles at Intco Framing. Display your cherished photos, meaningful moments, and essential documents elegantly.",
-  },
-  art: {
-    title: "Art",
-    description: "Create your own gallery with wall art from Intco Framing. Our diverse selection of art ensures your home is as exceptional as your individual taste.",
-  },
-  furniture: {
-    title: "Furniture",
-    description:
+    art: "Create your own gallery with wall art from Intco Framing. Our diverse selection of art ensures your home is as exceptional as your individual taste.",
+    furniture:
       "Intco Framing delivers top-quality furniture, ranging from medicine cabinets to shelves, designed to maximize home storage space. Intco Framing provides innovative storage solutions for a clutter-free living environment.",
-  },
-  "memo-board": {
-    title: "Memo Board",
-    description:
+    "memo-board":
       "Discover a variety of framed chalkboards and cork boards at Intco Framing. Whether it's a reminder, a note, or a piece of encouragement, add your personal touch to these boards. Explore our selection and find the perfect one that resonates with you!",
+  },
+  es: {
+    mirror: "Decorar la pared con un espejo aporta profundidad y carácter. Intco Framing ofrece espejos adecuados para cualquier espacio del hogar.",
+    "picture-frame": "Nuestros marcos están fabricados con materiales respetuosos con el medio ambiente. Descubra estilos y formatos para fotos, recuerdos y documentos.",
+    art: "Cree su propia galería con el arte mural de Intco Framing. Nuestra selección hace que su hogar refleje su gusto personal.",
+    furniture: "Intco Framing ofrece muebles de alta calidad, desde botiquines con espejo hasta estantes, pensados para optimizar el almacenamiento en casa.",
+    "memo-board": "Descubra pizarras y tableros de corcho enmarcados para recordatorios, notas e ideas. Encuentre la pieza perfecta para su espacio.",
+  },
+  pt: {
+    mirror: "Decorar a parede com um espelho traz profundidade e charme. A Intco Framing oferece opções adequadas para qualquer ambiente da casa.",
+    "picture-frame": "Nossas molduras são feitas com materiais ambientalmente responsáveis. Explore formatos e estilos para fotos, lembranças e documentos.",
+    art: "Crie sua própria galeria com as artes de parede da Intco Framing. Nossa seleção faz sua casa refletir seu estilo pessoal.",
+    furniture: "A Intco Framing oferece móveis de alta qualidade, de armários com espelho a prateleiras, para ampliar o armazenamento com praticidade.",
+    "memo-board": "Descubra quadros e painéis emoldurados para lembretes, recados e inspirações. Encontre a opção ideal para o seu espaço.",
+  },
+  fr: {
+    mirror: "Décorer un mur avec un miroir apporte profondeur et caractère. INTCO Framing propose des miroirs adaptés à chaque pièce de la maison.",
+    "picture-frame": "Nos cadres sont fabriqués à partir de matériaux respectueux de l'environnement. Découvrez des formats et des styles pour photos, souvenirs et documents.",
+    art: "Créez votre propre galerie avec l'art mural INTCO Framing. Notre sélection aide votre intérieur à refléter pleinement votre style.",
+    furniture: "INTCO Framing propose du mobilier de qualité, des armoires miroir aux étagères, pour optimiser le rangement avec élégance.",
+    "memo-board": "Découvrez des tableaux et panneaux encadrés pour notes, rappels et inspirations. Trouvez la pièce idéale pour votre espace.",
+  },
+  de: {
+    mirror: "Ein Spiegel an der Wand sorgt für Tiefe und Charakter. INTCO Framing bietet passende Spiegel für jeden Raum im Zuhause.",
+    "picture-frame": "Unsere Rahmen werden aus umweltfreundlichen Materialien gefertigt. Entdecken Sie Formate und Stile für Fotos, Erinnerungen und Dokumente.",
+    art: "Gestalten Sie Ihre eigene Galerie mit Wandkunst von INTCO Framing. Unsere Auswahl bringt Ihren persönlichen Stil nach Hause.",
+    furniture: "INTCO Framing bietet hochwertige Möbel von Spiegelschränken bis Regalen, um Stauraum stilvoll und effizient zu erweitern.",
+    "memo-board": "Entdecken Sie gerahmte Tafeln und Pinnwände für Erinnerungen, Notizen und Ideen. Finden Sie die passende Lösung für Ihren Raum.",
+  },
+  ja: {
+    mirror: "壁に鏡を取り入れることで、空間に奥行きと魅力が生まれます。INTCO Framing は住まいのさまざまな空間に合う鏡を提案します。",
+    "picture-frame": "当社のフレームは環境に配慮した素材で作られています。写真や思い出、書類に合う多彩なスタイルをご覧ください。",
+    art: "INTCO Framing のウォールアートでご自宅に自分だけのギャラリーを作りましょう。多彩な表現で空間に個性を与えます。",
+    furniture: "ミラーキャビネットからシェルフまで、INTCO Framing は収納性を高める高品質な家具を提供します。",
+    "memo-board": "メモや予定、アイデアを書き留められるフレーム付きボードを豊富にご用意。空間に合う一枚が見つかります。",
   },
 };
 
@@ -649,16 +724,162 @@ const CATEGORY_SLUG_BY_SOURCE_TITLE: Record<string, string> = {
 
 const SOURCE_HERO_LOCALIZED_INDEX = [0, -1, 1, 2, 3, 4];
 
-function localizedHomeHeroSlides(homePage: SiteData["homePage"], locale: Locale) {
+const HOME_HERO_FALLBACK_SUBTITLES: Record<Locale, { intro: string; mirror: string; pictureFrame: string; wallArt: string; manufacturing: string }> = {
+  en: {
+    intro: "We are committed to offering you turnkey service and ready to create retail solutions custom tailored to fulfill all your needs.",
+    mirror: "Decorating your wall with a mirror can add depth and fascination into your room. Intco Framing offers a range of mirrors suitable for any room in your home.",
+    pictureFrame: "Our picture frames are all made of environmentally friendly materials. Explore picture frames in various shapes and styles at Intco Framing.",
+    wallArt: "Create your own gallery with wall art from Intco Framing. Our diverse selection of art ensures your home is as exceptional as your individual taste.",
+    manufacturing: "With over 20 years of manufacturing experience, Intco Framing stands out for its flexible manufacturing capabilities.",
+  },
+  es: {
+    intro: "Nos comprometemos a ofrecer un servicio llave en mano y soluciones minoristas personalizadas para cubrir todas sus necesidades.",
+    mirror: "Decorar la pared con un espejo aporta profundidad y encanto. INTCO Framing ofrece espejos adecuados para cualquier estancia del hogar.",
+    pictureFrame: "Nuestros marcos están fabricados con materiales respetuosos con el medio ambiente. Descubra formas y estilos para cada espacio.",
+    wallArt: "Cree su propia galería con el arte mural de INTCO Framing. Nuestra selección ayuda a reflejar su estilo personal.",
+    manufacturing: "Con más de 20 años de experiencia, INTCO Framing destaca por su fabricación flexible y fiable.",
+  },
+  pt: {
+    intro: "Estamos prontos para oferecer um serviço turnkey e soluções de varejo personalizadas para atender a todas as suas necessidades.",
+    mirror: "Decorar a parede com um espelho traz profundidade e charme. A INTCO Framing oferece opções para qualquer ambiente da casa.",
+    pictureFrame: "Nossas molduras são produzidas com materiais sustentáveis. Explore diferentes formatos e estilos para cada espaço.",
+    wallArt: "Crie sua própria galeria com as artes de parede da INTCO Framing. Nossa seleção valoriza o estilo único da sua casa.",
+    manufacturing: "Com mais de 20 anos de experiência, a INTCO Framing se destaca por sua fabricação flexível e confiável.",
+  },
+  fr: {
+    intro: "Nous proposons un service clé en main et des solutions retail sur mesure pour répondre à l'ensemble de vos besoins.",
+    mirror: "Un miroir apporte profondeur et raffinement à vos murs. INTCO Framing propose des modèles adaptés à chaque pièce.",
+    pictureFrame: "Nos cadres sont conçus à partir de matériaux respectueux de l'environnement. Découvrez formats et styles pour tous les espaces.",
+    wallArt: "Créez votre propre galerie avec l'art mural INTCO Framing. Notre sélection valorise le style singulier de votre intérieur.",
+    manufacturing: "Avec plus de 20 ans d'expérience, INTCO Framing se distingue par une fabrication flexible et fiable.",
+  },
+  de: {
+    intro: "Wir bieten schlüsselfertigen Service und maßgeschneiderte Retail-Lösungen für Ihre individuellen Anforderungen.",
+    mirror: "Ein Spiegel verleiht Wänden Tiefe und Ausdruck. INTCO Framing bietet passende Modelle für jeden Raum im Zuhause.",
+    pictureFrame: "Unsere Rahmen werden aus umweltfreundlichen Materialien gefertigt. Entdecken Sie Formen und Stile für jede Umgebung.",
+    wallArt: "Gestalten Sie Ihre eigene Galerie mit Wandkunst von INTCO Framing. Unsere Auswahl unterstreicht den persönlichen Stil Ihres Zuhauses.",
+    manufacturing: "Mit über 20 Jahren Erfahrung steht INTCO Framing für flexible und zuverlässige Fertigung.",
+  },
+  ja: {
+    intro: "ターンキーサービスと小売向けのカスタムソリューションで、多様なニーズにお応えします。",
+    mirror: "壁に鏡を取り入れることで、空間に奥行きと魅力が生まれます。住まいのあらゆる空間に合う製品をご提案します。",
+    pictureFrame: "当社のフレームは環境配慮型素材で作られています。さまざまな形状とスタイルからお選びいただけます。",
+    wallArt: "INTCO Framing のウォールアートで、自分だけのギャラリーを演出しましょう。空間に個性をもたらします。",
+    manufacturing: "20年以上の実績を持つ INTCO Framing は、柔軟で信頼性の高い製造力を強みとしています。",
+  },
+};
+
+const HOME_COMPANY_PROFILE_FALLBACK: Record<Locale, { title: string; description: string }> = {
+  en: {
+    title: "Company Profile",
+    description: "Founded in 2002, INTCO upholds the reputation for high quality, great designs, and fast delivery to fulfill all aspects of a project - from artistry to functionality, saving you time and money.",
+  },
+  es: {
+    title: "Perfil de la empresa",
+    description: "Fundada en 2002, INTCO mantiene una sólida reputación por su calidad, diseño y rapidez de entrega, cubriendo cada aspecto del proyecto con eficiencia.",
+  },
+  pt: {
+    title: "Perfil da empresa",
+    description: "Fundada em 2002, a INTCO é reconhecida por qualidade, design e agilidade na entrega, atendendo cada etapa do projeto com eficiência.",
+  },
+  fr: {
+    title: "Profil de l'entreprise",
+    description: "Fondée en 2002, INTCO est reconnue pour sa qualité, son design et sa rapidité d'exécution, couvrant tous les aspects d'un projet avec efficacité.",
+  },
+  de: {
+    title: "Unternehmensprofil",
+    description: "Seit 2002 steht INTCO für Qualität, starkes Design und schnelle Lieferung, um alle Projektanforderungen effizient und wirtschaftlich abzudecken.",
+  },
+  ja: {
+    title: "会社概要",
+    description: "2002年の創業以来、INTCO は高品質、優れたデザイン、迅速な納品で評価され、芸術性から機能性まで幅広いプロジェクト要件に応えてきました。",
+  },
+};
+
+const HOME_SOLUTION_FALLBACK_DESCRIPTIONS: Record<string, Record<Locale, string>> = {
+  "/solutions/business-insights-trends": {
+    en: "With extensive relationships with our retail partners, we hold a distinct advantage which includes real time global market analysis.",
+    es: "Gracias a nuestra estrecha relación con socios minoristas, ofrecemos análisis del mercado global en tiempo real para apoyar mejores decisiones.",
+    pt: "Com relações sólidas com parceiros de varejo, entregamos análises globais em tempo real para apoiar decisões mais inteligentes.",
+    fr: "Grâce à nos relations avec nos partenaires retail, nous fournissons des analyses marché en temps réel pour soutenir les décisions stratégiques.",
+    de: "Dank enger Beziehungen zu Handelspartnern liefern wir Echtzeit-Analysen des globalen Marktes für fundierte Entscheidungen.",
+    ja: "小売パートナーとの強い連携により、グローバル市場の動向をリアルタイムで分析し、意思決定を支援します。",
+  },
+  "/solutions/design-engineering": {
+    en: "Collaborate with our skilled design and engineering teams for innovative product design, packaging and display support.",
+    es: "Colabore con nuestros equipos de diseño e ingeniería para impulsar innovación de producto, empaque y exhibición.",
+    pt: "Trabalhe com nossas equipes de design e engenharia para desenvolver produtos, embalagens e exibições mais competitivos.",
+    fr: "Collaborez avec nos équipes design et ingénierie pour faire avancer l'innovation produit, l'emballage et le display.",
+    de: "Arbeiten Sie mit unseren Design- und Engineering-Teams an Produktinnovation, Verpackung und Display-Lösungen.",
+    ja: "デザインとエンジニアリングのチームが、製品開発からパッケージ・展示設計まで一体で支援します。",
+  },
+  "/solutions/manufacturing-delivery": {
+    en: "Our vertically integrated supply chain helps us maintain stable quality, strong capacity and dependable delivery.",
+    es: "Nuestra cadena de suministro integrada verticalmente nos permite mantener calidad estable, capacidad sólida y entregas fiables.",
+    pt: "Nossa cadeia integrada verticalmente garante qualidade estável, alta capacidade e entregas confiáveis.",
+    fr: "Notre chaîne intégrée verticalement garantit une qualité stable, une forte capacité et des livraisons fiables.",
+    de: "Unsere vertikal integrierte Lieferkette sichert stabile Qualität, hohe Kapazität und verlässliche Lieferungen.",
+    ja: "垂直統合型のサプライチェーンにより、安定した品質と高い生産能力、確かな納品体制を実現します。",
+  },
+  "/solutions/global-production-and-supply": {
+    en: "With production in China, Vietnam and Malaysia, we improve flexibility, resilience and response speed across the supply chain.",
+    es: "Con producción en China, Vietnam y Malasia, aumentamos la flexibilidad, la resiliencia y la velocidad de respuesta de la cadena de suministro.",
+    pt: "Com produção na China, Vietnã e Malásia, ampliamos a flexibilidade, a resiliência e a velocidade da cadeia de suprimentos.",
+    fr: "Avec des sites en Chine, au Vietnam et en Malaisie, nous renforçons flexibilité, résilience et réactivité de la supply chain.",
+    de: "Mit Produktionsstandorten in China, Vietnam und Malaysia erhöhen wir Flexibilität, Resilienz und Reaktionsgeschwindigkeit der Lieferkette.",
+    ja: "中国・ベトナム・マレーシアの生産拠点により、サプライチェーン全体の柔軟性と回復力、対応スピードを高めています。",
+  },
+  "/solutions/certification": {
+    en: "Rest easy with our commitment to quality and compliance, backed by active certifications and third-party supervision.",
+    es: "Confíe en nuestro compromiso con la calidad y el cumplimiento, respaldado por certificaciones activas y auditorías externas.",
+    pt: "Conte com nosso compromisso com qualidade e conformidade, apoiado por certificações e auditorias externas.",
+    fr: "Appuyez-vous sur notre engagement qualité et conformité, soutenu par des certifications actives et des audits externes.",
+    de: "Verlassen Sie sich auf unser Qualitäts- und Compliance-Versprechen, gestützt durch Zertifizierungen und externe Audits.",
+    ja: "品質とコンプライアンスへの取り組みを、各種認証と第三者監査でしっかり裏付けています。",
+  },
+  "/solutions/retailer-support": {
+    en: "We support retail partners from recycled-material sourcing to ongoing sell-through assistance and merchandising collaboration.",
+    es: "Apoyamos a los socios minoristas desde el origen de materiales reciclados hasta la asistencia comercial y de exhibición continua.",
+    pt: "Apoiamos parceiros de varejo desde a origem de materiais reciclados até merchandising e suporte contínuo às vendas.",
+    fr: "Nous accompagnons les distributeurs depuis l'origine des matériaux recyclés jusqu'au merchandising et au support commercial continu.",
+    de: "Wir unterstützen Handelspartner von der Herkunft recycelter Materialien bis zu Merchandising und laufender Verkaufsunterstützung.",
+    ja: "再生素材の調達段階から売場づくり、継続的な販売支援まで、小売パートナーを一貫してサポートします。",
+  },
+};
+
+function localizedHomeHeroSlides(homePage: SiteData["homePage"], locale: Locale, categories: ProductCategory[], solutions: Solution[]) {
   if (locale === "en") return SOURCE_HOME_HERO_SLIDES;
   const localizedSlides = homePage.heroSlides || [];
+  const fallbackSubtitles = HOME_HERO_FALLBACK_SUBTITLES[locale];
   return SOURCE_HOME_HERO_SLIDES.map((sourceSlide, index) => {
     const localizedIndex = SOURCE_HERO_LOCALIZED_INDEX[index];
     const translated = localizedIndex >= 0 ? localizedSlides[localizedIndex] : undefined;
+    const fallbackTitle =
+      index === 2
+        ? categories.find((item) => item.path === "/mirror")?.title
+        : index === 3
+          ? categories.find((item) => item.path === "/picture-frame")?.title
+          : index === 4
+            ? categories.find((item) => item.path === "/art")?.title
+            : index === 5
+              ? solutions.find((item) => item.path === "/solutions/manufacturing-delivery")?.title
+              : sourceSlide.title;
+    const fallbackSubtitle =
+      index === 0
+        ? fallbackSubtitles.intro
+        : index === 2
+          ? fallbackSubtitles.mirror
+          : index === 3
+            ? fallbackSubtitles.pictureFrame
+            : index === 4
+              ? fallbackSubtitles.wallArt
+              : index === 5
+                ? fallbackSubtitles.manufacturing
+                : sourceSlide.subtitle;
     return {
       ...sourceSlide,
-      title: translated?.title ?? sourceSlide.title,
-      subtitle: translated?.subtitle ?? sourceSlide.subtitle,
+      title: translated?.title ?? fallbackTitle ?? sourceSlide.title,
+      subtitle: translated?.subtitle ?? fallbackSubtitle ?? sourceSlide.subtitle,
       primaryCta: sourceSlide.primaryCta
         ? {
             ...sourceSlide.primaryCta,
@@ -731,6 +952,29 @@ function localizeSourceCopyItems(items: Array<{ title: string; body: string }>, 
 
 function localizedCategoryIntro(category: ProductCategory | undefined, fallback: string, locale: Locale) {
   return locale === "en" ? fallback : category?.description || fallback;
+}
+
+function solutionTitleFallback(locale: Locale, path: string, fallback: string) {
+  switch (path) {
+    case "/solutions/business-insights-trends":
+      return t(locale, "businessInsights");
+    case "/solutions/design-engineering":
+      return t(locale, "designEngineering");
+    case "/solutions/manufacturing-delivery":
+      return t(locale, "manufacturingDelivery");
+    case "/solutions/global-production-and-supply":
+      return t(locale, "globalProductionAndSupply");
+    case "/solutions/certification":
+      return t(locale, "certification");
+    case "/solutions/retailer-support":
+      return t(locale, "retailerSupport");
+    default:
+      return fallback;
+  }
+}
+
+function solutionDescriptionFallback(locale: Locale, path: string, fallback: string) {
+  return HOME_SOLUTION_FALLBACK_DESCRIPTIONS[path]?.[locale] || fallback;
 }
 
 const PROJECTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg";
@@ -839,7 +1083,9 @@ const PROJECTS_SOURCE_PAGE_ITEMS: Record<number, typeof PROJECTS_SOURCE_ITEMS> =
   ],
 };
 
-const PROJECTS_SOURCE_COMMERCIAL_ITEMS = [...PROJECTS_SOURCE_PAGE_ITEMS[2].slice(1), ...PROJECTS_SOURCE_PAGE_ITEMS[3]];
+const PROJECTS_SOURCE_PAGE_SIZE = 5;
+const PROJECTS_SOURCE_ORDER = [...PROJECTS_SOURCE_PAGE_ITEMS[1], ...PROJECTS_SOURCE_PAGE_ITEMS[2], ...PROJECTS_SOURCE_PAGE_ITEMS[3]].map((item) => item.path);
+const PROJECTS_SOURCE_ITEM_BY_PATH = new Map([...PROJECTS_SOURCE_PAGE_ITEMS[1], ...PROJECTS_SOURCE_PAGE_ITEMS[2], ...PROJECTS_SOURCE_PAGE_ITEMS[3]].map((item) => [item.path, item]));
 
 const HOME_BLOG_CATEGORIES = ["All", "Expo", "Industry News", "Inspiration", "New Arrivals", "Press Release", "Tips"];
 
@@ -1396,6 +1642,87 @@ const SUSTAINABILITY_ACTION_CARDS = [
   },
 ];
 
+export const BLOG_SOURCE_PAGE_SIZE = 10;
+
+type BlogSourceCard = (typeof HOME_BLOG_CARDS)[number];
+type BlogSourceListItem = BlogPost & {
+  category?: string;
+  categoryKey?: string;
+  excerpt?: string;
+  publishedAt?: string;
+};
+
+const BLOG_SOURCE_CARD_BY_PATH = new Map(HOME_BLOG_CARDS.map((item) => [item.path, item]));
+
+function normalizedBlogActiveCategory(category?: string) {
+  const normalized = category?.trim();
+  return normalized && normalized !== "All" ? normalized : undefined;
+}
+
+function blogSourceCategory(post: BlogPost, override?: BlogSourceCard) {
+  return override?.category && override.category !== "All" ? override.category : post.categoryKey || post.category;
+}
+
+function blogSourceDate(post: BlogPost, pageLines: string[], override?: BlogSourceCard) {
+  return post.publishedAt || override?.date || blogDateFor(pageLines, post.title);
+}
+
+function blogSourceDateValue(value?: string) {
+  if (!value) return 0;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+}
+
+export function orderedBlogSourceItems(posts: BlogPost[], page?: ContentPage): BlogSourceListItem[] {
+  const pageLines = contentLines(page?.bodyText, 120);
+  const orderMap = new Map(HOME_BLOG_CARDS.map((item, index) => [item.path, index]));
+
+  return posts
+    .slice()
+    .sort((a, b) => {
+      const aOrder = orderMap.get(a.path) ?? Number.MAX_SAFE_INTEGER;
+      const bOrder = orderMap.get(b.path) ?? Number.MAX_SAFE_INTEGER;
+      if (aOrder !== bOrder) return aOrder - bOrder;
+
+      const aDate = blogSourceDateValue(blogSourceDate(a, pageLines, BLOG_SOURCE_CARD_BY_PATH.get(a.path)));
+      const bDate = blogSourceDateValue(blogSourceDate(b, pageLines, BLOG_SOURCE_CARD_BY_PATH.get(b.path)));
+      if (aDate !== bDate) return bDate - aDate;
+
+      return a.title.localeCompare(b.title);
+    })
+    .map((post) => {
+      const override = BLOG_SOURCE_CARD_BY_PATH.get(post.path);
+      const category = blogSourceCategory(post, override);
+      return {
+        ...post,
+        category,
+        categoryKey: category,
+        excerpt: post.excerpt || override?.description || "",
+        publishedAt: blogSourceDate(post, pageLines, override),
+        imageUrl: post.imageUrl || override?.imageUrl,
+        imageAlt: post.imageAlt || override?.title || post.title,
+      };
+    });
+}
+
+function filteredBlogSourceItems(posts: BlogPost[], page: ContentPage | undefined, activeCategory?: string) {
+  const category = normalizedBlogActiveCategory(activeCategory);
+  const items = orderedBlogSourceItems(posts, page);
+  return category ? items.filter((post) => post.categoryKey === category || post.category === category) : items;
+}
+
+export function blogListingPageCount(posts: BlogPost[], page: ContentPage | undefined, activeCategory?: string) {
+  const items = filteredBlogSourceItems(posts, page, activeCategory);
+  return Math.max(1, Math.ceil(items.length / BLOG_SOURCE_PAGE_SIZE));
+}
+
+function relatedBlogSourceItems(posts: BlogPost[], currentSlug: string, page: ContentPage | undefined, currentCategory?: string, limit = 3) {
+  const ordered = orderedBlogSourceItems(posts, page).filter((item) => item.slug !== currentSlug);
+  const matching = currentCategory ? ordered.filter((item) => item.categoryKey === currentCategory || item.category === currentCategory) : [];
+  const remainder = ordered.filter((item) => !matching.some((match) => match.slug === item.slug));
+  return [...matching, ...remainder].slice(0, limit);
+}
+
 const SUSTAINABILITY_ACTION_CARD_COPY: Record<Locale, Array<Pick<(typeof SUSTAINABILITY_ACTION_CARDS)[number], "title" | "description">>> = {
   en: SUSTAINABILITY_ACTION_CARDS.map(({ title, description }) => ({ title, description })),
   es: [
@@ -1604,9 +1931,6 @@ const PHILOSOPHY_GALLERY_MOSAIC = [
   "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy7.png",
 ];
 
-const SOLUTIONS_INTRO_COPY =
-  "We are dedicated to providing innovative and sustainable solutions. Collaborating seamlessly with our clients, we strive for continuous improvement in every aspect of our offerings. From innovative product designs to sustainable manufacturing practices, our solutions are crafted with a focus on the future.";
-
 const SOLUTIONS_SERVICE_ITEMS: SolutionsServiceItem[] = [
   {
     title: "Business Insights & Trends",
@@ -1743,7 +2067,8 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
   const { homePage, productCategories, solutions, blogPosts } = data;
   const parentCategories = productCategories.filter((category) => !category.parentSlug).slice(0, 5);
   const href = (path: string) => localizePath(locale, path);
-  const heroSlides = localizedHomeHeroSlides(homePage, locale);
+  const heroSlides = localizedHomeHeroSlides(homePage, locale, productCategories, solutions);
+  const companyProfileFallback = HOME_COMPANY_PROFILE_FALLBACK[locale];
   const localizedBlogCards = blogPosts
     .filter((post) => post.imageUrl)
     .map((post) => ({
@@ -1791,10 +2116,9 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         <div className="intco-source-container px-5">
           <div className="lg:flex">
             <div className="pb-8 lg:w-1/2 lg:pb-[90px]">
-              <HomeSourceTitle title={(homePage.companyProfile?.title || "COMPANY PROFILE").toUpperCase()} align="left" />
+              <HomeSourceTitle title={(homePage.companyProfile?.title || companyProfileFallback.title).toUpperCase()} align="left" />
               <p className="mt-10 max-w-2xl text-pretty text-lg leading-[30px] text-[#363636] lg:mt-[50px]">
-                {homePage.companyProfile?.description ||
-                  "Founded in 2002, INTCO upholds the reputation for high quality, greatdesigns, and fast delivery to fulfill all aspects of a project - from artistryto functionality, saving you time and money."}
+                {homePage.companyProfile?.description || companyProfileFallback.description}
               </p>
               <ul className="mt-5 space-y-2 text-lg leading-10 text-[#363636]">
                 {(homePage.companyProfile?.points || []).map((point, index) => (
@@ -1819,7 +2143,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
               </div>
             </div>
             <div className="flex items-end lg:w-1/2">
-              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={HOME_PROFILE_VIDEO_SRC_DOC} title="YouTube video player" />
+              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
             </div>
           </div>
         </div>
@@ -1934,7 +2258,10 @@ function HomeProductTile({
   eager?: boolean;
   fetchPriority?: "high" | "low" | "auto";
 }) {
-  const copy = locale === "en" ? HOME_PRODUCT_COPY[category.slug] || { title: category.title, description: category.description || "" } : { title: category.title, description: category.description || "" };
+  const copy = {
+    title: category.title,
+    description: category.description || HOME_PRODUCT_COPY[locale][category.slug] || HOME_PRODUCT_COPY.en[category.slug] || "",
+  };
   const imageUrl = category.imageUrl || category.navImageUrl || "";
   return (
     <Link href={localizePath(locale, category.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
@@ -2040,16 +2367,7 @@ function HomeBottomContactBand({ locale }: { locale: Locale }) {
 }
 
 function homeSolutionDescription(solution: Solution, locale: Locale) {
-  if (locale !== "en") return solution.description || "";
-  const byTitle: Record<string, string> = {
-    "Business Insights & Trends": "With extensive relationships with our retail partners, we hold a distinct advant...",
-    "Design & Engineering": "Collaborate with our skilled design and engineering teams for innovative product...",
-    "Manufacturing & Delivery": "Intco's vertically integrated supply chain of raw materials, we maintain control...",
-    "Global Production and Supply": "By strategically locating our factories in China, Vietnam and Malaysia, we enhan...",
-    Certification: "Rest easy with our commitment to quality and compliance. Intco Framing provides ...",
-    "Retailer Support": "As the only home decor manufacturer that starts with recycled materials around t...",
-  };
-  return byTitle[solution.title] || solution.description || "";
+  return solution.description || solutionDescriptionFallback(locale, solution.path, "");
 }
 
 export function ProductsLandingView({
@@ -2355,6 +2673,179 @@ function ProductContactSection({ locale }: { locale: Locale }) {
         </div>
       </div>
     </section>
+  );
+}
+
+function findCategoryBySlug(categories: ProductCategory[], slug?: string) {
+  if (!slug) return undefined;
+  return categories.find((category) => category.slug === slug);
+}
+
+function resolveTopLevelCategory(category: ProductCategory | undefined, categories: ProductCategory[]) {
+  let current = category;
+  while (current?.parentSlug) {
+    current = findCategoryBySlug(categories, current.parentSlug) || current;
+    if (current.slug === category?.slug) break;
+  }
+  return current;
+}
+
+function productCategoryTemplateContext(product: Product, categories: ProductCategory[]) {
+  const matchedCategories = Array.from(new Set([product.mainCategorySlug, ...(product.categorySlugs || [])]))
+    .map((slug) => findCategoryBySlug(categories, slug))
+    .filter((category): category is ProductCategory => Boolean(category));
+  const mainCategory = findCategoryBySlug(categories, product.mainCategorySlug);
+  const activeCategory = (mainCategory?.parentSlug ? mainCategory : undefined) || matchedCategories.find((category) => Boolean(category.parentSlug));
+  const topCategory =
+    resolveTopLevelCategory(mainCategory, categories) ||
+    resolveTopLevelCategory(activeCategory, categories) ||
+    matchedCategories.find((category) => !category.parentSlug);
+  const siblingCategories = topCategory ? categories.filter((category) => category.parentSlug === topCategory.slug) : [];
+
+  return {
+    topCategory,
+    activeCategory,
+    siblingCategories,
+  };
+}
+
+function categoryTemplateContext(category: ProductCategory, categories: ProductCategory[]) {
+  const topCategory = resolveTopLevelCategory(category, categories) || category;
+  const activeCategory = category.parentSlug ? category : undefined;
+  const siblingCategories = categories.filter((item) => item.parentSlug === topCategory.slug);
+
+  return {
+    topCategory,
+    activeCategory,
+    siblingCategories,
+  };
+}
+
+function sourceCategoryCardImage(category: ProductCategory) {
+  return category.navImageUrl || category.imageUrl || PRODUCTS_HERO_IMAGE;
+}
+
+function sourceCategoryIntro(category: ProductCategory, topCategory: ProductCategory) {
+  return category.description || topCategory.description || "Explore the latest INTCO Framing collections in a source-style layout powered by Sanity content.";
+}
+
+function SourceCategoryCollectionCard({
+  category,
+  locale,
+  active,
+}: {
+  category: ProductCategory;
+  locale: Locale;
+  active?: boolean;
+}) {
+  return (
+    <Link
+      href={localizePath(locale, category.path)}
+      className={`group relative block overflow-hidden rounded-[20px] bg-neutral-200 ring-1 transition duration-300 ${
+        active ? "ring-[#484653]" : "ring-black/5 hover:ring-[#484653]/30"
+      }`}
+    >
+      <div className="relative aspect-[342/426]">
+        <Image src={sourceCategoryCardImage(category)} alt={category.navImageAlt || category.imageAlt || category.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
+      </div>
+      <div className={`absolute inset-0 rounded-[20px] bg-black/30 transition duration-300 ${active ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
+        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{category.title}</span>
+      </div>
+    </Link>
+  );
+}
+
+function ProductCategorySourceDynamicView({
+  locale,
+  category,
+  allCategories,
+  products,
+}: {
+  locale: Locale;
+  category: ProductCategory;
+  allCategories: ProductCategory[];
+  products: Product[];
+}) {
+  const { topCategory, activeCategory, siblingCategories } = categoryTemplateContext(category, allCategories);
+  const collectionCategories = siblingCategories.length ? siblingCategories : [topCategory];
+  const visibleProducts = products.slice(0, 8);
+
+  return (
+    <>
+      <ProductCategorySourceHero title={category.title} locale={locale} path={category.path} />
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
+        <div className="mx-auto max-w-[1160px]">
+          <ProductSourceTitle title={t(locale, "collection")} />
+          <h1 className="sr-only">{category.title}</h1>
+          <p className="wow fadeInUp mx-auto mb-10 mt-8 max-w-[1120px] text-center text-base leading-7 text-[#363636] lg:mb-[86px] lg:mt-[55px] lg:text-lg lg:leading-[30px]" data-reveal="source-up">
+            {sourceCategoryIntro(category, topCategory)}
+          </p>
+          {collectionCategories.length > 1 ? (
+            <div className="mb-8 flex flex-wrap justify-center gap-3 lg:mb-10">
+              {collectionCategories.map((item) => {
+                const isActive = item.slug === (activeCategory?.slug || category.slug);
+                return (
+                  <Link
+                    key={item.slug}
+                    href={localizePath(locale, item.path)}
+                    className={`rounded-full border px-5 py-2 text-sm font-semibold transition duration-200 ${
+                      isActive ? "border-[#484653] bg-[#484653] text-white" : "border-[#484653]/25 bg-white text-[#484653] hover:border-[#484653] hover:bg-[#484653] hover:text-white"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                );
+              })}
+            </div>
+          ) : null}
+          <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
+            {collectionCategories.map((item, index) => (
+              <li key={item.slug} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+                <SourceCategoryCollectionCard category={item} locale={locale} active={item.slug === (activeCategory?.slug || category.slug)} />
+              </li>
+            ))}
+          </ul>
+          {topCategory.slug !== category.slug ? (
+            <div className="mt-10 flex justify-center lg:mt-[68px]">
+              <Link href={localizePath(locale, topCategory.path)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+                {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
+              </Link>
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
+        <div className="mx-auto max-w-[1300px]">
+          <ProductSourceTitle title={t(locale, "bestSellers")} />
+          <div className="relative mt-10 px-0 lg:mt-[64px] lg:px-[70px]">
+            <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
+              {visibleProducts.map((item, index) => (
+                <li key={item.slug} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                  <Link href={localizePath(locale, item.path)} className="group block text-center">
+                    <div className="relative aspect-square rounded-full bg-white">
+                      {preferredImage(item) ? <Image src={preferredImage(item)} alt={item.imageAlt || item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="270px" /> : null}
+                    </div>
+                    <div className="mx-auto mb-10 mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653] lg:mb-[97px]">{item.title}</div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="mx-auto max-w-[1100px] space-y-5 text-base leading-7 text-[#3e3e3e] lg:text-lg lg:leading-[30px]">
+            {(activeCategory ? [activeCategory] : collectionCategories).map((item) => (
+              <div key={item.slug}>
+                <p className="font-semibold text-[#484653]">{item.title}</p>
+                <p>{item.description || topCategory.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <ProductContactSection locale={locale} />
+    </>
   );
 }
 
@@ -2810,11 +3301,22 @@ function MemoBoardCollectionCard({
   );
 }
 
+const LEGACY_PRODUCT_CATEGORY_SOURCE_VIEWS = [
+  MirrorCategorySourceView,
+  PictureFrameCategorySourceView,
+  ArtCategorySourceView,
+  FurnitureCategorySourceView,
+  MemoBoardCategorySourceView,
+];
+
+void LEGACY_PRODUCT_CATEGORY_SOURCE_VIEWS;
+
 export function ProductListingView({
   title,
   description,
   products,
   categories,
+  allCategories,
   heroImage,
   category,
   locale,
@@ -2823,24 +3325,13 @@ export function ProductListingView({
   description?: string;
   products: Product[];
   categories?: ProductCategory[];
+  allCategories?: ProductCategory[];
   heroImage?: string;
   category?: ProductCategory;
   locale: Locale;
 }) {
-  if (category?.slug === "mirror") {
-    return <MirrorCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
-  }
-  if (category?.slug === "picture-frame") {
-    return <PictureFrameCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
-  }
-  if (category?.slug === "art") {
-    return <ArtCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
-  }
-  if (category?.slug === "furniture") {
-    return <FurnitureCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
-  }
-  if (category?.slug === "memo-board") {
-    return <MemoBoardCategorySourceView locale={locale} category={category} categories={categories || []} products={products} />;
+  if (category) {
+    return <ProductCategorySourceDynamicView locale={locale} category={category} allCategories={allCategories || categories || []} products={products} />;
   }
 
   const bestSellers = products.slice(0, 4);
@@ -2862,9 +3353,9 @@ export function ProductListingView({
         <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[.8fr_1.2fr] lg:px-8">
           <div data-reveal="left">
             <p className="text-sm font-bold uppercase text-emerald-700">{t(locale, "viewAllProducts")}</p>
-            <h2 className="mt-3 text-balance text-3xl font-semibold text-neutral-950">{category?.title || title}</h2>
+            <h2 className="mt-3 text-balance text-3xl font-semibold text-neutral-950">{title}</h2>
             <p className="mt-4 text-pretty leading-8 text-neutral-600">
-              {category?.description || description || "Explore INTCO Framing product collections for retail, hospitality, residential and commercial interior programs."}
+              {description || "Explore INTCO Framing product collections for retail, hospitality, residential and commercial interior programs."}
             </p>
           </div>
           {bestSellers.length ? (
@@ -2909,18 +3400,17 @@ export function SolutionsListingView({
 }) {
   const href = (path: string) => localizePath(locale, path);
   const localizedServiceItems = SOLUTIONS_SERVICE_ITEMS.map((item) => {
-    if (locale === "en") return item;
     const solution = solutions.find((entry) => entry.path === item.path);
     return {
       ...item,
-      title: solution?.title || item.title,
-      description: solution?.description || item.description,
+      title: solution?.title || solutionTitleFallback(locale, item.path, item.title),
+      description: solution?.description || solutionDescriptionFallback(locale, item.path, item.description),
     };
   });
   const relatedLinks = SOLUTIONS_RELATED_LINKS.map((item) => ({
     ...item,
     title: item.path === "/products" ? t(locale, "featuredProductsLabel") : item.path === "/projects" ? t(locale, "latestProjects") : t(locale, "customerService"),
-    description: t(locale, "productCatalogIntroDescription"),
+    description: item.path === "/products" ? t(locale, "productCatalogIntroDescription") : item.path === "/projects" ? t(locale, "productLandingProjectDescription") : t(locale, "contactSupportIntro"),
   }));
   return (
     <>
@@ -2931,7 +3421,7 @@ export function SolutionsListingView({
           <div className="grid gap-12 lg:grid-cols-[1fr_minmax(420px,783px)] lg:gap-[122px]">
             <div data-reveal="left">
               <SolutionsSourceTitle title={t(locale, "endToEndHomeDecor")} align="left" />
-              <p className="mt-[64px] max-w-[690px] text-lg font-normal leading-8 text-[#363636]">{locale === "en" ? SOLUTIONS_INTRO_COPY : page?.description || t(locale, "sourceHomeSolutionsIntro")}</p>
+              <p className="mt-[64px] max-w-[690px] text-lg font-normal leading-8 text-[#363636]">{page?.description || t(locale, "sourceHomeSolutionsIntro")}</p>
               <div className="mt-[55px]">
                 <SolutionsOutlineLink href={href("/who-we-are")} width={254}>
                   {t(locale, "aboutIntco")}
@@ -3343,7 +3833,7 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
           <p className="mx-auto mb-[58px] mt-[55px] max-w-[1320px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{t(locale, "sourceManufacturingIntro")}</p>
           <div className="mb-[55px] flex overflow-hidden rounded-md bg-white shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:flex-col" data-reveal="fade">
             <div className="w-[58%] overflow-hidden rounded-md max-lg:w-full">
-              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={HOME_PROFILE_VIDEO_SRC_DOC} title="YouTube video player" />
+              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
             </div>
             <div className="flex w-[42%] flex-col justify-center px-[5%] py-10 text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:w-full">
               <p>{t(locale, "sourceManufacturingDescription")}</p>
@@ -3582,7 +4072,7 @@ function OurManufacturingBlock({ locale, variant = "default" }: { locale: Locale
           <div className="intco-design-video">
             <iframe
               src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-              title="YouTube video player"
+              title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />
@@ -4259,36 +4749,64 @@ function projectCategoryTitle(locale: Locale, category: string) {
   return titles[category]?.[locale] || `${category} ${t(locale, "projects")}`;
 }
 
+type ProjectSourceListItem = {
+  title: string;
+  path: string;
+  imageUrl: string;
+  imageAlt?: string;
+  description: string;
+  category?: string;
+};
+
+function orderedProjectsSourceItems(projects: Project[], locale: Locale, variant: "all" | "residential" | "commercial" = "all"): ProjectSourceListItem[] {
+  const filtered = projects.filter((project) => {
+    if (variant === "residential") return (project.categoryKey || project.category) === "Residential";
+    if (variant === "commercial") return (project.categoryKey || project.category) === "Commercial";
+    return true;
+  });
+  const orderMap = new Map(PROJECTS_SOURCE_ORDER.map((path, index) => [path, index]));
+  return filtered
+    .slice()
+    .sort((a, b) => {
+      const aOrder = orderMap.get(a.path) ?? Number.MAX_SAFE_INTEGER;
+      const bOrder = orderMap.get(b.path) ?? Number.MAX_SAFE_INTEGER;
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return a.title.localeCompare(b.title);
+    })
+    .map((project) => {
+      const fallback = PROJECTS_SOURCE_ITEM_BY_PATH.get(project.path);
+      return {
+        title: project.title,
+        path: project.path,
+        imageUrl: project.imageUrl || fallback?.imageUrl || PROJECTS_HERO_IMAGE,
+        imageAlt: project.imageAlt || project.title,
+        description: project.description || fallback?.description || "",
+        category: project.categoryKey || project.category,
+      };
+    });
+}
+
 function ProjectsSourceListingView({ locale, pageNumber, projects, variant = "all" }: { locale: Locale; pageNumber: number; projects: Project[]; variant?: "all" | "residential" | "commercial" }) {
   const isResidential = variant === "residential";
   const isCommercial = variant === "commercial";
-  const activePage = isResidential || isCommercial ? 1 : PROJECTS_SOURCE_PAGE_ITEMS[pageNumber] ? pageNumber : 1;
-  const items = isCommercial ? PROJECTS_SOURCE_COMMERCIAL_ITEMS : PROJECTS_SOURCE_PAGE_ITEMS[activePage];
+  const allItems = orderedProjectsSourceItems(projects, locale, variant);
+  const totalPages = Math.max(1, Math.ceil(allItems.length / PROJECTS_SOURCE_PAGE_SIZE));
+  const activePage = isResidential || isCommercial ? 1 : pageNumber >= 1 && pageNumber <= totalPages ? pageNumber : 1;
+  const startIndex = (activePage - 1) * PROJECTS_SOURCE_PAGE_SIZE;
+  const items = allItems.slice(startIndex, startIndex + PROJECTS_SOURCE_PAGE_SIZE);
   const pageHref = (page: number) => (page === 1 ? "/projects" : `/projects/page/${page}`);
   const title = isResidential ? t(locale, "residential") : isCommercial ? t(locale, "commercial") : t(locale, "projects").toUpperCase();
   const heroTitle = isResidential ? t(locale, "residential") : isCommercial ? t(locale, "commercial") : t(locale, "projects");
-  const paginationItems =
-    activePage === 1
-      ? [
-          { label: "1", page: 1, current: true },
-          { label: "2", page: 2 },
-          { label: "3", page: 3 },
-            { label: ">", page: 2, ariaLabel: t(locale, "nextProjectsPage") },
-        ]
-      : activePage === 2
-        ? [
-            { label: "<", page: 1, ariaLabel: t(locale, "previousProjectsPage") },
-            { label: "1", page: 1 },
-            { label: "2", page: 2, current: true },
-            { label: "3", page: 3 },
-            { label: ">", page: 3, ariaLabel: t(locale, "nextProjectsPage") },
-          ]
-        : [
-            { label: "<", page: 2, ariaLabel: t(locale, "previousProjectsPage") },
-            { label: "1", page: 1 },
-            { label: "2", page: 2 },
-            { label: "3", page: 3, current: true },
-          ];
+  const paginationItems = isResidential || isCommercial
+    ? []
+    : [
+        ...(activePage > 1 ? [{ label: "<", page: activePage - 1, ariaLabel: t(locale, "previousProjectsPage") }] : []),
+        ...Array.from({ length: totalPages }, (_, index) => {
+          const page = index + 1;
+          return { label: String(page), page, current: page === activePage };
+        }),
+        ...(activePage < totalPages ? [{ label: ">", page: activePage + 1, ariaLabel: t(locale, "nextProjectsPage") }] : []),
+      ];
 
   return (
     <div className="intco-projects-source-page">
@@ -4314,18 +4832,18 @@ function ProjectsSourceListingView({ locale, pageNumber, projects, variant = "al
           </nav>
           <div className="pt-5 lg:pt-[59px]">
             {items.map((project, index) => (
-              <ProjectsSourceCard key={project.title} project={project} projects={projects} index={index} locale={locale} />
+              <ProjectsSourceCard key={project.path} project={project} index={index} locale={locale} />
             ))}
           </div>
           {!isCommercial ? (
             <nav className="flex h-[120px] items-start justify-center gap-[6px] py-[30px]" aria-label="Projects pagination">
               {paginationItems.map((item, index) =>
-                item.current ? (
+                "current" in item && item.current ? (
                   <span key={`${item.label}-${index}`} className="flex size-[30px] items-center justify-center bg-[#484653] text-base leading-[30px] text-white" aria-current="page">
                     {item.label}
                   </span>
                 ) : (
-                  <Link key={`${item.label}-${index}`} href={localizePath(locale, pageHref(item.page))} className="flex size-[30px] items-center justify-center bg-[#f3f3f3] text-base leading-[30px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white" aria-label={item.ariaLabel}>
+                  <Link key={`${item.label}-${index}`} href={localizePath(locale, pageHref(item.page))} className="flex size-[30px] items-center justify-center bg-[#f3f3f3] text-base leading-[30px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white" aria-label={"ariaLabel" in item ? item.ariaLabel : undefined}>
                     {item.label}
                   </Link>
                 ),
@@ -4395,20 +4913,19 @@ function ProjectsSourceTitle({ title, backdrop }: { title: string; backdrop: str
   );
 }
 
-function ProjectsSourceCard({ project, projects, index, locale }: { project: (typeof PROJECTS_SOURCE_ITEMS)[number]; projects: Project[]; index: number; locale: Locale }) {
-  const localized = locale === "en" ? undefined : projects.find((item) => item.path === project.path);
+function ProjectsSourceCard({ project, index, locale }: { project: ProjectSourceListItem; index: number; locale: Locale }) {
   const textReveal = index % 2 === 0 ? "up" : "down";
   const imageReveal = index % 2 === 0 ? "down" : "up";
   const text = (
     <div className="intco-project-card-text" data-reveal={textReveal}>
-      <div className="intco-project-card-title">{localized?.title || project.title}</div>
-      <p className="intco-project-card-desc">{localized?.description || project.description}</p>
+      <div className="intco-project-card-title">{project.title}</div>
+      <p className="intco-project-card-desc">{project.description}</p>
     </div>
   );
   const image = (
     <div className="intco-project-card-image" data-reveal={imageReveal}>
       <div className="intco-project-card-image-inner">
-        <Image src={project.imageUrl} alt={localized?.imageAlt || localized?.title || project.title} fill className="object-cover transition duration-[1500ms] hover:scale-105" sizes="(min-width: 1601px) 1106px, (min-width: 1024px) 50vw, 100vw" />
+        <Image src={project.imageUrl} alt={project.imageAlt || project.title} fill className="object-cover transition duration-[1500ms] hover:scale-105" sizes="(min-width: 1601px) 1106px, (min-width: 1024px) 50vw, 100vw" />
       </div>
     </div>
   );
@@ -4449,30 +4966,57 @@ function ProjectsSourceContactBand({ locale }: { locale: Locale }) {
   );
 }
 
-export function BlogListingView({ posts, locale, activeCategory, page }: { posts: BlogPost[]; locale: Locale; activeCategory?: string; page?: ContentPage }) {
-  const pageLines = contentLines(page?.bodyText, 120);
-  const sourceCategoryOrder = ["Expo", "Industry News", "Inspiration", "New Arrivals", "Press Release", "Tips"];
-  const categorySet = new Set(posts.map((post) => post.categoryKey || post.category).filter(Boolean));
-  const categories = sourceCategoryOrder.filter((name) => pageLines.includes(name) || categorySet.has(name));
-  const datedPosts = posts.map((post) => ({ ...post, publishedAt: post.publishedAt || blogDateFor(pageLines, post.title) }));
-  const filteredPosts = activeCategory ? datedPosts.filter((post) => (post.categoryKey || post.category) === activeCategory) : datedPosts;
-  const visiblePosts = filteredPosts.length ? filteredPosts : datedPosts;
-  const popularPosts = datedPosts.slice(0, 5);
+export function BlogListingView({
+  posts,
+  locale,
+  activeCategory,
+  page,
+  pageNumber = 1,
+  basePath = "/blog",
+}: {
+  posts: BlogPost[];
+  locale: Locale;
+  activeCategory?: string;
+  page?: ContentPage;
+  pageNumber?: number;
+  basePath?: "/blog" | "/inspiration";
+}) {
+  const currentCategory = normalizedBlogActiveCategory(activeCategory);
+  const orderedPosts = orderedBlogSourceItems(posts, page);
+  const filteredPosts = currentCategory ? orderedPosts.filter((post) => post.categoryKey === currentCategory || post.category === currentCategory) : orderedPosts;
+  const categories = HOME_BLOG_CATEGORIES.filter((category) => category === "All" || filteredBlogSourceItems(posts, page, category).length > 0);
+  const totalPages = Math.max(1, Math.ceil(filteredPosts.length / BLOG_SOURCE_PAGE_SIZE));
+  const currentPage = pageNumber >= 1 && pageNumber <= totalPages ? pageNumber : 1;
+  const startIndex = (currentPage - 1) * BLOG_SOURCE_PAGE_SIZE;
+  const visiblePosts = filteredPosts.slice(startIndex, startIndex + BLOG_SOURCE_PAGE_SIZE);
+  const popularPosts = orderedPosts.slice(0, 5);
+  const heroTitle = basePath === "/inspiration" ? blogCategoryLabel(locale, "Inspiration") : page?.title || t(locale, "blog");
+  const pageHref = (page: number) => {
+    const pagePath = page <= 1 ? basePath : `${basePath}/page/${page}`;
+    if (basePath === "/inspiration") return localizePath(locale, pagePath);
+    return `${localizePath(locale, pagePath)}${currentCategory ? `?category=${encodeURIComponent(currentCategory)}` : ""}`;
+  };
+  const categoryHref = (category: string) => {
+    if (category === "All") return localizePath(locale, "/blog");
+    if (category === "Inspiration") return localizePath(locale, "/inspiration");
+    return `${localizePath(locale, "/blog")}?category=${encodeURIComponent(category)}`;
+  };
+
   return (
     <>
       <PageHero
-        title={page?.title || t(locale, "blog")}
-        description={page?.description || "Home decor, interior design, product material, exhibition and industry trend articles from INTCO Framing."}
+        title={heroTitle}
+        description={page?.description || t(locale, "blogIntroDescription")}
         imageUrl={page?.imageUrl}
       />
       <section className="bg-white py-8">
         <div className="mx-auto flex max-w-7xl flex-wrap gap-3 px-4 sm:px-6 lg:px-8">
-          {["All", ...categories].map((category) => (
+          {categories.map((category) => (
             <Link
               key={category}
-              href={category === "All" ? localizePath(locale, "/blog") : `${localizePath(locale, "/blog")}?category=${encodeURIComponent(category || "")}`}
+              href={categoryHref(category)}
               className={`border px-4 py-2 text-sm font-semibold ${
-                (category === "All" && !activeCategory) || category === activeCategory
+                (category === "All" && !currentCategory) || category === currentCategory
                   ? "border-emerald-700 bg-emerald-700 text-white"
                   : "border-neutral-200 text-neutral-700"
               }`}
@@ -4523,9 +5067,210 @@ export function BlogListingView({ posts, locale, activeCategory, page }: { posts
             </div>
           </aside>
         </div>
+        {filteredPosts.length === 0 ? <p className="mx-auto mt-8 max-w-7xl px-4 text-sm text-neutral-500 sm:px-6 lg:px-8">{t(locale, "noPostsFound")}</p> : null}
+        {totalPages > 1 ? <BlogPagination locale={locale} currentPage={currentPage} totalPages={totalPages} pageHref={pageHref} /> : null}
       </section>
       <ContactBand locale={locale} />
     </>
+  );
+}
+
+function BlogPagination({
+  locale,
+  currentPage,
+  totalPages,
+  pageHref,
+}: {
+  locale: Locale;
+  currentPage: number;
+  totalPages: number;
+  pageHref: (page: number) => string;
+}) {
+  const firstVisiblePage = currentPage <= 3 ? 1 : currentPage >= totalPages - 1 ? Math.max(1, totalPages - 4) : currentPage - 2;
+  const pageLinks = Array.from({ length: Math.min(5, totalPages - firstVisiblePage + 1) }, (_, index) => firstVisiblePage + index);
+
+  return (
+    <div className="page-box">
+      <div className="page-inner">
+        <nav className="wp-pagenavi" aria-label={t(locale, "blogPagination")}>
+          {currentPage > 1 ? (
+            <Link className="previouspostslink" rel="prev" aria-label={t(locale, "previousPage")} href={pageHref(currentPage - 1)}>
+              &lt;
+            </Link>
+          ) : null}
+          {pageLinks.map((page) =>
+            page === currentPage ? (
+              <span key={page} aria-current="page" className="current">
+                {page}
+              </span>
+            ) : (
+              <Link key={page} className={page < currentPage ? "page smaller" : "page larger"} title={`Page ${page}`} href={pageHref(page)}>
+                {page}
+              </Link>
+            ),
+          )}
+          {pageLinks[pageLinks.length - 1] < totalPages ? <span className="extend">...</span> : null}
+          {currentPage < totalPages ? (
+            <Link className="nextpostslink" rel="next" aria-label={t(locale, "nextPage")} href={pageHref(currentPage + 1)}>
+              &gt;
+            </Link>
+          ) : null}
+        </nav>
+      </div>
+    </div>
+  );
+}
+
+type SearchResultItem = Omit<SourceSearchResultItem, "imageUrl" | "imageAlt" | "description"> & {
+  imageUrl?: string;
+  imageAlt?: string;
+  description?: string;
+};
+
+const SOURCE_SEARCH_RESULT_OVERRIDES = new Map(SOURCE_EMPTY_SEARCH_RESULTS.map((item) => [item.path, item]));
+
+function orderedSearchCatalogResults(products: Product[]) {
+  const orderMap = new Map(SOURCE_EMPTY_SEARCH_RESULTS.map((item, index) => [item.path, index]));
+  return products
+    .slice()
+    .sort((a, b) => {
+      const aOrder = orderMap.get(a.path) ?? Number.MAX_SAFE_INTEGER;
+      const bOrder = orderMap.get(b.path) ?? Number.MAX_SAFE_INTEGER;
+      if (aOrder !== bOrder) return aOrder - bOrder;
+      return a.title.localeCompare(b.title);
+    })
+    .map((product) => searchResultFromProduct(product));
+}
+
+export function SearchResultsView({ products, posts, keyword, locale, pageNumber = 1 }: { products: Product[]; posts: BlogPost[]; keyword: string; locale: Locale; pageNumber?: number }) {
+  const normalizedKeyword = keyword.trim();
+  const currentPage = Math.max(1, Math.floor(pageNumber) || 1);
+  const results = normalizedKeyword ? filteredSearchResults(products, posts, normalizedKeyword) : orderedSearchCatalogResults(products);
+  const totalPages = Math.max(1, Math.ceil(results.length / SOURCE_SEARCH_PAGE_SIZE));
+  const startIndex = (currentPage - 1) * SOURCE_SEARCH_PAGE_SIZE;
+  const visibleResults = results.slice(startIndex, startIndex + SOURCE_SEARCH_PAGE_SIZE);
+  const showPagination = results.length > SOURCE_SEARCH_PAGE_SIZE;
+
+  return (
+    <section className="main intco-search-source-page">
+      <div className="main-box">
+        <div className="search-box">
+          <div className="intco-source-container px-5 min-[1601px]:px-0">
+            <div className="search-tool">
+              <div className="search-tool-inner">
+                <form action={localizePath(locale, "/index.php")} method="get">
+                  <input type="text" name="keyword" placeholder={t(locale, "search")} defaultValue={normalizedKeyword} />
+                  <button type="submit" aria-label={t(locale, "search")}>
+                    <Search size={30} strokeWidth={1.6} />
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div className="search-list">
+              <ul>
+                {visibleResults.map((item) => (
+                  <li key={`${item.path}-${item.title}`}>
+                    <div className="li-inner intco-search-clear">
+                      <div className="img-box">
+                        <Link href={localizePath(locale, item.path)} title={item.title}>
+                          {item.imageUrl ? (
+                            <Image src={item.imageUrl} alt={item.imageAlt || item.title} width={800} height={800} className="intco-search-result-image" sizes="(min-width: 1601px) 388px, (min-width: 1024px) 278px, 308px" loading="eager" />
+                          ) : null}
+                        </Link>
+                      </div>
+                      <div className="img-text">
+                        <div className="t intco-search-clear">
+                          <Link href={localizePath(locale, item.path)}>{item.title}</Link>
+                        </div>
+                        <div className="d">{item.description || ""}</div>
+                        <div className="m">
+                          <Link className="see-more" href={localizePath(locale, item.path)}>
+                            <span>{t(locale, "readMore")}</span>
+                            <span aria-hidden="true">→</span>
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              {visibleResults.length === 0 ? <p className="intco-search-empty">{t(locale, "noResultsFound")}</p> : null}
+              {showPagination ? <SearchPagination locale={locale} currentPage={currentPage} totalPages={totalPages} keyword={normalizedKeyword} /> : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function filteredSearchResults(products: Product[], posts: BlogPost[], keyword: string): SearchResultItem[] {
+  const lowered = keyword.toLowerCase();
+  const productResults = products
+    .filter((item) => searchHaystack(item.title, item.description, item.bodyText).includes(lowered))
+    .map((item) => searchResultFromProduct(item));
+  const postResults = posts
+    .filter((item) => searchHaystack(item.title, item.excerpt, item.bodyText).includes(lowered))
+    .map((item) => ({
+      title: item.title,
+      path: item.path,
+      imageUrl: item.imageUrl,
+      imageAlt: item.imageAlt || item.title,
+      description: item.excerpt,
+    }));
+  return [...productResults, ...postResults];
+}
+
+function searchHaystack(...values: Array<string | undefined>) {
+  return values.filter(Boolean).join(" ").toLowerCase();
+}
+
+function searchResultFromProduct(product: Product): SearchResultItem {
+  const override = SOURCE_SEARCH_RESULT_OVERRIDES.get(product.path);
+  return {
+    title: product.title,
+    path: product.path,
+    imageUrl: override?.imageUrl || preferredImage(product),
+    imageAlt: override?.imageAlt || product.imageAlt || product.title,
+    description: override?.description ?? product.description,
+  };
+}
+
+function SearchPagination({ locale, currentPage, totalPages, keyword }: { locale: Locale; currentPage: number; totalPages: number; keyword: string }) {
+  const query = keyword ? `?keyword=${encodeURIComponent(keyword)}` : "?keyword=";
+  const pageHref = (page: number) => (page <= 1 ? `${localizePath(locale, "/index.php")}${query}` : `${localizePath(locale, `/page/${page}`)}${query}`);
+  const firstVisiblePage = currentPage <= 3 ? 1 : currentPage >= totalPages - 1 ? Math.max(1, totalPages - 4) : currentPage - 2;
+  const pageLinks = Array.from({ length: Math.min(5, totalPages - firstVisiblePage + 1) }, (_, index) => firstVisiblePage + index);
+
+  return (
+    <div className="page-box">
+      <div className="page-inner">
+        <nav className="wp-pagenavi" aria-label={t(locale, "searchResultsPagination")}>
+          {currentPage > 1 ? (
+            <Link className="previouspostslink" rel="prev" aria-label={t(locale, "previousPage")} href={pageHref(currentPage - 1)}>
+              &lt;
+            </Link>
+          ) : null}
+          {pageLinks.map((page) =>
+            page === currentPage ? (
+              <span key={page} aria-current="page" className="current">
+                {page}
+              </span>
+            ) : (
+              <Link key={page} className={page < currentPage ? "page smaller" : "page larger"} title={`Page ${page}`} href={pageHref(page)}>
+                {page}
+              </Link>
+            ),
+          )}
+          {pageLinks[pageLinks.length - 1] < totalPages ? <span className="extend">...</span> : null}
+          {currentPage < totalPages ? (
+            <Link className="nextpostslink" rel="next" aria-label={t(locale, "nextPage")} href={pageHref(currentPage + 1)}>
+              &gt;
+            </Link>
+          ) : null}
+        </nav>
+      </div>
+    </div>
   );
 }
 
@@ -4843,29 +5588,43 @@ export function ProjectDetailView({
   );
 }
 
-export function BlogPostView({ post, posts, locale }: { post: BlogPost; posts: BlogPost[]; locale: Locale }) {
-  const lines = contentLines(post.bodyText, 120);
-  const gallery = itemGallery(post);
-  const popularPosts = posts.filter((item) => item.slug !== post.slug).slice(0, 5);
+export function BlogPostView({
+  post,
+  posts,
+  locale,
+  page,
+}: {
+  post: BlogPost;
+  posts: BlogPost[];
+  locale: Locale;
+  page?: ContentPage;
+}) {
+  const orderedPosts = orderedBlogSourceItems(posts, page);
+  const sourcePost = orderedPosts.find((item) => item.slug === post.slug) || post;
+  const currentCategory = sourcePost.categoryKey || sourcePost.category;
+  const lines = contentLines(sourcePost.bodyText, 120);
+  const gallery = itemGallery(sourcePost);
+  const popularPosts = orderedPosts.filter((item) => item.slug !== post.slug).slice(0, 5);
+  const relatedPosts = relatedBlogSourceItems(posts, post.slug, page, currentCategory, 3);
   const supplementalLines = locale === "en" ? blogSourceSupplementLines(post.slug).filter((line) => !containsRenderedLine(lines, line)) : [];
 
   return (
     <>
-      <PageHero title={post.title} description={post.excerpt} imageUrl={post.imageUrl} label={post.category || t(locale, "blog")} />
+      <PageHero title={sourcePost.title} description={sourcePost.excerpt} imageUrl={sourcePost.imageUrl} label={sourcePost.category || t(locale, "blog")} />
       <section className="bg-white py-14">
         <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_320px] lg:px-8">
           <article data-reveal="left">
-            {post.publishedAt ? <p className="text-sm font-semibold text-emerald-700">{formatDate(post.publishedAt)}</p> : null}
+            {sourcePost.publishedAt ? <p className="text-sm font-semibold text-emerald-700">{formatDate(sourcePost.publishedAt)}</p> : null}
             {gallery[0] ? (
               <div className="relative mt-6 aspect-[16/9] overflow-hidden bg-neutral-100">
-                <Image src={gallery[0]} alt={post.imageAlt || post.title} fill className="object-cover" sizes="(min-width: 1024px) 65vw, 100vw" />
+                <Image src={gallery[0]} alt={sourcePost.imageAlt || sourcePost.title} fill className="object-cover" sizes="(min-width: 1024px) 65vw, 100vw" />
               </div>
             ) : null}
             {gallery.length > 1 ? (
               <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
                 {gallery.slice(1, 8).map((image) => (
                   <div key={image} className="relative aspect-[4/3] bg-neutral-100">
-                    <Image src={image} alt={post.imageAlt || post.title} fill className="object-cover" sizes="180px" />
+                    <Image src={image} alt={sourcePost.imageAlt || sourcePost.title} fill className="object-cover" sizes="180px" />
                   </div>
                 ))}
               </div>
@@ -4876,7 +5635,7 @@ export function BlogPostView({ post, posts, locale }: { post: BlogPost; posts: B
                   {line}
                 </h2>
               ))}
-              {(lines.length ? lines : [post.excerpt || ""]).filter(Boolean).map((line) =>
+              {(lines.length ? lines : [sourcePost.excerpt || ""]).filter(Boolean).map((line) =>
                 looksLikeHeading(line) ? (
                   <h2 key={line} className="pt-4 text-balance text-2xl font-semibold text-neutral-950">
                     {line}
@@ -4915,6 +5674,18 @@ export function BlogPostView({ post, posts, locale }: { post: BlogPost; posts: B
           </aside>
         </div>
       </section>
+      {relatedPosts.length ? (
+        <section className="bg-neutral-100 py-16">
+          <SectionTitle eyebrow={currentCategory ? blogCategoryLabel(locale, currentCategory) : t(locale, "blog")} title={t(locale, "relatedArticles")} />
+          <div className="mx-auto mt-8 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-3 lg:px-8">
+            {relatedPosts.map((item, index) => (
+              <div key={item.slug} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
+                <BlogCard post={item} locale={locale} />
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
       <ContactBand locale={locale} />
     </>
   );
@@ -6227,4 +6998,553 @@ function looksLikeHeading(line: string) {
   if (known.has(line)) return true;
   if (line.length > 52 || /[.!?]$/.test(line)) return false;
   return /^[A-Z0-9& /-]+$/.test(line) && /[A-Z]/.test(line);
+}
+
+
+// ============ SOURCE-STYLE PRODUCT DETAIL VIEW (1:1 Clone) ============
+
+const SOURCE_PRODUCT_HERO_BG = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/products.png";
+const SOURCE_CONTACT_IMG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact.png";
+const SOURCE_SEARCH_BY_PATH = new Map(SOURCE_EMPTY_SEARCH_RESULTS.map((item) => [item.path, item]));
+const SOURCE_SEARCH_BY_TITLE = new Map(SOURCE_EMPTY_SEARCH_RESULTS.map((item) => [sourceTitleKey(item.title), item]));
+
+type SourceProductCard = {
+  title: string;
+  path: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  sku?: string;
+};
+
+function sourceTitleKey(title: string) {
+  return title.toLowerCase().replace(/&amp;/g, "&").replace(/[.…]+$/g, "").replace(/\s+/g, " ").trim();
+}
+
+function sourceSearchItemFromTitle(title: string) {
+  const key = sourceTitleKey(title);
+  return SOURCE_SEARCH_BY_TITLE.get(key)
+    || SOURCE_EMPTY_SEARCH_RESULTS.find((item) => sourceTitleKey(item.title).startsWith(key))
+    || SOURCE_EMPTY_SEARCH_RESULTS.find((item) => key.startsWith(sourceTitleKey(item.title)));
+}
+
+const SOURCE_PRODUCT_DETAIL_SNAPSHOT_ROOT = path.join(
+  /* turbopackIgnore: true */ process.cwd(),
+  "reports",
+  "visual-parity",
+  "search-product-pages",
+);
+
+const SOURCE_PRODUCT_DETAIL_SNAPSHOT_FILES: Record<string, string> = {
+  "/mirror/led-mirror/classic-led-mirror": "001-mirror-classic-led-mirror/original/dom.html",
+  "/mirror/led-mirror/hollywood-full-length-led-mirror": "002-full-length-led-mirror/original/dom.html",
+  "/mirror/led-mirror/modern-square-led-mirror-2": "003-square-led-mirror-2/original/dom.html",
+  "/mirror/led-mirror/modern-square-led-mirror": "004-modern-square-led-mirror/original/dom.html",
+  "/mirror/led-mirror/hollywood-vanity-led-mirror": "005-hollywood-vanity-led-mirror/original/dom.html",
+  "/mirror/led-mirror/arched-led-vanity-mirror": "006-arched-led-vanity-mirror/original/dom.html",
+};
+
+type SourceProductDetailSnapshot = {
+  mediaImages: string[];
+  bestSellerItems: SourceProductCard[];
+  relatedItems: SourceProductCard[];
+  colorChoices: SourceColorChoice[];
+};
+
+const sourceProductDetailSnapshotCache = new Map<string, SourceProductDetailSnapshot>();
+
+function sourceSnapshotHtml(productPath: string) {
+  const relativeFile = SOURCE_PRODUCT_DETAIL_SNAPSHOT_FILES[productPath];
+  if (!relativeFile) return "";
+  const snapshotFile = path.join(SOURCE_PRODUCT_DETAIL_SNAPSHOT_ROOT, relativeFile);
+  if (!existsSync(snapshotFile)) return "";
+  return readFileSync(snapshotFile, "utf8");
+}
+
+function decodeSourceHtml(value: string) {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;|&apos;/g, "'")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&hellip;|&#8230;/g, "...")
+    .replace(/&#8211;|&ndash;/g, "-")
+    .replace(/&#215;|&times;/g, "x")
+    .trim();
+}
+
+function stripSourceHtml(value: string) {
+  return decodeSourceHtml(value.replace(/<br\s*\/?>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\s+/g, " "));
+}
+
+function sourceAttr(block: string, name: string) {
+  return new RegExp(`${name}=["']([^"']+)["']`, "i").exec(block)?.[1] || "";
+}
+
+function sourcePathFromHref(href: string) {
+  try {
+    const url = new URL(href, "https://www.intcoframing-us.com");
+    const pathname = url.pathname.trim().replace(/^\/+|\/+$/g, "");
+    return pathname ? `/${pathname}` : "/";
+  } catch {
+    const normalized = href.split("#")[0].split("?")[0].trim().replace(/^\/+|\/+$/g, "");
+    return normalized ? `/${normalized}` : "/";
+  }
+}
+
+function sourceSnapshotMediaImages(html: string) {
+  if (!html) return [];
+  const slidesMatch = html.match(/var\s+ourslides\s*=\s*\[\s*\[([\s\S]*?)\]\s*,/);
+  if (slidesMatch) {
+    return Array.from(new Set(Array.from(slidesMatch[1].matchAll(/<img\s+src=["']([^"']+)["']/g), (match) => match[1]).filter(Boolean)));
+  }
+  const mainSwiperMatch = html.match(/<div class="product111-swiper"[\s\S]*?<div class="swiper-wrapper"[^>]*>([\s\S]*?)<\/div>\s*<\/div>\s*<\/div>/);
+  if (!mainSwiperMatch) return [];
+  return Array.from(new Set(Array.from(mainSwiperMatch[1].matchAll(/<img\s+src=["']([^"']+)["']/g), (match) => match[1]).filter(Boolean)));
+}
+
+function sourceSnapshotBestSellers(html: string) {
+  const listMatch = html.match(/<ul class="Products1-2ul">([\s\S]*?)<\/ul>/);
+  if (!listMatch) return [];
+  const items: SourceProductCard[] = [];
+  for (const match of listMatch[1].matchAll(/<li\b[\s\S]*?<\/li>/g)) {
+    const block = match[0];
+    const leftBox = block.match(/<div class="leftBox">([\s\S]*?)<div class="DESCtEXT">/)?.[1] || block;
+    const titleLink = leftBox.match(/<a\s+href=["']([^"']+)["'][^>]*>([\s\S]*?)<\/a>/);
+    const imageTag = block.match(/<div class="rightImg">[\s\S]*?<img\s+([^>]+)>/);
+    if (!titleLink) continue;
+    const sku = stripSourceHtml(block.match(/<div class="DESCtEXT">\s*Item\s?#:\s*([\s\S]*?)<\/div>/i)?.[1] || "");
+    items.push({
+      title: stripSourceHtml(titleLink[2]),
+      path: sourcePathFromHref(titleLink[1]),
+      imageUrl: imageTag ? sourceAttr(imageTag[1], "src") : undefined,
+      imageAlt: imageTag ? sourceAttr(imageTag[1], "alt") || sourceAttr(imageTag[1], "title") : undefined,
+      sku,
+    });
+  }
+  return items;
+}
+
+function sourceSnapshotRelatedItems(html: string) {
+  const bestSwiperMatch = html.match(/<div class="BESTSwiper">([\s\S]*?)<!-- list -->/);
+  if (!bestSwiperMatch) return [];
+  const items: SourceProductCard[] = [];
+  for (const match of bestSwiperMatch[1].matchAll(/<a\s+href=["']([^"']+)["'][^>]*class=["'][^"']*swiper-slide[^"']*["'][\s\S]*?<div class="topImgBox">[\s\S]*?<img\s+([^>]+)>[\s\S]*?<div class="bottomText">([\s\S]*?)<\/div>\s*<\/a>/g)) {
+    const imageAttrs = match[2];
+    const title = stripSourceHtml(match[3]);
+    if (!title) continue;
+    items.push({
+      title,
+      path: sourcePathFromHref(match[1]),
+      imageUrl: sourceAttr(imageAttrs, "src"),
+      imageAlt: sourceAttr(imageAttrs, "alt") || sourceAttr(imageAttrs, "title") || title,
+    });
+  }
+  return items;
+}
+
+function sourceSnapshotColorChoices(html: string) {
+  const choices: SourceColorChoice[] = [];
+  for (const match of html.matchAll(/<div\s+class=["'][^"']*colorItem[^"']*["']([^>]*)>/g)) {
+    const attrs = match[1];
+    const color = sourceAttr(attrs, "data-color");
+    choices.push({
+      color: color ? `#${color.replace(/^#/, "")}` : undefined,
+      itemNumber: sourceAttr(attrs, "data-item") || undefined,
+    });
+  }
+  return choices;
+}
+
+function sourceProductDetailSnapshot(productPath: string): SourceProductDetailSnapshot {
+  const cached = sourceProductDetailSnapshotCache.get(productPath);
+  if (cached) return cached;
+  const html = sourceSnapshotHtml(productPath);
+  const snapshot = {
+    mediaImages: sourceSnapshotMediaImages(html),
+    bestSellerItems: sourceSnapshotBestSellers(html),
+    relatedItems: sourceSnapshotRelatedItems(html),
+    colorChoices: sourceSnapshotColorChoices(html),
+  };
+  sourceProductDetailSnapshotCache.set(productPath, snapshot);
+  return snapshot;
+}
+
+const SOURCE_PRODUCT_SERVICE_ITEMS = [
+  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions1.png", title: "Business Insights & Trends", path: "/solutions/business-insights-trends" },
+  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions2.png", title: "Design & Engineering", path: "/solutions/design-engineering" },
+  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions3.png", title: "Manufacturing & Delivery", path: "/solutions/manufacturing-delivery" },
+  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions4.png", title: "Global Production and Supply", path: "/solutions/global-production-and-supply" },
+  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions5.png", title: "Certification", path: "/solutions/certification" },
+  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/333-1.jpg", title: "Retailer Support", path: "/solutions/retailer-support" },
+];
+
+function sourceServiceTitle(locale: Locale, path: string, fallback: string) {
+  switch (path) {
+    case "/solutions/business-insights-trends":
+      return t(locale, "businessInsights");
+    case "/solutions/design-engineering":
+      return t(locale, "designEngineering");
+    case "/solutions/manufacturing-delivery":
+      return t(locale, "manufacturingDelivery");
+    case "/solutions/global-production-and-supply":
+      return t(locale, "globalProductionAndSupply");
+    case "/solutions/certification":
+      return t(locale, "certification");
+    case "/solutions/retailer-support":
+      return t(locale, "retailerSupport");
+    default:
+      return fallback;
+  }
+}
+
+function sourceProductCardImage(item: Product) {
+  const sourceSearchImage = SOURCE_SEARCH_BY_PATH.get(item.path)?.imageUrl;
+  const firstSpecificImage = [sourceSearchImage, ...itemGallery(item), preferredImage(item)].find(
+    (image): image is string => Boolean(image) && !looksGenericImage(image),
+  );
+  return firstSpecificImage || sourceSearchImage || preferredImage(item);
+}
+
+function sourceRelatedCardsFromBody(product: Product) {
+  const lines = contentLines(product.bodyText, 180);
+  const relatedStart = lines.findIndex((line) => /^Related Products$/i.test(line));
+  if (relatedStart < 0) return [];
+  const end = lines.findIndex((line, index) => index > relatedStart && /^SERVICES WE PROVIDE$/i.test(line));
+  const relatedLines = lines.slice(relatedStart + 1, end > relatedStart ? end : undefined);
+  const cards: SourceProductCard[] = [];
+  const seen = new Set<string>();
+
+  relatedLines.forEach((line) => {
+    const sourceItem = sourceSearchItemFromTitle(line);
+    if (!sourceItem || seen.has(sourceItem.path)) return;
+    seen.add(sourceItem.path);
+    cards.push({
+      title: sourceItem.title,
+      path: sourceItem.path,
+      imageUrl: sourceItem.imageUrl,
+      imageAlt: sourceItem.imageAlt || sourceItem.title,
+    });
+  });
+
+  return cards;
+}
+
+function sourceBestSellerCardsFromBody(details: ReturnType<typeof parseProductDetails>) {
+  const cards: SourceProductCard[] = [];
+  const seen = new Set<string>();
+
+  details.bestSellerPairs.forEach((pair) => {
+    const sourceItem = sourceSearchItemFromTitle(pair.title);
+    if (!sourceItem || seen.has(sourceItem.path)) return;
+    seen.add(sourceItem.path);
+    cards.push({
+      title: pair.title.replace(/…/g, "..."),
+      path: sourceItem.path,
+      imageUrl: sourceItem.imageUrl,
+      imageAlt: sourceItem.imageAlt || sourceItem.title,
+      sku: pair.itemNumber.replace(/^Item\s?#:\s*/i, "").trim(),
+    });
+  });
+
+  return cards;
+}
+
+export function ProductDetailSourceView({
+  product,
+  relatedProducts,
+  locale,
+  categories,
+}: {
+  product: Product;
+  relatedProducts: Product[];
+  locale: Locale;
+  categories: ProductCategory[];
+}) {
+  const { topCategory, activeCategory, siblingCategories } = productCategoryTemplateContext(product, categories);
+  const details = parseProductDetails(product, locale);
+  const sourceSearchItem = SOURCE_SEARCH_BY_PATH.get(product.path);
+  const sourceDetailSnapshot = sourceProductDetailSnapshot(product.path);
+  const displayTitle = sourceSearchItem?.title || product.title || details.displayTitle;
+  const gallery = itemGallery(product);
+  const primary = sourceSearchItem?.imageUrl || gallery[0] || preferredImage(product);
+  const sourceSnapshotImages = sourceDetailSnapshot.mediaImages;
+  const galleryImages = sourceSnapshotImages.length
+    ? sourceSnapshotImages
+    : Array.from(new Set([primary, ...gallery].filter(Boolean)));
+  const bodyBestSellerItems = sourceBestSellerCardsFromBody(details);
+  const bestSellerItems = sourceDetailSnapshot.bestSellerItems.length
+    ? sourceDetailSnapshot.bestSellerItems
+    : bodyBestSellerItems.length
+      ? bodyBestSellerItems
+    : relatedProducts.length
+      ? relatedProducts.slice(0, 4).map((item) => ({
+        title: item.title.length > 30 ? `${item.title.substring(0, 30)}...` : item.title,
+        path: item.path,
+        imageUrl: sourceProductCardImage(item),
+        imageAlt: SOURCE_SEARCH_BY_PATH.get(item.path)?.imageAlt || item.imageAlt || item.title,
+        sku: item.sku,
+      }))
+      : [];
+  const bodyRelatedCards = sourceRelatedCardsFromBody(product);
+  const sourceRelatedCards = sourceDetailSnapshot.relatedItems.length
+    ? sourceDetailSnapshot.relatedItems
+    : bodyRelatedCards.length
+      ? bodyRelatedCards
+    : relatedProducts.slice(0, 6).map((item) => ({
+        title: item.title,
+        path: item.path,
+        imageUrl: sourceProductCardImage(item),
+        imageAlt: SOURCE_SEARCH_BY_PATH.get(item.path)?.imageAlt || item.imageAlt || item.title,
+      }));
+  const sourceRelatedItems: SourceRelatedProductItem[] = sourceRelatedCards.map((item) => ({
+    title: item.title,
+    href: localizePath(locale, item.path),
+    imageUrl: item.imageUrl,
+    imageAlt: item.imageAlt || item.title,
+  }));
+
+  const sidebarCategories = siblingCategories.length ? siblingCategories : topCategory ? [topCategory] : [];
+  const activeSidebarSlug = activeCategory?.slug || topCategory?.slug;
+  const specLabels = productSpecLabels(locale);
+  const itemNumber = details.specs.find((spec) => /item|art|réf|品番/i.test(spec.label))?.value || product.sku || "";
+  const size = details.specs.find((spec) => /size|tamaño|tamanho|taille|größe|サイズ/i.test(spec.label))?.value || product.dimensions || "";
+  const aboutThisItemTitle = t(locale, "aboutThisItem").toUpperCase();
+  const servicesTitle = t(locale, "servicesWeProvide").toUpperCase();
+  const relatedProductsTitle = t(locale, "relatedProducts");
+  const detailImages = galleryImages.length ? galleryImages : [primary].filter(Boolean);
+  const colorChoices = sourceDetailSnapshot.colorChoices.length
+    ? sourceDetailSnapshot.colorChoices
+    : [""].map((color) => ({
+        color,
+        itemNumber,
+      }));
+  const sizeOptions = size ? size.split(/\s+\/\s+/).filter(Boolean) : [];
+  const aboutDescriptionLines = details.descriptionLines.length ? details.descriptionLines : product.description ? [product.description] : [];
+  const aboutHighlightLines = details.highlightLines.length ? details.highlightLines : linesFromBody(product.bodyText, 6);
+
+  return (
+    <>
+      {/* Banner with Hero */}
+      <section className="banner index-banner seleftextp">
+        <div className="swiper swiper-container">
+          <div className="swiper-wrapper">
+            <div className="swiper-slide">
+              <div className="bg-box bg-box-shadow06">
+                <div className="imgshow">
+                  <img src={SOURCE_PRODUCT_HERO_BG} alt={displayTitle} />
+                </div>
+              </div>
+              <div className="banner-content">
+                <div className="intco-source-container">
+                  <div className="text">
+                    <div className="text-p center">
+                      <h2 className="text-p-title f-84">{displayTitle}</h2>
+                      {/* Breadcrumbs */}
+                      <div className="crumbs-box crumbs-box2">
+                        <a className="home" href={localizePath(locale, "/")}>
+                          <div>{t(locale, "home")}</div>
+                        </a>
+                        <i className="iconfont icon-jiantou_liebiaoxiangyou" />
+                        <a href={localizePath(locale, "/products")}>{t(locale, "products")}</a>
+                        {topCategory && (
+                          <>
+                            <i className="iconfont icon-jiantou_liebiaoxiangyou" />
+                            <a href={localizePath(locale, topCategory.path)}>{topCategory.title}</a>
+                          </>
+                        )}
+                        {activeCategory ? (
+                          <>
+                            <i className="iconfont icon-jiantou_liebiaoxiangyou" />
+                            <a href={localizePath(locale, activeCategory.path)}>{activeCategory.title}</a>
+                          </>
+                        ) : null}
+                      </div>
+                    </div>
+                    {/* CTA Buttons */}
+                    <div className="banner-a">
+                      <LeadsCloudChatLink
+                        fallbackHref={localizePath(locale, "/contact#chat")}
+                        className="banner-btn"
+                      >
+                        {t(locale, "chatWithUs")}
+                      </LeadsCloudChatLink>
+                      <a href={localizePath(locale, "/products/#goinput")}>{t(locale, "leaveMessage")}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Main Product Section */}
+      <div className="Products Products1 Products111">
+        <div className="intco-source-container">
+          <div className="Products1Content">
+            {/* Left Sidebar */}
+            <div className="Products1-left">
+              {/* Categories */}
+              <div className="wow fadeInUp">
+                <div className="Products1-title">{t(locale, "categories")}</div>
+                <ul className="Products1-ul">
+                  {sidebarCategories.map((cat) => (
+                    <li key={cat.path} className={cat.slug === activeSidebarSlug ? "selectProducts1Li" : ""}>
+                      <a href={localizePath(locale, cat.path)}>{cat.title}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {/* Best Sellers */}
+              <div className="hc-mrt-box">
+                <div className="Products1-title">{t(locale, "bestSellers")}</div>
+                <ul className="Products1-2ul">
+                  {bestSellerItems.map((item) => (
+                    <li key={item.path} className="wow fadeInUp">
+                      <div className="leftBox">
+                        <div>
+                          <a href={localizePath(locale, item.path)}>
+                            {item.title}
+                          </a>
+                        </div>
+                        {item.sku && <div className="DESCtEXT">{locale === "en" ? "Item #:" : specLabels.itemNumber} {item.sku}</div>}
+                      </div>
+                      <div className="rightImg">
+                        <a href={localizePath(locale, item.path)}>
+                          <div className="img-box">
+                            {item.imageUrl && (
+                              <Image 
+                                src={item.imageUrl} 
+                                alt={item.imageAlt || item.title} 
+                                width={80} 
+                                height={80}
+                                className="object-cover"
+                              />
+                            )}
+                          </div>
+                        </a>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="Productsprodis-right">
+              <div className="Products1-center">
+                <SourceProductGallery images={detailImages} title={displayTitle} primaryAlt={product.imageAlt || displayTitle} />
+              </div>
+              <div className="wow fadeInUp Products1-right-right">
+                  {/* Product Title */}
+                  <h1 className="Products1-right-title">{displayTitle}</h1>
+                  
+                  {/* Get a Quote Button */}
+                  <LeadsCloudChatLink
+                    fallbackHref={localizePath(locale, "/contact#chat")}
+                    className="Quote"
+                  >
+                    {t(locale, "quote")}
+                  </LeadsCloudChatLink>
+                  
+                  <SourceProductPurchaseControls
+                    itemLabel={specLabels.itemNumber}
+                    colorLabel={specLabels.color}
+                    sizeLabel={specLabels.size}
+                    quantityLabel={`${t(locale, "quantity")}:`}
+                    addToCartLabel={t(locale, "addToCart")}
+                    initialItemNumber={itemNumber}
+                    colorChoices={colorChoices}
+                    sizeOptions={sizeOptions}
+                  />
+                  
+                  {/* Customize Note */}
+                  <div className="quoteLineText">
+                    {t(locale, "customizableSizeColor")}
+                  </div>
+                  
+                  {/* Contact Section */}
+                  <div className="qutelineconcr hc-qutelineconcr">
+                    <div className="topCircle">
+                      <img src={SOURCE_CONTACT_IMG} alt="" />
+                    </div>
+                    <div className="point point1" />
+                    <div className="point point2" />
+                    <div className="point point3" />
+                    <div className="point point4" />
+                    <div className="flexContentItem">
+                      <LeadsCloudChatLink
+                        fallbackHref={localizePath(locale, "/contact#chat")}
+                        className="selectBtn"
+                      >
+                        <i className="iconfont icon-24gf-phoneLoudspeaker" />
+                        {t(locale, "contactUs")}
+                      </LeadsCloudChatLink>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* About This Item Section */}
+      <div className="Products Products1 Products11">
+        <div className="intco-source-container">
+          <div className="selefTitle" data-tit={aboutThisItemTitle}>
+            <div className="title_text">{aboutThisItemTitle}</div>
+          </div>
+
+          <SourceProductAboutTabs
+            descriptionLabel={t(locale, "description")}
+            highlightsLabel={t(locale, "highlights")}
+            descriptionLines={aboutDescriptionLines}
+            highlightLines={aboutHighlightLines}
+          />
+        </div>
+      </div>
+
+      {/* Related Products Section */}
+      <div className="Products">
+        <div className="selefTitle" data-tit={t(locale, "bestSellers").toUpperCase()}>
+          <div className="title_text">{relatedProductsTitle}</div>
+        </div>
+        <div className="intco-source-container margin-project-c BESTSwiperContent">
+          <SourceRelatedProductsCarousel items={sourceRelatedItems} />
+        </div>
+      </div>
+
+      {/* Services Section */}
+      <div className="Products Products1 Products11 Products111 whiteBg">
+        <div className="intco-source-container">
+          <div className="selefTitle margin55" data-tit={servicesTitle}>
+            <div className="title_text">{servicesTitle}</div>
+          </div>
+          <div className="product-index-list">
+            <div className="w3Box-product111">
+              <ul>
+                {SOURCE_PRODUCT_SERVICE_ITEMS.map((service, idx) => (
+                  <li key={idx} className="wow fadeInUp">
+                    <a href={localizePath(locale, service.path)}>
+                      <div className="w-item-box">
+                        <div className="img-box">
+                          <img src={service.icon} alt={sourceServiceTitle(locale, service.path, service.title)} />
+                        </div>
+                        <div className="bottomText">
+                          <div className="b-text">{sourceServiceTitle(locale, service.path, service.title)}</div>
+                        </div>
+                      </div>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="product-service-more">
+              <a href={localizePath(locale, "/solutions")}>{t(locale, "exploreMore")}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }

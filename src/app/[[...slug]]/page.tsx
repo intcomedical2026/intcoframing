@@ -3,29 +3,49 @@ import { notFound, permanentRedirect } from "next/navigation";
 import { DocumentLanguage } from "@/components/document-language";
 import { SiteChrome } from "@/components/site-chrome";
 import {
+  blogListingPageCount,
   BlogListingView,
   BlogPostView,
   ContactView,
   ContentPageView,
   EnquiryListView,
   HomeView,
-  ProductDetailView,
+  ProductDetailSourceView,
   ProductListingView,
   ProductsLandingView,
   ProjectDetailView,
   ProjectsListingView,
+  SearchResultsView,
   SolutionDetailView,
   SolutionsListingView,
 } from "@/components/site-views";
-import { getSiteData, type BlogPost, type OfferItem, type Product } from "@/lib/site-data";
+import { getSiteData, type OfferItem, type Product } from "@/lib/site-data";
 import { languageAlternates, localizePath, parseLocalizedSegments, t, type Locale } from "@/lib/i18n";
 import { absoluteUrl, siteOrigin } from "@/lib/site-url";
+import { SOURCE_SEARCH_PAGE_SIZE } from "@/lib/source-search-results";
 
 export const revalidate = 60;
 
 type PageProps = {
   params: Promise<{ slug?: string[] }>;
-  searchParams?: Promise<{ keyword?: string; category?: string }>;
+  searchParams?: Promise<RawRouteQuery>;
+};
+
+type RawRouteQuery = {
+  keyword?: string | string[];
+  category?: string | string[];
+};
+
+type RouteQuery = {
+  keyword: string;
+  category?: string;
+  hasKeyword: boolean;
+};
+
+type SearchRouteInfo = {
+  pageNumber: number;
+  keyword: string;
+  path: string;
 };
 
 const socialProfiles = [
@@ -37,6 +57,8 @@ const socialProfiles = [
   "https://www.pinterest.com/intco_framing/",
 ];
 
+const PROJECTS_SOURCE_PAGE_SIZE = 5;
+
 const legacyProductAllRedirects: Record<string, string> = {
   "/products/mirror-all": "/mirror",
   "/products/picture-frame-all": "/picture-frame",
@@ -47,26 +69,29 @@ const legacyProductAllRedirects: Record<string, string> = {
 
 type JsonLdNode = Record<string, unknown>;
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { slug = [] } = await params;
+  const query = normalizeRouteQuery((await searchParams) || {});
   const { locale, path } = parseLocalizedSegments(slug);
   const data = await getSiteData(locale, path);
-  const meta = resolveRouteMeta(path, data, locale);
-  const alternates = languageAlternates(path);
+  const searchRoute = searchRouteInfoFor(path, query, data);
+  const meta = searchRoute ? searchRouteMeta(searchRoute.pageNumber) : resolveRouteMeta(path, data, locale);
+  const canonicalPath = searchRoute ? searchLocalizedHref(locale, searchRoute) : localizePath(locale, path);
+  const alternates = searchRoute ? searchLanguageAlternates(searchRoute, locale) : languageAlternates(path);
 
   return {
     title: meta.title,
     description: meta.description,
     metadataBase: new URL(siteOrigin),
     alternates: {
-      canonical: localizePath(locale, path),
+      canonical: canonicalPath,
       languages: alternates,
     },
     robots: meta.noIndex ? { index: false, follow: false } : undefined,
     openGraph: {
       title: meta.title,
       description: meta.description,
-      url: absoluteUrl(localizePath(locale, path)),
+      url: absoluteUrl(canonicalPath),
       images: meta.image ? [{ url: meta.image, alt: meta.imageAlt || meta.title }] : undefined,
     },
   };
@@ -74,13 +99,28 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function SitePage({ params, searchParams }: PageProps) {
   const { slug = [] } = await params;
-  const query = (await searchParams) || {};
+  const query = normalizeRouteQuery((await searchParams) || {});
   const { locale, path } = parseLocalizedSegments(slug);
   const data = await getSiteData(locale, path);
-  const jsonLd = buildStructuredData(path, data, locale);
+  const searchRoute = searchRouteInfoFor(path, query, data);
+  const jsonLd = buildStructuredData(
+    path,
+    data,
+    locale,
+    searchRoute
+      ? {
+          meta: searchRouteMeta(searchRoute.pageNumber),
+          localizedPath: searchLocalizedHref(locale, searchRoute),
+          structuredPath: "/index.php",
+          includeBreadcrumb: false,
+        }
+      : undefined,
+  );
+  const chromePath = searchRoute && path === "/" ? "/index.php" : path;
+  const languagePath = searchRoute ? searchLanguageSwitcherPath(searchRoute) : path;
 
   return (
-    <SiteChrome settings={data.siteSettings} categories={data.productCategories} solutions={data.solutions} locale={locale} currentPath={path}>
+    <SiteChrome settings={data.siteSettings} categories={data.productCategories} solutions={data.solutions} locale={locale} currentPath={chromePath} languagePath={languagePath}>
       <DocumentLanguage locale={locale} />
       {jsonLd.map((item, index) => (
         <script
@@ -94,7 +134,12 @@ export default async function SitePage({ params, searchParams }: PageProps) {
   );
 }
 
-function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale, query: { keyword?: string; category?: string }) {
+function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale, query: RouteQuery) {
+  const searchRoute = searchRouteInfoFor(path, query, data);
+  if (searchRoute) {
+    return <SearchResultsView products={data.products} posts={data.blogPosts} keyword={searchRoute.keyword} locale={locale} pageNumber={searchRoute.pageNumber} />;
+  }
+
   if (path === "/") return <HomeView data={data} locale={locale} />;
 
   const legacyProductAllTarget = legacyProductAllRedirects[path];
@@ -121,25 +166,43 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
   if (solution) return <SolutionDetailView solution={solution} products={data.products} projects={data.projects} locale={locale} />;
 
   if (path === "/projects") return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
-  if (path === "/projects/page/2") return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} pageNumber={2} />;
-  if (path === "/projects/page/3") return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} pageNumber={3} />;
+  const projectPageMatch = path.match(/^\/projects\/page\/(\d+)$/);
+  if (projectPageMatch) {
+    const pageNumber = Number(projectPageMatch[1]);
+    const totalPages = Math.max(1, Math.ceil(data.projects.length / PROJECTS_SOURCE_PAGE_SIZE));
+    if (Number.isInteger(pageNumber) && pageNumber >= 2 && pageNumber <= totalPages) {
+      return <ProjectsListingView projects={data.projects} page={data.pages.find((item) => item.path === "/projects")} locale={locale} pageNumber={pageNumber} />;
+    }
+    notFound();
+  }
   if (path === "/projects/residential") return <ProjectsListingView projects={data.projects} category="Residential" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
   if (path === "/projects/commercial") return <ProjectsListingView projects={data.projects} category="Commercial" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
   const project = data.projects.find((item) => item.path === path || path === `/projects/${item.slug}`);
   if (project) return <ProjectDetailView project={project} products={data.products} projects={data.projects} locale={locale} />;
 
-  if (path === "/blog") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory={query.category} page={data.pages.find((item) => item.path === "/blog")} />;
-  if (path === "/inspiration") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory="Inspiration" page={data.pages.find((item) => item.path === "/blog")} />;
-  const post = data.blogPosts.find((item) => item.path === path || path === `/news/${item.slug}`);
-  if (post) return <BlogPostView post={post} posts={data.blogPosts} locale={locale} />;
-
-  if (path === "/index.php") {
-    const keyword = query.keyword || "";
-    const lowered = keyword.toLowerCase();
-    const products = data.products.filter((item) => `${item.title} ${item.description}`.toLowerCase().includes(lowered));
-    const posts = data.blogPosts.filter((item) => `${item.title} ${item.excerpt}`.toLowerCase().includes(lowered));
-    return <BlogListingView posts={[...posts, ...products.slice(0, 12).map(productToPost)]} locale={locale} page={data.pages.find((item) => item.path === "/blog")} />;
+  const blogPage = data.pages.find((item) => item.path === "/blog");
+  if (path === "/blog") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory={query.category} page={blogPage} />;
+  const blogPageMatch = path.match(/^\/blog\/page\/(\d+)$/);
+  if (blogPageMatch) {
+    const pageNumber = Number(blogPageMatch[1]);
+    const totalPages = blogListingPageCount(data.blogPosts, blogPage, query.category);
+    if (Number.isInteger(pageNumber) && pageNumber >= 2 && pageNumber <= totalPages) {
+      return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory={query.category} page={blogPage} pageNumber={pageNumber} />;
+    }
+    notFound();
   }
+  if (path === "/inspiration") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory="Inspiration" page={blogPage} basePath="/inspiration" />;
+  const inspirationPageMatch = path.match(/^\/inspiration\/page\/(\d+)$/);
+  if (inspirationPageMatch) {
+    const pageNumber = Number(inspirationPageMatch[1]);
+    const totalPages = blogListingPageCount(data.blogPosts, blogPage, "Inspiration");
+    if (Number.isInteger(pageNumber) && pageNumber >= 2 && pageNumber <= totalPages) {
+      return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory="Inspiration" page={blogPage} pageNumber={pageNumber} basePath="/inspiration" />;
+    }
+    notFound();
+  }
+  const post = data.blogPosts.find((item) => item.path === path || path === `/news/${item.slug}`);
+  if (post) return <BlogPostView post={post} posts={data.blogPosts} locale={locale} page={blogPage} />;
 
   if (path === "/enquiry-list") return <EnquiryListView locale={locale} />;
 
@@ -157,6 +220,7 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
         description={category.description}
         products={products}
         categories={children}
+        allCategories={data.productCategories}
         heroImage={category.imageUrl || category.navImageUrl}
         category={category}
         locale={locale}
@@ -165,7 +229,12 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
   }
 
   const product = data.products.find((item) => item.path === path || path.endsWith(`/${item.slug}`));
-  if (product) return <ProductDetailView product={product} locale={locale} relatedProducts={data.products.filter((item) => item.slug !== product.slug && item.categorySlugs?.some((slug) => product.categorySlugs?.includes(slug))).slice(0, 8)} />;
+  if (product) return <ProductDetailSourceView 
+      product={product} 
+      locale={locale} 
+      relatedProducts={data.products.filter((item) => item.slug !== product.slug && item.categorySlugs?.some((slug) => product.categorySlugs?.includes(slug))).slice(0, 8)}
+      categories={data.productCategories}
+    />;
 
   notFound();
 }
@@ -177,6 +246,99 @@ type RouteMeta = {
   imageAlt?: string;
   noIndex?: boolean;
 };
+
+function normalizeRouteQuery(query: RawRouteQuery): RouteQuery {
+  return {
+    keyword: queryStringValue(query.keyword).trim(),
+    category: queryStringValue(query.category) || undefined,
+    hasKeyword: Object.prototype.hasOwnProperty.call(query, "keyword"),
+  };
+}
+
+function queryStringValue(value: string | string[] | undefined) {
+  if (Array.isArray(value)) return value[0] || "";
+  return value || "";
+}
+
+function searchRouteInfoFor(path: string, query: RouteQuery, data: Awaited<ReturnType<typeof getSiteData>>): SearchRouteInfo | null {
+  if (path === "/index.php") {
+    return {
+      pageNumber: 1,
+      keyword: query.keyword,
+      path: "/index.php",
+    };
+  }
+  if (!query.hasKeyword) return null;
+  if (path === "/") {
+    return {
+      pageNumber: 1,
+      keyword: query.keyword,
+      path: "/index.php",
+    };
+  }
+  const pageMatch = path.match(/^\/page\/(\d+)$/);
+  if (!pageMatch) return null;
+
+  const pageNumber = Number(pageMatch[1]);
+  const totalPages = query.keyword
+    ? Math.max(1, Math.ceil(searchResultCountForKeyword(data, query.keyword) / SOURCE_SEARCH_PAGE_SIZE))
+    : Math.max(1, Math.ceil(data.products.length / SOURCE_SEARCH_PAGE_SIZE));
+  if (!Number.isInteger(pageNumber) || pageNumber < 2 || pageNumber > totalPages) return null;
+
+  return {
+    pageNumber,
+    keyword: query.keyword,
+    path: `/page/${pageNumber}`,
+  };
+}
+
+function searchResultCountForKeyword(data: Awaited<ReturnType<typeof getSiteData>>, keyword: string) {
+  const lowered = keyword.toLowerCase();
+  const productCount = data.products.filter((item) => routeSearchHaystack(item.title, item.description, item.bodyText).includes(lowered)).length;
+  const postCount = data.blogPosts.filter((item) => routeSearchHaystack(item.title, item.excerpt, item.bodyText).includes(lowered)).length;
+  return productCount + postCount;
+}
+
+function routeSearchHaystack(...values: Array<string | undefined>) {
+  return values.filter(Boolean).join(" ").toLowerCase();
+}
+
+function searchLocalizedHref(locale: Locale, route: SearchRouteInfo) {
+  return localizePath(locale, searchPathWithQuery(route));
+}
+
+function searchLanguageAlternates(route: SearchRouteInfo, locale: Locale) {
+  if (route.keyword && route.pageNumber > 1) {
+    return {
+      [locale]: searchLocalizedHref(locale, route),
+    };
+  }
+  const alternates = languageAlternates(searchPathWithQuery(route));
+  return alternates;
+}
+
+function searchLanguageSwitcherPath(route: SearchRouteInfo) {
+  if (route.keyword && route.pageNumber > 1) {
+    return `/index.php${searchQueryString(route.keyword)}`;
+  }
+  return searchPathWithQuery(route);
+}
+
+function searchPathWithQuery(route: SearchRouteInfo) {
+  return `${route.path}${searchQueryString(route.keyword)}`;
+}
+
+function searchQueryString(keyword: string) {
+  return `?keyword=${encodeURIComponent(keyword)}`;
+}
+
+function searchRouteMeta(pageNumber: number): RouteMeta {
+  const title = "Search Result - Intco Framing";
+  return {
+    title: pageNumber > 1 ? `${title} | Page ${pageNumber}` : title,
+    description: "",
+  };
+}
 
 const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
   "/projects": {
@@ -295,6 +457,33 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
     return meta;
   }
 
+  if (path === "/blog" || /^\/blog\/page\/\d+$/.test(path)) {
+    const page = data.pages.find((entry) => entry.path === "/blog");
+    const meta = metadataFromItem(page, data, undefined, locale);
+    const pageMatch = path.match(/^\/blog\/page\/(\d+)$/);
+    if (pageMatch) {
+      const suffix = pageNumberLabels[locale](pageMatch[1]);
+      return {
+        ...meta,
+        title: `${meta.title} | ${suffix}`,
+      };
+    }
+    return meta;
+  }
+
+  if (path === "/inspiration" || /^\/inspiration\/page\/\d+$/.test(path)) {
+    const defaults = routeMetaDefaults["/inspiration"][locale] || routeMetaDefaults["/inspiration"].en || { title: "Inspiration | INTCO Framing", description: data.siteSettings.description || "" };
+    const pageMatch = path.match(/^\/inspiration\/page\/(\d+)$/);
+    if (pageMatch) {
+      const suffix = pageNumberLabels[locale](pageMatch[1]);
+      return {
+        ...defaults,
+        title: `${defaults.title} | ${suffix}`,
+      };
+    }
+    return defaults;
+  }
+
   const item =
     data.products.find((entry) => entry.path === path || path.endsWith(`/${entry.slug}`)) ||
     data.blogPosts.find((entry) => entry.path === path || path === `/news/${entry.slug}`) ||
@@ -304,6 +493,12 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
     data.productCategories.find((entry) => entry.path === path);
 
   if (!item) {
+    if (path === "/index.php") {
+      return {
+        title: "Search Result - Intco Framing",
+        description: "",
+      };
+    }
     if (path === "/inspiration") {
       return routeMetaDefaults["/inspiration"][locale] || routeMetaDefaults["/inspiration"].en || { title: "Inspiration | INTCO Framing", description: data.siteSettings.description || "" };
     }
@@ -367,11 +562,22 @@ function localizeMetaTitleSuffix(title: string | undefined, locale: Locale) {
   return title.replace(/\|\s*INTCO Solutions\b/g, `| ${suffix[locale]}`);
 }
 
-function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale): JsonLdNode[] {
-  const meta = resolveRouteMeta(path, data, locale);
-  const localizedPath = localizePath(locale, path);
+function buildStructuredData(
+  path: string,
+  data: Awaited<ReturnType<typeof getSiteData>>,
+  locale: Locale,
+  options?: {
+    meta?: RouteMeta;
+    localizedPath?: string;
+    structuredPath?: string;
+    includeBreadcrumb?: boolean;
+  },
+): JsonLdNode[] {
+  const structuredPath = options?.structuredPath || path;
+  const meta = options?.meta || resolveRouteMeta(structuredPath, data, locale);
+  const localizedPath = options?.localizedPath || localizePath(locale, structuredPath);
   const currentUrl = absoluteUrl(localizedPath);
-  const routeItem = structuredDataItemForPath(path, data);
+  const routeItem = structuredDataItemForPath(structuredPath, data);
   const organizationId = `${siteOrigin}/#organization`;
   const websiteId = `${siteOrigin}/#website`;
   const image = meta.image ? absoluteUrl(meta.image) : undefined;
@@ -422,7 +628,7 @@ function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSi
     },
     {
       "@context": "https://schema.org",
-      "@type": path === "/contact" ? "ContactPage" : "WebPage",
+      "@type": structuredPath === "/contact" ? "ContactPage" : "WebPage",
       "@id": `${currentUrl}#webpage`,
       url: currentUrl,
       name: meta.title,
@@ -441,10 +647,10 @@ function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSi
     },
   ];
 
-  const breadcrumb = buildBreadcrumbList(path, data, locale);
+  const breadcrumb = options?.includeBreadcrumb === false ? undefined : buildBreadcrumbList(structuredPath, data, locale);
   if (breadcrumb) nodes.push(breadcrumb);
 
-  const product = data.products.find((item) => item.path === path || path.endsWith(`/${item.slug}`));
+  const product = data.products.find((item) => item.path === structuredPath || structuredPath.endsWith(`/${item.slug}`));
   if (product) {
     nodes.push({
       "@context": "https://schema.org",
@@ -466,7 +672,7 @@ function buildStructuredData(path: string, data: Awaited<ReturnType<typeof getSi
     });
   }
 
-  const post = data.blogPosts.find((item) => item.path === path || path === `/news/${item.slug}`);
+  const post = data.blogPosts.find((item) => item.path === structuredPath || structuredPath === `/news/${item.slug}`);
   if (post) {
     nodes.push({
       "@context": "https://schema.org",
@@ -542,6 +748,12 @@ function buildBreadcrumbList(path: string, data: Awaited<ReturnType<typeof getSi
   if (path.startsWith("/news/")) {
     const post = data.blogPosts.find((entry) => entry.path === path || path === `/news/${entry.slug}`);
     crumbs.push({ name: t(locale, "blog"), path: "/blog" }, { name: post?.title || resolveBreadcrumbName(path, path.split("/").at(-1) || "Article", data), path });
+  } else if (path.startsWith("/blog/page/")) {
+    const page = path.split("/").at(-1) || "1";
+    crumbs.push({ name: t(locale, "blog"), path: "/blog" }, { name: pageNumberLabels[locale](page), path });
+  } else if (path.startsWith("/inspiration/page/")) {
+    const page = path.split("/").at(-1) || "1";
+    crumbs.push({ name: resolveBreadcrumbName("/inspiration", "Inspiration", data), path: "/inspiration" }, { name: pageNumberLabels[locale](page), path });
   } else if (path.startsWith("/projects/page/")) {
     const page = path.split("/").at(-1) || "1";
     crumbs.push({ name: t(locale, "projects"), path: "/projects" }, { name: pageNumberLabels[locale](page), path });
@@ -596,16 +808,4 @@ function validIsoDate(value?: string) {
 
 function stringifyJsonLd(value: JsonLdNode) {
   return JSON.stringify(value).replace(/</g, "\\u003c");
-}
-
-function productToPost(product: Product): BlogPost {
-  return {
-    title: product.title,
-    slug: product.slug,
-    path: product.path,
-    category: "Product",
-    excerpt: product.description,
-    imageUrl: product.imageUrl,
-    imageAlt: product.imageAlt,
-  };
 }
