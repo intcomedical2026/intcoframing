@@ -22,6 +22,7 @@
     "sanity:dataset:ensure": "node scripts/ensure-sanity-dataset.mjs",
     "sanity:import": "node scripts/import-to-sanity.mjs",
     "sanity:import:dry-run": "node scripts/import-to-sanity.mjs --dry-run",
+    "sanity:fix:array-keys": "node scripts/fix-sanity-array-keys.mjs",
     "sanity:verify:import": "node scripts/verify-sanity-import.mjs",
     "sanity:audit:aeo": "node scripts/audit-aeo-content.mjs",
     "launch:verify": "node scripts/verify-launch-readiness.mjs",

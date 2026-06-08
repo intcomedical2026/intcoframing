@@ -1,4 +1,5 @@
 import { createClient } from "@sanity/client";
+import crypto from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
 
@@ -477,7 +478,7 @@ function valueAfterLabel(bodyText, labels) {
 }
 
 async function withImages(doc) {
-  const copy = deriveCommonFields(slugifyDoc(doc));
+  const copy = withArrayItemKeys(deriveCommonFields(slugifyDoc(doc)));
 
   if (copy.logoUrl) copy.logo = await uploadImage(copy.logoUrl, "logo");
   if (copy.footerLogoUrl) copy.footerLogo = await uploadImage(copy.footerLogoUrl, "footer-logo");
@@ -511,6 +512,42 @@ async function withImages(doc) {
   }
 
   return copy;
+}
+
+function withArrayItemKeys(value, pathSegments = []) {
+  if (Array.isArray(value)) {
+    const usedKeys = new Set();
+    return value.map((item, index) => {
+      if (!item || typeof item !== "object" || Array.isArray(item)) return item;
+      const keyedItem = withArrayItemKeys(item, [...pathSegments, String(index)]);
+      const existingKey = typeof keyedItem._key === "string" && keyedItem._key.trim() ? keyedItem._key.trim() : undefined;
+      const fallbackKey = stableArrayKey(pathSegments, index, keyedItem);
+      const key = uniqueArrayKey(existingKey || fallbackKey, usedKeys);
+      return { ...keyedItem, _key: key };
+    });
+  }
+
+  if (!value || typeof value !== "object") return value;
+
+  return Object.fromEntries(
+    Object.entries(value).map(([key, child]) => [key, withArrayItemKeys(child, [...pathSegments, key])]),
+  );
+}
+
+function stableArrayKey(pathSegments, index, item) {
+  const payload = JSON.stringify({ path: pathSegments.join("."), index, item: { ...item, _key: undefined } });
+  return `k${crypto.createHash("sha1").update(payload).digest("hex").slice(0, 11)}`;
+}
+
+function uniqueArrayKey(key, usedKeys) {
+  let candidate = key;
+  let suffix = 1;
+  while (usedKeys.has(candidate)) {
+    candidate = `${key}${suffix}`;
+    suffix += 1;
+  }
+  usedKeys.add(candidate);
+  return candidate;
 }
 
 async function commitInBatches(docs, size = 25) {
