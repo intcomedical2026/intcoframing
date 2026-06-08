@@ -4,6 +4,7 @@ import { DocumentLanguage } from "@/components/document-language";
 import { SiteChrome } from "@/components/site-chrome";
 import {
   blogListingPageCount,
+  BusinessInsightsChildView,
   BlogListingView,
   BlogPostView,
   ContactView,
@@ -58,6 +59,12 @@ const socialProfiles = [
 ];
 
 const PROJECTS_SOURCE_PAGE_SIZE = 5;
+const BUSINESS_INSIGHTS_CHILD_PATHS = new Set([
+  "/solutions/business-insights-trends/trend",
+  "/solutions/business-insights-trends/trend-2",
+  "/solutions/business-insights-trends/trend-2-2",
+  "/solutions/business-insights-trends/bestsellers",
+]);
 
 const legacyProductAllRedirects: Record<string, string> = {
   "/products/mirror-all": "/mirror",
@@ -146,7 +153,10 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
   if (legacyProductAllTarget) permanentRedirect(localizePath(locale, legacyProductAllTarget));
   if (path === "/news") permanentRedirect(localizePath(locale, "/blog"));
   if (path.startsWith("/solutions/business-insights-trends/")) {
-    permanentRedirect(localizePath(locale, "/solutions/business-insights-trends"));
+    if (BUSINESS_INSIGHTS_CHILD_PATHS.has(path)) {
+      return <BusinessInsightsChildView path={path} locale={locale} />;
+    }
+    notFound();
   }
 
   if (path === "/products") {
@@ -177,8 +187,9 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
   }
   if (path === "/projects/residential") return <ProjectsListingView projects={data.projects} category="Residential" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
   if (path === "/projects/commercial") return <ProjectsListingView projects={data.projects} category="Commercial" page={data.pages.find((item) => item.path === "/projects")} locale={locale} />;
+  if (path === "/large-commercial-space") permanentRedirect(localizePath(locale, "/projects/large-commercial-space"));
   const project = data.projects.find((item) => item.path === path || path === `/projects/${item.slug}`);
-  if (project) return <ProjectDetailView project={project} products={data.products} projects={data.projects} locale={locale} />;
+  if (project) return <ProjectDetailView project={project} products={data.products} projects={data.projects} posts={data.blogPosts} locale={locale} />;
 
   const blogPage = data.pages.find((item) => item.path === "/blog");
   if (path === "/blog") return <BlogListingView posts={data.blogPosts} locale={locale} activeCategory={query.category} page={blogPage} />;
@@ -387,6 +398,158 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
       imageAlt: "Business insights and trend reports",
     },
   },
+  "/solutions/business-insights-trends/trend": {
+    en: {
+      title: "Trend | Intco Framing",
+      description: "Download the INTCO Framing trend report and stay informed about the latest consumer, design, and market trends.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      imageAlt: "INTCO trend report",
+    },
+    es: {
+      title: "Tendencias | Intco Framing",
+      description: "Descargue el informe de tendencias de INTCO Framing y manténgase al día sobre consumidores, diseño y mercado.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      imageAlt: "Informe de tendencias de INTCO",
+    },
+    pt: {
+      title: "Tendências | Intco Framing",
+      description: "Baixe o relatório de tendências da INTCO Framing e acompanhe as novidades de consumo, design e mercado.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      imageAlt: "Relatório de tendências da INTCO",
+    },
+    fr: {
+      title: "Tendances | Intco Framing",
+      description: "Téléchargez le rapport de tendances INTCO Framing et suivez les dernières tendances consommateurs, design et marché.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      imageAlt: "Rapport de tendances INTCO",
+    },
+    de: {
+      title: "Trends | Intco Framing",
+      description: "Laden Sie den INTCO Framing Trendreport herunter und bleiben Sie über Verbraucher-, Design- und Markttrends informiert.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      imageAlt: "INTCO Trendreport",
+    },
+    ja: {
+      title: "トレンド | Intco Framing",
+      description: "INTCO Framing のトレンドレポートをダウンロードし、消費者・デザイン・市場の最新動向を把握できます。",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      imageAlt: "INTCO トレンドレポート",
+    },
+  },
+  "/solutions/business-insights-trends/trend-2": {
+    en: {
+      title: "Trend2 | Intco Framing",
+      description: "Download the INTCO Framing trend report and stay informed about the latest consumer, design, and market trends.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      imageAlt: "INTCO trend report",
+    },
+    es: {
+      title: "Tendencias 2 | Intco Framing",
+      description: "Descargue el informe de tendencias de INTCO Framing y manténgase al día sobre consumidores, diseño y mercado.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      imageAlt: "Informe de tendencias de INTCO",
+    },
+    pt: {
+      title: "Tendências 2 | Intco Framing",
+      description: "Baixe o relatório de tendências da INTCO Framing e acompanhe as novidades de consumo, design e mercado.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      imageAlt: "Relatório de tendências da INTCO",
+    },
+    fr: {
+      title: "Tendances 2 | Intco Framing",
+      description: "Téléchargez le rapport de tendances INTCO Framing et suivez les dernières tendances consommateurs, design et marché.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      imageAlt: "Rapport de tendances INTCO",
+    },
+    de: {
+      title: "Trends 2 | Intco Framing",
+      description: "Laden Sie den INTCO Framing Trendreport herunter und bleiben Sie über Verbraucher-, Design- und Markttrends informiert.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      imageAlt: "INTCO Trendreport",
+    },
+    ja: {
+      title: "トレンド 2 | Intco Framing",
+      description: "INTCO Framing のトレンドレポートをダウンロードし、消費者・デザイン・市場の最新動向を把握できます。",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      imageAlt: "INTCO トレンドレポート",
+    },
+  },
+  "/solutions/business-insights-trends/trend-2-2": {
+    en: {
+      title: "Trend3 | Intco Framing",
+      description: "Download the INTCO Framing trend report and stay informed about the latest consumer, design, and market trends.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      imageAlt: "INTCO trend report",
+    },
+    es: {
+      title: "Tendencias 3 | Intco Framing",
+      description: "Descargue el informe de tendencias de INTCO Framing y manténgase al día sobre consumidores, diseño y mercado.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      imageAlt: "Informe de tendencias de INTCO",
+    },
+    pt: {
+      title: "Tendências 3 | Intco Framing",
+      description: "Baixe o relatório de tendências da INTCO Framing e acompanhe as novidades de consumo, design e mercado.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      imageAlt: "Relatório de tendências da INTCO",
+    },
+    fr: {
+      title: "Tendances 3 | Intco Framing",
+      description: "Téléchargez le rapport de tendances INTCO Framing et suivez les dernières tendances consommateurs, design et marché.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      imageAlt: "Rapport de tendances INTCO",
+    },
+    de: {
+      title: "Trends 3 | Intco Framing",
+      description: "Laden Sie den INTCO Framing Trendreport herunter und bleiben Sie über Verbraucher-, Design- und Markttrends informiert.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      imageAlt: "INTCO Trendreport",
+    },
+    ja: {
+      title: "トレンド 3 | Intco Framing",
+      description: "INTCO Framing のトレンドレポートをダウンロードし、消費者・デザイン・市場の最新動向を把握できます。",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      imageAlt: "INTCO トレンドレポート",
+    },
+  },
+  "/solutions/business-insights-trends/bestsellers": {
+    en: {
+      title: "Bestsellers | Intco Framing",
+      description: "Explore INTCO Framing bestseller recommendations across picture frames, mirrors, and wall art.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      imageAlt: "INTCO bestseller recommendations",
+    },
+    es: {
+      title: "Más vendidos | Intco Framing",
+      description: "Explore las recomendaciones de productos más vendidos de INTCO Framing en marcos, espejos y arte mural.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      imageAlt: "Recomendaciones de más vendidos de INTCO",
+    },
+    pt: {
+      title: "Mais vendidos | Intco Framing",
+      description: "Explore as recomendações de produtos mais vendidos da INTCO Framing em molduras, espelhos e arte de parede.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      imageAlt: "Recomendações de mais vendidos da INTCO",
+    },
+    fr: {
+      title: "Meilleures ventes | Intco Framing",
+      description: "Découvrez les recommandations de meilleures ventes INTCO Framing pour les cadres photo, miroirs et arts muraux.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      imageAlt: "Recommandations des meilleures ventes INTCO",
+    },
+    de: {
+      title: "Bestseller | Intco Framing",
+      description: "Entdecken Sie INTCO Framing Bestseller-Empfehlungen für Bilderrahmen, Spiegel und Wandkunst.",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      imageAlt: "INTCO Bestseller-Empfehlungen",
+    },
+    ja: {
+      title: "ベストセラー | Intco Framing",
+      description: "額縁、ミラー、ウォールアートにわたる INTCO Framing のベストセラーおすすめ商品をご覧ください。",
+      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      imageAlt: "INTCO ベストセラーおすすめ",
+    },
+  },
   "/contact": {
     en: {
       title: "Connect with Intco Framing: Tel, Email, Live Chat",
@@ -484,6 +647,11 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
     return defaults;
   }
 
+  const routeDefaults = routeMetaDefaults[path]?.[locale] || routeMetaDefaults[path]?.en;
+  if (routeDefaults && BUSINESS_INSIGHTS_CHILD_PATHS.has(path)) {
+    return routeDefaults;
+  }
+
   const item =
     data.products.find((entry) => entry.path === path || path.endsWith(`/${entry.slug}`)) ||
     data.blogPosts.find((entry) => entry.path === path || path === `/news/${entry.slug}`) ||
@@ -508,8 +676,7 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
     };
   }
 
-  const defaults = routeMetaDefaults[path]?.[locale] || routeMetaDefaults[path]?.en;
-  return metadataFromItem(item, data, defaults, locale);
+  return metadataFromItem(item, data, routeDefaults, locale);
 }
 
 type MetadataItem = {
@@ -747,13 +914,13 @@ function buildBreadcrumbList(path: string, data: Awaited<ReturnType<typeof getSi
   const crumbs = [{ name: t(locale, "home"), path: "/" }];
   if (path.startsWith("/news/")) {
     const post = data.blogPosts.find((entry) => entry.path === path || path === `/news/${entry.slug}`);
-    crumbs.push({ name: t(locale, "blog"), path: "/blog" }, { name: post?.title || resolveBreadcrumbName(path, path.split("/").at(-1) || "Article", data), path });
+    crumbs.push({ name: t(locale, "blog"), path: "/blog" }, { name: post?.title || resolveBreadcrumbName(path, path.split("/").at(-1) || "Article", data, locale), path });
   } else if (path.startsWith("/blog/page/")) {
     const page = path.split("/").at(-1) || "1";
     crumbs.push({ name: t(locale, "blog"), path: "/blog" }, { name: pageNumberLabels[locale](page), path });
   } else if (path.startsWith("/inspiration/page/")) {
     const page = path.split("/").at(-1) || "1";
-    crumbs.push({ name: resolveBreadcrumbName("/inspiration", "Inspiration", data), path: "/inspiration" }, { name: pageNumberLabels[locale](page), path });
+    crumbs.push({ name: resolveBreadcrumbName("/inspiration", "Inspiration", data, locale), path: "/inspiration" }, { name: pageNumberLabels[locale](page), path });
   } else if (path.startsWith("/projects/page/")) {
     const page = path.split("/").at(-1) || "1";
     crumbs.push({ name: t(locale, "projects"), path: "/projects" }, { name: pageNumberLabels[locale](page), path });
@@ -764,7 +931,7 @@ function buildBreadcrumbList(path: string, data: Awaited<ReturnType<typeof getSi
       .filter(Boolean)
       .forEach((segment) => {
         current += `/${segment}`;
-        crumbs.push({ name: resolveBreadcrumbName(current, segment, data), path: current });
+        crumbs.push({ name: resolveBreadcrumbName(current, segment, data, locale), path: current });
       });
   }
 
@@ -780,7 +947,9 @@ function buildBreadcrumbList(path: string, data: Awaited<ReturnType<typeof getSi
   };
 }
 
-function resolveBreadcrumbName(path: string, fallback: string, data: Awaited<ReturnType<typeof getSiteData>>) {
+function resolveBreadcrumbName(path: string, fallback: string, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale) {
+  const routeDefaultTitle = routeMetaDefaults[path]?.[locale]?.title || routeMetaDefaults[path]?.en?.title;
+  if (routeDefaultTitle) return routeDefaultTitle.replace(/\s*\|\s*.*$/, "");
   const item =
     data.pages.find((entry) => entry.path === path) ||
     data.productCategories.find((entry) => entry.path === path) ||

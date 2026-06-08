@@ -111,7 +111,7 @@ const translations: Record<Locale, Record<string, string>> = {
     followUs: "Follow Us",
     residential: "Residential",
     commercial: "Commercial",
-    aboutIntco: "About Intco",
+    aboutIntco: "About INTCO",
     businessUnits: "Business Units",
     productionBases: "Production Bases",
     yearsExperience: "Years Experience",

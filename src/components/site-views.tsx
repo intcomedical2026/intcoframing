@@ -4,12 +4,15 @@ import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import {
   ArrowRight,
+  Camera,
   CheckCircle2,
   Download,
   Factory,
   Globe2,
   Headphones,
+  Heart,
   Layers,
+  Link2,
   Mail,
   MapPin,
   PackageCheck,
@@ -44,7 +47,10 @@ import {
   pick,
 } from "@/lib/solution-page-content";
 import { ProductQuotePanel } from "@/components/product-quote-panel";
-import { CatalogDownloadButton } from "@/components/catalog-download-dialog";
+import { ProjectSourceGallerySwitcher } from "@/components/project-source-gallery-switcher";
+import { SourceCategoryAddCartButton } from "@/components/source-category-add-cart-button";
+import { ProductTestReportCoverflow } from "@/components/product-test-report-coverflow";
+import { ProductCatalogTabs } from "@/components/product-catalog-tabs";
 import { EnquiryList } from "@/components/enquiry-list";
 import { LeadsCloudChatLink } from "@/components/leadscloud-chat-link";
 import { CountUpStat } from "@/components/count-up-stat";
@@ -64,6 +70,7 @@ import {
   type SourceRelatedProductItem,
 } from "@/components/product-detail-source-interactions";
 import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
+import { SOURCE_CATEGORY_LISTING_SNAPSHOTS } from "@/lib/source-category-listing-snapshots";
 import { SOURCE_EMPTY_SEARCH_RESULTS, SOURCE_SEARCH_PAGE_SIZE, type SourceSearchResultItem } from "@/lib/source-search-results";
 
 const PRODUCT_CATALOG_IMAGES = [
@@ -80,7 +87,12 @@ const PRODUCT_REPORT_IMAGES = [
   { title: "GRS", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/GRS.jpg" },
   { title: "ISO9001", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/ISO9001.jpg" },
 ];
-
+const PRODUCT_REPORT_COVERFLOW_IMAGES = [
+  PRODUCT_REPORT_IMAGES[1],
+  PRODUCT_REPORT_IMAGES[2],
+  PRODUCT_REPORT_IMAGES[0],
+  PRODUCT_REPORT_IMAGES[3],
+].filter(Boolean);
 const WHAT_WE_DO_IMAGES: Record<string, string> = {
   mirror: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo1.png",
   "picture frame": "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo2.png",
@@ -796,6 +808,47 @@ const HOME_COMPANY_PROFILE_FALLBACK: Record<Locale, { title: string; description
   },
 };
 
+const HOME_COMPANY_PROFILE_POINT_SOURCE = [
+  "Cutting-edge Advanced",
+  "Best-in-Class Retail Design",
+  "On-Time Delivery Service",
+  "End-to-end Support",
+];
+
+const HOME_COMPANY_PROFILE_POINTS_FALLBACK: Record<Locale, string[]> = {
+  en: HOME_COMPANY_PROFILE_POINT_SOURCE,
+  es: [
+    "Tecnología avanzada de vanguardia",
+    "Diseño retail de primer nivel",
+    "Servicio de entrega puntual",
+    "Soporte integral de extremo a extremo",
+  ],
+  pt: [
+    "Tecnologia avançada de ponta",
+    "Design de varejo de primeira classe",
+    "Serviço de entrega pontual",
+    "Suporte completo de ponta a ponta",
+  ],
+  fr: [
+    "Technologie avancée de pointe",
+    "Design retail de premier ordre",
+    "Service de livraison ponctuel",
+    "Accompagnement de bout en bout",
+  ],
+  de: [
+    "Fortschrittliche Spitzentechnologie",
+    "Retail-Design auf höchstem Niveau",
+    "Pünktlicher Lieferservice",
+    "End-to-End-Support",
+  ],
+  ja: [
+    "最先端の高度な技術",
+    "最高水準のリテールデザイン",
+    "納期厳守の配送サービス",
+    "エンドツーエンドのサポート",
+  ],
+};
+
 const HOME_SOLUTION_FALLBACK_DESCRIPTIONS: Record<string, Record<Locale, string>> = {
   "/solutions/business-insights-trends": {
     en: "With extensive relationships with our retail partners, we hold a distinct advantage which includes real time global market analysis.",
@@ -915,6 +968,13 @@ function localizedHomeProfileLinks(locale: Locale) {
   }));
 }
 
+function localizedHomeCompanyProfilePoints(locale: Locale, points?: string[]) {
+  const sourcePoints = points?.length ? points : HOME_COMPANY_PROFILE_POINT_SOURCE;
+  const fallbackPoints = HOME_COMPANY_PROFILE_POINTS_FALLBACK[locale] || HOME_COMPANY_PROFILE_POINT_SOURCE;
+  const stillSourceEnglish = sourcePoints.every((point, index) => point === HOME_COMPANY_PROFILE_POINT_SOURCE[index]);
+  return locale === "en" || !stillSourceEnglish ? sourcePoints : fallbackPoints;
+}
+
 function localizedProjectCard(project: (typeof HOME_PROJECT_CARDS)[number], locale: Locale) {
   return {
     ...project,
@@ -939,19 +999,287 @@ function localizeSourceProductCard<T extends { title: string; path: string; imag
   return product ? { ...card, title: product.title } : card;
 }
 
+const CATEGORY_COPY_BODY_TRANSLATIONS: Record<Exclude<Locale, "en">, Record<string, string>> = {
+  es: {
+    "Wall Mirror":
+      "Los espejos de pared están diseñados para instalarse en muros y ofrecen una solución que ahorra espacio. Están disponibles en distintas formas y tamaños, con funciones decorativas y prácticas.",
+    "Standing Mirror":
+      "Los espejos de pie son espejos grandes de cuerpo entero que normalmente se colocan en el suelo. Pueden ubicarse libremente sin montaje mural y ajustarse para distintos ángulos de visión.",
+    "Leaner Mirror":
+      "Los espejos apoyados son piezas de gran formato que se apoyan contra la pared en lugar de fijarse o colocarse con soporte. Crean un punto focal elegante y ayudan a ampliar visualmente el espacio.",
+    "Door Mirror":
+      "Los espejos de puerta se instalan en la parte posterior de las puertas. Ahorran espacio y permiten revisar rápidamente el atuendo al entrar o salir, por lo que son ideales para zonas compactas.",
+    "LED Mirror":
+      "Los espejos LED integran iluminación, combinando luz y funcionalidad. Se usan a menudo en baños o vestidores para tareas como el cuidado personal y el maquillaje.",
+    "Tabletop Frame":
+      "Los marcos de sobremesa son ideales para mostrar fotos en mesas, estanterías o escritorios. Suelen ser pequeños y delicados, y están disponibles en distintas formas y materiales para complementar la decoración del hogar.",
+    "Wall Frame":
+      "La mayoría de los marcos de pared tienen un diseño sencillo que se adapta a diversos estilos de hogar. Si desea concentrar sus fotos en la pared, son una opción elegante para crear un espacio personalizado.",
+    "Poster Frame":
+      "Diseñados específicamente para pósteres grandes, son adecuados para exhibir obras de arte o piezas coleccionables. Su apariencia suele ser sencilla para destacar el contenido, protegerlo y presentarlo de forma efectiva.",
+    "Document Frame":
+      "Diseñados para conmemorar fotos de graduación y otros documentos importantes. Si desea conservar un momento especial de su vida, los marcos para documentos son una elección significativa.",
+    "Shadow Box":
+      "Adecuados para exhibir objetos tridimensionales como medallas, certificados y piezas pequeñas.",
+    "Collage Frame":
+      "Incluyen varias aberturas para fotos y permiten mostrar múltiples imágenes a la vez, ideales para crear una pared fotográfica o presentar varios momentos importantes.",
+    "Framed Art":
+      "El arte enmarcado se refiere a obras protegidas por un marco, que aporta valor estético y protección. El marco realza la apariencia de la obra y añade durabilidad.",
+    "Canvas Art":
+      "El arte en lienzo consiste en imprimir o pintar imágenes directamente sobre tela. Suele ofrecer una estética contemporánea, con una textura que añade profundidad y carácter.",
+    "Alternative Wall Décor":
+      "La decoración mural alternativa abarca piezas no tradicionales y creativas, como esculturas de madera, impresiones en bloques o instalaciones que se apartan del arte enmarcado o en lienzo convencional.",
+    "Medicine Cabinet":
+      "Combinar un espejo con un botiquín maximiza el uso del espacio en baños u otras áreas. Cumple una doble función: almacenamiento para medicamentos y artículos de tocador, y espejo para el cuidado personal.",
+    "Shelf":
+      "Las repisas aprovechan el espacio vertical, liberando superficie en el suelo. Nuestras repisas vienen en distintas formas, tamaños y materiales para adaptarse a diversas necesidades de almacenamiento y estilos.",
+    "Chalkboard":
+      "Los pizarrones tienen una superficie negra mate y lisa, hecha de pizarra, madera u otros materiales. Se usan en aulas, restaurantes, cafeterías y hogares para menús, avisos o dibujos.",
+    "Dry Erase Board":
+      "Las pizarras blancas tienen una superficie lisa y brillante para escribir con marcadores borrables. Se usan en oficinas, salas de reunión, aulas y hogares para ideas, presentaciones, planificación y notas.",
+    "Cork Board":
+      "Los tableros de corcho tienen una superficie texturizada de corcho natural y sostenible, pensada para fijar papeles, notas, fotos y objetos ligeros con chinchetas. Son duraderos y autorreparables.",
+    "Linen Board":
+      "Los tableros de lino tienen una superficie de tela tensada sobre una base. Ofrecen una apariencia más decorativa y sofisticada que el corcho, adecuada para entornos profesionales o de mayor nivel.",
+  },
+  pt: {
+    "Wall Mirror":
+      "Os espelhos de parede são feitos para instalação em paredes e oferecem uma solução que economiza espaço. Estão disponíveis em diferentes formas e tamanhos, com funções decorativas e práticas.",
+    "Standing Mirror":
+      "Os espelhos de chão são espelhos grandes, de corpo inteiro, normalmente colocados no piso. Podem ser posicionados livremente sem fixação na parede e ajustados para diferentes ângulos de visão.",
+    "Leaner Mirror":
+      "Os espelhos de apoio são peças maiores que ficam encostadas à parede, em vez de serem fixadas ou apoiadas por suporte. Criam um ponto focal elegante e ajudam a ampliar visualmente o ambiente.",
+    "Door Mirror":
+      "Os espelhos de porta são instalados na parte de trás das portas. Economizam espaço e permitem uma checagem rápida do visual ao entrar ou sair, sendo ideais para áreas compactas.",
+    "LED Mirror":
+      "Os espelhos LED contam com iluminação integrada, unindo luz e funcionalidade. São frequentemente usados em banheiros ou áreas de vestir para cuidados pessoais e maquiagem.",
+    "Tabletop Frame":
+      "Porta-retratos de mesa são ideais para exibir fotos em mesas, prateleiras ou escrivaninhas. Geralmente pequenos e delicados, estão disponíveis em diversas formas e materiais para complementar a decoração.",
+    "Wall Frame":
+      "A maioria dos quadros de parede tem design simples e combina com diferentes estilos de casa. Para concentrar suas fotos na parede, são uma opção elegante para criar um espaço personalizado.",
+    "Poster Frame":
+      "Projetados especificamente para pôsteres grandes, são adequados para exibir obras de arte ou itens colecionáveis. O visual costuma ser simples para destacar, proteger e valorizar o conteúdo exibido.",
+    "Document Frame":
+      "Projetados para celebrar fotos de formatura e outros documentos importantes. Para guardar um momento especial da vida, os quadros para documentos são uma escolha significativa.",
+    "Shadow Box":
+      "Adequadas para exibir itens tridimensionais, como medalhas, certificados e pequenos objetos.",
+    "Collage Frame":
+      "Contêm várias aberturas para fotos e permitem exibir diversas imagens ao mesmo tempo, ideais para criar uma parede de fotos ou mostrar vários momentos importantes.",
+    "Framed Art":
+      "Arte emoldurada refere-se a obras envolvidas por uma moldura, oferecendo valor estético e proteção. A moldura realça o visual da obra e acrescenta durabilidade.",
+    "Canvas Art":
+      "Arte em tela envolve impressão ou pintura diretamente sobre o tecido. Essas peças costumam ter estética contemporânea, com textura que acrescenta profundidade e personalidade.",
+    "Alternative Wall Décor":
+      "Decoração de parede alternativa inclui peças criativas e não tradicionais, como esculturas em madeira, impressões em bloco ou instalações que fogem da arte emoldurada ou em tela convencional.",
+    "Medicine Cabinet":
+      "Combinar espelho e armário para medicamentos maximiza o uso do espaço em banheiros ou outras áreas. A peça oferece armazenamento para medicamentos e produtos de higiene, além de funcionar como espelho.",
+    "Shelf":
+      "As prateleiras aproveitam o espaço vertical, liberando área no piso. Nossas prateleiras vêm em várias formas, tamanhos e materiais para atender a diferentes necessidades de armazenamento e estilos.",
+    "Chalkboard":
+      "Os quadros de giz têm superfície preta fosca e lisa, feita de ardósia, madeira ou outros materiais. São usados em salas de aula, restaurantes, cafés e residências para menus, avisos ou desenhos.",
+    "Dry Erase Board":
+      "Os quadros brancos têm superfície lisa e brilhante para escrita com marcadores apagáveis. São comuns em escritórios, salas de reunião, escolas e casas para ideias, apresentações, agendas e notas.",
+    "Cork Board":
+      "Os quadros de cortiça têm superfície texturizada feita de cortiça natural e sustentável, ideal para fixar papéis, notas, fotos e itens leves com tachinhas. São duráveis e autorregenerativos.",
+    "Linen Board":
+      "Os quadros de linho têm superfície revestida com tecido esticado sobre uma base. Oferecem aparência mais decorativa e sofisticada que a cortiça, adequada para ambientes profissionais ou refinados.",
+  },
+  fr: {
+    "Wall Mirror":
+      "Les miroirs muraux sont conçus pour être fixés au mur et offrent une solution gain de place. Disponibles dans de nombreuses formes et dimensions, ils sont à la fois décoratifs et fonctionnels.",
+    "Standing Mirror":
+      "Les miroirs sur pied sont de grands miroirs pleine longueur, généralement posés au sol. Ils peuvent être placés librement sans fixation murale et ajustés selon différents angles de vue.",
+    "Leaner Mirror":
+      "Les miroirs à poser sont de grands miroirs appuyés contre un mur, plutôt que fixés ou installés sur support. Ils créent un point focal élégant et agrandissent visuellement l’espace.",
+    "Door Mirror":
+      "Les miroirs de porte se fixent à l’arrière des portes. Pratiques et peu encombrants, ils permettent une vérification rapide de la tenue et conviennent aux petits espaces.",
+    "LED Mirror":
+      "Les miroirs LED intègrent un éclairage, combinant luminosité et fonctionnalité. Ils sont souvent utilisés dans les salles de bains ou espaces dressing pour la toilette et le maquillage.",
+    "Tabletop Frame":
+      "Les cadres à poser sont parfaits pour présenter des photos sur des tables, étagères ou bureaux. Généralement petits et délicats, ils existent en plusieurs formes et matériaux pour compléter la décoration intérieure.",
+    "Wall Frame":
+      "La plupart des cadres muraux ont un design simple adapté à différents styles d’intérieur. Si vous souhaitez concentrer vos photos au mur, ils constituent une option élégante pour personnaliser l’espace.",
+    "Poster Frame":
+      "Spécialement conçus pour les grands posters, ils conviennent à l’exposition d’œuvres ou d’objets de collection. Leur apparence simple met le contenu en valeur tout en le protégeant efficacement.",
+    "Document Frame":
+      "Conçus pour mettre en valeur les photos de remise de diplôme et autres documents importants. Pour commémorer un moment spécial, les cadres pour documents sont un choix plein de sens.",
+    "Shadow Box":
+      "Adaptées à l’exposition d’objets en trois dimensions, comme des médailles, certificats ou petits souvenirs.",
+    "Collage Frame":
+      "Dotés de plusieurs ouvertures photo, ils permettent d’afficher plusieurs images en même temps, idéal pour créer un mur photo ou présenter différents moments importants.",
+    "Framed Art":
+      "L’art encadré désigne des œuvres placées dans un cadre, apportant à la fois esthétique et protection. Le cadre renforce l’impact visuel de l’œuvre et ajoute une couche de durabilité.",
+    "Canvas Art":
+      "L’art sur toile consiste à imprimer ou peindre une image directement sur une toile. Ces œuvres ont souvent une esthétique contemporaine, avec une texture qui apporte profondeur et caractère.",
+    "Alternative Wall Décor":
+      "La décoration murale alternative regroupe des pièces créatives et non traditionnelles, comme les sculptures murales en bois, les impressions sur bois ou les installations qui s’éloignent des cadres et toiles classiques.",
+    "Medicine Cabinet":
+      "Associer un miroir à une armoire à pharmacie optimise l’espace dans la salle de bains ou ailleurs. La pièce offre du rangement pour médicaments et articles de toilette, tout en servant de miroir.",
+    "Shelf":
+      "Les étagères exploitent l’espace vertical, libérant de la surface au sol. Nos étagères existent en plusieurs formes, tailles et matériaux pour s’adapter aux besoins de rangement et aux styles décoratifs.",
+    "Chalkboard":
+      "Les tableaux noirs possèdent une surface mate et lisse, en ardoise, bois ou autres matériaux. Ils sont utilisés dans les salles de classe, restaurants, cafés et maisons pour menus, annonces ou dessins.",
+    "Dry Erase Board":
+      "Les tableaux blancs ont une surface lisse et brillante conçue pour les marqueurs effaçables. Ils sont courants dans les bureaux, salles de réunion, classes et maisons pour idées, présentations, plannings et notes.",
+    "Cork Board":
+      "Les panneaux en liège ont une surface texturée en liège naturel et durable, conçue pour fixer papiers, notes, photos et objets légers avec des punaises. Ils sont résistants et auto-cicatrisants.",
+    "Linen Board":
+      "Les panneaux en lin possèdent une surface textile tendue sur un support. Plus décoratifs et sophistiqués que le liège, ils conviennent aux environnements professionnels ou haut de gamme.",
+  },
+  de: {
+    "Wall Mirror":
+      "Wandspiegel werden an der Wand montiert und bieten eine platzsparende Lösung. Sie sind in vielen Formen und Größen erhältlich und erfüllen sowohl dekorative als auch praktische Funktionen.",
+    "Standing Mirror":
+      "Standspiegel sind große Ganzkörperspiegel, die meist auf dem Boden stehen. Sie lassen sich flexibel ohne Wandmontage platzieren und für verschiedene Blickwinkel ausrichten.",
+    "Leaner Mirror":
+      "Anlehnspiegel sind größere Spiegel, die an die Wand gelehnt werden, statt fest montiert oder aufgestellt zu sein. Sie schaffen einen stilvollen Blickfang und vergrößern Räume optisch.",
+    "Door Mirror":
+      "Türspiegel werden auf der Rückseite von Türen montiert. Sie sparen Platz und ermöglichen einen schnellen Outfit-Check beim Betreten oder Verlassen des Raums, ideal für kompakte Bereiche.",
+    "LED Mirror":
+      "LED-Spiegel verfügen über integrierte Beleuchtung und verbinden Licht mit Funktionalität. Sie werden häufig in Badezimmern oder Ankleidebereichen für Pflege und Make-up verwendet.",
+    "Tabletop Frame":
+      "Tischrahmen eignen sich ideal, um Fotos auf Tischen, Regalen oder Schreibtischen zu präsentieren. Sie sind meist klein und fein gearbeitet und in verschiedenen Formen und Materialien erhältlich.",
+    "Wall Frame":
+      "Die meisten Wandrahmen haben ein schlichtes Design, das zu vielen Wohnstilen passt. Wenn Sie Fotos gebündelt an der Wand zeigen möchten, sind Wandrahmen eine stilvolle Lösung.",
+    "Poster Frame":
+      "Speziell für große Poster entwickelt und geeignet für Kunstwerke oder Sammlerstücke. Das meist schlichte Erscheinungsbild hebt den Inhalt hervor und schützt sowie präsentiert ihn wirkungsvoll.",
+    "Document Frame":
+      "Speziell für Abschlussfotos und andere wichtige Dokumente entwickelt. Wenn Sie einen besonderen Moment bewahren möchten, sind Dokumentenrahmen eine bedeutungsvolle Wahl.",
+    "Shadow Box":
+      "Geeignet zur Präsentation dreidimensionaler Objekte wie Medaillen, Zertifikate und kleiner Erinnerungsstücke.",
+    "Collage Frame":
+      "Mit mehreren Fotoöffnungen können mehrere Bilder gleichzeitig gezeigt werden, ideal für Fotowände oder zur Präsentation wichtiger Lebensmomente.",
+    "Framed Art":
+      "Gerahmte Kunst bezeichnet Werke, die von einem Rahmen eingefasst sind und dadurch Ästhetik und Schutz erhalten. Der Rahmen verstärkt die Wirkung des Kunstwerks und erhöht die Haltbarkeit.",
+    "Canvas Art":
+      "Leinwandkunst entsteht durch Druck oder Malerei direkt auf Leinwand. Diese Werke wirken oft modern und zeitgemäß, wobei die Leinwandstruktur Tiefe und Charakter verleiht.",
+    "Alternative Wall Décor":
+      "Alternative Wanddekoration umfasst kreative, nicht traditionelle Stücke wie Holz-Wandskulpturen, Holzblockdrucke oder Installationen abseits klassischer Rahmen- und Leinwandkunst.",
+    "Medicine Cabinet":
+      "Die Kombination aus Spiegel und Medizinschrank nutzt den Platz im Badezimmer oder anderen Bereichen optimal. Sie bietet Stauraum für Medikamente und Pflegeprodukte und dient zugleich als Spiegel.",
+    "Shelf":
+      "Regale nutzen vertikalen Raum effizient und schaffen mehr freie Bodenfläche. Unsere Regale sind in verschiedenen Formen, Größen und Materialien erhältlich und passen zu unterschiedlichen Stauraum- und Stilbedürfnissen.",
+    "Chalkboard":
+      "Kreidetafeln haben eine glatte, matte schwarze Oberfläche aus Schiefer, Holz oder anderen Materialien. Sie werden in Schulen, Restaurants, Cafés und zu Hause für Menüs, Hinweise oder Zeichnungen genutzt.",
+    "Dry Erase Board":
+      "Whiteboards haben eine glatte, glänzende Oberfläche für trocken abwischbare Marker. Sie werden in Büros, Besprechungsräumen, Schulen und zu Hause für Ideen, Präsentationen, Planung und Notizen genutzt.",
+    "Cork Board":
+      "Korktafeln besitzen eine strukturierte Oberfläche aus natürlichem, nachhaltigem Kork, auf der Papiere, Notizen, Fotos und leichte Objekte mit Pinnnadeln befestigt werden können. Sie sind robust und selbstheilend.",
+    "Linen Board":
+      "Leinentafeln haben eine stoffbezogene Oberfläche aus gespanntem Leinen auf einer Trägerplatte. Sie wirken dekorativer und hochwertiger als Korktafeln und eignen sich für professionelle oder gehobene Umgebungen.",
+  },
+  ja: {
+    "Wall Mirror":
+      "壁掛けミラーは壁面に取り付けるために設計され、省スペースで使えるアイテムです。さまざまな形状とサイズがあり、装飾性と実用性を兼ね備えています。",
+    "Standing Mirror":
+      "スタンドミラーは床に置いて使う大型の全身鏡です。壁に固定せず自由に配置でき、角度調整がしやすいため、さまざまな視点で身だしなみを確認できます。",
+    "Leaner Mirror":
+      "リーナーミラーは壁に立て掛けて使う大型ミラーです。空間のアクセントになり、部屋をより広く見せる効果もあります。",
+    "Door Mirror":
+      "ドアミラーはドアの背面に取り付けるためのミラーです。省スペースで、出入りの際に服装をすばやく確認できるため、限られた空間に適しています。",
+    "LED Mirror":
+      "LEDミラーは照明を内蔵し、明るさと機能性を兼ね備えています。洗面所やドレッシングスペースで、身だしなみやメイクのための適切な照明を提供します。",
+    "Tabletop Frame":
+      "卓上フレームは、テーブル、棚、デスクの上で写真を飾るのに最適です。小ぶりで繊細なデザインが多く、さまざまな形状や素材からインテリアに合わせて選べます。",
+    "Wall Frame":
+      "壁フレームはシンプルなデザインが多く、幅広い住空間のスタイルに調和します。写真を壁面にまとめて飾りたい場合、個性ある空間づくりに適した選択肢です。",
+    "Poster Frame":
+      "ポスターフレームは大型ポスター向けに設計され、アート作品やコレクションの展示に適しています。装飾を抑えたデザインで内容を引き立て、作品を保護しながら美しく見せます。",
+    "Document Frame":
+      "ドキュメントフレームは卒業写真や大切な書類を記念として飾るために設計されています。人生の特別な瞬間を残したいときに意味のある選択肢です。",
+    "Shadow Box":
+      "シャドーボックスは、メダル、証明書、小物などの立体的なアイテムを飾るのに適しています。",
+    "Collage Frame":
+      "コラージュフレームは複数の写真枠を備え、一度に複数の写真を飾れます。フォトウォールづくりや、人生の大切な瞬間をまとめて見せるのに最適です。",
+    "Framed Art":
+      "フレームアートは、作品を額装することで美観と保護性を高めたアートです。フレームは作品の見栄えを引き立てるだけでなく、耐久性も高めます。",
+    "Canvas Art":
+      "キャンバスアートは、キャンバス素材に直接印刷または描画した作品です。現代的な印象を与え、キャンバスの質感が作品に奥行きと個性を加えます。",
+    "Alternative Wall Décor":
+      "オルタナティブウォールデコールは、従来の額装アートやキャンバスアートにとらわれない装飾です。木製ウォールスカルプチャー、木版プリント、創造的なインスタレーションなどが含まれます。",
+    "Medicine Cabinet":
+      "ミラー付きメディシンキャビネットは、浴室などの限られた空間を有効活用できます。薬や洗面用品の収納として使えるだけでなく、身だしなみ用の鏡としても機能します。",
+    "Shelf":
+      "シェルフは壁面の縦方向のスペースを活用し、床面をすっきり保ちます。さまざまな形状、サイズ、素材を用意しており、収納ニーズやインテリアに合わせて選べます。",
+    "Chalkboard":
+      "チョークボードは、スレート、木材、その他素材で作られた滑らかな黒色マット面を持つボードです。教室、レストラン、カフェ、家庭でメニュー、案内、アートの記入に使われます。",
+    "Dry Erase Board":
+      "ホワイトボードは、ドライイレースマーカーで書き消しできる滑らかな光沢面を持つボードです。オフィス、会議室、教室、家庭でアイデア出し、プレゼン、予定管理、メモに使われます。",
+    "Cork Board":
+      "コルクボードは、天然でサステナブルなコルク素材の表面を備え、紙、メモ、写真、軽量アイテムをピンで留めて掲示できます。耐久性があり、ピン跡が戻りやすい特徴があります。",
+    "Linen Board":
+      "リネンボードは、台板にリネン生地を張ったファブリック面のボードです。コルクボードより装飾性と上質感があり、プロフェッショナルな空間や洗練された環境に適しています。",
+  },
+};
+
+const CATEGORY_INTRO_TRANSLATIONS: Record<Exclude<Locale, "en">, Record<string, string>> = {
+  es: {
+    "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.":
+      "Encuentre el espejo perfecto en Intco Framing. Explore nuestras soluciones para baño con espejos de pared, espejos de pie y espejos LED.",
+    "Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.":
+      "Encuentre el marco perfecto en Intco Framing. Explore nuestros más vendidos, incluidos marcos de sobremesa, marcos de pared y marcos para póster. Todo lo que busca está aquí.",
+    "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!":
+      "Explore la colección de arte única de Intco Framing. Desde arte enmarcado y lienzos hasta decoración mural alternativa, descubra los más vendidos que encajan con su estilo.",
+    "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!":
+      "Explore la colección de muebles premium de Intco Framing. Desde botiquines hasta repisas, descubra nuestras últimas soluciones de almacenamiento para el hogar.",
+  },
+  pt: {
+    "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.":
+      "Encontre o espelho perfeito na Intco Framing. Explore nossas soluções para banheiro com espelhos de parede, espelhos de chão e espelhos LED.",
+    "Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.":
+      "Encontre a moldura perfeita na Intco Framing. Veja nossos mais vendidos, incluindo porta-retratos de mesa, quadros de parede e molduras para pôsteres.",
+    "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!":
+      "Explore a coleção exclusiva de arte da Intco Framing. De arte emoldurada e telas a decoração de parede alternativa, descubra os mais vendidos para o seu estilo.",
+    "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!":
+      "Explore a coleção premium de móveis da Intco Framing. De armários para medicamentos a prateleiras, conheça nossas soluções mais recentes de armazenamento doméstico.",
+  },
+  fr: {
+    "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.":
+      "Trouvez le miroir idéal chez Intco Framing. Découvrez nos solutions de salle de bains avec miroirs muraux, miroirs sur pied et miroirs LED.",
+    "Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.":
+      "Trouvez le cadre idéal chez Intco Framing. Parcourez nos meilleures ventes, dont les cadres à poser, cadres muraux et cadres pour posters.",
+    "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!":
+      "Explorez la collection d’art unique d’Intco Framing. De l’art encadré aux toiles et décorations murales alternatives, découvrez nos meilleures ventes adaptées à votre style.",
+    "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!":
+      "Explorez la collection de meubles premium d’Intco Framing. Des armoires à pharmacie aux étagères, découvrez nos dernières solutions de rangement pour la maison.",
+  },
+  de: {
+    "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.":
+      "Finden Sie den passenden Spiegel bei Intco Framing. Entdecken Sie aktuelle Badlösungen mit Wandspiegeln, Standspiegeln und LED-Spiegeln.",
+    "Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.":
+      "Finden Sie den passenden Bilderrahmen bei Intco Framing. Entdecken Sie unsere Bestseller, darunter Tischrahmen, Wandrahmen und Posterrahmen.",
+    "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!":
+      "Entdecken Sie die einzigartige Kunstkollektion von Intco Framing. Von gerahmter Kunst und Leinwandbildern bis zu alternativer Wanddekoration finden Sie Bestseller für Ihren Stil.",
+    "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!":
+      "Entdecken Sie die Premium-Möbelkollektion von Intco Framing. Von Medizinschränken bis zu Regalen finden Sie aktuelle Aufbewahrungslösungen für Ihr Zuhause.",
+  },
+  ja: {
+    "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.":
+      "Intco Framingで理想のミラーを見つけてください。壁掛けミラー、スタンドミラー、LEDミラーなど、最新のバスルームソリューションをご覧いただけます。",
+    "Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.":
+      "Intco Framingで最適な額縁を見つけてください。卓上フレーム、壁フレーム、ポスターフレームなど、人気商品を幅広くご用意しています。",
+    "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!":
+      "Intco Framingの個性豊かなアートコレクションをご覧ください。フレームアート、キャンバスアート、オルタナティブウォールデコールまで、スタイルに合う人気商品をお選びいただけます。",
+    "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!":
+      "Intco Framingのプレミアム家具コレクションをご覧ください。メディシンキャビネットからシェルフまで、最新のホーム収納ソリューションをご提案します。",
+  },
+};
+
 function localizeSourceCopyItems(items: Array<{ title: string; body: string }>, categories: ProductCategory[], locale: Locale) {
   if (locale === "en") return items;
   return items.map((item) => {
     const category = categoryBySourceTitle(categories, item.title);
+    const translatedBody = CATEGORY_COPY_BODY_TRANSLATIONS[locale]?.[item.title];
     return {
       title: category?.title || item.title,
-      body: category?.description || item.body,
+      body: translatedBody || category?.description || item.body,
     };
   });
 }
 
 function localizedCategoryIntro(category: ProductCategory | undefined, fallback: string, locale: Locale) {
-  return locale === "en" ? fallback : category?.description || fallback;
+  if (locale === "en") return fallback;
+  return CATEGORY_INTRO_TRANSLATIONS[locale]?.[fallback] || category?.description || fallback;
 }
 
 function solutionTitleFallback(locale: Locale, path: string, fallback: string) {
@@ -1086,6 +1414,362 @@ const PROJECTS_SOURCE_PAGE_ITEMS: Record<number, typeof PROJECTS_SOURCE_ITEMS> =
 const PROJECTS_SOURCE_PAGE_SIZE = 5;
 const PROJECTS_SOURCE_ORDER = [...PROJECTS_SOURCE_PAGE_ITEMS[1], ...PROJECTS_SOURCE_PAGE_ITEMS[2], ...PROJECTS_SOURCE_PAGE_ITEMS[3]].map((item) => item.path);
 const PROJECTS_SOURCE_ITEM_BY_PATH = new Map([...PROJECTS_SOURCE_PAGE_ITEMS[1], ...PROJECTS_SOURCE_PAGE_ITEMS[2], ...PROJECTS_SOURCE_PAGE_ITEMS[3]].map((item) => [item.path, item]));
+const PROJECTS_SOURCE_RESIDENTIAL_PATHS = new Set([...PROJECTS_SOURCE_ITEMS, PROJECTS_SOURCE_CHILDRENS_ROOM].map((item) => item.path));
+const PROJECTS_SOURCE_COMMERCIAL_PATHS = new Set([...PROJECTS_SOURCE_PAGE_ITEMS[2].slice(1), ...PROJECTS_SOURCE_PAGE_ITEMS[3]].map((item) => item.path));
+type ProjectSourceCopy = {
+  title: string;
+  description: string;
+};
+
+const PROJECTS_SOURCE_COPY_TRANSLATIONS: Record<Exclude<Locale, "en">, Record<string, ProjectSourceCopy>> = {
+  es: {
+    "/projects/living-room": {
+      title: "Sala de estar",
+      description: "Transforma tu sala de estar en un refugio de confort y estilo con nuestra colección seleccionada. Cada pieza combina estética y funcionalidad de forma natural.",
+    },
+    "/projects/bedroom": {
+      title: "Dormitorio",
+      description: "Disfruta la serenidad de nuestra colección para dormitorio, donde la calma se une al diseño atemporal para crear un espacio pensado para el descanso.",
+    },
+    "/projects/bathroom": {
+      title: "Baño",
+      description: "Entra en un ambiente de tranquilidad con nuestra colección para baño, donde el lujo y la funcionalidad elevan la rutina diaria.",
+    },
+    "/projects/dining-room": {
+      title: "Comedor",
+      description: "Convierte cada comida en una experiencia visual con nuestra colección para comedor, que combina elegancia contemporánea y comodidad.",
+    },
+    "/projects/kitchen": {
+      title: "Cocina",
+      description: "Aporta calidez moderna a tu cocina con soluciones que integran estilo y funcionalidad para realzar cada momento culinario.",
+    },
+    "/projects/childrens-room": {
+      title: "Habitación infantil",
+      description: "Descubre una habitación infantil llena de imaginación y encanto, diseñada para despertar la creatividad y acompañar los sueños de los niños.",
+    },
+    "/projects/hotel": {
+      title: "Hotel",
+      description: "Ofrece lujo y sofisticación con nuestra colección para hoteles, cuidada en cada detalle para mejorar la experiencia de cada estancia.",
+    },
+    "/projects/office": {
+      title: "Oficina",
+      description: "Eleva tu oficina con una colección decorativa exclusiva, desde accesorios de escritorio hasta arte mural que aporta orden y sofisticación.",
+    },
+    "/projects/gallery": {
+      title: "Galería",
+      description: "Nuestra colección de arte celebra estilos y expresiones diversas. Cada obra aporta una historia propia y enriquece la experiencia del espacio.",
+    },
+    "/projects/cafes": {
+      title: "Cafés",
+      description: "Crea una atmósfera sofisticada con decoración mural seleccionada, transformando cada rincón del café en una experiencia visual acogedora.",
+    },
+    "/projects/restaurant": {
+      title: "Restaurante",
+      description: "Nuestra colección transforma la experiencia gastronómica, creando un ambiente que invita a conversar y realza el placer de cada bocado.",
+    },
+    "/projects/large-commercial-space": {
+      title: "Gran espacio comercial",
+      description: "Convierte grandes superficies en espacios dinámicos de innovación y estilo con soluciones decorativas pensadas para ambientes comerciales.",
+    },
+    "/projects/school": {
+      title: "Escuela",
+      description: "Crea entornos de aprendizaje inspiradores y funcionales con soluciones adaptadas a escuelas, pensadas para apoyar la concentración y la creatividad.",
+    },
+  },
+  pt: {
+    "/projects/living-room": {
+      title: "Sala de estar",
+      description: "Transforme sua sala de estar em um refúgio de conforto e estilo com nossa coleção selecionada. Cada peça combina estética e funcionalidade com naturalidade.",
+    },
+    "/projects/bedroom": {
+      title: "Quarto",
+      description: "Aproveite a serenidade da nossa coleção para quarto, onde tranquilidade e design atemporal criam um espaço dedicado ao descanso.",
+    },
+    "/projects/bathroom": {
+      title: "Banheiro",
+      description: "Entre em um ambiente de tranquilidade com nossa coleção para banheiro, onde luxo e funcionalidade elevam a rotina diária.",
+    },
+    "/projects/dining-room": {
+      title: "Sala de jantar",
+      description: "Transforme cada refeição em uma experiência visual com nossa coleção para sala de jantar, unindo elegância contemporânea e conforto.",
+    },
+    "/projects/kitchen": {
+      title: "Cozinha",
+      description: "Leve o calor da estética moderna para sua cozinha com soluções que unem estilo e funcionalidade em cada momento culinário.",
+    },
+    "/projects/childrens-room": {
+      title: "Quarto infantil",
+      description: "Entre em um universo de imaginação e encanto com nossa coleção para quarto infantil, criada para estimular a criatividade e os sonhos.",
+    },
+    "/projects/hotel": {
+      title: "Hotel",
+      description: "Experimente luxo e sofisticação com nossa coleção para hotéis, pensada em cada detalhe para elevar a experiência da hospedagem.",
+    },
+    "/projects/office": {
+      title: "Escritório",
+      description: "Eleve seu escritório com uma coleção decorativa exclusiva, de acessórios de mesa a arte de parede que traz sofisticação ao ambiente.",
+    },
+    "/projects/gallery": {
+      title: "Galeria",
+      description: "Nossa coleção de arte celebra estilos e expressões diversas. Cada obra conta uma história e valoriza a experiência do espaço.",
+    },
+    "/projects/cafes": {
+      title: "Cafés",
+      description: "Crie uma atmosfera sofisticada com decoração de parede selecionada, transformando cada canto do café em uma experiência visual acolhedora.",
+    },
+    "/projects/restaurant": {
+      title: "Restaurante",
+      description: "Nossa coleção transforma a experiência gastronômica, criando um ambiente que inspira conversas e valoriza o prazer de cada refeição.",
+    },
+    "/projects/large-commercial-space": {
+      title: "Grande espaço comercial",
+      description: "Transforme áreas amplas em ambientes dinâmicos de inovação e estilo com soluções decorativas para grandes espaços comerciais.",
+    },
+    "/projects/school": {
+      title: "Escola",
+      description: "Crie ambientes de aprendizagem inspiradores e funcionais com soluções para escolas, pensadas para apoiar concentração e criatividade.",
+    },
+  },
+  fr: {
+    "/projects/living-room": {
+      title: "Salon",
+      description: "Transformez votre salon en refuge de confort et de style avec notre collection soigneusement sélectionnée, où esthétique et fonctionnalité s'accordent naturellement.",
+    },
+    "/projects/bedroom": {
+      title: "Chambre",
+      description: "Profitez de la sérénité de notre collection pour chambre, où calme et design intemporel composent un espace dédié au repos.",
+    },
+    "/projects/bathroom": {
+      title: "Salle de bain",
+      description: "Entrez dans un univers apaisant avec notre collection pour salle de bain, où luxe et fonctionnalité subliment la routine quotidienne.",
+    },
+    "/projects/dining-room": {
+      title: "Salle à manger",
+      description: "Transformez chaque repas en expérience visuelle avec notre collection pour salle à manger, entre élégance contemporaine et confort.",
+    },
+    "/projects/kitchen": {
+      title: "Cuisine",
+      description: "Apportez la chaleur d'une esthétique moderne à votre cuisine avec des solutions qui allient style et fonctionnalité.",
+    },
+    "/projects/childrens-room": {
+      title: "Chambre d'enfant",
+      description: "Entrez dans un monde d'imagination avec notre collection pour chambre d'enfant, conçue pour stimuler la créativité et accompagner les rêves.",
+    },
+    "/projects/hotel": {
+      title: "Hôtel",
+      description: "Découvrez le luxe et la sophistication de notre collection hôtelière, pensée dans chaque détail pour enrichir l'expérience du séjour.",
+    },
+    "/projects/office": {
+      title: "Bureau",
+      description: "Valorisez votre bureau avec une collection décorative exclusive, des accessoires de travail à l'art mural qui structure l'espace.",
+    },
+    "/projects/gallery": {
+      title: "Galerie",
+      description: "Notre collection d'art célèbre la diversité des styles et des expressions. Chaque oeuvre raconte une histoire et enrichit l'espace.",
+    },
+    "/projects/cafes": {
+      title: "Cafés",
+      description: "Créez une ambiance sophistiquée avec une décoration murale choisie, transformant chaque recoin du café en expérience visuelle accueillante.",
+    },
+    "/projects/restaurant": {
+      title: "Restaurant",
+      description: "Notre collection transforme l'expérience culinaire en créant une atmosphère propice aux échanges et au plaisir de chaque bouchée.",
+    },
+    "/projects/large-commercial-space": {
+      title: "Grand espace commercial",
+      description: "Transformez de vastes surfaces en lieux dynamiques d'innovation et de style grâce à nos solutions pour grands espaces commerciaux.",
+    },
+    "/projects/school": {
+      title: "École",
+      description: "Créez des espaces d'apprentissage inspirants et fonctionnels avec des solutions scolaires pensées pour soutenir concentration et créativité.",
+    },
+  },
+  de: {
+    "/projects/living-room": {
+      title: "Wohnzimmer",
+      description: "Verwandeln Sie Ihr Wohnzimmer mit unserer kuratierten Kollektion in einen Ort voller Komfort und Stil, an dem Design und Funktion harmonieren.",
+    },
+    "/projects/bedroom": {
+      title: "Schlafzimmer",
+      description: "Genießen Sie die Ruhe unserer Schlafzimmerkollektion, in der zeitloses Design und Entspannung zu einem stimmigen Rückzugsort werden.",
+    },
+    "/projects/bathroom": {
+      title: "Badezimmer",
+      description: "Betreten Sie eine ruhige Badwelt, in der Luxus und Funktionalität zusammenkommen und die tägliche Routine aufwerten.",
+    },
+    "/projects/dining-room": {
+      title: "Esszimmer",
+      description: "Machen Sie jede Mahlzeit zu einem visuellen Erlebnis mit unserer Esszimmerkollektion, die moderne Eleganz und Komfort verbindet.",
+    },
+    "/projects/kitchen": {
+      title: "Küche",
+      description: "Bringen Sie moderne Wärme in Ihre Küche mit Lösungen, die Stil und Funktionalität für jeden kulinarischen Moment verbinden.",
+    },
+    "/projects/childrens-room": {
+      title: "Kinderzimmer",
+      description: "Entdecken Sie ein Kinderzimmer voller Fantasie und Charme, gestaltet, um Kreativität zu wecken und Träume wachsen zu lassen.",
+    },
+    "/projects/hotel": {
+      title: "Hotel",
+      description: "Erleben Sie Luxus und Raffinesse mit unserer Hotelkollektion, deren Details auf einen hochwertigen Aufenthalt abgestimmt sind.",
+    },
+    "/projects/office": {
+      title: "Büro",
+      description: "Werten Sie Ihr Büro mit einer exklusiven Dekorkollektion auf, von Schreibtischaccessoires bis zu Wandkunst mit professioneller Wirkung.",
+    },
+    "/projects/gallery": {
+      title: "Galerie",
+      description: "Unsere Kunstkollektion feiert vielfältige Stile und Ausdrucksformen. Jedes Werk erzählt eine Geschichte und bereichert den Raum.",
+    },
+    "/projects/cafes": {
+      title: "Cafés",
+      description: "Schaffen Sie eine anspruchsvolle Atmosphäre mit kuratierter Wanddekoration, die jede Ecke des Cafés visuell und einladend gestaltet.",
+    },
+    "/projects/restaurant": {
+      title: "Restaurant",
+      description: "Unsere Kollektion verwandelt das Speiseerlebnis und schafft eine Atmosphäre, die Gespräche anregt und jeden Bissen aufwertet.",
+    },
+    "/projects/large-commercial-space": {
+      title: "Große Gewerbefläche",
+      description: "Verwandeln Sie weitläufige Flächen in dynamische Orte für Innovation und Stil mit Lösungen für große gewerbliche Räume.",
+    },
+    "/projects/school": {
+      title: "Schule",
+      description: "Schaffen Sie inspirierende und funktionale Lernumgebungen mit Lösungen für Schulen, die Konzentration und Kreativität unterstützen.",
+    },
+  },
+  ja: {
+    "/projects/living-room": {
+      title: "リビングルーム",
+      description: "厳選されたコレクションで、リビングルームを快適さとスタイルが調和するくつろぎの空間へ。美しさと機能性を自然に融合します。",
+    },
+    "/projects/bedroom": {
+      title: "寝室",
+      description: "静けさと時代を超えたデザインが出会うベッドルームコレクション。休息とリラックスのための穏やかな空間を演出します。",
+    },
+    "/projects/bathroom": {
+      title: "バスルーム",
+      description: "上質なバスルームコレクションで、ラグジュアリーと機能性が調和する落ち着いた空間へ。毎日の身支度を快適に整えます。",
+    },
+    "/projects/dining-room": {
+      title: "ダイニングルーム",
+      description: "ダイニングルームコレクションで、食事の時間を視覚的にも豊かな体験に。現代的なエレガンスと心地よさを取り入れます。",
+    },
+    "/projects/kitchen": {
+      title: "キッチン",
+      description: "モダンな美しさと温もりをキッチンに。スタイルと機能性が調和する空間で、料理を楽しむ時間を引き立てます。",
+    },
+    "/projects/childrens-room": {
+      title: "子ども部屋",
+      description: "想像力と遊び心に満ちた子ども部屋コレクション。創造性を育み、夢を広げる空間づくりをサポートします。",
+    },
+    "/projects/hotel": {
+      title: "ホテル",
+      description: "細部までこだわったホテル向けコレクションで、上質さと洗練を演出。快適な滞在体験を高める空間づくりを支えます。",
+    },
+    "/projects/office": {
+      title: "オフィス",
+      description: "オフィス空間をより洗練された印象へ導く装飾コレクション。デスク周りからウォールアートまで、働く環境を上質に整えます。",
+    },
+    "/projects/gallery": {
+      title: "ギャラリー",
+      description: "多彩なスタイルと表現を楽しめるアートコレクション。ひとつひとつの作品が物語を持ち、空間の印象を豊かに高めます。",
+    },
+    "/projects/cafes": {
+      title: "カフェ",
+      description: "厳選されたウォールデコールが、カフェの隅々まで洗練された雰囲気を演出。視覚的な楽しさと心地よさを加えます。",
+    },
+    "/projects/restaurant": {
+      title: "レストラン",
+      description: "丁寧に選ばれたコレクションが食事の場を魅力的に演出し、会話を生み、ひと口ごとの楽しさを引き立てます。",
+    },
+    "/projects/large-commercial-space": {
+      title: "大型商業スペース",
+      description: "広い商業空間を、革新性とスタイルが息づくダイナミックな場へ。厳選された装飾で空間全体の印象を高めます。",
+    },
+    "/projects/school": {
+      title: "学校",
+      description: "学校空間を明るく、機能的で刺激ある学びの場へ。厳選された装飾が、集中力と創造性を支える環境づくりに貢献します。",
+    },
+  },
+};
+
+function localizedProjectsSourceCopy(locale: Locale, path: string) {
+  if (locale === "en") return undefined;
+  return PROJECTS_SOURCE_COPY_TRANSLATIONS[locale]?.[path];
+}
+
+const PROJECTS_SOURCE_DETAIL_GALLERIES: Record<string, string[]> = {
+  "/projects/living-room": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-8.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-26.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-115.jpg",
+  ],
+  "/projects/bedroom": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/3.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/1-1.jpg",
+  ],
+  "/projects/bathroom": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-76.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-77.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-78.jpg",
+  ],
+  "/projects/dining-room": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-82.jpg",
+  ],
+  "/projects/kitchen": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-5-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-83.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-84.jpg",
+  ],
+  "/projects/childrens-room": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/projectPage11.png",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-2.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-86.jpg",
+  ],
+  "/projects/hotel": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-6-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-79.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-80.jpg",
+  ],
+  "/projects/office": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%AE%A4-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-81.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-77.jpg",
+  ],
+  "/projects/gallery": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-7-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-85.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-87.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-88.jpg",
+  ],
+  "/projects/cafes": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-8-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-89.jpg",
+  ],
+  "/projects/restaurant": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-9-1.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-90.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-91.jpg",
+  ],
+  "/projects/large-commercial-space": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-10.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-92.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-93.jpg",
+  ],
+  "/projects/school": [
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-11.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-94.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-95.jpg",
+    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-96.jpg",
+  ],
+};
 
 const HOME_BLOG_CATEGORIES = ["All", "Expo", "Industry News", "Inspiration", "New Arrivals", "Press Release", "Tips"];
 
@@ -1301,18 +1985,302 @@ const MANUFACTURING_PACKAGING_IMAGES = [
 
 const BUSINESS_INSIGHTS_TREND_SLIDES = [
   {
-    path: "/solutions/business-insights-trends",
+    path: "/solutions/business-insights-trends/trend",
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-131.jpg",
   },
   {
-    path: "/solutions/business-insights-trends",
+    path: "/solutions/business-insights-trends/trend-2",
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-112.jpg",
   },
   {
-    path: "/solutions/business-insights-trends",
+    path: "/solutions/business-insights-trends/trend-2-2",
     imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-96.jpg",
   },
 ];
+
+const BUSINESS_INSIGHTS_TREND_REPORTS = [
+  {
+    title: "Trend",
+    path: "/solutions/business-insights-trends/trend",
+    coverUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/INTCOtrendreport062023-1.pdf",
+  },
+  {
+    title: "Trend2",
+    path: "/solutions/business-insights-trends/trend-2",
+    coverUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/INTCOtrendreport12202023.pdf",
+  },
+  {
+    title: "Trend3",
+    path: "/solutions/business-insights-trends/trend-2-2",
+    coverUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/INTCOTRENDS82023-1.pdf",
+  },
+];
+
+const BUSINESS_INSIGHTS_TREND_REPORT_COPY: Record<
+  Locale,
+  {
+    downloadTitle: string;
+    intro: string;
+    downloadAria: string;
+    reportTitles: Record<string, string>;
+  }
+> = {
+  en: {
+    downloadTitle: "DOWNLOAD TREND REPORT",
+    intro: "In need of our trend reports? No problem! Simply complete the form below, you will have access to all our trend reports and stay informed about the latest trends.",
+    downloadAria: "Download trend report",
+    reportTitles: {
+      "/solutions/business-insights-trends/trend": "Trend",
+      "/solutions/business-insights-trends/trend-2": "Trend2",
+      "/solutions/business-insights-trends/trend-2-2": "Trend3",
+    },
+  },
+  es: {
+    downloadTitle: "DESCARGAR INFORME DE TENDENCIAS",
+    intro: "¿Necesita nuestros informes de tendencias? Complete el formulario a continuación para acceder a todos nuestros informes y mantenerse al día sobre las últimas tendencias.",
+    downloadAria: "Descargar informe de tendencias",
+    reportTitles: {
+      "/solutions/business-insights-trends/trend": "Tendencias",
+      "/solutions/business-insights-trends/trend-2": "Tendencias 2",
+      "/solutions/business-insights-trends/trend-2-2": "Tendencias 3",
+    },
+  },
+  pt: {
+    downloadTitle: "BAIXAR RELATÓRIO DE TENDÊNCIAS",
+    intro: "Precisa dos nossos relatórios de tendências? Basta preencher o formulário abaixo para acessar todos os relatórios e acompanhar as últimas tendências.",
+    downloadAria: "Baixar relatório de tendências",
+    reportTitles: {
+      "/solutions/business-insights-trends/trend": "Tendências",
+      "/solutions/business-insights-trends/trend-2": "Tendências 2",
+      "/solutions/business-insights-trends/trend-2-2": "Tendências 3",
+    },
+  },
+  fr: {
+    downloadTitle: "TÉLÉCHARGER LE RAPPORT DE TENDANCES",
+    intro: "Besoin de nos rapports de tendances ? Remplissez simplement le formulaire ci-dessous pour accéder à tous nos rapports et rester informé des dernières tendances.",
+    downloadAria: "Télécharger le rapport de tendances",
+    reportTitles: {
+      "/solutions/business-insights-trends/trend": "Tendances",
+      "/solutions/business-insights-trends/trend-2": "Tendances 2",
+      "/solutions/business-insights-trends/trend-2-2": "Tendances 3",
+    },
+  },
+  de: {
+    downloadTitle: "TRENDREPORT HERUNTERLADEN",
+    intro: "Benötigen Sie unsere Trendreports? Füllen Sie einfach das Formular unten aus, um Zugriff auf alle Trendreports zu erhalten und über aktuelle Trends informiert zu bleiben.",
+    downloadAria: "Trendreport herunterladen",
+    reportTitles: {
+      "/solutions/business-insights-trends/trend": "Trends",
+      "/solutions/business-insights-trends/trend-2": "Trends 2",
+      "/solutions/business-insights-trends/trend-2-2": "Trends 3",
+    },
+  },
+  ja: {
+    downloadTitle: "トレンドレポートをダウンロード",
+    intro: "トレンドレポートをご希望ですか？以下のフォームにご記入いただくと、すべてのトレンドレポートにアクセスでき、最新トレンドを把握できます。",
+    downloadAria: "トレンドレポートをダウンロード",
+    reportTitles: {
+      "/solutions/business-insights-trends/trend": "トレンド",
+      "/solutions/business-insights-trends/trend-2": "トレンド 2",
+      "/solutions/business-insights-trends/trend-2-2": "トレンド 3",
+    },
+  },
+};
+
+function localizedBusinessInsightsTrendReportTitle(locale: Locale, report: (typeof BUSINESS_INSIGHTS_TREND_REPORTS)[number]) {
+  return BUSINESS_INSIGHTS_TREND_REPORT_COPY[locale].reportTitles[report.path] || report.title;
+}
+
+const BUSINESS_INSIGHTS_BESTSELLER_GROUPS = [
+  {
+    title: "PICTURE FRAME",
+    products: [
+      {
+        title: "PS Framed Vintage Wood Grain Tabletop Picture Frame",
+        path: "/ps-framed-vintage-wood-grain-tabletop-photo-frame",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      },
+      {
+        title: "Modern Black Aluminum Framed Poster Frame",
+        path: "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-2-8.jpg",
+      },
+      {
+        title: "3 Opening 4x6 Collage Picture Frame Natural Plastic Picture Frames Grey Wood Grain",
+        path: "/picture-frame/collage-frame/3-opening-4x6-collage-picture-frame-natural-plastic-picture-frames-grey-wood-grain",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-111.jpg",
+      },
+    ],
+  },
+  {
+    title: "MIRROR",
+    products: [
+      {
+        title: "Aluminum Framed Round Wall Mirror with Wood Grain",
+        path: "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-40.jpg",
+      },
+      {
+        title: "Classic Contemporary PS Framed Gold Full Length Leaner Mirror",
+        path: "/classic-contemporary-ps-framed-gold-full-length-leaner-mirror",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-27.jpg",
+      },
+      {
+        title: "Aluminum Framed Arched Full Length Standing Mirror",
+        path: "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-75.jpg",
+      },
+      {
+        title: "Arched Alumium Framed LED Bathroom Wall Mounted Mirror",
+        path: "/arched-alumium-framed-led-bathroom-wall-mounted-mirror",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-21.jpg",
+      },
+    ],
+  },
+  {
+    title: "ART",
+    products: [
+      {
+        title: "Modern Abstract Canvas Wall Art",
+        path: "/art/canvas-art/modern-abstract-canvas-wall-art",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-96.jpg",
+      },
+      {
+        title: "Figurative Lady Framed Wall Art 22x24",
+        path: "/art/framed-art/figurative-lady-framed-wall-art-22x24",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/5-25.jpg",
+      },
+      {
+        title: "Black Framed Abstract Wall Art Set of 2",
+        path: "/art/framed-art/black-framed-abstract-wall-art-set-of-2",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-2-1.jpg",
+      },
+      {
+        title: "Neutral Minimalist Framed Abstract Wall Art",
+        path: "/neutral-minimalist-framed-abstract-wall-art",
+        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-3.jpg",
+      },
+    ],
+  },
+];
+
+const BUSINESS_INSIGHTS_BESTSELLER_LABELS: Record<Locale, { heroTitle: string }> = {
+  en: { heroTitle: "Bestsellers" },
+  es: { heroTitle: "Más vendidos" },
+  pt: { heroTitle: "Mais vendidos" },
+  fr: { heroTitle: "Meilleures ventes" },
+  de: { heroTitle: "Bestseller" },
+  ja: { heroTitle: "ベストセラー" },
+};
+
+const BUSINESS_INSIGHTS_BESTSELLER_GROUP_TITLE_TRANSLATIONS: Record<Exclude<Locale, "en">, Record<string, string>> = {
+  es: {
+    "PICTURE FRAME": "MARCOS DE FOTOS",
+    MIRROR: "ESPEJOS",
+    ART: "ARTE",
+  },
+  pt: {
+    "PICTURE FRAME": "MOLDURAS",
+    MIRROR: "ESPELHOS",
+    ART: "ARTE",
+  },
+  fr: {
+    "PICTURE FRAME": "CADRES PHOTO",
+    MIRROR: "MIROIRS",
+    ART: "ART",
+  },
+  de: {
+    "PICTURE FRAME": "BILDERRAHMEN",
+    MIRROR: "SPIEGEL",
+    ART: "KUNST",
+  },
+  ja: {
+    "PICTURE FRAME": "額縁",
+    MIRROR: "ミラー",
+    ART: "アート",
+  },
+};
+
+const BUSINESS_INSIGHTS_BESTSELLER_PRODUCT_TITLE_TRANSLATIONS: Record<Exclude<Locale, "en">, Record<string, string>> = {
+  es: {
+    "/ps-framed-vintage-wood-grain-tabletop-photo-frame": "Marco de sobremesa PS con veta de madera vintage",
+    "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame": "Marco para póster moderno de aluminio negro",
+    "/picture-frame/collage-frame/3-opening-4x6-collage-picture-frame-natural-plastic-picture-frames-grey-wood-grain": "Marco collage 4x6 de 3 aberturas en plástico gris veta madera",
+    "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain": "Espejo redondo de pared con marco de aluminio y veta de madera",
+    "/classic-contemporary-ps-framed-gold-full-length-leaner-mirror": "Espejo apoyado de cuerpo entero con marco PS dorado",
+    "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror": "Espejo de pie arqueado de cuerpo entero con marco de aluminio",
+    "/arched-alumium-framed-led-bathroom-wall-mounted-mirror": "Espejo LED arqueado de baño para pared con marco de aluminio",
+    "/art/canvas-art/modern-abstract-canvas-wall-art": "Arte de pared en lienzo abstracto moderno",
+    "/art/framed-art/figurative-lady-framed-wall-art-22x24": "Arte mural enmarcado de figura femenina 22x24",
+    "/art/framed-art/black-framed-abstract-wall-art-set-of-2": "Set de 2 artes murales abstractos con marco negro",
+    "/neutral-minimalist-framed-abstract-wall-art": "Arte abstracto minimalista neutro enmarcado",
+  },
+  pt: {
+    "/ps-framed-vintage-wood-grain-tabletop-photo-frame": "Porta-retrato de mesa PS com textura de madeira vintage",
+    "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame": "Moldura moderna preta de alumínio para pôster",
+    "/picture-frame/collage-frame/3-opening-4x6-collage-picture-frame-natural-plastic-picture-frames-grey-wood-grain": "Moldura collage 4x6 com 3 aberturas em plástico cinza amadeirado",
+    "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain": "Espelho redondo de parede com moldura de alumínio e textura de madeira",
+    "/classic-contemporary-ps-framed-gold-full-length-leaner-mirror": "Espelho de corpo inteiro apoiado com moldura PS dourada",
+    "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror": "Espelho de pé arqueado de corpo inteiro com moldura de alumínio",
+    "/arched-alumium-framed-led-bathroom-wall-mounted-mirror": "Espelho LED arqueado de banheiro com moldura de alumínio",
+    "/art/canvas-art/modern-abstract-canvas-wall-art": "Arte de parede em tela abstrata moderna",
+    "/art/framed-art/figurative-lady-framed-wall-art-22x24": "Arte de parede emoldurada com figura feminina 22x24",
+    "/art/framed-art/black-framed-abstract-wall-art-set-of-2": "Conjunto de 2 artes abstratas com moldura preta",
+    "/neutral-minimalist-framed-abstract-wall-art": "Arte abstrata minimalista neutra emoldurada",
+  },
+  fr: {
+    "/ps-framed-vintage-wood-grain-tabletop-photo-frame": "Cadre photo de table en PS effet bois vintage",
+    "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame": "Cadre poster moderne en aluminium noir",
+    "/picture-frame/collage-frame/3-opening-4x6-collage-picture-frame-natural-plastic-picture-frames-grey-wood-grain": "Cadre collage 4x6 à 3 ouvertures en plastique gris effet bois",
+    "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain": "Miroir mural rond avec cadre aluminium effet bois",
+    "/classic-contemporary-ps-framed-gold-full-length-leaner-mirror": "Miroir à poser pleine longueur avec cadre PS doré",
+    "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror": "Miroir sur pied arqué pleine longueur avec cadre aluminium",
+    "/arched-alumium-framed-led-bathroom-wall-mounted-mirror": "Miroir LED mural arqué pour salle de bain avec cadre aluminium",
+    "/art/canvas-art/modern-abstract-canvas-wall-art": "Art mural abstrait moderne sur toile",
+    "/art/framed-art/figurative-lady-framed-wall-art-22x24": "Art mural encadré figure féminine 22x24",
+    "/art/framed-art/black-framed-abstract-wall-art-set-of-2": "Lot de 2 arts muraux abstraits avec cadre noir",
+    "/neutral-minimalist-framed-abstract-wall-art": "Art abstrait minimaliste neutre encadré",
+  },
+  de: {
+    "/ps-framed-vintage-wood-grain-tabletop-photo-frame": "PS-Tischbilderrahmen in Vintage-Holzmaserung",
+    "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame": "Moderner schwarzer Aluminium-Posterrahmen",
+    "/picture-frame/collage-frame/3-opening-4x6-collage-picture-frame-natural-plastic-picture-frames-grey-wood-grain": "Collage-Bilderrahmen 4x6 mit 3 Öffnungen in grauer Holzmaserung",
+    "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain": "Runder Wandspiegel mit Aluminiumrahmen in Holzmaserung",
+    "/classic-contemporary-ps-framed-gold-full-length-leaner-mirror": "Goldener PS-Anlehnspiegel in voller Länge",
+    "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror": "Gewölbter Standspiegel in voller Länge mit Aluminiumrahmen",
+    "/arched-alumium-framed-led-bathroom-wall-mounted-mirror": "Gewölbter LED-Badspiegel zur Wandmontage mit Aluminiumrahmen",
+    "/art/canvas-art/modern-abstract-canvas-wall-art": "Modernes abstraktes Leinwandbild",
+    "/art/framed-art/figurative-lady-framed-wall-art-22x24": "Gerahmtes Wandbild mit Frauenfigur 22x24",
+    "/art/framed-art/black-framed-abstract-wall-art-set-of-2": "2-teiliges abstraktes Wandbild-Set mit schwarzem Rahmen",
+    "/neutral-minimalist-framed-abstract-wall-art": "Neutral-minimalistisches abstraktes Wandbild mit Rahmen",
+  },
+  ja: {
+    "/ps-framed-vintage-wood-grain-tabletop-photo-frame": "ヴィンテージ木目調PS卓上フォトフレーム",
+    "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame": "モダンブラックアルミ製ポスターフレーム",
+    "/picture-frame/collage-frame/3-opening-4x6-collage-picture-frame-natural-plastic-picture-frames-grey-wood-grain": "グレー木目調プラスチック 3面4x6 コラージュフォトフレーム",
+    "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain": "木目調アルミフレーム丸型ウォールミラー",
+    "/classic-contemporary-ps-framed-gold-full-length-leaner-mirror": "ゴールドPSフレーム全身リーナーミラー",
+    "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror": "アルミフレーム アーチ型全身スタンドミラー",
+    "/arched-alumium-framed-led-bathroom-wall-mounted-mirror": "アルミフレーム アーチ型LED浴室ウォールミラー",
+    "/art/canvas-art/modern-abstract-canvas-wall-art": "モダン抽象キャンバスウォールアート",
+    "/art/framed-art/figurative-lady-framed-wall-art-22x24": "女性モチーフ額装ウォールアート 22x24",
+    "/art/framed-art/black-framed-abstract-wall-art-set-of-2": "ブラックフレーム抽象ウォールアート 2点セット",
+    "/neutral-minimalist-framed-abstract-wall-art": "ニュートラル ミニマリスト額装抽象アート",
+  },
+};
+
+function localizedBusinessInsightsBestsellerGroupTitle(locale: Locale, title: string) {
+  if (locale === "en") return title;
+  return BUSINESS_INSIGHTS_BESTSELLER_GROUP_TITLE_TRANSLATIONS[locale]?.[title] || title;
+}
+
+function localizedBusinessInsightsBestsellerProductTitle(locale: Locale, product: (typeof BUSINESS_INSIGHTS_BESTSELLER_GROUPS)[number]["products"][number]) {
+  if (locale === "en") return product.title;
+  return BUSINESS_INSIGHTS_BESTSELLER_PRODUCT_TITLE_TRANSLATIONS[locale]?.[product.path] || product.title;
+}
 
 const WHO_WE_ARE_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240205105129.jpg";
 const WHO_WE_ARE_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs2.png";
@@ -1654,6 +2622,555 @@ type BlogSourceListItem = BlogPost & {
 
 const BLOG_SOURCE_CARD_BY_PATH = new Map(HOME_BLOG_CARDS.map((item) => [item.path, item]));
 
+const VANITY_MIRROR_ARTICLE_SLUG = "5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space";
+const MEDICINE_CABINET_ARTICLE_SLUG = "the-major-materials-of-medicine-mirror-cabinet";
+const BLOOMBERG_ESG_ARTICLE_SLUG = "the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released";
+
+const VANITY_MIRROR_ARTICLE_SECTIONS = [
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Round-Black-Aluminum-Picture-Frame-Wall-Mirror-ideas.jpg",
+    imageAlt: "LED Round Black Aluminum Picture Frame Wall Mirror ideas",
+    heading: "1) LED Mirrors Simulate Natural Lighting",
+    paragraphs: [
+      "If you have a steady stream of sunshine in your bathroom, consider yourself lucky. Natural lighting not only makes mornings easier, but also adds much-needed freshness to bathrooms.",
+      "Luckily, even those of us without bright bathroom windows can turn to LED lights for a dose of sunshine. Why go the mirror route? Incorporating them through your mirror takes up minimal space and ensures their light hits you head-on.",
+    ],
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Bathroom-Round-Wall-Mirror-with-LED-Lighted.jpg",
+    imageAlt: "Bathroom Round Wall Mirror with LED Lighted",
+    heading: "2) Bathrooms with LED Mirrors Feel Bigger",
+    paragraphs: [
+      "It’s common knowledge in the interior design world that mirrors make rooms feel bigger. Coupled with the invigorating feel of LED lights, your mirror can truly maximise your space. If you’re working with a particularly small bathroom, you won’t regret installing this take on frame moulding.",
+    ],
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Rectangle-Gold-Aluminum-Picture-Frame-Wall-Mirror-ideas-1.jpg",
+    imageAlt: "LED Rectangle Gold Aluminum Picture Frame Wall Mirror ideas",
+    heading: "3) LED Lights Save Energy",
+    paragraphs: [
+      "Did you know that LED lights use 75% less energy than traditional lighting methods? This makes them a strong choice both financially and environmentally. Depending on the LED bathroom vanity mirror you choose, you can stop using your overhead lights altogether.",
+      "If you’re the type to leave the house with lights on, your energy bill will thank you for making the switch!",
+    ],
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Oval-Gold-Aluminum-Picture-Frame-LED-Bathroom-Mirror-ideas.jpg",
+    imageAlt: "Oval Gold Aluminum Picture Frame LED Bathroom Mirror ideas",
+    heading: "4) LED Bathroom Mirrors Work Well With Most Designs",
+    paragraphs: [
+      "When you picture LED bathroom mirrors, you might imagine a stark or clinical look. That is one potential outcome, but when paired with the right frame moulding or mirror moulding frame, you can invoke any aesthetic. Minimalist, eclectic, tropical, boho, mid century modern – the list of compatible styles goes on.",
+      "Without having to worry about other lighting sources, you might even find that LED bathroom mirrors pull an entire design together!",
+    ],
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Arch-Gold-Aluminum-Picture-Frame-Wall-Mirror-ideas-1.jpg",
+    imageAlt: "LED Arch Gold Aluminum Picture Frame Wall Mirror ideas",
+    heading: "5) Grooming is Easier With LED Bathroom Mirrors",
+    paragraphs: [
+      "If you have a habit of messing up makeup or nicking your skin while shaving, your bathroom lighting might be to blame. Under the focused light of LEDs, it’s almost impossible to miss a spot.",
+      "Ready to make the switch to an LED bathroom vanity mirror? Do so in style by exploring our collection of frame moulding and mirror moulding frame options.",
+      "While you’re in the market for fresh frames, don’t forget to grab one or two for photos around the house! We recommend one of our customer favourites: aluminum picture frames.",
+    ],
+  },
+];
+
+const VANITY_MIRROR_ARTICLE_LOCALIZATIONS = {
+  ja: {
+    title: "LED バスルームミラーが空間を変える 5 つの方法",
+    category: "インスピレーション",
+    tocTitle: "目次",
+    introParagraphs: [
+      "一見すると目立たない場所かもしれませんが、バスルームは住まいの中でも大切な空間です。朝の身支度を整え、夜には一日の疲れをほどき、気分をリセットする場所でもあります。",
+      "この重要な空間をリフレッシュしたいなら、LED ライト付きのバニティミラーへのアップグレードは、近年注目されているバスルームトレンドの一つです。",
+      "LED 照明に無機質な印象を持っている方も心配はいりません。デザイン業界で人気を集めているのには理由があります。適切なフレームモールディングと組み合わせれば、仕上がりは非常にスタイリッシュになります。",
+      "LED バスルームミラーが幅広いインテリアテイストで支持される理由を見ていきましょう。",
+      "LED ミラーのモールディングフレームがバスルームを向上させる 5 つの方法をご紹介します。",
+    ],
+    ledLinkText: "LED ミラー",
+    sections: [
+      {
+        heading: "1) LED ミラーは自然光のような明るさを再現します",
+        paragraphs: [
+          "バスルームに十分な日差しが入るなら、とても恵まれた環境です。自然光は朝の身支度をしやすくするだけでなく、バスルームに清潔で爽やかな印象をもたらします。",
+          "明るい窓がないバスルームでも、LED ライトを使えば自然光に近い明るさを取り入れられます。ミラーに組み込むことで場所を取らず、光が正面から当たるため実用性も高まります。",
+        ],
+      },
+      {
+        heading: "2) LED ミラーのあるバスルームは広く感じられます",
+        paragraphs: [
+          "インテリアデザインでは、ミラーが空間を広く見せることはよく知られています。LED の明るさと組み合わせることで、ミラーは空間の広がりをさらに引き出します。特に小さなバスルームでは、このタイプのフレームモールディングを取り入れる価値があります。",
+        ],
+      },
+      {
+        heading: "3) LED ライトは省エネです",
+        paragraphs: [
+          "LED ライトは従来の照明に比べて消費電力を大きく抑えられます。経済面でも環境面でも優れた選択肢です。選ぶ LED バスルームミラーによっては、天井照明を使う頻度を減らすこともできます。",
+          "外出時に照明を消し忘れがちな方にとっても、LED への切り替えは電気代の節約につながります。",
+        ],
+      },
+      {
+        heading: "4) LED バスルームミラーは多くのデザインに調和します",
+        paragraphs: [
+          "LED バスルームミラーと聞くと、無機質で臨床的な印象を思い浮かべるかもしれません。しかし、適切なフレームモールディングやミラーモールディングフレームと組み合わせれば、ミニマル、エクレクティック、トロピカル、ボーホー、ミッドセンチュリーモダンなど、さまざまなスタイルを表現できます。",
+          "他の照明との組み合わせに悩む必要が少なくなり、LED バスルームミラーが空間全体のデザインをまとめてくれることもあります。",
+        ],
+      },
+      {
+        heading: "5) LED バスルームミラーで身支度がしやすくなります",
+        paragraphs: [
+          "メイクがうまく決まらなかったり、シェービングで肌を傷つけやすかったりする場合、原因はバスルームの照明かもしれません。LED の集中的な光の下では、細かな部分も見逃しにくくなります。",
+          "LED バスルームバニティミラーへ切り替える準備はできていますか？フレームモールディングやミラーモールディングフレームのコレクションから、スタイルに合う選択肢を見つけてください。",
+          "新しいフレームを検討する際は、住まいの写真用フレームもぜひ合わせてご覧ください。おすすめは、お客様から人気の高いアルミ製ピクチャーフレームです。",
+        ],
+      },
+    ],
+  },
+} as const;
+
+const VANITY_MIRROR_POPULAR_POSTS = [
+  {
+    title: "The 2023 Bloomberg Green ESG…",
+    category: "Press Release",
+    date: "Jan 29, 2024",
+    path: "/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+    categoryPath: "/blog?category=Press%20Release",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Intco-Recycling-has-been-awarded-the-Best-Bloomberg-Green-ESG-Projects.jpg",
+  },
+  {
+    title: "5 Ways an LED Bathroom Vanit…",
+    category: "Inspiration",
+    date: "Jan 29, 2024",
+    path: "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+    categoryPath: "/inspiration",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Bathroom-Round-Wall-Mirror-Ideas.jpg",
+  },
+  {
+    title: "The Major Materials of Medic…",
+    category: "Industry News",
+    date: "Jan 29, 2024",
+    path: "/news/the-major-materials-of-medicine-mirror-cabinet",
+    categoryPath: "/blog?category=Industry%20News",
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+  },
+];
+
+const VANITY_MIRROR_INSTAGRAM_ITEMS = [
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog16-1.png",
+    href: "https://www.instagram.com/p/CkxQ1LqtEGJ/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog19-1.png",
+    href: "https://www.instagram.com/p/CfqZ5_fJnwY/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog17-1.png",
+    href: "https://www.instagram.com/p/Ciyv9OIp1PW/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog20-1.png",
+    href: "https://www.instagram.com/p/CdKGZBhPWls/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog18-1.png",
+    href: "https://www.instagram.com/p/CdzaQlsvZBq/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog21-1.png",
+    href: "https://www.instagram.com/p/CkKnOS0LajF/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
+  },
+];
+
+const SOURCE_NEWS_ARTICLES = {
+  [MEDICINE_CABINET_ARTICLE_SLUG]: {
+    title: "The Major Materials of Medicine Mirror Cabinet",
+    category: "Industry News",
+    categoryPath: "/blog?category=Industry%20News",
+    date: "Jan 29, 2024",
+    previousPath: "/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+    nextPath: "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+    introParagraphs: [
+      "Bathroom medicine cabinets make for a great storage solution to keep all your accessories and frequently used products. It can function both as a mirror and extra storage – an ideal choice for those who have limited square footage in their bathroom.",
+      "Most medicine cabinets are designed with a mirrored door and sized to fit above the sink, under a lighting fixture. You can use them to put on makeup, put in your contact lenses, or shave.",
+      "Bathroom medicine cabinets are available in various materials – you can choose from aluminum, wood, plastic, stainless steel, etc. Let’s explore some of them in a little more detail.",
+    ],
+    leadImage: {
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+      imageAlt: "wood medicine mirror cabinet for bathroom",
+    },
+    sections: [
+      {
+        heading: "Wood Cabinets",
+        paragraphs: [
+          "Wood is always a popular choice in home design and bathroom cabinet styles because it can be stained any color and has a distinct look thanks to the natural grain. Wood is a natural material that looks high-end.",
+          "However, wood can be prone to warping or splitting in humid bathrooms, so it’s best suited for well-ventilated bathrooms or bathrooms without showers.",
+        ],
+      },
+      {
+        heading: "Stainless Steel Cabinets",
+        paragraphs: [
+          "One of the most durable and beautiful options for bathroom medicine cabinets is stainless steel-framed ones. These have inherent protection against harmful pests, bacteria, and germs. What’s more, they have a lovely shine that lends a clean look to a bathroom.",
+        ],
+      },
+      {
+        heading: "Plastic Cabinets",
+        paragraphs: [
+          "When it comes to bathroom medicine cabinets, the lightweight plastic is easier to work with and install. Also, the material is less expensive as compared to the others.",
+          "However, do know that plastic medicine cabinets may lack durability and are less rigid. But, as long as you store light products or medicines – your cabinet may serve you well.",
+          "Intco Framing is one of the most professional mirror cabinet manufacturers and suppliers in China. We transform bathrooms into personal spaces for well-being. We achieve this by providing added value to customers through products that perfectly combine aesthetics and functionality, as well as tradition and innovation.",
+          "Moreover, we make use of the best quality raw materials in the manufacturing of our range. This allows us to become the manufacturer of the top brands in the field of the bathroom retailing industry.",
+          "If you are a bathroom retail store and looking for a qualified manufacturer, contact us now to get the brochures and quotation.",
+        ],
+      },
+    ],
+  },
+  [BLOOMBERG_ESG_ARTICLE_SLUG]: {
+    title: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released",
+    category: "Press Release",
+    categoryPath: "/blog?category=Press%20Release",
+    date: "Jan 29, 2024",
+    previousPath: "/news/how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+    nextPath: "/news/the-major-materials-of-medicine-mirror-cabinet",
+    introParagraphs: [
+      "SUZHOU, China, Jan. 16, 2024 /PRNewswire/ — On December 20, 2023, 2023 Bloomberg Green ESG 50 Companies to Watch List (or ESG 50 in brief) is officially released at the Four Seasons Hotel in Suzhou.",
+      "Bloomberg Green ESG 50 is an annual list compiled and published by Bloomberg Green in China. 2023 marks the first ESG 50 list release. The list includes both public and private companies. Bloomberg’s ESG scoring methodology is characterized by a bottom-up, model-driven method driven primarily by self-reported, publicly available information that results in a fully transparent, parametric, rules-based scoring framework.",
+    ],
+    leadImage: {
+      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/The-2023-Bloomberg-Green-ESG-50-Companies-to-Watch-List-is-officially-released.jpg",
+      imageAlt: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released",
+    },
+    sections: [
+      {
+        paragraphs: ["The following is the complete list (arranged not in any particular order)"],
+      },
+      {
+        heading: "Fast ESG Developing Companies",
+        paragraphs: ["Grandblue Environment Co.,Ltd.", "Marriott", "INTCO MEDICAL"],
+      },
+      {
+        heading: "Most ESG Promising Brands",
+        paragraphs: ["NaaS Technology Inc.", "Nespresso", "SHUI ON LAND", "UNIQLO"],
+      },
+      {
+        heading: "Best ESG Projects",
+        paragraphs: [
+          "McDonald’s China (Project: Green Tray)",
+          "Pernod Ricard China (Project: Martell Mangrove Conservation)",
+          "O’right Inc. (Project: Melting Greenland)",
+          "Honor Device Co., Ltd. (Project: Tech for Good: Mobile Accessibility Assistance)",
+          "Shandong Intco Recycilng Resources Co.,ltd. (Project: Food-Grade PET ‘Bottle-to-Bottle’ High-Quality Application)",
+          "Tapestry (Project: COACH China Cool)",
+          "TCL Technology Group Corporation (Project: TCL Solar Low-Carbon Campus)",
+          "Tencent Holdings Limited (Project: Tencent Biodiversity Conservation Initiatives)",
+          "Starbucks China (Project: Starbucks China Coffee Innovation Park)",
+          "China International Capital Corporation Limited (Project: CICC-Nanping: Ecological Carbon Sink+)",
+        ],
+      },
+      {
+        heading: "ESG Top List – Environmental",
+        paragraphs: ["Blancpain", "Hua Xia Bank Co.,Limited", "JD.com", "Lenovo Group", "LONGi Green Energy Technology Co., Ltd", "GDS Holdings Limited", "Vitesco Technologies", "Xiaomi Corporation", "China Merchants Shekou Industrial Zone Holding Co., Ltd", "Chint New Energy Technology Co., Ltd.", "China Modern Dairy Holdings Ltd."],
+      },
+      {
+        heading: "ESG Top List – Social",
+        paragraphs: ["ERICSSON GROUP", "Yum China", "BMW Group Region China", "MASTER KONG HOLDINGS CO.,LTD", "Nestlé (China) Ltd.", "UBS", "DBS BANK", "BANK OF CHINA"],
+      },
+      {
+        heading: "ESG Top List – Governance",
+        paragraphs: ["Tongwei Company Limited", "Sino Biopharmaceutical Limited"],
+      },
+      {
+        heading: "ESG Grand Prize – Best Companies",
+        paragraphs: [
+          "The Bank of East Asia(China) Limited.",
+          "Foxconn Industrial Internet Co., Ltd.",
+          "KINGFA SCI.&TECH.CO.,LTD.",
+          "Jinko Solar Co., Ltd.",
+          "China Mengniu Dairy Co., Ltd.",
+          "GLP China",
+          "SY Holdings Group Limited.",
+          "Cisco China Co., Ltd.",
+          "Trina Solar Co., Ltd.",
+          "NetEase, Inc.",
+          "Chint Anneng Digital Power(Zhejiang)Co.,Ltd.",
+          "CSSC(Hong Kong)Shipping Company Limited",
+          "Jones Lang LaSalle",
+          "The 2023 Bloomberg Green ESG Leading Forum commenced before the list was released. Leaders and professionals from the industries and international academic institutes joined and discussed the avant-garde innovations in the ESG field.",
+          "Bloomberg Green centers on the business, science, and technology of climate change. The brand will utilize Bloomberg’s deep data expertise to produce original reporting and solutions-driven coverage, as well as business and investment focused content.",
+          "Bloomberg Green strives to promote more initiatives that help transformation of a green and low-carbon economy, thereby building a new blueprint for a healthy, prosperous, and sustainable green economy.",
+        ],
+      },
+      {
+        heading: "About INTCO",
+        paragraphs: [
+          "INTCO Recycling (688087.SH) is a high-tech manufacturer specializing in resource recycling. We have successfully unlocked the entire industrial chain of plastic recycling and reuse, and transformed it into an innovative business by precisely fusing plastic recycling and reuse with cutting-edge consumer goods.",
+        ],
+      },
+    ],
+  },
+} as const;
+
+const SOURCE_BLOG_LABELS: Record<
+  Locale,
+  {
+    popularPosts: string;
+    shopNow: string;
+    previous: string;
+    next: string;
+    favorite: string;
+    copyLink: string;
+    categoryLabels: Record<string, string>;
+  }
+> = {
+  en: {
+    popularPosts: "Popular Posts",
+    shopNow: "Shop Now",
+    previous: "PREVIOUS",
+    next: "NEXT",
+    favorite: "Favorite",
+    copyLink: "Copy link",
+    categoryLabels: {
+      "Industry News": "Industry News",
+      Inspiration: "Inspiration",
+      "Press Release": "Press Release",
+    },
+  },
+  es: {
+    popularPosts: "Publicaciones populares",
+    shopNow: "Comprar ahora",
+    previous: "ANTERIOR",
+    next: "SIGUIENTE",
+    favorite: "Favorito",
+    copyLink: "Copiar enlace",
+    categoryLabels: {
+      "Industry News": "Noticias del sector",
+      Inspiration: "Inspiración",
+      "Press Release": "Comunicado de prensa",
+    },
+  },
+  pt: {
+    popularPosts: "Posts populares",
+    shopNow: "Comprar agora",
+    previous: "ANTERIOR",
+    next: "PRÓXIMO",
+    favorite: "Favorito",
+    copyLink: "Copiar link",
+    categoryLabels: {
+      "Industry News": "Notícias do setor",
+      Inspiration: "Inspiração",
+      "Press Release": "Comunicado de imprensa",
+    },
+  },
+  fr: {
+    popularPosts: "Articles populaires",
+    shopNow: "Acheter maintenant",
+    previous: "PRÉCÉDENT",
+    next: "SUIVANT",
+    favorite: "Favori",
+    copyLink: "Copier le lien",
+    categoryLabels: {
+      "Industry News": "Actualités du secteur",
+      Inspiration: "Inspiration",
+      "Press Release": "Communiqué de presse",
+    },
+  },
+  de: {
+    popularPosts: "Beliebte Beiträge",
+    shopNow: "Jetzt kaufen",
+    previous: "ZURÜCK",
+    next: "WEITER",
+    favorite: "Favorit",
+    copyLink: "Link kopieren",
+    categoryLabels: {
+      "Industry News": "Branchennachrichten",
+      Inspiration: "Inspiration",
+      "Press Release": "Pressemitteilung",
+    },
+  },
+  ja: {
+    popularPosts: "人気記事",
+    shopNow: "今すぐ購入",
+    previous: "前の記事",
+    next: "次の記事",
+    favorite: "お気に入り",
+    copyLink: "リンクをコピー",
+    categoryLabels: {
+      "Industry News": "業界ニュース",
+      Inspiration: "インスピレーション",
+      "Press Release": "プレスリリース",
+    },
+  },
+};
+
+const SOURCE_NEWS_ARTICLE_LOCALIZATIONS = {
+  ja: {
+    [MEDICINE_CABINET_ARTICLE_SLUG]: {
+      title: "ミラーキャビネットの主な素材",
+      category: "業界ニュース",
+      introParagraphs: [
+        "バスルーム用のミラーキャビネットは、アクセサリーや日常的に使うアイテムをすっきり収納できる便利な収納ソリューションです。鏡としても追加収納としても機能するため、バスルームの面積が限られている場合に特に適しています。",
+        "多くのミラーキャビネットは鏡付きの扉を備え、洗面台の上や照明器具の下に収まるサイズで設計されています。メイク、コンタクトレンズの装着、シェービングなど、毎日の身支度にも活用できます。",
+        "バスルーム用ミラーキャビネットには、アルミ、木材、プラスチック、ステンレスなどさまざまな素材があります。ここでは代表的な素材を少し詳しく見ていきます。",
+      ],
+      leadImageAlt: "バスルーム用木製ミラーキャビネット",
+      sections: [
+        {
+          heading: "木製キャビネット",
+          paragraphs: [
+            "木材は、住宅デザインやバスルームキャビネットで常に人気のある素材です。好みの色に染色でき、自然な木目によって独特の表情が生まれます。高級感を演出しやすい天然素材でもあります。",
+            "一方で、湿度の高いバスルームでは反りや割れが起こりやすい場合があります。そのため、換気の良いバスルームやシャワーのない空間により適しています。",
+          ],
+        },
+        {
+          heading: "ステンレス製キャビネット",
+          paragraphs: [
+            "バスルーム用ミラーキャビネットの中でも、ステンレスフレームは耐久性と美しさを兼ね備えた選択肢です。害虫、細菌、雑菌への耐性があり、さらに美しい光沢がバスルームに清潔感をもたらします。",
+          ],
+        },
+        {
+          heading: "プラスチック製キャビネット",
+          paragraphs: [
+            "バスルーム用ミラーキャビネットでは、軽量なプラスチックは加工や設置がしやすい素材です。他の素材と比べてコストを抑えやすい点も特徴です。",
+            "ただし、プラスチック製ミラーキャビネットは耐久性や剛性の面で劣る場合があります。それでも、軽い日用品や薬を収納する用途であれば十分に役立ちます。",
+            "Intco Framing は、中国で高い専門性を持つミラーキャビネットメーカーおよびサプライヤーの一つです。私たちは、バスルームを心地よいウェルビーイング空間へ変えることを目指しています。美しさと機能性、伝統と革新を兼ね備えた製品を通じて、お客様に価値を提供します。",
+            "また、当社は高品質な原材料を使用して製品を製造しています。これにより、バスルーム小売業界における主要ブランドの製造パートナーとして選ばれています。",
+            "バスルーム関連の小売店として信頼できるメーカーをお探しの場合は、ぜひお問い合わせください。製品カタログとお見積もりをご案内します。",
+          ],
+        },
+      ],
+    },
+    [BLOOMBERG_ESG_ARTICLE_SLUG]: {
+      title: "2023 Bloomberg Green ESG 注目企業 50 社リストが正式発表",
+      category: "プレスリリース",
+      introParagraphs: [
+        "中国・蘇州、2024 年 1 月 16 日 /PRNewswire/ — 2023 年 12 月 20 日、2023 Bloomberg Green ESG 注目企業 50 社リスト（以下 ESG 50）が蘇州のフォーシーズンズホテルで正式に発表されました。",
+        "Bloomberg Green ESG 50 は、中国で Bloomberg Green が選定・発表する年次リストです。2023 年は初回の ESG 50 リスト発表となります。このリストには上場企業と非上場企業の双方が含まれます。Bloomberg の ESG スコアリング手法は、企業の自己開示情報と公開情報を主な根拠とするボトムアップ型・モデル駆動型の方法で、透明性の高いパラメトリックかつルールベースの評価フレームワークを形成しています。",
+      ],
+      leadImageAlt: "2023 Bloomberg Green ESG 注目企業 50 社リスト発表",
+      sections: [
+        {
+          paragraphs: ["以下は全リストです（順不同）。"],
+        },
+        {
+          heading: "ESG 成長企業",
+          paragraphs: ["Grandblue Environment Co.,Ltd.", "Marriott", "INTCO MEDICAL"],
+        },
+        {
+          heading: "ESG 有望ブランド",
+          paragraphs: ["NaaS Technology Inc.", "Nespresso", "SHUI ON LAND", "UNIQLO"],
+        },
+        {
+          heading: "優秀 ESG プロジェクト",
+          paragraphs: [
+            "McDonald’s China（Project: Green Tray）",
+            "Pernod Ricard China（Project: Martell Mangrove Conservation）",
+            "O’right Inc.（Project: Melting Greenland）",
+            "Honor Device Co., Ltd.（Project: Tech for Good: Mobile Accessibility Assistance）",
+            "Shandong Intco Recycilng Resources Co.,ltd.（Project: Food-Grade PET ‘Bottle-to-Bottle’ High-Quality Application）",
+            "Tapestry（Project: COACH China Cool）",
+            "TCL Technology Group Corporation（Project: TCL Solar Low-Carbon Campus）",
+            "Tencent Holdings Limited（Project: Tencent Biodiversity Conservation Initiatives）",
+            "Starbucks China（Project: Starbucks China Coffee Innovation Park）",
+            "China International Capital Corporation Limited（Project: CICC-Nanping: Ecological Carbon Sink+）",
+          ],
+        },
+        {
+          heading: "ESG トップリスト - 環境",
+          paragraphs: ["Blancpain", "Hua Xia Bank Co.,Limited", "JD.com", "Lenovo Group", "LONGi Green Energy Technology Co., Ltd", "GDS Holdings Limited", "Vitesco Technologies", "Xiaomi Corporation", "China Merchants Shekou Industrial Zone Holding Co., Ltd", "Chint New Energy Technology Co., Ltd.", "China Modern Dairy Holdings Ltd."],
+        },
+        {
+          heading: "ESG トップリスト - 社会",
+          paragraphs: ["ERICSSON GROUP", "Yum China", "BMW Group Region China", "MASTER KONG HOLDINGS CO.,LTD", "Nestlé (China) Ltd.", "UBS", "DBS BANK", "BANK OF CHINA"],
+        },
+        {
+          heading: "ESG トップリスト - ガバナンス",
+          paragraphs: ["Tongwei Company Limited", "Sino Biopharmaceutical Limited"],
+        },
+        {
+          heading: "ESG グランプリ - 優秀企業",
+          paragraphs: [
+            "The Bank of East Asia(China) Limited.",
+            "Foxconn Industrial Internet Co., Ltd.",
+            "KINGFA SCI.&TECH.CO.,LTD.",
+            "Jinko Solar Co., Ltd.",
+            "China Mengniu Dairy Co., Ltd.",
+            "GLP China",
+            "SY Holdings Group Limited.",
+            "Cisco China Co., Ltd.",
+            "Trina Solar Co., Ltd.",
+            "NetEase, Inc.",
+            "Chint Anneng Digital Power(Zhejiang)Co.,Ltd.",
+            "CSSC(Hong Kong)Shipping Company Limited",
+            "Jones Lang LaSalle",
+            "2023 Bloomberg Green ESG Leading Forum は、リスト発表に先立って開催されました。各業界のリーダーや国際的な学術機関の専門家が参加し、ESG 分野における先進的なイノベーションについて議論しました。",
+            "Bloomberg Green は、気候変動に関するビジネス、科学、テクノロジーに焦点を当てています。同ブランドは Bloomberg の深いデータ知見を活用し、独自の報道、課題解決に向けたカバレッジ、ビジネスおよび投資に関するコンテンツを提供します。",
+            "Bloomberg Green は、グリーンで低炭素な経済への移行を促進する取り組みをさらに推進し、健全で豊か、かつ持続可能なグリーン経済の新たな青写真を描くことを目指しています。",
+          ],
+        },
+        {
+          heading: "INTCO について",
+          paragraphs: [
+            "INTCO Recycling（688087.SH）は、資源リサイクルを専門とするハイテクメーカーです。プラスチックのリサイクルと再利用に関する産業チェーン全体を構築し、先進的な消費財と精密に融合させることで、革新的なビジネスへと発展させてきました。",
+          ],
+        },
+      ],
+    },
+  },
+} as const;
+
+const SOURCE_BLOG_POPULAR_POST_TRANSLATIONS: Partial<Record<Locale, Record<string, { title: string; category: string }>>> = {
+  ja: {
+    "/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released": {
+      title: "2023 Bloomberg Green ESG…",
+      category: "プレスリリース",
+    },
+    "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space": {
+      title: "LED バスルームミラーで空間を…",
+      category: "インスピレーション",
+    },
+    "/news/the-major-materials-of-medicine-mirror-cabinet": {
+      title: "ミラーキャビネットの主な素材",
+      category: "業界ニュース",
+    },
+  },
+};
+
+function localizeSourceBlogCategory(locale: Locale, category: string) {
+  return SOURCE_BLOG_LABELS[locale].categoryLabels[category] || category;
+}
+
+function localizedSourceBlogPopularPost(locale: Locale, item: (typeof VANITY_MIRROR_POPULAR_POSTS)[number]) {
+  const translated = SOURCE_BLOG_POPULAR_POST_TRANSLATIONS[locale]?.[item.path];
+  return {
+    ...item,
+    title: translated?.title || item.title,
+    category: translated?.category || localizeSourceBlogCategory(locale, item.category),
+  };
+}
+
+function localizedSourceNewsArticle(article: (typeof SOURCE_NEWS_ARTICLES)[keyof typeof SOURCE_NEWS_ARTICLES], post: BlogPost, locale: Locale) {
+  const localized = SOURCE_NEWS_ARTICLE_LOCALIZATIONS[locale as keyof typeof SOURCE_NEWS_ARTICLE_LOCALIZATIONS]?.[post.slug as keyof (typeof SOURCE_NEWS_ARTICLE_LOCALIZATIONS)["ja"]];
+  if (!localized) {
+    return {
+      ...article,
+      category: localizeSourceBlogCategory(locale, article.category),
+    };
+  }
+
+  return {
+    ...article,
+    title: localized.title,
+    category: localized.category,
+    introParagraphs: localized.introParagraphs,
+    leadImage: article.leadImage
+      ? {
+          ...article.leadImage,
+          imageAlt: localized.leadImageAlt,
+        }
+      : article.leadImage,
+    sections: localized.sections,
+  };
+}
+
 function normalizedBlogActiveCategory(category?: string) {
   const normalized = category?.trim();
   return normalized && normalized !== "All" ? normalized : undefined;
@@ -1699,7 +3216,7 @@ export function orderedBlogSourceItems(posts: BlogPost[], page?: ContentPage): B
         categoryKey: category,
         excerpt: post.excerpt || override?.description || "",
         publishedAt: blogSourceDate(post, pageLines, override),
-        imageUrl: post.imageUrl || override?.imageUrl,
+        imageUrl: override?.imageUrl || post.imageUrl,
         imageAlt: post.imageAlt || override?.title || post.title,
       };
     });
@@ -1921,14 +3438,26 @@ function localizedPhilosophyValues(locale: Locale): PhilosophyValue[] {
 }
 
 const PHILOSOPHY_GALLERY_TOP = [
-  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy3.png", label: "WORLD CLASS CUSTOMER SERVICE" },
-  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy5.png", label: "MEET THE TEAM" },
+  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy6.png", label: "WORLD CLASS CUSTOMER SERVICE" },
+  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy7.png", label: "MEET THE TEAM" },
 ];
 
-const PHILOSOPHY_GALLERY_MOSAIC = [
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy4.png",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy6.png",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy7.png",
+const PHILOSOPHY_RESPONSIBILITY_CARDS = [
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy3.png",
+    dutyIndex: 0,
+    titleIndex: 1,
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy5.png",
+    dutyIndex: 2,
+    titleIndex: 3,
+  },
+  {
+    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy4.png",
+    dutyIndex: 2,
+    titleIndex: 3,
+  },
 ];
 
 const SOLUTIONS_SERVICE_ITEMS: SolutionsServiceItem[] = [
@@ -1994,9 +3523,11 @@ const SOLUTIONS_PROCESS_LABELS: Record<Locale, string[]> = {
   ja: ["デザイン", "フレーム押出", "組立", "倉庫保管", "梱包", "品質管理"],
 };
 
-const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; downloadPdf: string; externalRatings: string; environmentalContribution: string; protectTree: string; inAction: string; meetTeam: string; years: string }> = {
+const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; closeVideo: string; videoTitle: string; downloadPdf: string; externalRatings: string; environmentalContribution: string; protectTree: string; inAction: string; meetTeam: string; years: string }> = {
   en: {
     watchVideo: "Watch Video",
+    closeVideo: "Close video",
+    videoTitle: "Sustainability video",
     downloadPdf: "Download PDF",
     externalRatings: "EXTERNAL RATINGS",
     environmentalContribution: "ENVIRONMENTAL CONTRIBUTION",
@@ -2007,6 +3538,8 @@ const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; downloadPdf: s
   },
   es: {
     watchVideo: "Ver video",
+    closeVideo: "Cerrar video",
+    videoTitle: "Video de sostenibilidad",
     downloadPdf: "Descargar PDF",
     externalRatings: "CALIFICACIONES EXTERNAS",
     environmentalContribution: "CONTRIBUCIÓN AMBIENTAL",
@@ -2017,6 +3550,8 @@ const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; downloadPdf: s
   },
   pt: {
     watchVideo: "Ver vídeo",
+    closeVideo: "Fechar vídeo",
+    videoTitle: "Vídeo de sustentabilidade",
     downloadPdf: "Baixar PDF",
     externalRatings: "AVALIAÇÕES EXTERNAS",
     environmentalContribution: "CONTRIBUIÇÃO AMBIENTAL",
@@ -2027,6 +3562,8 @@ const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; downloadPdf: s
   },
   fr: {
     watchVideo: "Voir la vidéo",
+    closeVideo: "Fermer la vidéo",
+    videoTitle: "Vidéo sur la durabilité",
     downloadPdf: "Télécharger le PDF",
     externalRatings: "ÉVALUATIONS EXTERNES",
     environmentalContribution: "CONTRIBUTION ENVIRONNEMENTALE",
@@ -2037,6 +3574,8 @@ const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; downloadPdf: s
   },
   de: {
     watchVideo: "Video ansehen",
+    closeVideo: "Video schließen",
+    videoTitle: "Nachhaltigkeitsvideo",
     downloadPdf: "PDF herunterladen",
     externalRatings: "EXTERNE BEWERTUNGEN",
     environmentalContribution: "UMWELTBEITRAG",
@@ -2047,6 +3586,8 @@ const SUSTAINABILITY_LABELS: Record<Locale, { watchVideo: string; downloadPdf: s
   },
   ja: {
     watchVideo: "動画を見る",
+    closeVideo: "動画を閉じる",
+    videoTitle: "サステナビリティ動画",
     downloadPdf: "PDF をダウンロード",
     externalRatings: "外部評価",
     environmentalContribution: "環境への貢献",
@@ -2064,12 +3605,14 @@ const SOLUTIONS_RELATED_LINKS = [
 ];
 
 export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
-  const { homePage, productCategories, solutions, blogPosts } = data;
+  const { homePage, productCategories, solutions, blogPosts, pages } = data;
   const parentCategories = productCategories.filter((category) => !category.parentSlug).slice(0, 5);
   const href = (path: string) => localizePath(locale, path);
   const heroSlides = localizedHomeHeroSlides(homePage, locale, productCategories, solutions);
   const companyProfileFallback = HOME_COMPANY_PROFILE_FALLBACK[locale];
-  const localizedBlogCards = blogPosts
+  const companyProfilePoints = localizedHomeCompanyProfilePoints(locale, homePage.companyProfile?.points);
+  const blogPage = pages.find((page) => page.path === "/blog");
+  const localizedBlogCards = orderedBlogSourceItems(blogPosts, blogPage)
     .filter((post) => post.imageUrl)
     .map((post) => ({
       title: post.title,
@@ -2112,7 +3655,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-white px-4 pt-16 sm:px-6 lg:pt-[100px]">
+      <section className="intco-home-company-profile relative overflow-visible bg-white px-4 pt-16 sm:px-6 lg:pt-[100px]">
         <div className="intco-source-container px-5">
           <div className="lg:flex">
             <div className="pb-8 lg:w-1/2 lg:pb-[90px]">
@@ -2121,7 +3664,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
                 {homePage.companyProfile?.description || companyProfileFallback.description}
               </p>
               <ul className="mt-5 space-y-2 text-lg leading-10 text-[#363636]">
-                {(homePage.companyProfile?.points || []).map((point, index) => (
+                {companyProfilePoints.map((point, index) => (
                   <li key={point} className="group flex items-center gap-[13px]">
                     <span className="flex size-[26px] items-center justify-center rounded-full border border-[#484653] text-sm transition duration-200 group-hover:bg-[#484653] group-hover:text-white">
                       {index + 1}
@@ -2142,17 +3685,16 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
                 </SourcePillLink>
               </div>
             </div>
-            <div className="flex items-end lg:w-1/2">
+            <div className="intco-home-company-video flex items-end lg:w-1/2">
               <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
             </div>
           </div>
         </div>
-        <div className="intco-source-container relative z-10 -mt-16 px-5">
-          <div className="relative py-5">
-            <div className="absolute inset-y-0 right-0 w-4/5 bg-[rgba(72,70,83,0.27)]" />
-            <div className="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="aboutus-index-list2 intco-home-company-stats intco-source-container px-5">
+          <div className="relative">
+            <div className="intco-home-company-stats-list relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {localizedHomeStats(locale).map((stat) => (
-                <div key={stat.label} className="flex items-center justify-center pb-10 pt-5 text-[#484653]">
+                <div key={stat.label} className="intco-home-company-stat flex items-center justify-center pb-10 pt-5 text-[#484653]">
                   <div className="mr-[13px]">
                     <i className={`intco-home-stat-icon ${stat.iconClass}`} aria-hidden="true" />
                   </div>
@@ -2583,7 +4125,6 @@ function ProductProjectTile({
 }
 
 function ProductCatalogSection({ title, description, categories, locale }: { title: string; description: string; categories: ProductCategory[]; locale: Locale }) {
-  const activeManual = PRODUCT_MANUALS[0];
   const localizedManuals = PRODUCT_MANUALS.map((manual) => {
     if (locale === "en") return manual;
     const category = categoryBySourceTitle(categories, manual.title);
@@ -2593,49 +4134,14 @@ function ProductCatalogSection({ title, description, categories, locale }: { tit
       description: category?.description || manual.description,
     };
   });
-  const localizedActiveManual = localizedManuals[0] || activeManual;
 
   return (
-    <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-10 sm:px-6 lg:pt-[99px]">
-      <div className="mx-auto max-w-[1600px]">
-        <ProductSourceTitle title={t(locale, "catalog")} />
-        <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
-        <div className="mt-8 flex flex-col gap-3 lg:mt-[55px] lg:flex-row lg:gap-[39px]">
-          <div className="wow fadeInUp grid gap-3 sm:grid-cols-5 lg:flex lg:w-[370px] lg:flex-col" data-reveal="source-up">
-            {localizedManuals.map((manual, index) => (
-                <CatalogDownloadButton
-                  key={manual.title}
-                  pdfUrl={manual.pdfUrl}
-                  className={`flex h-14 items-center justify-center px-4 text-center text-base font-semibold transition duration-200 hover:bg-[#484653] hover:text-white lg:h-[127px] lg:text-2xl ${index === 0 ? "bg-[#484653] text-white" : "bg-white text-[#3e3e3e]"}`}
-                >
-                  {manual.title}
-                </CatalogDownloadButton>
-              ))}
-          </div>
-          <div className="wow fadeInDown bg-white p-5 lg:min-h-[520px] lg:flex-1 lg:p-[70px]" data-reveal="source-down">
-            <div className="grid gap-7 lg:grid-cols-[45%_1fr] lg:gap-[5%]">
-              <div className="relative mx-auto aspect-[257/300] w-full max-w-[257px] bg-neutral-100 lg:max-w-none">
-                <Image src={activeManual.imageUrl} alt={localizedActiveManual.title} fill className="object-cover" sizes="(min-width: 1024px) 28vw, 257px" />
-              </div>
-              <div className="flex flex-col justify-between">
-                <div>
-                  <h3 className="text-3xl font-semibold leading-[39px] text-[#3e3e3e] lg:text-[38px]">{localizedActiveManual.title}</h3>
-                  <p className="mt-8 text-base leading-[30px] text-[#363636] lg:mt-10 lg:text-lg">{localizedActiveManual.description}</p>
-                </div>
-                <CatalogDownloadButton pdfUrl={activeManual.pdfUrl} className="mt-10 inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white lg:mt-[120px]">
-                  {t(locale, "exploreMore")} <Download className="ml-2" size={20} />
-                </CatalogDownloadButton>
-              </div>
-            </div>
-            <div className="sr-only">
-              {localizedManuals.slice(1).map((manual) => (
-                <p key={manual.title}>
-                  {manual.title}: {manual.description}
-                </p>
-              ))}
-              <span>{t(locale, "catalog")}</span>
-            </div>
-          </div>
+    <section className="Products intco-product-catalog-section">
+      <div className="m-width-content margin100">
+        <div className="ipd-20 margin-project-c">
+          <ProductSourceTitle title={t(locale, "catalog")} />
+          <ProductSectionDescription first={title} second={description} className="intco-product-catalog-desc" />
+          <ProductCatalogTabs manuals={localizedManuals} exploreMoreLabel={t(locale, "exploreMore")} />
         </div>
       </div>
     </section>
@@ -2644,19 +4150,16 @@ function ProductCatalogSection({ title, description, categories, locale }: { tit
 
 function ProductTestReportSection({ title, description, locale }: { title: string; description: string; locale: Locale }) {
   return (
-    <section className="overflow-hidden bg-white bg-cover bg-center px-5 pb-16 pt-10 sm:px-6 lg:pb-[120px] lg:pt-[99px]" style={{ backgroundImage: `url(${PRODUCT_TEST_REPORT_BG})` }}>
-      <div className="mx-auto max-w-[1600px]">
-        <ProductSourceTitle title={t(locale, "testReport")} />
-        <ProductSectionDescription first={title} second={description} className="lg:mt-[55px]" />
-        <div className="mx-auto mt-10 grid max-w-[1230px] gap-6 sm:grid-cols-2 lg:mt-[55px] lg:grid-cols-4">
-          {PRODUCT_REPORT_IMAGES.map((report, index) => (
-            <div key={report.title} className="wow fadeInUp bg-white p-2.5" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-              <div className="relative aspect-[292/213] shadow-[0_0_10px_3px_#ccc]">
-                <Image src={report.imageUrl} alt={report.title} fill className="object-cover" sizes="292px" />
-              </div>
-              <span className="sr-only">{report.title}</span>
-            </div>
-          ))}
+    <section className="Products TestReport intco-products-test-report" style={{ backgroundImage: `url(${PRODUCT_TEST_REPORT_BG})` }}>
+      <ProductSourceTitle title={t(locale, "testReport")} />
+      <div className="m-width-content margin100 intco-products-test-report-content">
+        <div className="ipd-20 margin-project-c intco-products-test-report-inner">
+          <p className="DESC center margin55 intco-products-test-report-desc">
+            {title}
+            <br />
+            {description}
+          </p>
+          <ProductTestReportCoverflow reports={PRODUCT_REPORT_COVERFLOW_IMAGES} />
         </div>
       </div>
     </section>
@@ -2729,6 +4232,239 @@ function sourceCategoryIntro(category: ProductCategory, topCategory: ProductCate
   return category.description || topCategory.description || "Explore the latest INTCO Framing collections in a source-style layout powered by Sanity content.";
 }
 
+type SourceCategoryArchiveProduct = {
+  key: string;
+  title: string;
+  path: string;
+  imageUrl: string;
+  imageAlt: string;
+  sourceId?: string;
+  colors: Array<{ imageUrl: string; color: string }>;
+};
+
+function sourceCategoryListingSearchImage(path: string) {
+  return SOURCE_EMPTY_SEARCH_RESULTS.find((item) => item.path === path)?.imageUrl;
+}
+
+function sourceCategoryArchiveProducts(category: ProductCategory, products: Product[]): SourceCategoryArchiveProduct[] {
+  const snapshotItems = SOURCE_CATEGORY_LISTING_SNAPSHOTS[category.path] || [];
+  if (snapshotItems.length) {
+    return snapshotItems.map((item) => {
+      const product = products.find((candidate) => String(candidate.sourceId || "") === item.sourceId || candidate.path === item.path);
+      return {
+        key: item.sourceId || item.path,
+        title: product?.title || item.title,
+        path: product?.path || item.path,
+        imageUrl: item.imageUrl,
+        imageAlt: product?.imageAlt || item.title,
+        sourceId: item.sourceId,
+        colors: item.colors,
+      };
+    });
+  }
+
+  return products.slice(0, 12).map((product) => {
+    const imageUrl = sourceCategoryListingSearchImage(product.path) || preferredImage(product) || PRODUCTS_HERO_IMAGE;
+    return {
+      key: String(product.sourceId || product.slug),
+      title: product.title,
+      path: product.path,
+      imageUrl,
+      imageAlt: product.imageAlt || product.title,
+      sourceId: product.sourceId ? String(product.sourceId) : undefined,
+      colors: [],
+    };
+  });
+}
+
+function sourceCategoryFilterGroups(topCategory: ProductCategory) {
+  if (topCategory.slug === "mirror") {
+    return [
+      { title: "Material", values: ["Plastic", "Metal", "Wood", "Frameless"] },
+      { title: "Shape", values: ["Oval", "Rectangle", "Arched", "Round", "Irregular"] },
+      { title: "Color", values: ["White", "Black", "Wood", "Gold", "Silver"] },
+      { title: "Size", values: ['500×500×100mm', '460×1460mm', '600×600×30mm', '18"×60"', '24"×36"'] },
+    ];
+  }
+  if (topCategory.slug === "picture-frame") {
+    return [
+      { title: "Material", values: ["Plastic", "Metal", "Wood"] },
+      { title: "Color", values: ["White", "Black", "Wood", "Gold", "Silver"] },
+      { title: "Size", values: ['5"x7"', '11"×14"', '8"x10"', '16"×16"', '12"x12"'] },
+    ];
+  }
+  if (topCategory.slug === "art") {
+    return [
+      { title: "Subject", values: ["Botanical", "Abstract", "Animal", "Landscape", "Coastal"] },
+      { title: "Size", values: ['20"×20"', '24"×30"', '31.5"×31.5"', '22"×24"'] },
+    ];
+  }
+  if (topCategory.slug === "furniture") {
+    return [
+      { title: "Material", values: ["Engineered Wood", "Metal", "Wood"] },
+      { title: "Size", values: ['68"×56"×14.7"', '22"×26.8"', '31.4"×24.4"'] },
+    ];
+  }
+  return [
+    { title: "Material", values: ["Wood", "Aluminum", "Cork", "Linen"] },
+    { title: "Size", values: ["50×70cm", '18"×24"', "20×28"] },
+  ];
+}
+
+function SourceCategoryArchiveCard({ item, locale }: { item: SourceCategoryArchiveProduct; locale: Locale }) {
+  return (
+    <li className="wow fadeInUp">
+      <div className="Products1-right-item">
+        <i className="list-love botche">
+          <SourceCategoryAddCartButton productId={item.sourceId || item.key} productLink={`https://www.intcoframing-us.com${item.path}/`} productName={item.title} productImg={item.imageUrl} productColor={item.colors[0]?.color || ""} />
+        </i>
+        <Link href={localizePath(locale, item.path)} className="img-box">
+          <Image src={item.imageUrl} alt={item.imageAlt} title={item.title} fill className="object-contain" sizes="(min-width: 1024px) 260px, 50vw" />
+        </Link>
+        <div className={`Products1-right-text ${item.colors.length ? "" : "noheng"}`}>
+          <div className="list-color">
+            {item.colors.map((color) => (
+              <span key={`${item.key}-${color.imageUrl}-${color.color}`} data-url={color.imageUrl} style={{ background: `${color.color} no-repeat center` }} />
+            ))}
+          </div>
+          <Link href={localizePath(locale, item.path)}> {item.title}</Link>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function SourceCategoryArchiveView({
+  locale,
+  category,
+  topCategory,
+  siblingCategories,
+  products,
+}: {
+  locale: Locale;
+  category: ProductCategory;
+  topCategory: ProductCategory;
+  siblingCategories: ProductCategory[];
+  products: Product[];
+}) {
+  const archiveProducts = sourceCategoryArchiveProducts(category, products);
+  const filterGroups = sourceCategoryFilterGroups(topCategory);
+  const bestSellerItems = products.slice(0, 4).map((product) => ({
+    title: product.title,
+    path: product.path,
+    imageUrl: sourceCategoryListingSearchImage(product.path) || preferredImage(product) || PRODUCTS_HERO_IMAGE,
+    imageAlt: product.imageAlt || product.title,
+  }));
+  const copy = localizeSourceCopyItems(
+    siblingCategories.map((item) => ({
+      title: item.title,
+      body: item.description || topCategory.description || "",
+    })),
+    siblingCategories,
+    locale,
+  );
+
+  return (
+    <>
+      <ProductCategorySourceHero title={category.title} locale={locale} path={category.path} />
+
+      <section className="Products Products1 intco-source-category-archive">
+        <div className="m-width-content">
+          <div className="ipd-20">
+            <div className="DESC center margin86" aria-hidden="true" />
+            <h1 className="sr-only">{category.title}</h1>
+            <div className="Products1Content content-product">
+              <aside className="Products1-left">
+                <div className="wow fadeInUp">
+                  <div className="Products1-title">Categories</div>
+                  <ul className="Products1-ul">
+                    {siblingCategories.map((item) => (
+                      <li key={item.slug} className={item.slug === category.slug ? "selectProducts1Li" : ""}>
+                        <Link href={localizePath(locale, item.path)}>{item.title}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                  <Link href={localizePath(locale, topCategory.path)} className="selectBtn">
+                    View All Products <i className="iconfont icon-jiantou_xiangyou" aria-hidden="true" />
+                  </Link>
+                </div>
+                <div className="wow fadeInUp hc-mrt-box">
+                  <div className="Products1-title">Filters</div>
+                  <ul className="Products1-2ul">
+                    {filterGroups.map((group) => (
+                      <li key={group.title}>
+                        <div className="Products1-2ul-title">
+                          {group.title}
+                          <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+                        </div>
+                        <ul className="Products1-2ul-child showMore">
+                          {group.values.map((value) => (
+                            <li key={value}>
+                              <input type="radio" id={`${category.slug}-${group.title}-${value}`.replace(/[^a-zA-Z0-9_-]/g, "-")} name={`${category.slug}-${group.title}`} className="myCheckbox" value={value} />
+                              <label className="mark" htmlFor={`${category.slug}-${group.title}-${value}`.replace(/[^a-zA-Z0-9_-]/g, "-")}>
+                                {value}
+                              </label>
+                            </li>
+                          ))}
+                          {group.values.length >= 5 ? <div className="morderBtn">+ Show All</div> : null}
+                        </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="wow fadeInUp ContactUsBox">
+                  <div className="topCircle">
+                    <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact.png" alt="" width={70} height={70} />
+                  </div>
+                  <div className="ContactUs-text">
+                    Need Help?
+                    <br />
+                    Talk to experts
+                  </div>
+                  <div className="flexContentItem">
+                    <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")}>
+                      <div className="selectBtn">
+                        <i className="iconfont icon-24gf-phoneLoudspeaker" aria-hidden="true" />
+                        Contact Us
+                      </div>
+                    </LeadsCloudChatLink>
+                  </div>
+                  <div className="point point1" />
+                  <div className="point point2" />
+                  <div className="point point3" />
+                  <div className="point point4" />
+                </div>
+              </aside>
+              <div className="Products1-right">
+                <div className="Products1-right-list pright">
+                  <ul>{archiveProducts.map((item) => <SourceCategoryArchiveCard key={item.key} item={item} locale={locale} />)}</ul>
+                  {archiveProducts.length >= SOURCE_SEARCH_PAGE_SIZE ? (
+                    <div className="page-box">
+                      <div className="page-inner">
+                        <span className="current">1</span>
+                        <a className="page larger" href={localizePath(locale, `${category.path}/page/2`)}>
+                          2
+                        </a>
+                        <a className="nextpostslink" rel="next" aria-label="Next page" href={localizePath(locale, `${category.path}/page/2`)}>
+                          &gt;
+                        </a>
+                      </div>
+                    </div>
+                  ) : null}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <SourceCategoryBestSellersSection locale={locale} items={bestSellerItems} copy={copy} />
+
+      <ProductContactSection locale={locale} />
+    </>
+  );
+}
+
 function SourceCategoryCollectionCard({
   category,
   locale,
@@ -2755,6 +4491,107 @@ function SourceCategoryCollectionCard({
   );
 }
 
+function SourceCategoryW3CollectionCard({
+  card,
+  locale,
+  eager = false,
+}: {
+  card: { title: string; path: string; imageUrl: string };
+  locale: Locale;
+  eager?: boolean;
+}) {
+  return (
+    <Link href={localizePath(locale, card.path)} className="w-item-box group">
+      <div className="img-box">
+        <Image
+          src={card.imageUrl}
+          alt={card.title}
+          title={card.title}
+          fill
+          loading={eager ? "eager" : "lazy"}
+          className="object-cover transition duration-700 group-hover:scale-105"
+          sizes="(min-width: 1600px) 489px, (min-width: 1024px) 31vw, 100vw"
+        />
+      </div>
+      <div className="bottomText">
+        <div className="b-text">{card.title}</div>
+      </div>
+    </Link>
+  );
+}
+
+type SourceCategoryBestSellerCard = {
+  title: string;
+  path: string;
+  imageUrl: string;
+  imageAlt?: string;
+};
+
+function SourceCategoryBestSellersSection({
+  locale,
+  items,
+  copy,
+}: {
+  locale: Locale;
+  items: SourceCategoryBestSellerCard[];
+  copy: Array<{ title: string; body: string }>;
+}) {
+  return (
+    <section className="Products Products1 Products11 intco-source-category-best-sellers">
+      <ProductSourceTitle title={t(locale, "bestSellers")} />
+      <div className="m-width-content">
+        <div className="ipd-20 margin-project-c BESTSwiperContent">
+          <button type="button" aria-label={t(locale, "nextBestSeller")} className="swiper-button-next">
+            <span className="source-swiper-arrow source-swiper-arrow-next" aria-hidden="true" />
+          </button>
+          <button type="button" aria-label={t(locale, "previousBestSeller")} className="swiper-button-prev">
+            <span className="source-swiper-arrow source-swiper-arrow-prev" aria-hidden="true" />
+          </button>
+          <div className="BESTSwiper">
+            <div className="swiper gallery-top">
+              <div className="swiper-wrapper">
+                {items.map((item, index) => (
+                  <Link
+                    key={item.title}
+                    href={localizePath(locale, item.path)}
+                    className="wow fadeInUp swiper-slide"
+                    data-reveal="source-up"
+                    style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
+                  >
+                    <div className="topImgBox">
+                      <div className="img-box">
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.imageAlt || item.title}
+                          title={item.title}
+                          fill
+                          className="object-contain transition duration-700"
+                          sizes="346px"
+                        />
+                      </div>
+                    </div>
+                    <div className="bottomText">{item.title}</div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="DESC">
+            {copy.map((item) => (
+              <div key={item.title}>
+                <p>
+                  <strong>{item.title}</strong>
+                </p>
+                <p>{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProductCategorySourceDynamicView({
   locale,
   category,
@@ -2767,6 +4604,10 @@ function ProductCategorySourceDynamicView({
   products: Product[];
 }) {
   const { topCategory, activeCategory, siblingCategories } = categoryTemplateContext(category, allCategories);
+  if (activeCategory && siblingCategories.length) {
+    return <SourceCategoryArchiveView locale={locale} category={category} topCategory={topCategory} siblingCategories={siblingCategories} products={products} />;
+  }
+
   const collectionCategories = siblingCategories.length ? siblingCategories : [topCategory];
   const visibleProducts = products.slice(0, 8);
 
@@ -2857,71 +4698,36 @@ function MirrorCategorySourceView({ locale, category, categories, products }: { 
     <>
       <ProductCategorySourceHero title={category?.title || "Mirror"} locale={locale} path={category?.path} />
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[99px] max-lg:pt-12">
-        <div className="mx-auto max-w-[1160px]">
+      <section className="Products Products1 Products11 intco-source-category-collection">
+        <div className="m-width-content">
+          <div className="ipd-20">
           <ProductSourceTitle title={t(locale, "collection")} />
           <h1 className="sr-only">{category?.title || "Mirror"}</h1>
       <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/07/%E6%9C%AA%E6%A0%87%E9%A2%98-3.jpg" alt="" width={1} height={1} className="hidden" />
           <p className="wow fadeInUp mx-auto mb-[86px] mt-[55px] max-w-[1120px] text-center text-lg leading-[30px] text-[#363636] max-lg:mb-10 max-lg:mt-8 max-lg:text-base" data-reveal="source-up">
             {localizedCategoryIntro(category, "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.", locale)}
           </p>
-          <ul className="grid gap-x-[67px] gap-y-[68px] md:grid-cols-2 lg:grid-cols-3">
-            {collectionCards.map((card, index) => (
-              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
-                <Link href={localizePath(locale, card.path)} className="group relative block overflow-hidden rounded-[20px] bg-neutral-200">
-                  <div className="relative aspect-[305/380]">
-                    <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 33vw, 50vw" />
-                  </div>
-                  <div className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition duration-300 group-hover:opacity-100">
-                    <div className="absolute bottom-[31px] left-[34px] translate-y-[-10px] text-2xl font-semibold leading-9 text-white">{card.title}</div>
-                  </div>
-                  <span className="sr-only">{card.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <div className="product-index-list">
+            <div className="w3Box">
+              <ul>
+                {collectionCards.map((card, index) => (
+                  <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+                    <SourceCategoryW3CollectionCard card={card} locale={locale} eager={index < 3} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div className="mt-[68px] flex justify-center max-lg:mt-10">
             <Link href={localizePath(locale, "/mirror")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
+          </div>
         </div>
       </section>
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-[99px] max-lg:pt-12">
-        <div className="mx-auto max-w-[1300px]">
-          <ProductSourceTitle title={t(locale, "bestSellers")} />
-          <div className="relative mt-[64px] px-[70px] max-lg:px-0">
-            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
-              ‹
-            </button>
-            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-0 top-[173px] z-[2] flex size-[30px] items-center justify-center rounded-full bg-[#484653] text-white max-lg:hidden">
-              ›
-            </button>
-            <ul className="grid gap-[30px] md:grid-cols-2 lg:grid-cols-4">
-              {bestSellers.map((item, index) => (
-                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                  <Link href={localizePath(locale, item.path)} className="group block text-center">
-                    <div className="relative aspect-square rounded-full bg-white">
-                      <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 25vw, 50vw" />
-                    </div>
-                    <div className="mx-auto mb-[97px] mt-[39px] max-w-[280px] text-sm font-medium leading-[18px] text-[#484653] max-lg:mb-10">{item.title}</div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="mx-auto max-w-[1600px] space-y-5 pb-4 text-lg leading-[30px] text-[#3e3e3e] max-lg:text-base max-lg:leading-7">
-            {copy.map((item) => (
-              <div key={item.title}>
-                <p className="font-semibold text-[#484653]">{item.title}</p>
-                <p>{item.body}</p>
-              </div>
-            ))}
-          </div>
-          <span className="sr-only">{t(locale, "products")}</span>
-        </div>
-      </section>
+      <SourceCategoryBestSellersSection locale={locale} items={bestSellers} copy={copy} />
 
       <ProductContactSection locale={locale} />
     </>
@@ -2936,59 +4742,34 @@ function PictureFrameCategorySourceView({ locale, category, categories, products
     <>
       <ProductCategorySourceHero title={category?.title || "Picture frame"} locale={locale} path={category?.path} />
 
-      <section className="overflow-hidden bg-[#f3f3f3] pb-[5px] pt-6 lg:pb-7 lg:pt-[99px]">
-        <div className="intco-source-container px-5">
+      <section className="Products Products1 Products11 intco-source-category-collection">
+        <div className="m-width-content">
+          <div className="ipd-20">
           <PictureFrameSectionTitle title={t(locale, "collection")} />
           <p className="wow fadeInUp mx-auto mb-0 mt-4 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
             {localizedCategoryIntro(category, "Find the perfect picture frame at Intco Framing. Browse our best sellers, including tabletop frames, wall frames, and poster frames. Everything you want is here.", locale)}
           </p>
-          <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {collectionCards.map((card, index) => (
-              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
-                <PictureFrameCollectionCard card={card} locale={locale} />
-              </li>
-            ))}
-          </ul>
+          <div className="product-index-list">
+            <div className="w3Box">
+              <ul>
+                {collectionCards.map((card, index) => (
+                  <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+                    <PictureFrameCollectionCard card={card} locale={locale} eager={index < 3} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
             <Link href={localizePath(locale, "/picture-frame")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
-        </div>
-      </section>
-
-      <section className="overflow-hidden bg-[#f3f3f3] pb-[40px] pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
-        <div className="intco-source-container mt-10 px-5 lg:mt-[65px]">
-          <div className="relative min-h-[430px] cursor-pointer lg:min-h-[994px]">
-            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ‹
-            </button>
-            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-10px] top-[151px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ›
-            </button>
-            <div className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
-              {bestSellers.map((item, index) => (
-                <Link key={item.title} href={localizePath(locale, item.path)} className="wow fadeInUp group block text-center" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                  <div className="relative aspect-square rounded-full bg-white">
-                    <Image src={item.imageUrl} alt={item.title} fill className="object-contain transition duration-700 group-hover:scale-105" sizes="270px" />
-                  </div>
-                  <div className="mx-auto mb-12 mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653] lg:mb-[97px]">{item.title}</div>
-                </Link>
-              ))}
-            </div>
-            <div className="space-y-6 text-base font-normal leading-6 text-[#363636] lg:space-y-6">
-              {copy.map((item) => (
-                <p key={item.title}>
-                  <strong className="font-semibold">{item.title}</strong>
-                  <br />
-                  {item.body}
-                </p>
-              ))}
-            </div>
           </div>
         </div>
       </section>
+
+      <SourceCategoryBestSellersSection locale={locale} items={bestSellers} copy={copy} />
 
       <PictureFrameContactSection locale={locale} />
     </>
@@ -3021,18 +4802,13 @@ function PictureFrameContactSection({ locale }: { locale: Locale }) {
 function PictureFrameCollectionCard({
   card,
   locale,
+  eager = false,
 }: {
   card: (typeof PICTURE_FRAME_COLLECTION_CARDS)[number];
   locale: Locale;
+  eager?: boolean;
 }) {
-  return (
-    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
-      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
-      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
-      </span>
-    </Link>
-  );
+  return <SourceCategoryW3CollectionCard card={card} locale={locale} eager={eager} />;
 }
 
 function ArtCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
@@ -3043,63 +4819,35 @@ function ArtCategorySourceView({ locale, category, categories, products }: { loc
     <>
       <ProductCategorySourceHero title={category?.title || "Art"} locale={locale} path={category?.path} />
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-[5px] pt-12 lg:pt-[99px]">
-        <div className="mx-auto max-w-[1160px]">
+      <section className="Products Products1 Products11 intco-source-category-collection">
+        <div className="m-width-content">
+          <div className="ipd-20">
           <PictureFrameSectionTitle title={t(locale, "collection")} />
           <h1 className="sr-only">{category?.title || "Art"}</h1>
           <p className="wow fadeInUp mx-auto mb-10 mt-8 max-w-[1000px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
             {localizedCategoryIntro(category, "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!", locale)}
           </p>
-          <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {collectionCards.map((card, index) => (
-              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                <ArtCollectionCard card={card} locale={locale} />
-              </li>
-            ))}
-          </ul>
+          <div className="product-index-list">
+            <div className="w3Box">
+              <ul>
+                {collectionCards.map((card, index) => (
+                  <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                    <ArtCollectionCard card={card} locale={locale} eager={index < 3} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
             <Link href={localizePath(locale, "/art")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
+          </div>
         </div>
       </section>
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
-        <div className="mx-auto mt-10 max-w-[1160px] lg:mt-[65px]">
-          <div className="relative">
-            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ‹
-            </button>
-            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ›
-            </button>
-            <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
-              {bestSellers.map((item, index) => (
-                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                  <Link href={localizePath(locale, item.path)} className="group block text-center">
-                    <div className="relative aspect-square bg-white">
-                      <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
-                    </div>
-                    <div className="mx-auto mb-10 mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653] lg:mb-[97px]">{item.title}</div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636] lg:mt-0">
-            {copy.map((item) => (
-              <div key={item.title}>
-                <p>
-                  <strong className="font-semibold">{item.title}</strong>
-                </p>
-                <p>{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SourceCategoryBestSellersSection locale={locale} items={bestSellers} copy={copy} />
 
       <PictureFrameContactSection locale={locale} />
     </>
@@ -3109,18 +4857,13 @@ function ArtCategorySourceView({ locale, category, categories, products }: { loc
 function ArtCollectionCard({
   card,
   locale,
+  eager = false,
 }: {
   card: (typeof ART_COLLECTION_CARDS)[number];
   locale: Locale;
+  eager?: boolean;
 }) {
-  return (
-    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
-      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
-      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
-      </span>
-    </Link>
-  );
+  return <SourceCategoryW3CollectionCard card={card} locale={locale} eager={eager} />;
 }
 
 function FurnitureCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
@@ -3131,64 +4874,36 @@ function FurnitureCategorySourceView({ locale, category, categories, products }:
     <>
       <ProductCategorySourceHero title={category?.title || "Furniture"} locale={locale} path={category?.path} />
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-[5px] pt-12 lg:pt-[99px]">
-        <div className="mx-auto max-w-[1160px]">
+      <section className="Products Products1 Products11 intco-source-category-collection">
+        <div className="m-width-content">
+          <div className="ipd-20">
           <PictureFrameSectionTitle title={t(locale, "collection")} />
           <h1 className="sr-only">{category?.title || "Furniture"}</h1>
           <p className="wow fadeInUp mx-auto mb-10 mt-8 max-w-[1160px] text-center text-base leading-6 text-[#363636] lg:mb-[86px] lg:mt-[55px]" data-reveal="source-up">
             {localizedCategoryIntro(category, "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!", locale)}
           </p>
-          <ul className="grid gap-[34px] md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {collectionCards.map((card, index) => (
-              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                <FurnitureCollectionCard card={card} locale={locale} />
-              </li>
-            ))}
-          </ul>
+          <div className="product-index-list">
+            <div className="w3Box">
+              <ul>
+                {collectionCards.map((card, index) => (
+                  <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                    <FurnitureCollectionCard card={card} locale={locale} eager={index < 3} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
             <Link href={localizePath(locale, "/furniture")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
           <span className="sr-only">{t(locale, "products")}</span>
+          </div>
         </div>
       </section>
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-5 pb-10 pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
-        <div className="mx-auto mt-10 max-w-[1160px] lg:mt-[65px]">
-          <div className="relative">
-            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ‹
-            </button>
-            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ›
-            </button>
-            <ul className="grid gap-[26px] md:grid-cols-2 lg:grid-cols-4">
-              {bestSellers.map((item, index) => (
-                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                  <Link href={localizePath(locale, item.path)} className="group block text-center">
-                    <div className="relative aspect-square bg-white">
-                      <Image src={item.imageUrl} alt={item.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
-                    </div>
-                    <div className="mx-auto mb-10 mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653] lg:mb-[97px]">{item.title}</div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636]">
-            {copy.map((item) => (
-              <div key={item.title}>
-                <p>
-                  <strong className="font-semibold">{item.title}</strong>
-                </p>
-                <p>{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SourceCategoryBestSellersSection locale={locale} items={bestSellers} copy={copy} />
 
       <PictureFrameContactSection locale={locale} />
     </>
@@ -3198,18 +4913,13 @@ function FurnitureCategorySourceView({ locale, category, categories, products }:
 function FurnitureCollectionCard({
   card,
   locale,
+  eager = false,
 }: {
   card: (typeof FURNITURE_COLLECTION_CARDS)[number];
   locale: Locale;
+  eager?: boolean;
 }) {
-  return (
-    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
-      <Image src={card.imageUrl} alt={card.title} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
-      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
-      </span>
-    </Link>
-  );
+  return <SourceCategoryW3CollectionCard card={card} locale={locale} eager={eager} />;
 }
 
 function MemoBoardCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
@@ -3220,64 +4930,34 @@ function MemoBoardCategorySourceView({ locale, category, categories, products }:
     <>
       <ProductCategorySourceHero title={category?.title || "Memo Board"} locale={locale} path={category?.path} />
 
-      <section className="overflow-hidden bg-[#f3f3f3] pb-[5px] pt-12 lg:pt-[99px]">
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
+      <section className="Products Products1 Products11 intco-source-category-collection">
+        <div className="m-width-content">
+          <div className="ipd-20">
           <PictureFrameSectionTitle title={t(locale, "collection")} />
           <h1 className="sr-only">{category?.title || "Memo Board"}</h1>
           <div className="wow fadeInUp DESC center margin86" data-reveal="source-up" aria-hidden="true" />
-          <ul className="m-0 mt-[86px] grid list-none gap-[34px] p-0 md:grid-cols-2 lg:grid-cols-3 lg:gap-x-[67px] lg:gap-y-[68px]">
-            {collectionCards.map((card, index) => (
-              <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
-                <MemoBoardCollectionCard card={card} locale={locale} />
-              </li>
-            ))}
-          </ul>
+          <div className="product-index-list">
+            <div className="w3Box">
+              <ul>
+                {collectionCards.map((card, index) => (
+                  <li key={card.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${(index % 3) * 80}ms` } as React.CSSProperties}>
+                    <MemoBoardCollectionCard card={card} locale={locale} eager={index < 3} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <div className="mt-10 flex justify-center lg:mt-0">
             <Link href={localizePath(locale, "/memo-board")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
           <span className="sr-only">{t(locale, "products")}</span>
+          </div>
         </div>
       </section>
 
-      <section className="overflow-hidden bg-[#f3f3f3] pb-10 pt-12 lg:pt-[99px]">
-        <PictureFrameSectionTitle title={t(locale, "bestSellers")} />
-        <div className="intco-source-container mt-10 px-5 lg:mt-[65px] min-[1601px]:px-[70px]">
-          <div className="relative">
-            <button type="button" aria-label={t(locale, "previousBestSeller")} className="absolute left-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ‹
-            </button>
-            <button type="button" aria-label={t(locale, "nextBestSeller")} className="absolute right-[-30px] top-[138px] z-[2] hidden size-[30px] items-center justify-center rounded-full bg-[#484653] text-xl leading-[30px] text-white lg:flex">
-              ›
-            </button>
-            <ul className="m-0 grid list-none gap-[26px] p-0 md:grid-cols-2 lg:grid-cols-4">
-              {bestSellers.map((item, index) => (
-                <li key={item.title} className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                  <Link href={localizePath(locale, item.path)} className="group block pb-10 text-center lg:pb-[97px]">
-                    <div className="relative aspect-square bg-white">
-                      <Image src={item.imageUrl} alt={item.title} fill loading="eager" className="object-cover transition duration-700 group-hover:scale-105" sizes="270px" />
-                    </div>
-                    <div className="mx-auto mt-[39px] max-w-[270px] text-sm font-medium leading-[18px] text-[#484653]">{item.title}</div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-        <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="space-y-6 pb-0 text-base font-normal leading-6 text-[#363636]">
-            {copy.map((item) => (
-              <div key={item.title}>
-                <p>
-                  <strong className="font-semibold">{item.title}</strong>
-                </p>
-                <p>{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SourceCategoryBestSellersSection locale={locale} items={bestSellers} copy={copy} />
 
       <PictureFrameContactSection locale={locale} />
     </>
@@ -3287,29 +4967,14 @@ function MemoBoardCategorySourceView({ locale, category, categories, products }:
 function MemoBoardCollectionCard({
   card,
   locale,
+  eager = false,
 }: {
   card: (typeof MEMO_BOARD_COLLECTION_CARDS)[number];
   locale: Locale;
+  eager?: boolean;
 }) {
-  return (
-    <Link href={localizePath(locale, card.path)} className="group relative block aspect-[342/426] overflow-hidden rounded-[20px]">
-      <Image src={card.imageUrl} alt={card.title} fill loading="eager" className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 342px, 100vw" />
-      <span className="absolute inset-0 rounded-[20px] bg-black/30 px-[5%] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <span className="absolute bottom-[31px] left-[34px] -translate-y-2.5 text-2xl font-semibold leading-9 text-white">{card.title}</span>
-      </span>
-    </Link>
-  );
+  return <SourceCategoryW3CollectionCard card={card} locale={locale} eager={eager} />;
 }
-
-const LEGACY_PRODUCT_CATEGORY_SOURCE_VIEWS = [
-  MirrorCategorySourceView,
-  PictureFrameCategorySourceView,
-  ArtCategorySourceView,
-  FurnitureCategorySourceView,
-  MemoBoardCategorySourceView,
-];
-
-void LEGACY_PRODUCT_CATEGORY_SOURCE_VIEWS;
 
 export function ProductListingView({
   title,
@@ -3330,8 +4995,26 @@ export function ProductListingView({
   category?: ProductCategory;
   locale: Locale;
 }) {
+  const sourceCategories = allCategories || categories || [];
+
+  if (category?.slug === "mirror") {
+    return <MirrorCategorySourceView locale={locale} category={category} categories={sourceCategories} products={products} />;
+  }
+  if (category?.slug === "picture-frame") {
+    return <PictureFrameCategorySourceView locale={locale} category={category} categories={sourceCategories} products={products} />;
+  }
+  if (category?.slug === "art") {
+    return <ArtCategorySourceView locale={locale} category={category} categories={sourceCategories} products={products} />;
+  }
+  if (category?.slug === "furniture") {
+    return <FurnitureCategorySourceView locale={locale} category={category} categories={sourceCategories} products={products} />;
+  }
+  if (category?.slug === "memo-board") {
+    return <MemoBoardCategorySourceView locale={locale} category={category} categories={sourceCategories} products={products} />;
+  }
+
   if (category) {
-    return <ProductCategorySourceDynamicView locale={locale} category={category} allCategories={allCategories || categories || []} products={products} />;
+    return <ProductCategorySourceDynamicView locale={locale} category={category} allCategories={sourceCategories} products={products} />;
   }
 
   const bestSellers = products.slice(0, 4);
@@ -3646,20 +5329,27 @@ function SolutionsContactBand({ locale }: { locale: Locale }) {
   );
 }
 
-function BusinessInsightsHero({ locale }: { locale: Locale }) {
-  const title = pick(BUSINESS_INSIGHTS_PAGE.heroTitle, locale);
+function BusinessInsightsHero({ locale, title: customTitle, parentCrumb = false }: { locale: Locale; title?: string; parentCrumb?: boolean }) {
+  const parentTitle = pick(BUSINESS_INSIGHTS_PAGE.heroTitle, locale);
+  const title = customTitle || parentTitle;
   return (
     <section className="relative aspect-[1920/600] min-h-[260px] overflow-hidden">
       <Image src={BUSINESS_INSIGHTS_HERO_IMAGE} alt={title} fill className="object-cover" sizes="100vw" preload />
       <div className="absolute inset-0 bg-white/30" />
       <div className="intco-page-hero-copy absolute inset-0 z-10 flex items-center">
         <div className="intco-source-container px-5 text-center text-[#484653] max-lg:text-left">
-          <h1 className="text-[42px] font-bold leading-[80px] text-[#333333] max-lg:text-[38px] max-lg:leading-tight">{title}</h1>
-          <nav className="flex items-center justify-center gap-3 py-3 text-lg font-medium leading-10 max-lg:justify-start max-lg:text-base lg:text-xl" aria-label="Breadcrumb">
+          <h1 className="text-[66px] font-semibold leading-[99px] text-[#333333] max-lg:text-[38px] max-lg:leading-tight">{title}</h1>
+          <nav className="flex items-center justify-center gap-3 py-3 text-[26px] font-medium leading-10 max-lg:justify-start max-lg:text-base" aria-label="Breadcrumb">
             <BreadcrumbLink href={localizePath(locale, "/")}>{t(locale, "home")}</BreadcrumbLink>
             <span>›</span>
             <BreadcrumbLink href={localizePath(locale, "/solutions")}>{t(locale, "solutions")}</BreadcrumbLink>
             <span>›</span>
+            {parentCrumb ? (
+              <>
+                <BreadcrumbLink href={localizePath(locale, "/solutions/business-insights-trends")}>{parentTitle}</BreadcrumbLink>
+                <span>›</span>
+              </>
+            ) : null}
             <span>{title}</span>
           </nav>
           <div className="flex flex-wrap justify-center max-lg:justify-start">
@@ -3735,11 +5425,11 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
         <span className="sr-only">{t(locale, "youMayAlsoLike")}</span>
         <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions1.png" alt="" width={1} height={1} className="hidden" />
 
-        <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-0 pt-[29px] sm:px-6">
-        <div className="mx-auto max-w-[1160px]">
+        <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-10 pt-10 sm:px-6">
+        <div className="mx-auto max-w-[1600px]">
           <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.main, locale)} />
-          <div className="mt-[58px] grid bg-white lg:grid-cols-[61.25%_1fr]" data-reveal="fade">
-            <div className="relative aspect-[710/478] overflow-hidden">
+          <div className="mt-[58px] grid bg-white lg:h-[660px] lg:grid-cols-[980px_1fr]" data-reveal="fade">
+            <div className="relative h-full min-h-[320px] overflow-hidden">
               <Image src={BUSINESS_INSIGHTS_MARKET_IMAGE} alt="BusinessInsights2" fill className="object-cover" sizes="(min-width: 1024px) 61vw, 100vw" />
             </div>
             <div className="box-border px-8 pb-10 pt-10 text-center lg:px-[77px] lg:pb-0 lg:pt-[98px]">
@@ -3753,21 +5443,21 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-[148px] pt-[70px] sm:px-6 max-lg:py-12">
-        <div className="mx-auto max-w-[1160px]">
-          <div className="grid items-start gap-[100px] lg:grid-cols-[480px_580px]">
-            <div className="flex flex-col items-start" data-reveal="fade">
+      <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-[100px] pt-10 sm:px-6 max-lg:py-12">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid items-start lg:h-[500px] lg:grid-cols-[698px_800px] lg:gap-[102px]">
+            <div className="flex flex-col items-start lg:h-[500px]" data-reveal="fade">
               <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.trend, locale)} align="left" />
               <p className="mb-[77px] mt-[58px] max-w-[551px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-8">{pick(BUSINESS_INSIGHTS_PAGE.copy.trend, locale)}</p>
-              <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends")} width={306}>
+              <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends/trend")} width={306}>
                 {t(locale, "exploreMore")}
               </BusinessInsightsOutlineLink>
             </div>
-            <div className="relative overflow-hidden bg-white" data-reveal="fade">
+            <div className="relative overflow-hidden bg-white lg:h-[500px]" data-reveal="fade">
               <div className="flex w-[300%]">
                 {BUSINESS_INSIGHTS_TREND_SLIDES.map((slide) => (
-                  <Link key={slide.imageUrl} href={localizePath(locale, slide.path)} className="relative block aspect-[580/321] w-1/3 shrink-0">
-                    <Image src={slide.imageUrl} alt="" fill className="object-cover" sizes="580px" />
+                  <Link key={slide.imageUrl} href={localizePath(locale, slide.path)} className="relative block aspect-[800/443] w-1/3 shrink-0 lg:h-[443px]">
+                    <Image src={slide.imageUrl} alt="" fill className="object-cover" sizes="800px" />
                   </Link>
                 ))}
               </div>
@@ -3781,46 +5471,48 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      <section className="overflow-hidden bg-white px-4 pb-0 pt-10 sm:px-6">
-        <div className="mx-auto max-w-[1160px]">
+      <section className="overflow-hidden bg-white px-4 pb-10 pt-10 sm:px-6">
+        <div className="mx-auto max-w-[1600px]">
           <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.industryReport, locale)} align="left" />
-          <p className="mb-[34px] mt-[58px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{pick(BUSINESS_INSIGHTS_PAGE.copy.trend, locale)}</p>
-          <ul className="-mx-[41px] grid md:grid-cols-3">
-            {BUSINESS_INSIGHTS_PAGE.reports.map((report, index) => {
-              const reportTitle = pick(report.title, locale);
-              return (
-                <li key={reportTitle} className="box-border px-[41px] pb-0 max-md:mb-10" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
-                  <article>
-                    <Link href={localizePath(locale, report.path)} className="group block">
-                      <div className="relative aspect-[332/257] overflow-hidden bg-neutral-100">
-                        <Image src={report.imageUrl} alt={reportTitle} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 332px, 100vw" />
+          <p className="mb-[58px] mt-[58px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[27px] max-lg:mb-10">{pick(BUSINESS_INSIGHTS_PAGE.copy.trend, locale)}</p>
+          <div className="index-BusinessInsights-list">
+            <ul className="-mx-[41px] flex max-md:mx-0 max-md:block">
+              {BUSINESS_INSIGHTS_PAGE.reports.map((report, index) => {
+                const reportTitle = pick(report.title, locale);
+                return (
+                  <li key={reportTitle} className="box-border w-1/3 px-[41px] pb-0 max-md:mb-10 max-md:w-full max-md:px-0" data-reveal style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}>
+                    <article>
+                      <Link href={localizePath(locale, report.path)} className="group block">
+                        <div className="relative aspect-[332/257] overflow-hidden bg-neutral-100">
+                          <Image src={report.imageUrl} alt={reportTitle} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 479px, 100vw" />
+                        </div>
+                        <h3 className="mt-[29px] line-clamp-2 h-[3em] text-[26px] font-semibold leading-[1.5] text-[#484653] max-lg:text-xl">{reportTitle}</h3>
+                      </Link>
+                      <div className="mt-[14px] text-base font-light leading-[39px] text-[#999]">{report.date}</div>
+                      <p className="text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[27px]">{pick(report.excerpt, locale)}</p>
+                      <div className="mt-[30px] max-lg:mb-10">
+                        <BusinessInsightsOutlineLink href={localizePath(locale, report.path)}>{t(locale, "readMore")}</BusinessInsightsOutlineLink>
                       </div>
-                      <h3 className="mt-[29px] line-clamp-2 h-[3em] text-[26px] font-semibold leading-[1.5] text-[#484653] max-lg:text-xl">{reportTitle}</h3>
-                    </Link>
-                    <div className="mt-[14px] text-base font-light leading-[39px] text-[#999]">{report.date}</div>
-                    <p className="text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">{pick(report.excerpt, locale)}</p>
-                    <div className="mb-[45px] mt-[39px] max-lg:mb-10">
-                      <BusinessInsightsOutlineLink href={localizePath(locale, report.path)}>{t(locale, "readMore")}</BusinessInsightsOutlineLink>
-                    </div>
-                  </article>
-                </li>
-              );
-            })}
-          </ul>
+                    </article>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </section>
 
       <section className="overflow-hidden bg-white px-4 pb-10 pt-10 sm:px-6">
-        <div className="mx-auto max-w-[1160px]">
-          <div className="grid items-start gap-[96px] pb-[135px] lg:grid-cols-[564px_1fr] max-lg:gap-8 max-lg:pb-10">
+        <div className="mx-auto max-w-[1600px]">
+          <div className="grid items-start gap-[96px] pb-[101px] lg:grid-cols-[905px_497px] max-lg:gap-8 max-lg:pb-10">
             <div className="relative aspect-[564/368] overflow-hidden" data-reveal="fade">
-              <Image src={BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE} alt="BusinessInsights9" fill className="object-cover" sizes="(min-width: 1024px) 564px, 100vw" />
+              <Image src={BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE} alt="BusinessInsights9" fill className="object-cover" sizes="(min-width: 1024px) 905px, 100vw" />
             </div>
             <div data-reveal="fade">
               <BusinessInsightsTitle title={pick(BUSINESS_INSIGHTS_PAGE.sectionTitles.bestsellers, locale)} align="left" narrow />
-              <p className="mt-[58px] max-w-[599px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mt-8">{pick(BUSINESS_INSIGHTS_PAGE.copy.recommendation, locale)}</p>
+              <p className="mt-[58px] max-w-[497px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[27px] max-lg:mt-8">{pick(BUSINESS_INSIGHTS_PAGE.copy.recommendation, locale)}</p>
               <div className="mt-[90px] max-lg:mt-8">
-                <BusinessInsightsOutlineLink href={localizePath(locale, "/products")}>{t(locale, "exploreMore")}</BusinessInsightsOutlineLink>
+                <BusinessInsightsOutlineLink href={localizePath(locale, "/solutions/business-insights-trends/bestsellers")}>{t(locale, "exploreMore")}</BusinessInsightsOutlineLink>
               </div>
             </div>
           </div>
@@ -3828,9 +5520,9 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
       </section>
 
       <section className="overflow-hidden bg-[#f8f8f8] px-4 pb-10 pt-10 sm:px-6 max-lg:pb-10">
-        <div className="mx-auto max-w-[1160px]">
+        <div className="mx-auto max-w-[1600px]">
           <BusinessInsightsTitle title={t(locale, "ourManufacturing")} />
-          <p className="mx-auto mb-[58px] mt-[55px] max-w-[1320px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:mb-10">{t(locale, "sourceManufacturingIntro")}</p>
+          <p className="mx-auto mb-[58px] mt-[55px] max-w-[1600px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[27px] max-lg:mb-10">{t(locale, "sourceManufacturingIntro")}</p>
           <div className="mb-[55px] flex overflow-hidden rounded-md bg-white shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:flex-col" data-reveal="fade">
             <div className="w-[58%] overflow-hidden rounded-md max-lg:w-full">
               <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
@@ -3849,6 +5541,99 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
       </div>
     </>
   );
+}
+
+function BusinessInsightsTrendReportView({ locale, report }: { locale: Locale; report: (typeof BUSINESS_INSIGHTS_TREND_REPORTS)[number] }) {
+  const copy = BUSINESS_INSIGHTS_TREND_REPORT_COPY[locale];
+  const reportTitle = localizedBusinessInsightsTrendReportTitle(locale, report);
+  return (
+    <div className="intco-business-insights-page">
+      <BusinessInsightsHero locale={locale} title={reportTitle} parentCrumb />
+      <section className="overflow-hidden bg-[#f8f8f8] px-4 pb-[100px] pt-[58px] sm:px-6">
+        <div className="mx-auto max-w-[1160px]">
+          <BusinessInsightsTitle title={copy.downloadTitle} align="left" />
+          <p className="mt-[58px] max-w-[970px] text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px]">
+            {copy.intro}
+          </p>
+          <div className="intco-business-trend-report-message">
+            <div className="intco-business-trend-report-grid">
+            <div className="intco-business-trend-report-form intco-leadscloud-localized-form" data-reveal="fade">
+              <div className="BURY_CODE_5d7b74d8ea0b4f4fb26aa05682c8ae4e">
+                <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.catalogDownload)} />
+              </div>
+            </div>
+            <div className="intco-business-trend-report-cover" data-reveal="fade">
+              <a href={report.pdfUrl} className="group block" aria-label={`${copy.downloadAria}: ${reportTitle}`}>
+                <span className="relative block aspect-[500/422] overflow-hidden bg-white">
+                  <Image src={report.coverUrl} alt={reportTitle} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 500px, 100vw" />
+                </span>
+              </a>
+            </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function BusinessInsightsBestsellersView({ locale }: { locale: Locale }) {
+  return (
+    <div className="intco-business-insights-page">
+      <BusinessInsightsHero locale={locale} title={BUSINESS_INSIGHTS_BESTSELLER_LABELS[locale].heroTitle} parentCrumb />
+      {BUSINESS_INSIGHTS_BESTSELLER_GROUPS.map((group, groupIndex) => {
+        const groupTitle = localizedBusinessInsightsBestsellerGroupTitle(locale, group.title);
+        return (
+          <section key={groupTitle} className="intco-business-bestseller-section overflow-hidden pb-10 pt-10">
+            <div className="intco-business-bestseller-container">
+              <BusinessInsightsTitle title={groupTitle} />
+              <div className="intco-business-bestseller-stage">
+                <button type="button" aria-label={t(locale, "previousBestSeller")} className="intco-business-bestseller-arrow intco-business-bestseller-arrow-prev">
+                  <span className="source-swiper-arrow source-swiper-arrow-prev" aria-hidden="true" />
+                </button>
+                <button type="button" aria-label={t(locale, "nextBestSeller")} className="intco-business-bestseller-arrow intco-business-bestseller-arrow-next">
+                  <span className="source-swiper-arrow source-swiper-arrow-next" aria-hidden="true" />
+                </button>
+                <div className="intco-business-bestseller-grid">
+                  {group.products.map((product, index) => {
+                    const productTitle = localizedBusinessInsightsBestsellerProductTitle(locale, product);
+                    return (
+                      <Link
+                        key={product.path}
+                        href={localizePath(locale, product.path)}
+                        className="intco-business-bestseller-card group"
+                        data-reveal
+                        style={{ "--reveal-delay": `${index * 80}ms` } as React.CSSProperties}
+                      >
+                        <span className="intco-business-bestseller-image">
+                          <Image src={product.imageUrl} alt={productTitle} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 334px, 85vw" />
+                        </span>
+                        <span className="intco-business-bestseller-name">
+                          {productTitle}
+                        </span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })}
+      <ProductContactSection locale={locale} />
+    </div>
+  );
+}
+
+export function BusinessInsightsChildView({ path, locale }: { path: string; locale: Locale }) {
+  const report = BUSINESS_INSIGHTS_TREND_REPORTS.find((item) => item.path === path);
+  if (report) {
+    return <BusinessInsightsTrendReportView locale={locale} report={report} />;
+  }
+  if (path === "/solutions/business-insights-trends/bestsellers") {
+    return <BusinessInsightsBestsellersView locale={locale} />;
+  }
+  return null;
 }
 
 function DesignEngineeringSourceView({ locale }: { locale: Locale }) {
@@ -4070,12 +5855,7 @@ function OurManufacturingBlock({ locale, variant = "default" }: { locale: Locale
         </p>
         <div className="intco-design-manufacturing" data-reveal="fade">
           <div className="intco-design-video">
-            <iframe
-              src="https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC"
-              title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
+            <LazyVideoEmbed className="absolute inset-0" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
           </div>
           <div className="intco-design-manufacturing-copy">
             <p>{t(locale, "sourceManufacturingDescription")}</p>
@@ -4758,10 +6538,189 @@ type ProjectSourceListItem = {
   category?: string;
 };
 
+type ProjectSourceExternalCard = {
+  href: string;
+  imageUrl: string;
+  title: string;
+  date?: string;
+  description?: string;
+};
+
+type ProjectSourceDetailSnapshot = {
+  usedItems: ProjectSourceExternalCard[];
+  relatedProjects: ProjectSourceExternalCard[];
+  inspirationItems: ProjectSourceExternalCard[];
+};
+
+const PROJECT_SOURCE_BLOG_BLOOMBERG = {
+  href: "https://www.intcoframing-us.com/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released/",
+  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Intco-Recycling-has-been-awarded-the-Best-Bloomberg-Green-ESG-Projects.jpg",
+  title: "The 2023 Bloomberg Green ESG…",
+  date: "29 Jan 2024",
+  description: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released.",
+};
+
+const PROJECT_SOURCE_BLOG_MEDICINE_MIRROR = {
+  href: "https://www.intcoframing-us.com/news/the-major-materials-of-medicine-mirror-cabinet/",
+  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+  title: "The Major Materials of Medic…",
+  date: "29 Jan 2024",
+  description: "Bathroom medicine cabinets are available in various materials - you can choose f…",
+};
+
+const PROJECT_SOURCE_BLOG_LED_BATHROOM = {
+  href: "https://www.intcoframing-us.com/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space/",
+  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Bathroom-Round-Wall-Mirror-Ideas.jpg",
+  title: "5 Ways an LED Bathroom Vanit…",
+  date: "29 Jan 2024",
+  description: "Looking to revitalise your bathroom? Heres how an LED bathroom vanity mirror wit…",
+};
+
+const PROJECT_SOURCE_BLOG_COMMON = [PROJECT_SOURCE_BLOG_BLOOMBERG, PROJECT_SOURCE_BLOG_MEDICINE_MIRROR, PROJECT_SOURCE_BLOG_LED_BATHROOM];
+const PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG = [PROJECT_SOURCE_BLOG_LED_BATHROOM, PROJECT_SOURCE_BLOG_BLOOMBERG];
+
+const PROJECTS_SOURCE_DETAIL_SNAPSHOTS: Record<string, ProjectSourceDetailSnapshot> = {
+  "/projects/living-room": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/neutral-minimalist-framed-abstract-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-3.jpg", title: "Neutral Minimalist Framed Abstract Wall Art" },
+      { href: "https://www.intcoframing-us.com/round-wood-decorative-mirror-for-wall/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-26.jpg", title: "Washed White Round Wood Decorative Mirror for Wall" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/modern-abstract-canvas-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-96.jpg", title: "Modern Abstract Canvas Wall Art" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg", title: "Bedroom" },
+      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg", title: "Dining Room" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/bedroom": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/art/canvas-art/large-framed-canvas-wall-art-abstract-neutral/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-103.jpg", title: "Large Framed Canvas Wall Art Abstract Neutral" },
+      { href: "https://www.intcoframing-us.com/natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-54.jpg", title: "Natural Wood Wall & Tabletop Picture Frame with Plastic Frame" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg", title: "Living Room" },
+      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg", title: "Bathroom" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/bathroom": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/black-rectangular-medicine-cabinet-with-mirror-22x26-8-in/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-33.jpg", title: "Black Rectangular Medicine Cabinet with Mirror 22x26.8 in" },
+      { href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-52.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/kitchen/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-5-1.jpg", title: "Kitchen" },
+      { href: "https://www.intcoframing-us.com/projects/childrens-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%84%BF%E7%AB%A5.jpg", title: "Children's Room" },
+    ],
+    inspirationItems: [PROJECT_SOURCE_BLOG_LED_BATHROOM],
+  },
+  "/projects/dining-room": {
+    usedItems: [{ href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2-2.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" }],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg", title: "Bathroom" },
+      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg", title: "Living Room" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
+  },
+  "/projects/kitchen": {
+    usedItems: [{ href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-52.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" }],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg", title: "Dining Room" },
+      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg", title: "Living Room" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
+  },
+  "/projects/childrens-room": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/french-floral-landscapes-illustrations-framed-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-4.jpg", title: "French Floral Landscapes Illustrations Framed Wall Art" },
+      { href: "https://www.intcoframing-us.com/art/framed-art/animal-giraffe-framed-wall-art-decor-piece-of-2/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-90.jpg", title: "Animal Giraffe Framed Wall Art Decor Piece of 2" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg", title: "Bathroom" },
+      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg", title: "Bedroom" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
+  },
+  "/projects/hotel": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2-2.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" },
+      { href: "https://www.intcoframing-us.com/wood-wall-mounted-picture-frame-11x14-matted-to-8x10/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-64.jpg", title: "Wood Wall Mounted Picture Frame 11x14 Matted to 8x10" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/office": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/art/framed-art/black-framed-abstract-wall-art-set-of-2/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-2-1.jpg", title: "Black Framed Abstract Wall Art Set of 2" },
+      { href: "https://www.intcoframing-us.com/ps-framed-vintage-wood-grain-tabletop-photo-frame/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg", title: "PS Framed Vintage Wood Grain Tabletop Picture Frame" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/school/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-7.jpg", title: "School" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/gallery": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/art/framed-art/framed-print-coastal-wall-art-2-piece-20x20/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-107.jpg", title: "Framed Print Coastal Wall Art 2 Piece 20x20" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/white-flowers-floral-canvas-wall-art-print/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-104.jpg", title: "White Flowers Floral Canvas Wall Art Print" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/sea-star-and-sea-shell-theme-canvas-wall-art-piece-of-2/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-102.jpg", title: "Sea Star and Sea Shell Theme Canvas Wall Art Piece of 2" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/cafes": {
+    usedItems: [{ href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-1.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" }],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
+      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg", title: "Gallery" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/restaurant": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-1.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" },
+      { href: "https://www.intcoframing-us.com/botanical-wall-art-wooden-vintage-tropical-leaves-nature-wall-decor/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-19.jpg", title: "Botanical Wall Art Wooden Vintage Tropical Leaves Nature Wall Decor" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/large-commercial-space/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-6.jpg", title: "Large Commercial Space" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/large-commercial-space": {
+    usedItems: [{ href: "https://www.intcoframing-us.com/modern-mirror-with-non-rusting-iron-metal-framed-wall-mounted-decorative-mirror/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-28.jpg", title: "Modern Mirror with Non-Rusting Iron Metal Framed Wall Mounted Decorative Mirror" }],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg", title: "Gallery" },
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+  "/projects/school": {
+    usedItems: [
+      { href: "https://www.intcoframing-us.com/wall-cork-board-for-photo-display-20x20-inch/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2.jpg", title: "Wall Cork Board for Picture Display 20x20 Inch" },
+      { href: "https://www.intcoframing-us.com/chalkboard-style-memo-board-50x70cm/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-6.jpg", title: "Chalkboard Style Memo Board 50x70cm" },
+      { href: "https://www.intcoframing-us.com/dry-erase-wall-calendar-with-black-frame-40x40cm/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-5.jpg", title: "Dry Erase Wall Calendar with Black Frame 40x40cm" },
+    ],
+    relatedProjects: [
+      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg", title: "Gallery" },
+      { href: "https://www.intcoframing-us.com/projects/office/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%AE%A41.jpg", title: "Office" },
+    ],
+    inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
+  },
+};
+
 function orderedProjectsSourceItems(projects: Project[], locale: Locale, variant: "all" | "residential" | "commercial" = "all"): ProjectSourceListItem[] {
   const filtered = projects.filter((project) => {
-    if (variant === "residential") return (project.categoryKey || project.category) === "Residential";
-    if (variant === "commercial") return (project.categoryKey || project.category) === "Commercial";
+    const category = project.categoryKey || project.category;
+    if (variant === "residential") return PROJECTS_SOURCE_RESIDENTIAL_PATHS.has(project.path) || category === "Residential";
+    if (variant === "commercial") return PROJECTS_SOURCE_COMMERCIAL_PATHS.has(project.path) || category === "Commercial";
     return true;
   });
   const orderMap = new Map(PROJECTS_SOURCE_ORDER.map((path, index) => [path, index]));
@@ -4775,12 +6734,14 @@ function orderedProjectsSourceItems(projects: Project[], locale: Locale, variant
     })
     .map((project) => {
       const fallback = PROJECTS_SOURCE_ITEM_BY_PATH.get(project.path);
+      const localizedCopy = localizedProjectsSourceCopy(locale, project.path);
+      const title = localizedCopy?.title || project.title;
       return {
-        title: project.title,
+        title,
         path: project.path,
-        imageUrl: project.imageUrl || fallback?.imageUrl || PROJECTS_HERO_IMAGE,
-        imageAlt: project.imageAlt || project.title,
-        description: project.description || fallback?.description || "",
+        imageUrl: fallback?.imageUrl || project.imageUrl || PROJECTS_HERO_IMAGE,
+        imageAlt: project.imageAlt || title,
+        description: localizedCopy?.description || fallback?.description || project.description || "",
         category: project.categoryKey || project.category,
       };
     });
@@ -4789,15 +6750,16 @@ function orderedProjectsSourceItems(projects: Project[], locale: Locale, variant
 function ProjectsSourceListingView({ locale, pageNumber, projects, variant = "all" }: { locale: Locale; pageNumber: number; projects: Project[]; variant?: "all" | "residential" | "commercial" }) {
   const isResidential = variant === "residential";
   const isCommercial = variant === "commercial";
+  const isFilteredArchive = isResidential || isCommercial;
   const allItems = orderedProjectsSourceItems(projects, locale, variant);
   const totalPages = Math.max(1, Math.ceil(allItems.length / PROJECTS_SOURCE_PAGE_SIZE));
-  const activePage = isResidential || isCommercial ? 1 : pageNumber >= 1 && pageNumber <= totalPages ? pageNumber : 1;
+  const activePage = isFilteredArchive ? 1 : pageNumber >= 1 && pageNumber <= totalPages ? pageNumber : 1;
   const startIndex = (activePage - 1) * PROJECTS_SOURCE_PAGE_SIZE;
-  const items = allItems.slice(startIndex, startIndex + PROJECTS_SOURCE_PAGE_SIZE);
+  const items = isFilteredArchive ? allItems : allItems.slice(startIndex, startIndex + PROJECTS_SOURCE_PAGE_SIZE);
   const pageHref = (page: number) => (page === 1 ? "/projects" : `/projects/page/${page}`);
   const title = isResidential ? t(locale, "residential") : isCommercial ? t(locale, "commercial") : t(locale, "projects").toUpperCase();
   const heroTitle = isResidential ? t(locale, "residential") : isCommercial ? t(locale, "commercial") : t(locale, "projects");
-  const paginationItems = isResidential || isCommercial
+  const paginationItems = isFilteredArchive
     ? []
     : [
         ...(activePage > 1 ? [{ label: "<", page: activePage - 1, ariaLabel: t(locale, "previousProjectsPage") }] : []),
@@ -4835,21 +6797,19 @@ function ProjectsSourceListingView({ locale, pageNumber, projects, variant = "al
               <ProjectsSourceCard key={project.path} project={project} index={index} locale={locale} />
             ))}
           </div>
-          {!isCommercial ? (
-            <nav className="flex h-[120px] items-start justify-center gap-[6px] py-[30px]" aria-label="Projects pagination">
-              {paginationItems.map((item, index) =>
-                "current" in item && item.current ? (
-                  <span key={`${item.label}-${index}`} className="flex size-[30px] items-center justify-center bg-[#484653] text-base leading-[30px] text-white" aria-current="page">
-                    {item.label}
-                  </span>
-                ) : (
-                  <Link key={`${item.label}-${index}`} href={localizePath(locale, pageHref(item.page))} className="flex size-[30px] items-center justify-center bg-[#f3f3f3] text-base leading-[30px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white" aria-label={"ariaLabel" in item ? item.ariaLabel : undefined}>
-                    {item.label}
-                  </Link>
-                ),
-              )}
-            </nav>
-          ) : null}
+          <nav className="flex h-[120px] items-start justify-center gap-[6px] py-[30px]" aria-label="Projects pagination">
+            {paginationItems.map((item, index) =>
+              "current" in item && item.current ? (
+                <span key={`${item.label}-${index}`} className="flex size-[30px] items-center justify-center bg-[#484653] text-base leading-[30px] text-white" aria-current="page">
+                  {item.label}
+                </span>
+              ) : (
+                <Link key={`${item.label}-${index}`} href={localizePath(locale, pageHref(item.page))} className="flex size-[30px] items-center justify-center bg-[#f3f3f3] text-base leading-[30px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white" aria-label={"ariaLabel" in item ? item.ariaLabel : undefined}>
+                  {item.label}
+                </Link>
+              ),
+            )}
+          </nav>
         </div>
       </section>
       <ProjectsSourceContactBand locale={locale} />
@@ -5481,111 +7441,616 @@ export function ProjectDetailView({
   project,
   products,
   projects,
+  posts = [],
   locale,
 }: {
   project: Project;
   products: Product[];
   projects: Project[];
+  posts?: BlogPost[];
   locale: Locale;
 }) {
   const lines = contentLines(project.bodyText, 100);
   const usedItemNames = extractBetween(lines, "USED ITEMS", "YOU MAY ALSO LIKE").filter((line) => !line.includes("Explore more details"));
   const usedProducts = usedItemNames
-    .map((name) => products.find((product) => product.title.toLowerCase() === name.toLowerCase()))
+    .map((name) => findSourceProductByTitle(products, name))
     .filter(Boolean) as Product[];
-  const gallery = itemGallery(project);
-  const usedStart = lines.findIndex((line) => line === "USED ITEMS");
-  const body = lines.slice(0, usedStart > -1 ? usedStart : lines.length);
+  const gallery = projectSourceDetailGallery(project);
+  const mainDescription = projectSourceMainDescription(project, lines);
   const relatedProjectNames = extractBetween(lines, "YOU MAY ALSO LIKE", "GET MORE INSPIRATION");
   const relatedByName = relatedProjectNames
-    .map((name) => projects.find((item) => item.title.toLowerCase() === name.toLowerCase()))
+    .map((name) => projects.find((item) => normalizeSourceTitle(item.title) === normalizeSourceTitle(name)))
     .filter(Boolean) as Project[];
   const relatedProjects = (relatedByName.length ? relatedByName : projects.filter((item) => item.slug !== project.slug)).slice(0, 4);
   const inspirationLines = extractAfter(lines, "GET MORE INSPIRATION", 8);
+  const inspirationPosts = sourceProjectInspirationPosts(posts, inspirationLines).slice(0, 4);
+  const categoryPath = (project.categoryKey || project.category) === "Commercial" ? "/projects/commercial" : "/projects/residential";
+  const sourceSnapshot = PROJECTS_SOURCE_DETAIL_SNAPSHOTS[project.path];
+  const sourceUsedItems = sourceSnapshot?.usedItems.length
+    ? sourceSnapshot.usedItems
+    : usedProducts.map((product) => ({
+        href: product.path,
+        imageUrl: preferredImage(product),
+        title: product.title,
+      }));
+  const sourceRelatedProjects = sourceSnapshot?.relatedProjects.length
+    ? sourceSnapshot.relatedProjects
+    : relatedProjects.slice(0, 2).map((item) => ({
+        href: item.path,
+        imageUrl: PROJECTS_SOURCE_ITEM_BY_PATH.get(item.path)?.imageUrl || preferredImage(item),
+        title: item.title,
+      }));
+  const sourceInspirationItems = sourceSnapshot?.inspirationItems.length
+    ? sourceSnapshot.inspirationItems
+    : (inspirationPosts.length ? inspirationPosts : posts.slice(0, 3)).map((post) => ({
+        href: post.path,
+        imageUrl: post.imageUrl || "",
+        title: post.title,
+        date: formatDate(post.publishedAt),
+        description: post.excerpt || "",
+      }));
+
+  return (
+    <div className="intco-project-detail-source-page intco-project-source-exact">
+      <ProjectsSourceHero locale={locale} title={project.title} showProjectsCrumb />
+
+      <div className="project22-index">
+        <div className="m-width-content intco-source-container">
+          <div className="ipd-20">
+            <ProjectSourceGallerySwitcher
+              contactLabel={t(locale, "contactUs")}
+              description={mainDescription}
+              fallbackHref={localizePath(locale, "/contact#chat")}
+              gallery={gallery}
+              title={project.title}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="project22-index margin100">
+        <div className="m-width-content intco-source-container">
+          <div className="ipd-20">
+            <ProjectDetailSourceTitle title="USED ITEMS" />
+            <div className="product-index-list">
+              <div className="w3-project22 hc-w3-project">
+                <ul>
+                  {sourceUsedItems.map((item) => (
+                    <ProjectSourceUsedItem key={`${item.href}-${item.title}`} item={item} locale={locale} />
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="project22-index2 margin100">
+        <div className="m-width-content intco-source-container">
+          <div className="ipd-20">
+            <ProjectDetailSourceTitle title="YOU MAY ALSO LIKE" />
+            <div className="product-index-list">
+              <ul>
+                {sourceRelatedProjects.map((item) => (
+                  <ProjectSourceRelatedItem key={`${item.href}-${item.title}`} item={item} locale={locale} />
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {sourceInspirationItems.length || inspirationLines.length ? (
+        <div className="project22-index3 margin100">
+          <div className="m-width-content intco-source-container">
+            <div className="ipd-20">
+            <ProjectDetailSourceTitle title="GET MORE INSPIRATION" />
+              <div className="product-index-list noBorderRadius">
+                <div className="w3-project-index3">
+                  <ul>
+                    {sourceInspirationItems.map((item) => (
+                      <ProjectSourceInspirationItem key={`${item.href}-${item.title}`} item={item} locale={locale} />
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      <div className="sr-only">
+        <Link href={localizePath(locale, categoryPath)}>{project.category || "Projects"}</Link>
+      </div>
+    </div>
+  );
+}
+
+function ProjectDetailSourceTitle({ title }: { title: string }) {
+  return (
+    <div className="selefTitle leftTitle margin64" data-tit={title}>
+      <div className="title_text">{title}</div>
+    </div>
+  );
+}
+
+function ProjectSourceUsedItem({ item, locale }: { item: ProjectSourceExternalCard; locale: Locale }) {
+  return (
+    <li className="wow fadeInUp">
+      <Link href={localizeSourceHref(item.href, locale)}>
+        <div className="w-item-box">
+          <div className="img-box">
+            <img src={item.imageUrl} title={item.title} alt={item.title} />
+          </div>
+          <div className="box-item-bottom">
+            <div className="View-All-btn">
+              <div className="View-All-btn-item">{item.title}</div>
+            </div>
+          </div>
+          <div className="bottomText" />
+        </div>
+      </Link>
+    </li>
+  );
+}
+
+function ProjectSourceRelatedItem({ item, locale }: { item: ProjectSourceExternalCard; locale: Locale }) {
+  return (
+    <li className="wow fadeInUp">
+      <div className="w-item-box">
+        <div className="img-box">
+          <Link href={localizeSourceHref(item.href, locale)}>
+            <img src={item.imageUrl} title={item.title} alt={item.title} />
+          </Link>
+        </div>
+        <div className="bottomText bottomText3">
+          <div className="b-text-center">{item.title}</div>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function ProjectSourceInspirationItem({ item, locale }: { item: ProjectSourceExternalCard; locale: Locale }) {
+  return (
+    <li className="wow fadeInUp">
+      <div className="w-item-box">
+        <div className="img-box">
+          <Link href={localizeSourceHref(item.href, locale)}>
+            <img src={item.imageUrl} title={item.title} alt={item.title} />
+          </Link>
+        </div>
+        <div className="index3-item-bottom">
+          <div className="index3-item-title">{item.title}</div>
+          {item.date ? <div className="index3-item-desc">{item.date}</div> : null}
+          {item.description ? <div className="DESC">{item.description}</div> : null}
+          <div className="View-All-btn">
+            <Link href={localizeSourceHref(item.href, locale)} className="View-All-btn-item itemBntBlock">
+              {t(locale, "readMore")}
+              <ArrowRight size={15} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+}
+
+function localizeSourceHref(href: string, locale: Locale) {
+  try {
+    const url = new URL(href);
+    if (url.hostname === "www.intcoframing-us.com" || url.hostname === "intcoframing-us.com") {
+      return localizePath(locale, url.pathname.replace(/\/$/, "") || "/");
+    }
+  } catch {
+    return localizePath(locale, href);
+  }
+  return href;
+}
+
+function projectSourceDetailGallery(project: Project) {
+  const sourceGallery = PROJECTS_SOURCE_DETAIL_GALLERIES[project.path] || [];
+  if (sourceGallery.length) return sourceGallery;
+  const fallback = PROJECTS_SOURCE_ITEM_BY_PATH.get(project.path)?.imageUrl;
+  return Array.from(new Set([...itemGallery(project), fallback || ""].filter(Boolean)));
+}
+
+function projectSourceMainDescription(project: Project, lines: string[]) {
+  const title = normalizeSourceTitle(project.title);
+  const stopIndex = lines.findIndex((line) => line.includes("Explore more details") || line === "USED ITEMS");
+  const candidates = lines
+    .slice(0, stopIndex > -1 ? stopIndex : lines.length)
+    .filter((line) => normalizeSourceTitle(line) !== title)
+    .filter((line) => !/^[A-Z\s'&-]{3,}$/.test(line));
+  return candidates.join(" ") || project.description || PROJECTS_SOURCE_ITEM_BY_PATH.get(project.path)?.description || "";
+}
+
+function findSourceProductByTitle(products: Product[], title: string) {
+  const needle = normalizeSourceTitle(title);
+  return products.find((product) => {
+    const candidate = normalizeSourceTitle(product.title);
+    return candidate === needle || candidate.includes(needle) || needle.includes(candidate);
+  });
+}
+
+function sourceProjectInspirationPosts(posts: BlogPost[], lines: string[]) {
+  const matched = lines
+    .map((line) => posts.find((post) => normalizeSourceTitle(post.title) === normalizeSourceTitle(line) || normalizeSourceTitle(post.title).includes(normalizeSourceTitle(line.replace(/…$/, "")))))
+    .filter(Boolean) as BlogPost[];
+  return matched.length ? matched : posts;
+}
+
+function normalizeSourceTitle(value: string) {
+  return value
+    .replace(/&[#a-z0-9]+;/gi, "")
+    .replace(/[^\p{L}\p{N}]+/gu, "")
+    .toLowerCase();
+}
+
+function VanityMirrorArticleSourceView({ post, locale }: { post: BlogPost; locale: Locale }) {
+  const localized = VANITY_MIRROR_ARTICLE_LOCALIZATIONS[locale as keyof typeof VANITY_MIRROR_ARTICLE_LOCALIZATIONS];
+  const title = localized?.title || "5 Ways an LED Bathroom Vanity Mirror Can lmprove Your Space";
+  const category = localized?.category || localizeSourceBlogCategory(locale, "Inspiration");
+  const tocTitle = localized?.tocTitle || "Table of Contents";
+  const introParagraphs = localized?.introParagraphs || [
+    "Though it may not seem important, the bathroom is one of the most sacred areas in the home. It’s where you get ready in the morning, decompress at night, and wash away the stress of the day.",
+    "Looking to revitalise this critical space? Upgrading to a vanity mirror with LED lights is one of the latest bathroom trends.",
+    "If that style of lighting sounds a bit soulless for your taste, don’t worry. There’s a reason it’s taken the design world by storm. With the right frame moulding, the final result is nothing short of stylish.",
+    "Let’s explore what makes the LED bathroom vanity mirror so popular for a wide array of aesthetics!",
+    "Here are 5 Ways an LED Mirror Moulding Frame Can Improve Your Bathroom:",
+  ];
+  const sections = VANITY_MIRROR_ARTICLE_SECTIONS.map((section, index) => ({
+    ...section,
+    heading: localized?.sections[index]?.heading || section.heading,
+    paragraphs: localized?.sections[index]?.paragraphs || section.paragraphs,
+  }));
+  return (
+    <div className="intco-source-blog-detail">
+      <section className="intco-source-blog-hero">
+        <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog1.png" alt={title} fill className="object-cover" sizes="100vw" preload />
+        <div className="intco-source-blog-hero-content">
+          <div className="m-width-content">
+            <div className="ipd-20">
+              <h1>{title}</h1>
+              <nav className="crumbs-box" aria-label="Breadcrumb">
+                <Link className="home" href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+                <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+                <Link href={localizePath(locale, "/blog")}>{t(locale, "blog")}</Link>
+                <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+                <Link href={localizePath(locale, "/inspiration")}>{category}</Link>
+                <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+                <span>{title}</span>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="Bestsellers-index belog1-index belogDetail-index intco-source-blog-body">
+        <div className="m-width-content">
+          <div className="ipd-20">
+            <div className="intco-source-blog-grid">
+              <article className="wow fadeInUp leftBox">
+                <div className="belogDetail-item">
+                  <Link href={localizePath(locale, "/inspiration")}>
+                    <div className="Inspiration">{category}</div>
+                  </Link>
+                  <div className="belogDetail-title">{title}</div>
+                  <div className="line" />
+                  <div className="timeSelect">
+                    <div className="rightBtn">Jan 29, 2024</div>
+                  </div>
+
+                  <div className="DESC textcenter">
+                    <BlogArticleToc title={tocTitle} sections={sections} />
+                    {introParagraphs.map((paragraph, index) => (
+                      <p key={`${paragraph}-${index}`}>
+                        {index === 4 && localized ? (
+                          <>
+                            <Link href={localizePath(locale, "/mirror/led-mirror")}><strong>{localized.ledLinkText}</strong></Link>
+                            のモールディングフレームがバスルームを向上させる 5 つの方法をご紹介します。
+                          </>
+                        ) : (
+                          paragraph
+                        )}
+                      </p>
+                    ))}
+                  </div>
+
+                  {sections.map((section, index) => (
+                    <div key={section.heading} className="intco-source-blog-section">
+                      <div className="fixedImg" data-reveal="fade" style={{ "--reveal-delay": `${index * 60}ms` } as React.CSSProperties}>
+                        <div className="img-box">
+                          <Image src={section.imageUrl} alt={section.imageAlt} fill className="object-cover" sizes="(min-width: 1024px) 820px, 100vw" />
+                        </div>
+                      </div>
+                      <div className="belogDetail-3TITLE" id={`heading-${index}`}>
+                        <h2>{section.heading}</h2>
+                      </div>
+                      <div className="DESC textcenter">
+                        {section.paragraphs.map((paragraph, paragraphIndex) => (
+                          <p key={paragraph}>
+                            {renderVanityMirrorParagraph(paragraph, locale, index, paragraphIndex)}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  <SourceBlogFooter title={title} currentPath={post.path} previousPath="/news/the-major-materials-of-medicine-mirror-cabinet" nextPath="/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released" locale={locale} />
+                </div>
+              </article>
+
+              <SourceBlogSidebar locale={locale} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ProductContactSection locale={locale} />
+    </div>
+  );
+}
+
+function SourceNewsArticleSourceView({
+  article,
+  post,
+  locale,
+}: {
+  article: (typeof SOURCE_NEWS_ARTICLES)[keyof typeof SOURCE_NEWS_ARTICLES];
+  post: BlogPost;
+  locale: Locale;
+}) {
+  const localizedArticle = localizedSourceNewsArticle(article, post, locale);
+  return (
+    <div className="intco-source-blog-detail">
+      <section className="intco-source-blog-hero">
+        <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog1.png" alt={localizedArticle.title} fill className="object-cover" sizes="100vw" preload />
+        <div className="intco-source-blog-hero-content">
+          <div className="m-width-content">
+            <div className="ipd-20">
+              <h1>{localizedArticle.title}</h1>
+              <nav className="crumbs-box" aria-label="Breadcrumb">
+                <Link className="home" href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+                <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+                <Link href={localizePath(locale, "/blog")}>{t(locale, "blog")}</Link>
+                <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+                <Link href={localizePath(locale, article.categoryPath)}>{localizedArticle.category}</Link>
+                <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+                <span>{localizedArticle.title}</span>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="Bestsellers-index belog1-index belogDetail-index intco-source-blog-body">
+        <div className="m-width-content">
+          <div className="ipd-20">
+            <div className="intco-source-blog-grid">
+              <article className="wow fadeInUp leftBox">
+                <div className="belogDetail-item">
+                  <Link href={localizePath(locale, article.categoryPath)}>
+                    <div className="Inspiration">{localizedArticle.category}</div>
+                  </Link>
+                  <div className="belogDetail-title">{localizedArticle.title}</div>
+                  <div className="line" />
+                  <div className="timeSelect">
+                    <div className="rightBtn">{localizedArticle.date}</div>
+                  </div>
+
+                  <div className="DESC textcenter">
+                    {localizedArticle.introParagraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </div>
+
+                  {localizedArticle.leadImage ? (
+                    <div className="fixedImg" data-reveal="fade">
+                      <div className="img-box">
+                        <Image src={localizedArticle.leadImage.imageUrl} alt={localizedArticle.leadImage.imageAlt} fill className="object-cover" sizes="540px" />
+                      </div>
+                    </div>
+                  ) : null}
+
+                  {localizedArticle.sections.map((section, index) => (
+                    <div key={`${"heading" in section ? section.heading : "section"}-${index}`} className="intco-source-blog-section">
+                      {"heading" in section && section.heading ? (
+                        <div className="belogDetail-3TITLE">
+                          <h2>{section.heading}</h2>
+                        </div>
+                      ) : null}
+                      <div className="DESC textcenter">
+                        {section.paragraphs.map((paragraph) => (
+                          <p key={paragraph}>{paragraph}</p>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  <SourceBlogFooter title={localizedArticle.title} currentPath={post.path} previousPath={localizedArticle.previousPath} nextPath={localizedArticle.nextPath} locale={locale} />
+                </div>
+              </article>
+
+              <SourceBlogSidebar locale={locale} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <ProductContactSection locale={locale} />
+    </div>
+  );
+}
+
+function SourceBlogFooter({
+  title,
+  currentPath,
+  previousPath,
+  nextPath,
+  locale,
+}: {
+  title: string;
+  currentPath: string;
+  previousPath?: string;
+  nextPath?: string;
+  locale: Locale;
+}) {
+  const labels = SOURCE_BLOG_LABELS[locale];
+  const pageLink = (path: string | undefined, content: React.ReactNode, className?: string) => {
+    if (!path) {
+      return (
+        <a href="#top" className={className}>
+          {content}
+        </a>
+      );
+    }
+    return (
+      <Link href={localizePath(locale, path)} className={className}>
+        {content}
+      </Link>
+    );
+  };
 
   return (
     <>
-      <PageHero title={project.title} description={project.description} imageUrl={project.imageUrl} label={project.category || "Project"} />
-      <section className="bg-white py-14">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.15fr_.85fr] lg:px-8">
-          <div className="grid gap-4" data-reveal="left">
-            <div className="relative aspect-[16/10] overflow-hidden bg-neutral-100">
-              {gallery[0] ? <Image src={gallery[0]} alt={project.imageAlt || project.title} fill className="object-cover" sizes="(min-width: 1024px) 60vw, 100vw" /> : null}
-            </div>
-            {gallery.length > 1 ? (
-              <div className="grid grid-cols-3 gap-4">
-                {gallery.slice(1, 8).map((image) => (
-                  <div key={image} className="relative aspect-[4/3] bg-neutral-100">
-                    <Image src={image} alt={project.imageAlt || project.title} fill className="object-cover" sizes="220px" />
-                  </div>
-                ))}
-              </div>
-            ) : null}
-          </div>
-          <article className="flex flex-col justify-center" data-reveal="right">
-            <p className="text-sm font-bold uppercase text-emerald-700">{project.category || "Project"}</p>
-            <h2 className="mt-3 text-balance text-4xl font-semibold text-neutral-950">{project.title}</h2>
-            <div className="mt-6 space-y-4 text-pretty leading-8 text-neutral-600">
-              {(body.length ? body : [project.description || ""]).filter(Boolean).map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </div>
-          </article>
+      <div className="belogDetail-bottom">
+        <div className="bottom-item">
+          <a href="#top" className="leftIcon favorite" aria-label={labels.favorite}>
+            <Heart size={22} strokeWidth={1.7} aria-hidden="true" />
+          </a>
         </div>
-      </section>
-      <section className="bg-neutral-100 py-16">
-        <SectionTitle eyebrow={t(locale, "usedItems")} title={t(locale, "productsInProject")} />
-        {usedItemNames.length ? (
-          <div className="mx-auto mt-6 flex max-w-7xl flex-wrap gap-3 px-4 sm:px-6 lg:px-8">
-            {usedItemNames.map((name) => (
-              <span key={name} className="bg-white px-4 py-2 text-sm font-semibold text-neutral-700 ring-1 ring-black/5">
-                {name}
-              </span>
-            ))}
-          </div>
-        ) : null}
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {(usedProducts.length ? usedProducts : products.slice(0, 4)).map((product, index) => (
-            <div key={product.slug} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
-              <ProductCard product={product} locale={locale} />
-            </div>
+        <div className="bottom-item intco-source-blog-share">
+          <a href="https://www.facebook.com/IntcoFraming.cn/" style={{ background: "#4F5FBF" }} aria-label="Facebook"><span aria-hidden="true">f</span></a>
+          <a href="https://twitter.com/intco_framing" style={{ background: "#48BDE9" }} aria-label="Twitter"><i className="iconfont icon-tuite" aria-hidden="true" /></a>
+          <a href="https://www.linkedin.com/company/intcoframing/" style={{ background: "#0077B5" }} aria-label="LinkedIn"><span aria-hidden="true">in</span></a>
+          <a href={`mailto:?subject=${encodeURIComponent(title)}`} style={{ background: "#D54B3D" }} aria-label="Email"><span aria-hidden="true">M</span></a>
+          <a href="https://www.instagram.com/intcoframing/" style={{ background: "#FBAE59" }} aria-label="Instagram"><Camera size={19} strokeWidth={2.7} aria-hidden="true" /></a>
+          <a href={localizePath(locale, currentPath)} style={{ background: "#484653" }} className="copyRightIcon" aria-label={labels.copyLink}><Link2 size={20} strokeWidth={3} aria-hidden="true" /></a>
+        </div>
+      </div>
+
+      <div className="intco-source-blog-warnings" aria-hidden="true">
+        <p><strong>Warning:</strong> Undefined variable $category in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>109</strong></p>
+        <p><strong>Warning:</strong> Attempt to read property &quot;term_id&quot; on null in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>109</strong></p>
+        <p><strong>Warning:</strong> Undefined variable $category in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>110</strong></p>
+        <p><strong>Warning:</strong> Attempt to read property &quot;term_id&quot; on null in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>110</strong></p>
+      </div>
+
+      <div className="flex-pagation">
+        <div className="flex-pagation-item">
+          {pageLink(previousPath, (
+            <>
+              <i className="iconfont icon-jiantou_liebiaoxiangzuo" aria-hidden="true" />
+              {labels.previous}
+            </>
           ))}
         </div>
-      </section>
-      <section className="bg-white py-16">
-        <SectionTitle eyebrow={t(locale, "youMayAlsoLike")} title={t(locale, "moreProjectIdeas")} />
-        {relatedProjectNames.length ? (
-          <div className="mx-auto mt-6 flex max-w-7xl flex-wrap gap-3 px-4 sm:px-6 lg:px-8">
-            {relatedProjectNames.map((name) => (
-              <span key={name} className="bg-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-700">
-                {name}
-              </span>
-            ))}
-          </div>
-        ) : null}
-        <div className="mx-auto mt-10 grid max-w-7xl gap-5 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-          {relatedProjects.map((item, index) => (
-            <div key={item.slug} data-reveal style={{ "--reveal-delay": `${index * 70}ms` } as React.CSSProperties}>
-              <ImageCard href={localizePath(locale, item.path)} title={item.title} label={item.category} imageUrl={item.imageUrl} alt={item.imageAlt} locale={locale} />
-            </div>
+        <div className="flex-pagation-item">
+          {pageLink(nextPath, (
+            <>
+              {labels.next}
+              <i className="iconfont icon-jiantou_liebiaoxiangyou" aria-hidden="true" />
+            </>
           ))}
         </div>
-      </section>
-      {inspirationLines.length ? (
-        <section className="bg-neutral-100 py-16">
-          <SectionTitle eyebrow={t(locale, "blog")} title={t(locale, "getMoreInspiration").toUpperCase()} />
-          <div className="mx-auto mt-8 grid max-w-7xl gap-4 px-4 sm:px-6 md:grid-cols-2 lg:grid-cols-4 lg:px-8">
-            {inspirationLines.map((line, index) => (
-              <div key={`${line}-${index}`} className="bg-white p-5 text-sm font-semibold leading-6 text-neutral-700 ring-1 ring-black/5">
-                {line}
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
-      <ContactBand locale={locale} />
+      </div>
     </>
   );
+}
+
+function SourceBlogSidebar({ locale }: { locale: Locale }) {
+  const labels = SOURCE_BLOG_LABELS[locale];
+  return (
+    <aside className="wow fadeInDown rightBox">
+      <div className="right-box-title">{labels.popularPosts}</div>
+      <ul className="intco-source-popular-posts">
+        {VANITY_MIRROR_POPULAR_POSTS.map((item) => {
+          const localizedItem = localizedSourceBlogPopularPost(locale, item);
+          return (
+          <li key={localizedItem.path}>
+            <div className="belog1-index-item">
+              <div className="leftImg-item">
+                <Link href={localizePath(locale, localizedItem.path)}>
+                  <div className="img-box">
+                    <Image src={localizedItem.imageUrl} alt={localizedItem.title} fill className="object-cover" sizes="110px" />
+                  </div>
+                </Link>
+              </div>
+              <div className="index-item-right">
+                <div className="item-title">
+                  <Link href={localizePath(locale, localizedItem.categoryPath)}>{localizedItem.category}</Link>
+                  <span className="time">{localizedItem.date}</span>
+                </div>
+                <div className="item-desc">
+                  <Link href={localizePath(locale, localizedItem.path)}>{localizedItem.title}</Link>
+                </div>
+              </div>
+            </div>
+          </li>
+        );
+        })}
+      </ul>
+      <div className="img-box intco-source-shop-image">
+        <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/blog9.png" alt={labels.shopNow} fill className="object-cover" sizes="360px" />
+      </div>
+      <div className="View-All-btn">
+        <Link href={localizePath(locale, "/products")} className="View-All-btn-item itemBntBlock">
+          {labels.shopNow}
+          <ArrowRight size={18} />
+        </Link>
+      </div>
+      <div className="right-box-title">Instagram</div>
+      <div className="index-belogDetail-list">
+        <ul>
+          {VANITY_MIRROR_INSTAGRAM_ITEMS.map((item, index) => (
+            <li key={item.imageUrl}>
+              <div className="img-box">
+                <a href={item.href} target="_blank" rel="noreferrer">
+                  <Image src={item.imageUrl} alt={`Instagram ${index + 1}`} fill className="object-cover" sizes="112px" />
+                </a>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </aside>
+  );
+}
+
+function BlogArticleToc({ title, sections }: { title: string; sections: Array<{ heading: string }> }) {
+  return (
+    <div className="headings-navigation">
+      <h4>{title}</h4>
+      <ul id="toc-list">
+        {sections.map((section, index) => (
+          <li key={section.heading} className="toc-item">
+            <a href={`#heading-${index}`} className="toc-link">
+              {index + 1}. {section.heading}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function renderVanityMirrorParagraph(paragraph: string, locale: Locale, sectionIndex: number, paragraphIndex: number) {
+  if (locale !== "en") return paragraph;
+  if (sectionIndex === 1 && paragraphIndex === 0) {
+    return (
+      <>
+        It’s common knowledge in the interior design world that <Link href={localizePath(locale, "/mirror")}>mirrors</Link> make rooms feel bigger. Coupled with the invigorating feel of LED lights, your mirror can truly maximise your space. If you’re working with a particularly small bathroom, you won’t regret installing this take on frame moulding.
+      </>
+    );
+  }
+  if (sectionIndex === 4 && paragraphIndex === 2) {
+    return (
+      <>
+        While you’re in the market for fresh frames, don’t forget to grab one or two for photos around the house! We recommend one of our customer favourites: aluminum <Link href={localizePath(locale, "/picture-frame")}>picture frames</Link>.
+      </>
+    );
+  }
+  return paragraph;
 }
 
 export function BlogPostView({
@@ -5607,6 +8072,15 @@ export function BlogPostView({
   const popularPosts = orderedPosts.filter((item) => item.slug !== post.slug).slice(0, 5);
   const relatedPosts = relatedBlogSourceItems(posts, post.slug, page, currentCategory, 3);
   const supplementalLines = locale === "en" ? blogSourceSupplementLines(post.slug).filter((line) => !containsRenderedLine(lines, line)) : [];
+
+  if (sourcePost.slug === VANITY_MIRROR_ARTICLE_SLUG) {
+    return <VanityMirrorArticleSourceView post={sourcePost} locale={locale} />;
+  }
+
+  const sourceNewsArticle = SOURCE_NEWS_ARTICLES[sourcePost.slug as keyof typeof SOURCE_NEWS_ARTICLES];
+  if (sourceNewsArticle) {
+    return <SourceNewsArticleSourceView article={sourceNewsArticle} post={sourcePost} locale={locale} />;
+  }
 
   return (
     <>
@@ -5775,9 +8249,52 @@ export function DetailView({
 export function EnquiryListView({ locale }: { locale: Locale }) {
   return (
     <>
-      <PageHero title={t(locale, "myCart")} description={t(locale, "quote")} />
+      <EnquiryListSourceHero locale={locale} />
       <EnquiryList locale={locale} />
     </>
+  );
+}
+
+function EnquiryListSourceHero({ locale }: { locale: Locale }) {
+  return (
+    <section className="inner-banner intco-enquiry-hero">
+      <div className="swiper">
+        <div className="swiper-wrapper">
+          <div className="swiper-slide">
+            <div className="bg-box">
+              <div className="imgshow">
+                <img src={PRODUCTS_HERO_IMAGE} title="products" alt="products" />
+              </div>
+            </div>
+            <div className="banner-content">
+              <div className="intco-source-container">
+                <div className="intco-source-pad">
+                  <div className="text">
+                    <div className="text-p center">
+                      <h2 className="text-p-title f-84">Enquiry List</h2>
+                      <div className="crumbs-box">
+                        <a className="home" href={localizePath(locale, "/")}>
+                          <div>{t(locale, "home")}</div>
+                        </a>
+                        <span>
+                          <i className="iconfont icon-jiantou_liebiaoxiangyou" /> Enquiry List
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="banner-a">
+                    <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")}>
+                      {t(locale, "chatWithUs")}
+                    </LeadsCloudChatLink>
+                    <a href={localizePath(locale, "/products/#goinput")}>{t(locale, "leaveMessage")}</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -6020,7 +8537,7 @@ function SustainabilitySourceHero({ locale }: { locale: Locale }) {
             <span>{t(locale, "sustainability")}</span>
           </div>
           <div className="mt-7">
-            <SustainabilityVideoButton src={SUSTAINABILITY_VIDEO_SRC} label={labels.watchVideo} />
+            <SustainabilityVideoButton src={SUSTAINABILITY_VIDEO_SRC} label={labels.watchVideo} title={labels.videoTitle} closeLabel={labels.closeVideo} />
           </div>
           <div className="mt-6 flex justify-center gap-[30px] max-sm:flex-col max-sm:items-center max-sm:gap-3">
             <LeadsCloudChatLink
@@ -6265,8 +8782,34 @@ function PhilosophyGalleryTile({ imageUrl, label, locale }: { imageUrl: string; 
   );
 }
 
+function PhilosophyResponsibilityTile({
+  imageUrl,
+  duty,
+  title,
+  priority,
+}: {
+  imageUrl: string;
+  duty: string;
+  title: string;
+  priority?: boolean;
+}) {
+  return (
+    <div className="group relative h-full cursor-pointer overflow-hidden rounded-[3px]" data-reveal>
+      <div className={`relative ${priority ? "aspect-[1015/669]" : "aspect-[674/328]"} max-lg:aspect-[861/402]`}>
+        <Image src={imageUrl} alt={title} fill className="object-cover" sizes={priority ? "(min-width: 1024px) 60vw, 100vw" : "(min-width: 1024px) 40vw, 100vw"} />
+      </div>
+      <span className="absolute inset-0 z-[2] bg-black/45 transition duration-700 group-hover:bg-black/55" aria-hidden="true" />
+      <span className="absolute bottom-[47px] left-[50px] z-[3] max-w-[calc(100%-80px)] text-white max-lg:bottom-8 max-lg:left-8 max-sm:bottom-6 max-sm:left-6">
+        <span className="block text-[24px] font-normal leading-[1.25] max-sm:text-lg">{duty}</span>
+        <span className="mt-[8px] block text-[30px] font-semibold leading-[1.15] max-sm:text-[22px]">{title}</span>
+      </span>
+    </div>
+  );
+}
+
 function PhilosophySourceView({ locale }: { locale: Locale }) {
   const values = localizedPhilosophyValues(locale);
+  const responsibilityCopy = values[5]?.details || PHILOSOPHY_VALUES[5].details || [];
   return (
     <>
       <span className="sr-only">{t(locale, "philosophy")} | INTCO Framing</span>
@@ -6311,28 +8854,34 @@ function PhilosophySourceView({ locale }: { locale: Locale }) {
       </section>
 
       <section className="bg-white pt-[94px] max-lg:pt-8">
-        <div className="intco-source-container px-5">
-          <ul className="grid gap-3 lg:grid-cols-2">
+        <div className="mx-auto w-[calc(100%-88px)] max-w-[1980px] max-lg:w-[calc(100%-40px)]">
+          <div className="flex gap-[14px] max-lg:flex-col">
+            <div className="w-[59.62%] max-lg:w-full">
+              <PhilosophyResponsibilityTile
+                imageUrl={PHILOSOPHY_RESPONSIBILITY_CARDS[0].imageUrl}
+                duty={responsibilityCopy[PHILOSOPHY_RESPONSIBILITY_CARDS[0].dutyIndex] || ""}
+                title={responsibilityCopy[PHILOSOPHY_RESPONSIBILITY_CARDS[0].titleIndex] || ""}
+                priority
+              />
+            </div>
+            <div className="flex flex-1 flex-col gap-[14px]">
+              {PHILOSOPHY_RESPONSIBILITY_CARDS.slice(1).map((item) => (
+                <PhilosophyResponsibilityTile
+                  key={item.imageUrl}
+                  imageUrl={item.imageUrl}
+                  duty={responsibilityCopy[item.dutyIndex] || ""}
+                  title={responsibilityCopy[item.titleIndex] || ""}
+                />
+              ))}
+            </div>
+          </div>
+          <ul className="mt-[13px] grid gap-3 lg:grid-cols-2">
             {PHILOSOPHY_GALLERY_TOP.map((item) => (
               <li key={item.imageUrl}>
                 <PhilosophyGalleryTile imageUrl={item.imageUrl} label={item.label} locale={locale} />
               </li>
             ))}
           </ul>
-          <div className="mt-[13px] flex gap-[14px] max-lg:flex-col">
-            <div className="w-[59.62%] max-lg:w-full">
-              <div className="relative aspect-[1015/669] overflow-hidden rounded-[3px]">
-                <Image src={PHILOSOPHY_GALLERY_MOSAIC[0]} alt="Philosophy team collaboration" fill className="object-cover" sizes="(min-width: 1024px) 60vw, 100vw" />
-              </div>
-            </div>
-            <div className="flex flex-1 flex-col gap-[14px]">
-              {PHILOSOPHY_GALLERY_MOSAIC.slice(1).map((imageUrl) => (
-                <div key={imageUrl} className="relative aspect-[674/328] flex-1 overflow-hidden rounded-[3px]">
-                  <Image src={imageUrl} alt="Philosophy workplace" fill className="object-cover" sizes="(min-width: 1024px) 40vw, 100vw" />
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       </section>
 
@@ -7048,6 +9597,7 @@ type SourceProductDetailSnapshot = {
   bestSellerItems: SourceProductCard[];
   relatedItems: SourceProductCard[];
   colorChoices: SourceColorChoice[];
+  sizeOptions: string[];
 };
 
 const sourceProductDetailSnapshotCache = new Map<string, SourceProductDetailSnapshot>();
@@ -7089,6 +9639,12 @@ function sourcePathFromHref(href: string) {
     const normalized = href.split("#")[0].split("?")[0].trim().replace(/^\/+|\/+$/g, "");
     return normalized ? `/${normalized}` : "/";
   }
+}
+
+function sourceProductCartLink(product: Product) {
+  if (product.sourceUrl) return product.sourceUrl;
+  const normalizedPath = product.path.startsWith("/") ? product.path : `/${product.path}`;
+  return `https://www.intcoframing-us.com${normalizedPath.replace(/\/?$/, "/")}`;
 }
 
 function sourceSnapshotMediaImages(html: string) {
@@ -7155,6 +9711,16 @@ function sourceSnapshotColorChoices(html: string) {
   return choices;
 }
 
+function sourceSnapshotSizeOptions(html: string) {
+  const sizes: string[] = [];
+  for (const match of html.matchAll(/<div\s+class=["'][^"']*sizeItem[^"']*["']([^>]*)>([\s\S]*?)<\/div>/g)) {
+    const attrs = match[1];
+    const value = sourceAttr(attrs, "data-value") || stripSourceHtml(match[2]);
+    if (value) sizes.push(decodeSourceHtml(value));
+  }
+  return Array.from(new Set(sizes));
+}
+
 function sourceProductDetailSnapshot(productPath: string): SourceProductDetailSnapshot {
   const cached = sourceProductDetailSnapshotCache.get(productPath);
   if (cached) return cached;
@@ -7164,6 +9730,7 @@ function sourceProductDetailSnapshot(productPath: string): SourceProductDetailSn
     bestSellerItems: sourceSnapshotBestSellers(html),
     relatedItems: sourceSnapshotRelatedItems(html),
     colorChoices: sourceSnapshotColorChoices(html),
+    sizeOptions: sourceSnapshotSizeOptions(html),
   };
   sourceProductDetailSnapshotCache.set(productPath, snapshot);
   return snapshot;
@@ -7314,13 +9881,18 @@ export function ProductDetailSourceView({
   const detailImages = galleryImages.length ? galleryImages : [primary].filter(Boolean);
   const colorChoices = sourceDetailSnapshot.colorChoices.length
     ? sourceDetailSnapshot.colorChoices
-    : [""].map((color) => ({
+    : ["#000000"].map((color) => ({
         color,
         itemNumber,
       }));
-  const sizeOptions = size ? size.split(/\s+\/\s+/).filter(Boolean) : [];
+  const sizeOptions = sourceDetailSnapshot.sizeOptions.length
+    ? sourceDetailSnapshot.sizeOptions
+    : size
+      ? size.split(/\s+\/\s+/).filter(Boolean)
+      : [];
   const aboutDescriptionLines = details.descriptionLines.length ? details.descriptionLines : product.description ? [product.description] : [];
   const aboutHighlightLines = details.highlightLines.length ? details.highlightLines : linesFromBody(product.bodyText, 6);
+  const sourceProductLink = sourceProductCartLink(product);
 
   return (
     <>
@@ -7456,6 +10028,12 @@ export function ProductDetailSourceView({
                     initialItemNumber={itemNumber}
                     colorChoices={colorChoices}
                     sizeOptions={sizeOptions}
+                    product={{
+                      productId: product.sourceId ? String(product.sourceId) : product.slug,
+                      productLink: sourceProductLink,
+                      productName: displayTitle,
+                      productImg: detailImages[0] || product.imageUrl || "",
+                    }}
                   />
                   
                   {/* Customize Note */}

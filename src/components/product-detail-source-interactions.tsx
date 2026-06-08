@@ -15,6 +15,26 @@ export type SourceColorChoice = {
   itemNumber?: string;
 };
 
+type SourceProductCartData = {
+  productId: string;
+  productLink: string;
+  productName: string;
+  productImg: string;
+};
+
+type LeadsCloudProductItem = {
+  productId: string;
+  productLink: string;
+  productName: string;
+  productImg: string;
+  productQuantity: string;
+  productColor: string | null;
+  productItem: string;
+  productSize: string | null;
+  newcolor: Array<{ color: string; item: string }>;
+  newsize: string[];
+};
+
 export function SourceProductGallery({
   images,
   title,
@@ -100,6 +120,7 @@ export function SourceProductPurchaseControls({
   initialItemNumber,
   colorChoices,
   sizeOptions,
+  product,
 }: {
   itemLabel: string;
   colorLabel: string;
@@ -109,11 +130,42 @@ export function SourceProductPurchaseControls({
   initialItemNumber: string;
   colorChoices: SourceColorChoice[];
   sizeOptions: string[];
+  product: SourceProductCartData;
 }) {
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const [cartMessage, setCartMessage] = useState("");
   const selectedItemNumber = colorChoices[selectedColorIndex]?.itemNumber || initialItemNumber;
+  const selectedColor = colorChoices[selectedColorIndex]?.color || null;
+  const selectedSize = sizeOptions[selectedSizeIndex] || null;
+
+  function addToCart() {
+    const productList = readLeadsCloudProductList();
+    const exists = productList.some((item) => String(item.productId) === product.productId);
+
+    if (exists) {
+      setCartMessage("The product already exists.");
+      return;
+    }
+
+    productList.push({
+      ...product,
+      productQuantity: String(quantity),
+      productColor: selectedColor,
+      productItem: selectedItemNumber,
+      productSize: selectedSize,
+      newcolor: colorChoices.map((choice) => ({
+        color: choice.color || "",
+        item: choice.itemNumber || initialItemNumber || product.productName,
+      })),
+      newsize: sizeOptions,
+    });
+
+    localStorage.setItem("productList", JSON.stringify(productList));
+    document.cookie = "withProduct=true; path=/; max-age=2592000";
+    setCartMessage("Add to Cart successful");
+  }
 
   return (
     <>
@@ -168,12 +220,34 @@ export function SourceProductPurchaseControls({
       </div>
 
       <div className="quoteLine">
-        <button type="button" className="buy-btn">
+        <a
+          href="#!"
+          className="buy-btn"
+          data-id={product.productId}
+          onClick={(event) => {
+            event.preventDefault();
+            addToCart();
+          }}
+        >
           {addToCartLabel}
-        </button>
+        </a>
       </div>
+      {cartMessage ? (
+        <div className="intco-cart-message" role="status" aria-live="polite">
+          {cartMessage}
+        </div>
+      ) : null}
     </>
   );
+}
+
+function readLeadsCloudProductList() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem("productList") || "[]");
+    return Array.isArray(parsed) ? (parsed as LeadsCloudProductItem[]) : [];
+  } catch {
+    return [];
+  }
 }
 
 export function SourceProductAboutTabs({
@@ -262,10 +336,6 @@ export function SourceRelatedProductsCarousel({ items }: { items: SourceRelatedP
   const maxStart = Math.max(0, items.length - visibleCount);
   const boundedStart = Math.min(startIndex, maxStart);
   const visibleItems = items.slice(boundedStart, boundedStart + visibleCount);
-
-  useEffect(() => {
-    setStartIndex((value) => Math.min(value, Math.max(0, items.length - visibleCount)));
-  }, [items.length, visibleCount]);
 
   return (
     <div className="BESTSwiper">

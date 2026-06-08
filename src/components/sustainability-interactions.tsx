@@ -153,7 +153,17 @@ const savingsCopy: Record<Locale, {
   },
 };
 
-export function SustainabilityVideoButton({ src, label }: { src: string; label: string }) {
+export function SustainabilityVideoButton({
+  src,
+  label,
+  title,
+  closeLabel,
+}: {
+  src: string;
+  label: string;
+  title: string;
+  closeLabel: string;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -166,20 +176,20 @@ export function SustainabilityVideoButton({ src, label }: { src: string; label: 
         {label}
       </button>
       {open ? (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-5" role="dialog" aria-modal="true" aria-label="Sustainability video">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-5" role="dialog" aria-modal="true" aria-label={title}>
           <div className="relative w-full max-w-5xl bg-black shadow-2xl">
             <button
               type="button"
               onClick={() => setOpen(false)}
               className="absolute -right-3 -top-3 z-10 flex size-10 items-center justify-center rounded-full bg-white text-[#484653] shadow-lg"
-              aria-label="Close video"
+              aria-label={closeLabel}
             >
               <X size={22} />
             </button>
             <iframe
               className="aspect-video w-full"
               src={src}
-              title="Sustainability video"
+              title={title}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
             />

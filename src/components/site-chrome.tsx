@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Languages, Mail, MapPin, Menu, Phone, Search } from "lucide-react";
+import { Languages, Mail, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
 import { LeadsCloudChatRuntime, LeadsCloudFormsRuntime } from "@/components/leadscloud-runtime";
@@ -21,14 +21,15 @@ type ChromeProps = {
 
 const HEADER_LANGUAGE_MAP_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/lg-bg-h.png";
 const SOURCE_FOOTER_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/footer.png";
+const SOURCE_FOOTER_LOGO = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/logo2.png";
 
 const footerSocialLinks = [
-  { label: "Facebook", href: "https://www.facebook.com/IntcoFraming.cn/", iconClass: "intco-social-facebook" },
-  { label: "YouTube", href: "https://www.youtube.com/@intcoframing", iconClass: "intco-social-youtube" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/company/intcoframing/", iconClass: "intco-social-linkedin" },
-  { label: "Twitter", href: "https://twitter.com/intco_framing", iconClass: "intco-social-twitter" },
-  { label: "Instagram", href: "https://www.instagram.com/intcoframing/", iconClass: "intco-social-instagram" },
-  { label: "Pinterest", href: "https://www.pinterest.com/intco_framing/", iconClass: "intco-social-pinterest" },
+  { label: "Facebook", href: "https://www.facebook.com/IntcoFraming.cn/", iconClass: "icon-facebook" },
+  { label: "YouTube", href: "https://www.youtube.com/@intcoframing", iconClass: "icon-Youtube-fill" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/intcoframing/", iconClass: "icon-linkedin" },
+  { label: "Twitter", href: "https://twitter.com/intco_framing", iconClass: "icon-tuite" },
+  { label: "Instagram", href: "https://www.instagram.com/intcoframing/", iconClass: "icon-a-changyong_xiangjifuben" },
+  { label: "Pinterest", href: "https://www.pinterest.com/intco_framing/", iconClass: "icon-tengxunweibo" },
 ];
 
 const PROJECT_NAV_ITEMS = [
@@ -350,7 +351,7 @@ function HeaderSecondNav({
 }
 
 function SocialGlyph({ iconClass }: { iconClass: string }) {
-  return <i className={`intco-social-iconfont ${iconClass}`} aria-hidden="true" />;
+  return <i className={`iconfont ${iconClass}`} aria-hidden="true" />;
 }
 
 function Footer({ settings, categories, locale }: { settings: SiteSettings; categories: ProductCategory[]; locale: Locale }) {
@@ -363,73 +364,95 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
     { label: t(locale, "blog"), path: "/blog" },
     { label: t(locale, "contact"), path: "/contact" },
   ];
+  const footerLogoUrl = settings.footerLogoUrl || SOURCE_FOOTER_LOGO;
 
   return (
-    <footer className="relative overflow-hidden bg-[#484653] text-white">
-      <Image src={SOURCE_FOOTER_BG} alt="" fill className="object-cover object-bottom" sizes="100vw" />
-      <div className="intco-source-container relative z-10 px-5">
-        <div className="box-border flex min-h-[360px] flex-col justify-between pt-10 lg:min-h-[488px] min-[1601px]:min-h-[454px] min-[1601px]:pt-[74px]">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-[1.3fr_0.85fr_0.85fr_1fr] lg:gap-5 xl:gap-[60px]">
-            <div>
-              <div className="w-[138px] max-w-[178px] pb-3 lg:w-[178px]">
-                {settings.footerLogoUrl ? (
-                  <Image src={settings.footerLogoUrl} alt={settings.title} width={178} height={104} className="h-auto w-full object-contain" />
-                ) : (
-                  <h3 className="text-2xl font-bold">{settings.title}</h3>
-                )}
-              </div>
-              <ul className="text-base font-medium text-white min-[1601px]:text-xl">
-                <FooterContactItem href={settings.phone ? `https://api.whatsapp.com/send?phone=${settings.phone.replace(/[^\d]/g, "")}&text=Hello` : href("/contact")}>
-                  <Phone size={20} className="mr-2 mt-0.5 shrink-0" />
+    <footer className="footerBox" style={{ backgroundImage: `url(${SOURCE_FOOTER_BG})` }}>
+      <div className="m-width-content">
+        <div className="ipd-20">
+          <div className="flexColum minDlexNone paddingTop">
+            <div className="footerFlex">
+              <ul>
+                <div className="topTitle f-logo">
+                  <div className="img-box">
+                    <img src={footerLogoUrl} alt={settings.title} />
+                  </div>
+                </div>
+                <FooterContactItem href={settings.phone ? `https://api.whatsapp.com/send?phone=${settings.phone.replace(/[^\d]/g, "")}&text=Hello` : href("/contact")} iconClass="icon-24gf-telephone">
                   {settings.phone}
                 </FooterContactItem>
                 {settings.secondaryPhone ? (
-                  <FooterContactItem href={`https://api.whatsapp.com/send?phone=${settings.secondaryPhone.replace(/[^\d]/g, "")}&text=Hello`}>
-                    <span className="mr-2 inline-block w-5 shrink-0" />
+                  <FooterContactItem href={`https://api.whatsapp.com/send?phone=${settings.secondaryPhone.replace(/[^\d]/g, "")}&text=Hello`} iconClass="">
                     {settings.secondaryPhone}
                   </FooterContactItem>
                 ) : null}
-                <FooterContactItem href={settings.email ? `mailto:${settings.email}` : href("/contact")}>
-                  <Mail size={20} className="mr-2 mt-0.5 shrink-0" />
+                <FooterContactItem href={settings.email ? `mailto:${settings.email}` : href("/contact")} iconClass="icon-youxiang">
                   {settings.email}
                 </FooterContactItem>
-                <li className="mt-3 flex max-w-[388px] cursor-pointer text-left leading-6 min-[1601px]:mt-6">
-                  <MapPin size={20} className="mr-2 mt-0.5 shrink-0" />
-                  <span>{settings.address}</span>
+                <li>
+                  <i className="iconfont icon-weizhi" aria-hidden="true" />
+                  {settings.address}
                 </li>
               </ul>
+
+              <FooterColumn title={t(locale, "product")} links={parents.map((item) => ({ label: item.title, path: href(item.path) }))} />
+              <FooterColumn title={t(locale, "quickLinks")} links={quickLinks.map((link) => ({ label: chromeLabel(locale, link.path, link.label), path: href(link.path) }))} />
+
+              <ul>
+                <div className="topTitle topTitleLast">{t(locale, "newsletter")}</div>
+                <div className="h-search intco-leadscloud-newsletter" aria-label={t(locale, "newsletter")}>
+                  <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.footerNewsletter)} />
+                  <form className="intco-footer-newsletter-fallback" action={href("/contact")} method="get">
+                    <label className="sr-only" htmlFor="footer-newsletter-email">
+                      {t(locale, "email")}
+                    </label>
+                    <input id="footer-newsletter-email" name="email" type="email" placeholder={t(locale, "email")} />
+                    <button type="submit">{t(locale, "submit")}</button>
+                  </form>
+                </div>
+                <div className="FollowUs">
+                  {t(locale, "followUs")}
+                  <div className="webshare">
+                    {footerSocialLinks.map((item) => (
+                      <Link key={item.href} href={item.href} target="_blank" rel="noreferrer" aria-label={item.label}>
+                        <SocialGlyph iconClass={item.iconClass} />
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </ul>
             </div>
+            <div className="copRight">Copyright @ 2023 INTCO , All rights reserved.</div>
+          </div>
 
-            <FooterColumn title={t(locale, "products")} links={parents.map((item) => ({ label: item.title, path: href(item.path) }))} />
-            <FooterColumn title={t(locale, "quickLinks")} links={quickLinks.map((link) => ({ label: chromeLabel(locale, link.path, link.label), path: href(link.path) }))} />
-
-            <div>
-              <h3 className="pb-3 text-2xl font-semibold leading-tight text-white min-[1601px]:pb-12 min-[1601px]:text-[34px]">{t(locale, "newsletter")}</h3>
-              <div className="h-search intco-leadscloud-newsletter" aria-label={t(locale, "newsletter")}>
-                <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.footerNewsletter)} />
+          <div className="phOneShow">
+            <div className="footerFlex">
+              <div className="topTitle">
+                <img src={footerLogoUrl} alt={settings.title} />
               </div>
-              <div className="mt-[25px] text-base font-semibold leading-3 text-white min-[1601px]:mt-[74px] min-[1601px]:text-xl">
-                {t(locale, "followUs")}
-                <div className="mt-[25px] flex flex-wrap gap-2.5">
+              <div className="hc-share">
+                <div className="webshare">
                   {footerSocialLinks.map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={item.label}
-                      className="flex size-8 items-center justify-center rounded-full bg-[#959595] text-xs font-bold text-[#484653] transition hover:bg-white min-[1601px]:size-[50px] min-[1601px]:text-lg"
-                    >
+                    <Link key={item.href} href={item.href} target="_blank" rel="noreferrer" aria-label={item.label}>
                       <SocialGlyph iconClass={item.iconClass} />
                     </Link>
                   ))}
                 </div>
               </div>
+              <ul className="contact-hc-f">
+                <FooterContactItem href={settings.phone ? `tel:${settings.phone}` : href("/contact")} iconClass="icon-24gf-telephone">
+                  {settings.phone}
+                </FooterContactItem>
+                <FooterContactItem href={settings.email ? `mailto:${settings.email}` : href("/contact")} iconClass="icon-youxiang">
+                  {settings.email}
+                </FooterContactItem>
+                <li>
+                  <i className="iconfont icon-weizhi" aria-hidden="true" />
+                  {settings.address}
+                </li>
+              </ul>
             </div>
-          </div>
-
-          <div className="mt-0 h-[50px] border-t border-white py-0 text-center text-base font-normal leading-[50px] text-white min-[1601px]:mt-[10vh] min-[1601px]:h-auto min-[1601px]:py-[4vh] min-[1601px]:text-xl min-[1601px]:leading-normal">
-            Copyright @ 2023 INTCO , All rights reserved.
+            <div className="copRight">Copyright @ 2023 INTCO , All rights reserved.</div>
           </div>
         </div>
       </div>
@@ -439,26 +462,27 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
 
 function FooterColumn({ title, links }: { title: string; links: Array<{ label: string; path: string }> }) {
   return (
-    <div>
-      <h3 className="pb-3 text-2xl font-semibold leading-tight text-white min-[1601px]:pb-12 min-[1601px]:text-[34px]">{title}</h3>
-      <ul className="text-base font-medium text-white min-[1601px]:text-xl">
-        {links.map((link) => (
-          <li key={`${title}-${link.path}`} className="mt-3 flex max-w-[388px] cursor-pointer leading-6 min-[1601px]:mt-6">
-            <Link href={link.path} className="transition duration-500 hover:text-white/70">
-              <span className="mr-2">→</span>
-              {link.label}
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul>
+      <div className="topTitle">{title}</div>
+      {links.map((link) => (
+        <li key={`${title}-${link.path}`}>
+          <Link href={link.path}>
+            <i className="iconfont icon-youjiantou" aria-hidden="true" />
+            {link.label}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }
 
-function FooterContactItem({ href, children }: { href: string; children: React.ReactNode }) {
+function FooterContactItem({ href, iconClass, children }: { href: string; iconClass: string; children: React.ReactNode }) {
   return (
-    <li className="mt-3 flex max-w-[388px] cursor-pointer leading-6 min-[1601px]:mt-6">
-      <Link href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined} className="flex transition duration-500 hover:text-white/70">
+    <li>
+      <i className={`iconfont ${iconClass}`} aria-hidden="true">
+        {iconClass ? null : "\u00a0\u00a0\u00a0\u00a0"}
+      </i>
+      <Link href={href} target={href.startsWith("http") ? "_blank" : undefined} rel={href.startsWith("http") ? "noreferrer" : undefined}>
         {children}
       </Link>
     </li>

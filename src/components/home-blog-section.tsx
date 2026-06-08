@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
@@ -32,62 +31,67 @@ export function HomeBlogSection({
     const scoped = active === "All" ? posts : posts.filter((post) => post.category === active);
     return scoped.slice(0, 3);
   }, [active, posts]);
+  const title = t(locale, "blog").toUpperCase();
 
   return (
-    <section className="overflow-hidden bg-white px-4 py-16 sm:px-6 lg:py-[99px]">
-      <div className="intco-source-container px-5">
-        <div className="flex flex-wrap justify-between gap-8">
-          <BlogSourceTitle locale={locale} />
-          <p className="max-w-[819px] text-pretty text-lg leading-8 text-[#363636]">{intro}</p>
-        </div>
-        <div className="my-12 flex flex-wrap items-center justify-between gap-3 lg:my-[70px]">
-          {categories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              aria-pressed={category === active}
-              onClick={() => setActive(category)}
-              className="intco-home-blog-filter h-10 rounded-md border border-white bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:border-[#484653] hover:bg-[#484653] hover:text-white aria-pressed:border-[#484653] aria-pressed:bg-[#484653] aria-pressed:text-white"
-            >
-              {blogCategoryLabel(locale, category)}
-            </button>
-          ))}
-        </div>
-        <div className="grid gap-5 lg:grid-cols-3">
-          {visiblePosts.map((post) => (
-            <HomeBlogTile key={`${active}-${post.title}-${post.date}`} post={post} locale={locale} />
-          ))}
+    <section className="BLOG intco-home-blog-source">
+      <div className="intco-source-container">
+        <div className="ipd-20 intco-home-blog-inner">
+          <ul className="flex-betwen intco-home-blog-head">
+            <li className="selefTitle leftTitle intco-home-blog-title" data-tit={title}>
+              <div className="title_text">{title}</div>
+            </li>
+            <li className="DESC intco-home-blog-desc">
+              {intro || "When it comes to home decor, we're the experts. As an interior decoration solutions provider, we design and implement our solutions to help you achieve the scene you expected."}
+            </li>
+          </ul>
+          <ul className="flex-betwen topBtnUl intco-home-blog-tabs">
+            {categories.map((category) => (
+              <li key={category} className={`topBtnLi ${category === active ? "selectcurLi" : ""}`}>
+                <button type="button" aria-pressed={category === active} onClick={() => setActive(category)}>
+                  {blogCategoryLabel(locale, category)}
+                </button>
+              </li>
+            ))}
+          </ul>
+          <div className="absolureContent intco-home-blog-content">
+            <ul className="intco-home-blog-list">
+              {visiblePosts.map((post) => (
+                <li key={`${active}-${post.title}-${post.date}`}>
+                  <HomeBlogTile post={post} locale={locale} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function BlogSourceTitle({ locale }: { locale: Locale }) {
-  const title = t(locale, "blog").toUpperCase();
-  return (
-    <div className="intco-home-source-title intco-home-source-title-left" data-tit={title}>
-      <h2 className="title_text">
-        {title}
-      </h2>
-    </div>
-  );
-}
-
 function HomeBlogTile({ post, locale }: { post: HomeBlogPost; locale: Locale }) {
   return (
-    <Link href={localizePath(locale, post.path)} className="group block overflow-hidden bg-white shadow-[0_11px_12px_1px_rgba(101,101,101,0.08)]">
-      <div className="relative aspect-[1.56] overflow-hidden bg-neutral-100">
-        <Image src={post.imageUrl} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-105" sizes="(min-width: 1280px) 33vw, 100vw" />
+    <div className="fbhs-warp">
+      <div className="relativeBox2-content">
+        <div className="pic-box">
+          <Link href={localizePath(locale, post.path)} aria-label={post.title}>
+            <img src={post.imageUrl} alt={post.title} loading="eager" decoding="async" />
+          </Link>
+        </div>
+        <div className="liBox">
+          <Link href={localizePath(locale, post.path)} className="liTitle --f28">
+            {post.title}
+          </Link>
+          {post.date ? <div className="titleBottom --16">{post.date}</div> : null}
+          <div className="desc --f18">{post.description}</div>
+          <div className="flexContentItem">
+            <Link href={localizePath(locale, post.path)} className="selectBtn">
+              {t(locale, "readMore")}
+              <ArrowRight className="ml-[9px]" size={20} strokeWidth={2.2} />
+            </Link>
+          </div>
+        </div>
       </div>
-      <div className="border border-t-0 border-[#f3f3f3] px-[37px] pb-[59px] pt-[52px]">
-        <h3 className="truncate text-lg font-semibold leading-5 text-[#484653]">{post.title}</h3>
-        <p className="text-base font-light leading-[39px] text-[#999]">{post.date}</p>
-        {post.description ? <p className="line-clamp-2 min-h-12 text-lg leading-6 text-[#363636]">{post.description}</p> : <p className="min-h-12" />}
-        <span className="mt-[39px] inline-flex h-[58px] w-[200px] items-center justify-center rounded-full border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-200 group-hover:bg-[#484653] group-hover:text-white">
-          {t(locale, "readMore")} <ArrowRight className="ml-[9px]" size={20} />
-        </span>
-      </div>
-    </Link>
+    </div>
   );
 }
