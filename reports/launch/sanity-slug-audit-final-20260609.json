@@ -1,0 +1,827 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "production",
+  "apiVersion": "2026-05-20",
+  "scannedDocuments": 1440,
+  "ok": true,
+  "blockingIssues": {
+    "missing": 0,
+    "malformed": 0,
+    "invalidFormat": 0,
+    "sameLanguageDuplicates": 0
+  },
+  "informational": {
+    "crossLanguageDuplicates": 240,
+    "pathSlugMismatches": 72
+  },
+  "samples": {
+    "missing": [],
+    "malformed": [],
+    "invalidFormat": [],
+    "sameLanguageDuplicates": [],
+    "crossLanguageDuplicates": [
+      {
+        "key": [
+          "blogPost",
+          "28-original-frame-ideas-to-enhance-the-artistry-of-your-space"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+          "i18n.de.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+          "i18n.es.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+          "i18n.fr.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+          "i18n.ja.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+          "i18n.pt.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space"
+        ],
+        "titles": [
+          "28 Original Frame Ideas To Enhance The Artistry Of Your Space",
+          "28 originelle Rahmenideen, um die Kunstfertigkeit Ihres Raums zu verbessern",
+          "28 ideas de marcos originales para realzar el arte de tu espacio",
+          "28 idées de cadres originaux pour améliorer le talent artistique de votre espace",
+          "空間の芸術性を高める 28 のオリジナル フレームのアイデア",
+          "28 ideias originais de molduras para aprimorar a arte do seu espaço"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "4-reasons-to-integrate-a-blackboard-into-your-home-decor"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+          "i18n.de.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+          "i18n.es.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+          "i18n.fr.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+          "i18n.ja.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+          "i18n.pt.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor"
+        ],
+        "titles": [
+          "4 Reasons to Integrate a Blackboard into Your Home Decor",
+          "4 Gründe, eine Tafel in Ihre Inneneinrichtung zu integrieren",
+          "4 razones para integrar una pizarra en la decoración de tu hogar",
+          "4 raisons d'intégrer un tableau noir dans votre décoration intérieure",
+          "黒板を家の装飾に組み込む4つの理由",
+          "4 razões para integrar um quadro negro na decoração da sua casa"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+          "i18n.de.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+          "i18n.es.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+          "i18n.fr.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+          "i18n.ja.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+          "i18n.pt.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space"
+        ],
+        "titles": [
+          "5 Ways an LED Bathroom Vanity Mirror Can lmprove Your Space",
+          "5 Möglichkeiten, wie ein LED-Badezimmerspiegel Ihren Raum verschönern kann",
+          "5 formas en que un espejo de tocador LED para baño puede mejorar su espacio",
+          "5 façons dont un miroir de courtoisie de salle de bain à LED peut améliorer votre espace",
+          "LED 洗面化粧台ミラーがスペースを改善できる 5 つの方法",
+          "5 maneiras pelas quais um espelho LED para banheiro pode melhorar seu espaço"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+          "i18n.de.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+          "i18n.es.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+          "i18n.fr.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+          "i18n.ja.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+          "i18n.pt.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you"
+        ],
+        "titles": [
+          "6 Types of Picture Frame: How to Choose the Perfect One for You",
+          "6 Arten von Bilderrahmen: So wählen Sie den perfekten Rahmen für Sie aus",
+          "6 tipos de marcos para fotos: cómo elegir el perfecto para ti",
+          "6 types de cadres photo : comment choisir celui qui vous convient le mieux",
+          "6種類の額縁：自分にぴったりの額縁の選び方",
+          "6 tipos de porta-retratos: como escolher o perfeito para você"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+          "i18n.de.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+          "i18n.es.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+          "i18n.fr.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+          "i18n.ja.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+          "i18n.pt.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos"
+        ],
+        "titles": [
+          "A DIY Guide to Creating a Gallery Wall with Your Favorite Photos",
+          "Eine DIY-Anleitung zum Erstellen einer Galeriewand mit Ihren Lieblingsfotos",
+          "Una guía de bricolaje para crear una pared de galería con tus fotos favoritas",
+          "Un guide de bricolage pour créer un mur de galerie avec vos photos préférées",
+          "お気に入りの写真でギャラリーウォールを作成する DIY ガイド",
+          "Um guia DIY para criar uma parede de galeria com suas fotos favoritas"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "affordable-wall-art-decorating-your-home-without-breaking-the-bank"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+          "i18n.de.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+          "i18n.es.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+          "i18n.fr.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+          "i18n.ja.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+          "i18n.pt.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank"
+        ],
+        "titles": [
+          "Affordable Wall Art: Decorating Your Home Without Breaking the Bank",
+          "Erschwingliche Wandkunst: Dekorieren Sie Ihr Zuhause, ohne die Bank zu sprengen",
+          "Arte de pared asequible: decorar su hogar sin gastar mucho dinero",
+          "Art mural abordable : décorer votre maison sans vous ruiner",
+          "手頃な価格のウォールアート: お金をかけずにご自宅を飾りましょう",
+          "Arte de parede acessível: decorando sua casa sem gastar muito"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+          "i18n.de.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+          "i18n.es.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+          "i18n.fr.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+          "i18n.ja.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+          "i18n.pt.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches"
+        ],
+        "titles": [
+          "Beyond the Ordinary: Elevate Your Picture Framing with Unique Touches",
+          "Über das Gewöhnliche hinaus: Werten Sie Ihren Bilderrahmen mit einzigartigen Akzenten auf",
+          "Más allá de lo ordinario: mejore el encuadre de su fotografía con toques únicos",
+          "Au-delà de l'ordinaire : rehaussez votre encadrement photo avec des touches uniques",
+          "常識を超えて: ユニークなタッチで写真のフレーミングを向上",
+          "Além do comum: eleve o enquadramento da sua imagem com toques exclusivos"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+          "i18n.de.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+          "i18n.es.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+          "i18n.fr.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+          "i18n.ja.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+          "i18n.pt.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors"
+        ],
+        "titles": [
+          "Brighten Up Your Bathroom: Elegance with Safe, Durable, and Energy-Efficient LED Mirrors",
+          "Verschönern Sie Ihr Badezimmer: Eleganz mit sicheren, langlebigen und energieeffizienten LED-Spiegeln",
+          "Ilumine su baño: elegancia con espejos LED seguros, duraderos y energéticamente eficientes",
+          "Égayez votre salle de bain : élégance avec des miroirs LED sûrs, durables et économes en énergie",
+          "バスルームを明るく: 安全、耐久性、エネルギー効率の高い LED ミラーで優雅さを演出",
+          "Ilumine seu banheiro: elegância com espelhos LED seguros, duráveis ​​e com baixo consumo de energia"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+          "i18n.de.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+          "i18n.es.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+          "i18n.fr.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+          "i18n.ja.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+          "i18n.pt.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide"
+        ],
+        "titles": [
+          "Bulk Picture Frame Orders for Wholesale Buyers: A Complete Guide",
+          "Großbestellungen von Bilderrahmen für Großkäufer: Ein vollständiger Leitfaden",
+          "Pedidos de marcos de cuadros al por mayor para compradores mayoristas: una guía completa",
+          "Commandes groupées de cadres photo pour les acheteurs en gros : un guide complet",
+          "卸売購入者向けの額縁の一括注文: 完全ガイド",
+          "Pedidos de porta-retratos em massa para compradores no atacado: um guia completo"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "canvas-art-a-perfect-addition-to-your-home-decor"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+          "i18n.de.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+          "i18n.es.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+          "i18n.fr.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+          "i18n.ja.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+          "i18n.pt.blogPost.canvas-art-a-perfect-addition-to-your-home-decor"
+        ],
+        "titles": [
+          "Canvas Art: A Perfect Addition to Your Home Decor",
+          "Leinwandkunst: Eine perfekte Ergänzung für Ihre Inneneinrichtung",
+          "Arte en lienzo: un complemento perfecto para la decoración de su hogar",
+          "Art sur toile : un complément parfait à votre décoration d'intérieur.",
+          "キャンバスアート: ご自宅の装飾に最適です。",
+          "Arte em tela: um complemento perfeito para a decoração da sua casa"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "choosing-the-right-led-mirror-a-comprehensive-guide"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+          "i18n.de.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+          "i18n.es.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+          "i18n.fr.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+          "i18n.ja.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+          "i18n.pt.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide"
+        ],
+        "titles": [
+          "Choosing the Right LED Mirror: A Comprehensive Guide",
+          "Auswahl des richtigen LED-Spiegels: Ein umfassender Leitfaden",
+          "Elegir el espejo LED adecuado: una guía completa",
+          "Choisir le bon miroir LED : un guide complet",
+          "適切な LED ミラーの選択: 包括的なガイド",
+          "Escolhendo o espelho LED certo: um guia completo"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+          "i18n.de.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+          "i18n.es.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+          "i18n.fr.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+          "i18n.ja.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+          "i18n.pt.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards"
+        ],
+        "titles": [
+          "Creative Gallery Wall Ideas: Transform Your Walls with Frames, Art and Memo Boards",
+          "Kreative Ideen für Galeriewände: Verwandeln Sie Ihre Wände mit Rahmen, Kunst- und Notiztafeln",
+          "Ideas creativas para las paredes de la galería: transforme sus paredes con marcos, arte y tableros de notas",
+          "Idées murales de galerie créative : transformez vos murs avec des cadres, des œuvres d'art et des tableaux mémo",
+          "クリエイティブなギャラリーの壁のアイデア: フレーム、アート、メモボードで壁を変身させましょう",
+          "Idéias criativas para paredes de galerias: transforme suas paredes com molduras, quadros de arte e memorandos"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "custom-frames-diverse-materials-and-styles-for-varied-decor-needs"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+          "i18n.de.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+          "i18n.es.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+          "i18n.fr.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+          "i18n.ja.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+          "i18n.pt.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs"
+        ],
+        "titles": [
+          "Custom Frames: Diverse Materials and Styles for Varied Decor Needs",
+          "Individuelle Rahmen: Verschiedene Materialien und Stile für unterschiedliche Dekorationsbedürfnisse",
+          "Marcos personalizados: diversos materiales y estilos para diversas necesidades de decoración",
+          "Cadres personnalisés : divers matériaux et styles pour des besoins de décoration variés",
+          "カスタムフレーム: さまざまな装飾ニーズに対応する多様な素材とスタイル",
+          "Molduras personalizadas: diversos materiais e estilos para diversas necessidades de decoração"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "discover-advanced-storage-solutions-for-a-modern-medicine-cabinet"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+          "i18n.de.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+          "i18n.es.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+          "i18n.fr.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+          "i18n.ja.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+          "i18n.pt.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet"
+        ],
+        "titles": [
+          "Discover Advanced Storage Solutions for a Modern Medicine Cabinet",
+          "Entdecken Sie fortschrittliche Aufbewahrungslösungen für einen modernen Medikamentenschrank",
+          "Descubra soluciones de almacenamiento avanzadas para un botiquín moderno",
+          "Découvrez des solutions de stockage avancées pour une armoire à pharmacie moderne",
+          "現代の薬品棚向けの高度なストレージ ソリューションを発見する",
+          "Descubra soluções avançadas de armazenamento para um armário de remédios moderno"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "discover-the-charm-how-led-mirrors-enhance-your-home-decor"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+          "i18n.de.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+          "i18n.es.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+          "i18n.fr.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+          "i18n.ja.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+          "i18n.pt.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor"
+        ],
+        "titles": [
+          "Discover the Charm: How LED Mirrors Enhance Your Home Decor",
+          "Entdecken Sie den Charme: Wie LED-Spiegel Ihre Inneneinrichtung aufwerten",
+          "Descubra el encanto: cómo los espejos LED mejoran la decoración de su hogar",
+          "Découvrez le charme : comment les miroirs LED améliorent la décoration de votre maison",
+          "魅力を発見: LED ミラーが家の装飾をどのように強化するか",
+          "Descubra o encanto: como os espelhos LED melhoram a decoração da sua casa"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "discover-the-latest-trends-in-vanity-mirrors"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.discover-the-latest-trends-in-vanity-mirrors",
+          "i18n.de.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+          "i18n.es.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+          "i18n.fr.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+          "i18n.ja.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+          "i18n.pt.blogPost.discover-the-latest-trends-in-vanity-mirrors"
+        ],
+        "titles": [
+          "Discover the Latest Trends in Vanity Mirrors",
+          "Entdecken Sie die neuesten Trends bei Kosmetikspiegeln",
+          "Descubra las últimas tendencias en espejos de tocador",
+          "Découvrez les dernières tendances en matière de miroirs de courtoisie",
+          "バニティミラーの最新トレンドを知る",
+          "Descubra as últimas tendências em espelhos de vaidade"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "dry-erase-board-checklist-essential-tips-for-efficient-planning"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+          "i18n.de.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+          "i18n.es.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+          "i18n.fr.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+          "i18n.ja.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+          "i18n.pt.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning"
+        ],
+        "titles": [
+          "Dry Erase Board Checklist: Essential Tips for Efficient Planning",
+          "Checkliste für trocken abwischbare Tafeln: Wichtige Tipps für eine effiziente Planung",
+          "Lista de verificación de la pizarra de borrado en seco: consejos esenciales para una planificación eficiente",
+          "Liste de contrôle pour tableau effaçable à sec : conseils essentiels pour une planification efficace",
+          "ホワイトボードボードのチェックリスト: 効率的な計画のための重要なヒント",
+          "Lista de verificação do quadro apagado a seco: dicas essenciais para um planejamento eficiente"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "durability-insights-are-wood-document-frames-a-worthy-choice"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+          "i18n.de.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+          "i18n.es.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+          "i18n.fr.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+          "i18n.ja.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+          "i18n.pt.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice"
+        ],
+        "titles": [
+          "Durability Insights: Are Wood Document Frames a Worthy Choice?",
+          "Einblicke in die Haltbarkeit: Sind Dokumentenrahmen aus Holz eine gute Wahl?",
+          "Información sobre durabilidad: ¿Son los marcos de madera para documentos una elección digna?",
+          "Aperçu de la durabilité : les cadres de documents en bois sont-ils un choix judicieux ?",
+          "耐久性に関する洞察: 木製ドキュメント フレームは価値のある選択ですか?",
+          "Insights sobre durabilidade: as molduras para documentos de madeira são uma escolha válida?"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "easy-wall-frame-ideas-to-instantly-elevate-your-home-decor"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+          "i18n.de.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+          "i18n.es.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+          "i18n.fr.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+          "i18n.ja.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+          "i18n.pt.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor"
+        ],
+        "titles": [
+          "Easy Wall Frame Ideas to Instantly Elevate Your Home Decor",
+          "Einfache Wandrahmen-Ideen, um Ihre Inneneinrichtung sofort aufzuwerten",
+          "Ideas sencillas para marcos de pared para realzar instantáneamente la decoración de su hogar",
+          "Idées faciles de cadres muraux pour rehausser instantanément la décoration de votre maison",
+          "家の装飾を即座に高める簡単な壁フレームのアイデア",
+          "Ideias fáceis de molduras de parede para elevar instantaneamente a decoração da sua casa"
+        ]
+      },
+      {
+        "key": [
+          "blogPost",
+          "effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic"
+        ],
+        "count": 6,
+        "languages": [
+          "de",
+          "en",
+          "es",
+          "fr",
+          "ja",
+          "pt"
+        ],
+        "ids": [
+          "blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+          "i18n.de.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+          "i18n.es.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+          "i18n.fr.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+          "i18n.ja.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+          "i18n.pt.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic"
+        ],
+        "titles": [
+          "Effective Picture Frame Placement: Tips to Enhance Your Room's Aesthetic",
+          "Effektive Platzierung von Bilderrahmen: Tipps zur Verbesserung der Ästhetik Ihres Raums",
+          "Colocación eficaz de marcos de fotos: consejos para mejorar la estética de su habitación",
+          "Placement efficace du cadre photo : conseils pour améliorer l'esthétique de votre pièce",
+          "効果的な額縁の配置: 部屋の美しさを高めるヒント",
+          "Colocação eficaz de porta-retratos: dicas para melhorar a estética do seu ambiente"
+        ]
+      }
+    ],
+    "pathSlugMismatches": [
+      {
+        "_id": "contentPage.solutions-center",
+        "_type": "contentPage",
+        "language": "en",
+        "title": "Solutions",
+        "path": "/solutions",
+        "slug": "solutions-center",
+        "pathTail": "solutions"
+      },
+      {
+        "_id": "i18n.de.contentPage.solutions-center",
+        "_type": "contentPage",
+        "language": "de",
+        "title": "Lösungen",
+        "path": "/solutions",
+        "slug": "solutions-center",
+        "pathTail": "solutions"
+      },
+      {
+        "_id": "i18n.de.product.1760",
+        "_type": "product",
+        "language": "de",
+        "title": "Moderne abstrakte Leinwand-Wandkunst",
+        "path": "/art/canvas-art/modern-abstract-canvas-wall-art",
+        "slug": "modern-abstract-canvas-wall-art-2",
+        "pathTail": "modern-abstract-canvas-wall-art"
+      },
+      {
+        "_id": "i18n.de.product.2303",
+        "_type": "product",
+        "language": "de",
+        "title": "Klassischer dekorativer Tisch-Bilderrahmen mit Perlen",
+        "path": "/picture-frame/tabletop-frame/classic_beaded_decorative_tabletop_picture_frame",
+        "slug": "white-classtic-table-picture-frame-plastic-picture-frame-5x7-in-2",
+        "pathTail": "classic_beaded_decorative_tabletop_picture_frame"
+      },
+      {
+        "_id": "i18n.de.product.2324",
+        "_type": "product",
+        "language": "de",
+        "title": "Klassischer dekorativer Tisch-Bilderrahmen mit Perlen",
+        "path": "/picture-frame/tabletop-frame/classic_beaded_decorative_tabletop_picture_frame-2",
+        "slug": "classic-beaded-decorative-tabletop-picture-frame",
+        "pathTail": "classic_beaded_decorative_tabletop_picture_frame-2"
+      },
+      {
+        "_id": "i18n.de.product.2327",
+        "_type": "product",
+        "language": "de",
+        "title": "Aluminium-Collage-Bilderrahmen mit 2-4×6 und 2-6×8 Öffnungen",
+        "path": "/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings-2",
+        "slug": "aluminum-collage-picture-frame-with-2-4x6-and-2-6x8-openings",
+        "pathTail": "aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings-2"
+      },
+      {
+        "_id": "i18n.de.product.2330",
+        "_type": "product",
+        "language": "de",
+        "title": "Bilderrahmen aus Kunststoff mit Steinstruktur für die Tischdekoration",
+        "path": "/white-modern-plastic-picture-frame-for-tabletop-display-5x7-in-2",
+        "slug": "stone-texture-plastic-picture-frame-for-tabletop-display",
+        "pathTail": "white-modern-plastic-picture-frame-for-tabletop-display-5x7-in-2"
+      },
+      {
+        "_id": "i18n.de.product.2336",
+        "_type": "product",
+        "language": "de",
+        "title": "Natürlicher MDF-Tisch-Bilderrahmen",
+        "path": "/tabletop-picture-frame-mdf-natural-oak-5x7-inch-2",
+        "slug": "natural-style-mdf-tabletop-picture-frame",
+        "pathTail": "tabletop-picture-frame-mdf-natural-oak-5x7-inch-2"
+      },
+      {
+        "_id": "i18n.de.product.2340",
+        "_type": "product",
+        "language": "de",
+        "title": "Bilderrahmen aus Kunststoff mit Holzmaserung für die Tischdekoration",
+        "path": "/plastic-picture-frames-for-tabletop-display-5x7-inch-wood-grain-2",
+        "slug": "wood-grain-plastic-picture-frames-for-tabletop-display",
+        "pathTail": "plastic-picture-frames-for-tabletop-display-5x7-inch-wood-grain-2"
+      },
+      {
+        "_id": "i18n.de.product.2349",
+        "_type": "product",
+        "language": "de",
+        "title": "Wand- und Tischbilderrahmen aus Naturholz mit Kunststoffrahmen",
+        "path": "/natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in-2",
+        "slug": "natural-wood-wall-tabletop-picture-frame-with-plastic-frame",
+        "pathTail": "natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in-2"
+      },
+      {
+        "_id": "i18n.de.product.2368",
+        "_type": "product",
+        "language": "de",
+        "title": "Zeitgenössischer Aluminium-Bilderrahmen für Wandkunst",
+        "path": "/contemporary-matte-black-aluminum-picture-frame-for-wall-art-11x14-in-2",
+        "slug": "contemporary-aluminum-picture-frame-for-wall-art",
+        "pathTail": "contemporary-matte-black-aluminum-picture-frame-for-wall-art-11x14-in-2"
+      },
+      {
+        "_id": "i18n.de.product.3212",
+        "_type": "product",
+        "language": "de",
+        "title": "Moderner quadratischer LED-Spiegel",
+        "path": "/mirror/led-mirror/modern-square-led-mirror-2",
+        "slug": "modern-square-led-mirror-2-2",
+        "pathTail": "modern-square-led-mirror-2"
+      },
+      {
+        "_id": "i18n.de.product.3238",
+        "_type": "product",
+        "language": "de",
+        "title": "Eleganter ovaler LED-Spiegel",
+        "path": "/mirror/led-mirror/hollywood-full-length-led-mirror",
+        "slug": "elegant-oval-led-mirror",
+        "pathTail": "hollywood-full-length-led-mirror"
+      },
+      {
+        "_id": "i18n.es.contentPage.solutions-center",
+        "_type": "contentPage",
+        "language": "es",
+        "title": "Soluciones",
+        "path": "/solutions",
+        "slug": "solutions-center",
+        "pathTail": "solutions"
+      },
+      {
+        "_id": "i18n.es.product.1760",
+        "_type": "product",
+        "language": "es",
+        "title": "Arte de pared de lienzo abstracto moderno",
+        "path": "/art/canvas-art/modern-abstract-canvas-wall-art",
+        "slug": "modern-abstract-canvas-wall-art-2",
+        "pathTail": "modern-abstract-canvas-wall-art"
+      },
+      {
+        "_id": "i18n.es.product.2303",
+        "_type": "product",
+        "language": "es",
+        "title": "Marco de fotos de mesa decorativo con cuentas clásico",
+        "path": "/picture-frame/tabletop-frame/classic_beaded_decorative_tabletop_picture_frame",
+        "slug": "white-classtic-table-picture-frame-plastic-picture-frame-5x7-in-2",
+        "pathTail": "classic_beaded_decorative_tabletop_picture_frame"
+      },
+      {
+        "_id": "i18n.es.product.2324",
+        "_type": "product",
+        "language": "es",
+        "title": "Marco de fotos de mesa decorativo con cuentas clásico",
+        "path": "/picture-frame/tabletop-frame/classic_beaded_decorative_tabletop_picture_frame-2",
+        "slug": "classic-beaded-decorative-tabletop-picture-frame",
+        "pathTail": "classic_beaded_decorative_tabletop_picture_frame-2"
+      },
+      {
+        "_id": "i18n.es.product.2327",
+        "_type": "product",
+        "language": "es",
+        "title": "Marco de fotos tipo collage de aluminio con aberturas de 2-4×6 y 2-6×8",
+        "path": "/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings-2",
+        "slug": "aluminum-collage-picture-frame-with-2-4x6-and-2-6x8-openings",
+        "pathTail": "aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings-2"
+      },
+      {
+        "_id": "i18n.es.product.2330",
+        "_type": "product",
+        "language": "es",
+        "title": "Marco de plástico con textura de piedra para exhibición de mesa",
+        "path": "/white-modern-plastic-picture-frame-for-tabletop-display-5x7-in-2",
+        "slug": "stone-texture-plastic-picture-frame-for-tabletop-display",
+        "pathTail": "white-modern-plastic-picture-frame-for-tabletop-display-5x7-in-2"
+      },
+      {
+        "_id": "i18n.es.product.2336",
+        "_type": "product",
+        "language": "es",
+        "title": "Marco de fotos de mesa de MDF de estilo natural",
+        "path": "/tabletop-picture-frame-mdf-natural-oak-5x7-inch-2",
+        "slug": "natural-style-mdf-tabletop-picture-frame",
+        "pathTail": "tabletop-picture-frame-mdf-natural-oak-5x7-inch-2"
+      }
+    ]
+  }
+}

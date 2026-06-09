@@ -285,6 +285,7 @@ function localizedDocumentId(baseId, locale) {
 function deriveCommonFields(doc) {
   const copy = { ...doc };
   removeBlankUrlFields(copy);
+  removeBlankDateFields(copy);
   const docPath = copy.path || "/";
   const imageUrl = primaryImageUrl(copy);
   const fallbackDescription = overviewTextForDoc(copy);
@@ -412,6 +413,14 @@ function removeBlankUrlFields(doc) {
   if (Array.isArray(doc.galleryUrls)) {
     doc.galleryUrls = doc.galleryUrls.filter((url) => typeof url === "string" && url.trim());
     if (!doc.galleryUrls.length) delete doc.galleryUrls;
+  }
+}
+
+function removeBlankDateFields(doc) {
+  for (const field of ["publishedAt", "updatedAt", "datePublished", "dateModified"]) {
+    if (typeof doc[field] === "string" && !doc[field].trim()) {
+      delete doc[field];
+    }
   }
 }
 

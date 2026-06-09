@@ -1,0 +1,4331 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "production",
+  "apiVersion": "2026-05-20",
+  "dryRun": false,
+  "scannedDocuments": 1446,
+  "affectedDocuments": 480,
+  "invalidDateOccurrences": 480,
+  "results": [
+    {
+      "_id": "blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "28 Original Frame Ideas To Enhance The Artistry Of Your Space",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "4 Reasons to Integrate a Blackboard into Your Home Decor",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "5 Ways an LED Bathroom Vanity Mirror Can lmprove Your Space",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "6 Types of Picture Frame: How to Choose the Perfect One for You",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "A DIY Guide to Creating a Gallery Wall with Your Favorite Photos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Affordable Wall Art: Decorating Your Home Without Breaking the Bank",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Beyond the Ordinary: Elevate Your Picture Framing with Unique Touches",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Brighten Up Your Bathroom: Elegance with Safe, Durable, and Energy-Efficient LED Mirrors",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Bulk Picture Frame Orders for Wholesale Buyers: A Complete Guide",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Canvas Art: A Perfect Addition to Your Home Decor",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Choosing the Right LED Mirror: A Comprehensive Guide",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Creative Gallery Wall Ideas: Transform Your Walls with Frames, Art and Memo Boards",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Custom Frames: Diverse Materials and Styles for Varied Decor Needs",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Discover Advanced Storage Solutions for a Modern Medicine Cabinet",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Discover the Charm: How LED Mirrors Enhance Your Home Decor",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.discover-the-latest-trends-in-vanity-mirrors",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Discover the Latest Trends in Vanity Mirrors",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Dry Erase Board Checklist: Essential Tips for Efficient Planning",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Durability Insights: Are Wood Document Frames a Worthy Choice?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Easy Wall Frame Ideas to Instantly Elevate Your Home Decor",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Effective Picture Frame Placement: Tips to Enhance Your Room's Aesthetic",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Elevate Your Living Room: Wall Artwork Ideas for Experts",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Essential Maintenance Tips for Plastic Picture Frames' Longevity",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Everything You Need to Know About High-Quality Photo Frames and Home Decor Solutions",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.exploring-the-appeal-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Exploring the Appeal of Plastic Picture Frames",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Exquisite and Eco-Friendly: Shadow Box Art Display Innovations",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Framed vs. Frameless Mirrors: Choosing the Perfect Option for Your Space",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Framing the Future: A Comprehensive Guide to A-Paper Sizes",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.functional-decor-incorporating-memo-boards-into-your-home-office",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Functional Decor: Incorporating Memo Boards into Your Home Office",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Guide to Bedroom Decor: Enhancing with Mirror Placement",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How a LED Makeup Mirror Can Transform Your Beauty Routine",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-a-shadow-box-enhances-art-presentation-and-protection",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How a Shadow Box Enhances Art Presentation and Protection",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How an LED Mirror Can Elevate Your Bathroom Aesthetics",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How Does a magnetic memo board Enhance Your Workspace Efficiency?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How Framed Mirrors in Bedrooms Affect Your Mood and Well-being",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How mirror thickness Impacts Bedroom Visual Appeal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-painting-on-landscape-creates-timeless-home-decor",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How Painting on Landscape Creates Timeless Home Decor",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How To Choose The Right Mirror Cabinet for Your Bathroom",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How to Choose the Right Picture Frame Materials for Your Home",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How to Position Bedroom Mirrors for Optimal Natural Lighting",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How to Select Eco-Friendly Materials for Your Next Vanity",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "How to Use a Wall Mirror: Expert Tips for Stylish Interiors",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Intco Framing Will Be Participating in The 135th CANTON FAIR",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Interior Deco Market Outlook 2025: Key Trends and Challenges",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Maintaining Artwork Quality: The Role of Plastic Picture Frames",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.mirror-customization-the-importance-of-excellent-customer-service",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Mirror Customization: The Importance of Excellent Customer Service",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Modern? Rustic? Classic? The Custom Framing Guide Every Home Needs",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.picture-frames-evaluating-plastic-and-metal-options",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Picture Frames: Evaluating Plastic and Metal Options",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Picture Framing: A Trend for the Art of Preservation in 2025",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.poster-frames-vs-picture-frames-understanding-the-difference",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Poster Frames vs. Picture Frames: Understanding the Difference",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.practical-ways-a-cork-board-can-enhance-your-home",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Practical Ways a Cork Board Can Enhance Your Home",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.shadow-box-art-elevating-modern-wall-decor-with-sophisticated-layers",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Shadow Box Art: Elevating Modern Wall Decor with Sophisticated Layers",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.space-saving-furniture-ideas-for-small-apartments",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Space-Saving Furniture Ideas for Small Apartments",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.styling-floating-shelves-10-innovative-ideas-for-your-living-room",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Styling Floating Shelves: 10 Innovative Ideas for Your Living Room",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.sustainable-framing-eco-friendly-wholesale-picture-frame-options",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Sustainable Framing: Eco-Friendly Wholesale Picture Frame Options",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Sustainable Furniture Choices: Eco-Friendly Options for the Modern Home",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released - Intco Recycling",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "The Art of Framing: Enhancing Your Artwork with Unique Picture Frames",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.the-clear-difference-picture-frame-vs-photo-frame-explained",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "The Clear Difference: Picture Frame vs Photo Frame Explained",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.the-fascinating-process-behind-canvas-wall-art-creation",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "The Fascinating Process Behind Canvas wall art Creation",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.the-major-materials-of-medicine-mirror-cabinet",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "The Major Materials of Medicine Mirror Cabinet",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.the-role-of-mirrors-in-feng-shui-balancing-energy-in-your-home",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "The Role of Mirrors in Feng Shui: Balancing Energy in Your Home",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.tips-for-installing-picture-frames-in-your-home",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Tips for Installing Picture Frames in Your Home",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.top-4-vanity-mirror-features-you-should-consider",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Top 4 Vanity Mirror Features You Should Consider",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Top Frame Design Trends in 2025 for Interiors and Art Galleries",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.top-led-mirror-misconceptions-separating-fact-from-fiction",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Top LED Mirror Misconceptions: Separating Fact from Fiction",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.top-trends-in-vanity-mirrors-elevate-your-space",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Top Trends in Vanity Mirrors: Elevate Your Space",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.transform-any-room-with-creative-framed-wood-wall-decor",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Transform Any Room with Creative Framed Wood Wall Decor",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.transform-your-space-the-benefits-of-a-chalkboard-at-home",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Transform Your Space: The Benefits of a Chalkboard at Home",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.transform-your-workspace-cork-board-art-and-photo-ideas",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Transform Your Workspace: Cork Board Art and Photo Ideas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.update-your-interiors-with-trendy-and-affordable-wall-decor",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Update Your Interiors with Trendy and Affordable Wall Decor",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.vanity-mirror-trends-analyzing-modern-designs-and-features",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Vanity Mirror Trends: Analyzing Modern Designs and Features",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.visit-intco-framing-at-2024-vifa-expo",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Visit Intco Framing at 2024 VIFA Expo",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.wall-artwork-can-speak",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Wall Artwork Can Speak",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.wall-frame-guide-unique-styles-to-brighten-up-your-living-space",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Wall Frame Guide: Unique Styles to Brighten Up Your Living Space",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.whats-the-best-way-to-frame-black-and-white-photos",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "What’s the Best Way to Frame Black-and-White Photos?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.which-one-suits-your-project-a-guide-to-mirror-materials",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Which One Suits Your Project?——A Guide to Mirror Materials",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.why-canvas-wall-art-stands-out",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Why Canvas Wall Art Stands Out",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.why-choose-plastic-picture-frames-for-your-diy-projects",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Why Choose Plastic Picture Frames for Your DIY Projects?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.why-is-an-affordable-picture-frame-hard-to-find-unveiling-hidden-costs",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Why Is an Affordable Picture Frame Hard to Find Unveiling Hidden Costs",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "blogPost.your-must-knows-before-selecting-a-wholesale-mirror-supplier",
+      "_type": "blogPost",
+      "language": "en",
+      "title": "Your Must-Knows Before Selecting a Wholesale Mirror Supplier",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "28 originelle Rahmenideen, um die Kunstfertigkeit Ihres Raums zu verbessern",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "4 Gründe, eine Tafel in Ihre Inneneinrichtung zu integrieren",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "5 Möglichkeiten, wie ein LED-Badezimmerspiegel Ihren Raum verschönern kann",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "6 Arten von Bilderrahmen: So wählen Sie den perfekten Rahmen für Sie aus",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Eine DIY-Anleitung zum Erstellen einer Galeriewand mit Ihren Lieblingsfotos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Erschwingliche Wandkunst: Dekorieren Sie Ihr Zuhause, ohne die Bank zu sprengen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Über das Gewöhnliche hinaus: Werten Sie Ihren Bilderrahmen mit einzigartigen Akzenten auf",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Verschönern Sie Ihr Badezimmer: Eleganz mit sicheren, langlebigen und energieeffizienten LED-Spiegeln",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Großbestellungen von Bilderrahmen für Großkäufer: Ein vollständiger Leitfaden",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Leinwandkunst: Eine perfekte Ergänzung für Ihre Inneneinrichtung",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Auswahl des richtigen LED-Spiegels: Ein umfassender Leitfaden",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Kreative Ideen für Galeriewände: Verwandeln Sie Ihre Wände mit Rahmen, Kunst- und Notiztafeln",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Individuelle Rahmen: Verschiedene Materialien und Stile für unterschiedliche Dekorationsbedürfnisse",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Entdecken Sie fortschrittliche Aufbewahrungslösungen für einen modernen Medikamentenschrank",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Entdecken Sie den Charme: Wie LED-Spiegel Ihre Inneneinrichtung aufwerten",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Entdecken Sie die neuesten Trends bei Kosmetikspiegeln",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Checkliste für trocken abwischbare Tafeln: Wichtige Tipps für eine effiziente Planung",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Einblicke in die Haltbarkeit: Sind Dokumentenrahmen aus Holz eine gute Wahl?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Einfache Wandrahmen-Ideen, um Ihre Inneneinrichtung sofort aufzuwerten",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Effektive Platzierung von Bilderrahmen: Tipps zur Verbesserung der Ästhetik Ihres Raums",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Werten Sie Ihr Wohnzimmer auf: Wandkunst-Ideen für Experten",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wichtige Wartungstipps für die Langlebigkeit von Kunststoff-Bilderrahmen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Alles, was Sie über hochwertige Fotorahmen und Heimdekorationslösungen wissen müssen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.exploring-the-appeal-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Erkundung der Attraktivität von Bilderrahmen aus Kunststoff",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Exquisit und umweltfreundlich: Innovationen im Bereich Shadow Box Art Display",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Gerahmte vs. rahmenlose Spiegel: Wählen Sie die perfekte Option für Ihren Raum",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Die Zukunft gestalten: Ein umfassender Leitfaden zu A-Papierformaten",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.functional-decor-incorporating-memo-boards-into-your-home-office",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Funktionale Dekoration: Integrieren Sie Memoboards in Ihr Heimbüro",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Leitfaden zur Schlafzimmerdekoration: Aufwerten durch die Platzierung von Spiegeln",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie ein LED-Schminkspiegel Ihre Schönheitsroutine verändern kann",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-a-shadow-box-enhances-art-presentation-and-protection",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie eine Schattenbox die Präsentation und den Schutz von Kunst verbessert",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie ein LED-Spiegel die Ästhetik Ihres Badezimmers verbessern kann",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie steigert eine magnetische Notiztafel die Effizienz Ihres Arbeitsplatzes?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie gerahmte Spiegel im Schlafzimmer Ihre Stimmung und Ihr Wohlbefinden beeinflussen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie sich die Spiegeldicke auf die optische Attraktivität des Schlafzimmers auswirkt",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-painting-on-landscape-creates-timeless-home-decor",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie Landschaftsmalerei eine zeitlose Inneneinrichtung schafft",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "So wählen Sie den richtigen Spiegelschrank für Ihr Badezimmer",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "So wählen Sie die richtigen Bilderrahmenmaterialien für Ihr Zuhause aus",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "So positionieren Sie Schlafzimmerspiegel für optimale natürliche Beleuchtung",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "So wählen Sie umweltfreundliche Materialien für Ihren nächsten Waschtisch aus",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "So verwenden Sie einen Wandspiegel: Expertentipps für stilvolle Innenräume",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Intco Framing wird an der 135. CANTON FAIR teilnehmen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Marktausblick für Innendekoration 2025: Wichtige Trends und Herausforderungen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Aufrechterhaltung der Qualität von Kunstwerken: Die Rolle von Kunststoff-Bilderrahmen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.mirror-customization-the-importance-of-excellent-customer-service",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Spiegelanpassung: Die Bedeutung eines exzellenten Kundenservice",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Modern? Rustikal? Klassiker? Der individuelle Rahmenleitfaden, den jedes Zuhause braucht",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.picture-frames-evaluating-plastic-and-metal-options",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Bilderrahmen: Bewertung von Kunststoff- und Metalloptionen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Bilderrahmen: Ein Trend für die Kunst der Konservierung im Jahr 2025",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.poster-frames-vs-picture-frames-understanding-the-difference",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Posterrahmen vs. Bilderrahmen: Den Unterschied verstehen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.practical-ways-a-cork-board-can-enhance-your-home",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Praktische Möglichkeiten, wie eine Korktafel Ihr Zuhause verschönern kann",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.shadow-box-art-elevating-modern-wall-decor-with-sophisticated-layers",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Shadow Box Art: Moderner Wanddekor mit raffinierten Schichten",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.space-saving-furniture-ideas-for-small-apartments",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Platzsparende Möbelideen für kleine Wohnungen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.styling-floating-shelves-10-innovative-ideas-for-your-living-room",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Schwebende Regale gestalten: 10 innovative Ideen für Ihr Wohnzimmer",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.sustainable-framing-eco-friendly-wholesale-picture-frame-options",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Nachhaltiger Rahmen: Umweltfreundliche Optionen für Bilderrahmen im Großhandel",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Nachhaltige Möbelauswahl: Umweltfreundliche Optionen für das moderne Zuhause",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Die Bloomberg Green ESG 50 Companies to Watch List 2023 ist offiziell veröffentlicht – Intco Recycling",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Die Kunst des Einrahmens: Werten Sie Ihr Kunstwerk mit einzigartigen Bilderrahmen auf",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.the-clear-difference-picture-frame-vs-photo-frame-explained",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Der klare Unterschied: Bilderrahmen vs. Fotorahmen erklärt",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.the-fascinating-process-behind-canvas-wall-art-creation",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Der faszinierende Prozess hinter der Entstehung von Leinwand-Wandbildern",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.the-major-materials-of-medicine-mirror-cabinet",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Die wichtigsten Materialien des Medizinspiegelschranks",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.the-role-of-mirrors-in-feng-shui-balancing-energy-in-your-home",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Die Rolle von Spiegeln im Feng Shui: Energieausgleich in Ihrem Zuhause",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.tips-for-installing-picture-frames-in-your-home",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Tipps für die Installation von Bilderrahmen in Ihrem Zuhause",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.top-4-vanity-mirror-features-you-should-consider",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Die 4 wichtigsten Funktionen des Kosmetikspiegels, die Sie berücksichtigen sollten",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Top-Rahmendesigntrends im Jahr 2025 für Innenräume und Kunstgalerien",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.top-led-mirror-misconceptions-separating-fact-from-fiction",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Die häufigsten Missverständnisse über LED-Spiegel: Fakten von Fiktionen trennen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.top-trends-in-vanity-mirrors-elevate-your-space",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Top-Trends bei Kosmetikspiegeln: Werten Sie Ihren Raum auf",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.transform-any-room-with-creative-framed-wood-wall-decor",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Verwandeln Sie jeden Raum mit kreativ gerahmter Wanddekoration aus Holz",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.transform-your-space-the-benefits-of-a-chalkboard-at-home",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Verwandeln Sie Ihren Raum: Die Vorteile einer Tafel zu Hause",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.transform-your-workspace-cork-board-art-and-photo-ideas",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Verwandeln Sie Ihren Arbeitsplatz: Kunst- und Fotoideen für Korktafeln",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.update-your-interiors-with-trendy-and-affordable-wall-decor",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Aktualisieren Sie Ihre Innenräume mit trendiger und erschwinglicher Wanddekoration",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.vanity-mirror-trends-analyzing-modern-designs-and-features",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Kosmetikspiegel-Trends: Analyse moderner Designs und Funktionen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.visit-intco-framing-at-2024-vifa-expo",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Besuchen Sie Intco Framing auf der VIFA Expo 2024",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.wall-artwork-can-speak",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wandkunst kann sprechen",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.wall-frame-guide-unique-styles-to-brighten-up-your-living-space",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Leitfaden für Wandrahmen: Einzigartige Stile zur Verschönerung Ihres Wohnraums",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.whats-the-best-way-to-frame-black-and-white-photos",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Wie rahmt man Schwarz-Weiß-Fotos am besten ein?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.which-one-suits-your-project-a-guide-to-mirror-materials",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Welches passt zu Ihrem Projekt? – Ein Leitfaden für Spiegelmaterialien",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.why-canvas-wall-art-stands-out",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Warum Leinwand-Wandkunst herausragt",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.why-choose-plastic-picture-frames-for-your-diy-projects",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Warum sollten Sie sich für Bilderrahmen aus Kunststoff für Ihre DIY-Projekte entscheiden?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.why-is-an-affordable-picture-frame-hard-to-find-unveiling-hidden-costs",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Warum es schwierig ist, einen erschwinglichen Bilderrahmen zu finden, enthüllt versteckte Kosten",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.de.blogPost.your-must-knows-before-selecting-a-wholesale-mirror-supplier",
+      "_type": "blogPost",
+      "language": "de",
+      "title": "Was Sie wissen müssen, bevor Sie sich für einen Großhandelslieferanten für Spiegel entscheiden",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "28 ideas de marcos originales para realzar el arte de tu espacio",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "4 razones para integrar una pizarra en la decoración de tu hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "5 formas en que un espejo de tocador LED para baño puede mejorar su espacio",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "6 tipos de marcos para fotos: cómo elegir el perfecto para ti",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Una guía de bricolaje para crear una pared de galería con tus fotos favoritas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Arte de pared asequible: decorar su hogar sin gastar mucho dinero",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Más allá de lo ordinario: mejore el encuadre de su fotografía con toques únicos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Ilumine su baño: elegancia con espejos LED seguros, duraderos y energéticamente eficientes",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Pedidos de marcos de cuadros al por mayor para compradores mayoristas: una guía completa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Arte en lienzo: un complemento perfecto para la decoración de su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Elegir el espejo LED adecuado: una guía completa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Ideas creativas para las paredes de la galería: transforme sus paredes con marcos, arte y tableros de notas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Marcos personalizados: diversos materiales y estilos para diversas necesidades de decoración",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Descubra soluciones de almacenamiento avanzadas para un botiquín moderno",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Descubra el encanto: cómo los espejos LED mejoran la decoración de su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Descubra las últimas tendencias en espejos de tocador",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Lista de verificación de la pizarra de borrado en seco: consejos esenciales para una planificación eficiente",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Información sobre durabilidad: ¿Son los marcos de madera para documentos una elección digna?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Ideas sencillas para marcos de pared para realzar instantáneamente la decoración de su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Colocación eficaz de marcos de fotos: consejos para mejorar la estética de su habitación",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Eleve su sala de estar: ideas de obras de arte murales para expertos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Consejos de mantenimiento esenciales para la longevidad de los marcos de plástico",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Todo lo que necesita saber sobre marcos de fotos de alta calidad y soluciones de decoración del hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.exploring-the-appeal-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Explorando el atractivo de los marcos de plástico",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Exquisito y ecológico: innovaciones en exhibición de arte en Shadow Box",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Espejos con marco o sin marco: elegir la opción perfecta para su espacio",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Enmarcando el futuro: una guía completa sobre los tamaños de papel A",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.functional-decor-incorporating-memo-boards-into-your-home-office",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Decoración funcional: incorporación de tableros de notas en la oficina de su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Guía para la decoración del dormitorio: realzarla con la colocación de espejos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo un espejo de maquillaje LED puede transformar tu rutina de belleza",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-a-shadow-box-enhances-art-presentation-and-protection",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo una Shadow Box mejora la presentación y protección del arte",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo un espejo LED puede mejorar la estética de su baño",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "¿Cómo mejora un tablero de notas magnético la eficiencia de su espacio de trabajo?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo los espejos enmarcados en los dormitorios afectan su estado de ánimo y bienestar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo el grosor del espejo afecta el atractivo visual del dormitorio",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-painting-on-landscape-creates-timeless-home-decor",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo pintar sobre paisajes crea una decoración del hogar atemporal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo elegir el mueble con espejo adecuado para su baño",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo elegir los materiales adecuados para marcos de fotos para su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo colocar los espejos del dormitorio para una iluminación natural óptima",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo seleccionar materiales ecológicos para su próximo tocador",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Cómo utilizar un espejo de pared: consejos de expertos para interiores elegantes",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Intco Framing participará en la 135ª FERIA DE CANTON",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Perspectivas del mercado de decoración de interiores para 2025: tendencias y desafíos clave",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Mantener la calidad de las obras de arte: el papel de los marcos de plástico",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.mirror-customization-the-importance-of-excellent-customer-service",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Personalización del espejo: la importancia de un excelente servicio al cliente",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "¿Moderno? ¿Rústico? ¿Clásico? La guía de marcos personalizados que todo hogar necesita",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.picture-frames-evaluating-plastic-and-metal-options",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Marcos para cuadros: evaluación de opciones de plástico y metal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Encuadre de cuadros: una tendencia para el arte de la preservación en 2025",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.poster-frames-vs-picture-frames-understanding-the-difference",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Marcos para carteles versus marcos para fotografías: comprender la diferencia",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.practical-ways-a-cork-board-can-enhance-your-home",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Formas prácticas en que un tablero de corcho puede mejorar su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.shadow-box-art-elevating-modern-wall-decor-with-sophisticated-layers",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Shadow Box Art: elevando la decoración de pared moderna con capas sofisticadas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.space-saving-furniture-ideas-for-small-apartments",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Ideas de muebles que ahorran espacio para apartamentos pequeños",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.styling-floating-shelves-10-innovative-ideas-for-your-living-room",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Diseñar estantes flotantes: 10 ideas innovadoras para tu sala de estar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.sustainable-framing-eco-friendly-wholesale-picture-frame-options",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Marcos sostenibles: opciones de marcos de fotos al por mayor ecológicos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Opciones de muebles sostenibles: opciones ecológicas para el hogar moderno",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Se publica oficialmente la lista Bloomberg Green ESG 50 Companies to Watch de 2023 - Intco Recycling",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "El arte de enmarcar: mejorar su obra de arte con marcos de fotos únicos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.the-clear-difference-picture-frame-vs-photo-frame-explained",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "La clara diferencia: marco de fotos versus marco de fotos explicado",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.the-fascinating-process-behind-canvas-wall-art-creation",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "El fascinante proceso detrás de la creación de arte mural en lienzo",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.the-major-materials-of-medicine-mirror-cabinet",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Los principales materiales del gabinete con espejo de medicina.",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.the-role-of-mirrors-in-feng-shui-balancing-energy-in-your-home",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "El papel de los espejos en el Feng Shui: equilibrando la energía en su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.tips-for-installing-picture-frames-in-your-home",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Consejos para instalar marcos de cuadros en su hogar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.top-4-vanity-mirror-features-you-should-consider",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Las 4 principales características del espejo de tocador que debes considerar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Principales tendencias de diseño de marcos en 2025 para interiores y galerías de arte",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.top-led-mirror-misconceptions-separating-fact-from-fiction",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Principales conceptos erróneos sobre espejos LED: separar la realidad de la ficción",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.top-trends-in-vanity-mirrors-elevate-your-space",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Principales tendencias en espejos de tocador: mejore su espacio",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.transform-any-room-with-creative-framed-wood-wall-decor",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Transforme cualquier habitación con una creativa decoración de pared de madera enmarcada",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.transform-your-space-the-benefits-of-a-chalkboard-at-home",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Transforma tu espacio: los beneficios de una pizarra en casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.transform-your-workspace-cork-board-art-and-photo-ideas",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Transforme su espacio de trabajo: arte con tableros de corcho e ideas fotográficas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.update-your-interiors-with-trendy-and-affordable-wall-decor",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Actualice sus interiores con una decoración de pared moderna y asequible",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.vanity-mirror-trends-analyzing-modern-designs-and-features",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Tendencias en espejos de tocador: análisis de diseños y características modernos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.visit-intco-framing-at-2024-vifa-expo",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Visite Intco Framing en la VIFA Expo 2024",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.wall-artwork-can-speak",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Las ilustraciones de la pared pueden hablar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.wall-frame-guide-unique-styles-to-brighten-up-your-living-space",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Guía de marcos de pared: estilos únicos para iluminar su espacio vital",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.whats-the-best-way-to-frame-black-and-white-photos",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "¿Cuál es la mejor manera de encuadrar fotografías en blanco y negro?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.which-one-suits-your-project-a-guide-to-mirror-materials",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "¿Cuál se adapta a su proyecto?——Una guía de materiales para espejos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.why-canvas-wall-art-stands-out",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Por qué se destaca el arte mural en lienzo",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.why-choose-plastic-picture-frames-for-your-diy-projects",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "¿Por qué elegir marcos de plástico para sus proyectos de bricolaje?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.why-is-an-affordable-picture-frame-hard-to-find-unveiling-hidden-costs",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "¿Por qué es difícil encontrar un marco de fotos asequible? Revelando costos ocultos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.es.blogPost.your-must-knows-before-selecting-a-wholesale-mirror-supplier",
+      "_type": "blogPost",
+      "language": "es",
+      "title": "Lo que debe saber antes de seleccionar un proveedor mayorista de espejos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "28 idées de cadres originaux pour améliorer le talent artistique de votre espace",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "4 raisons d'intégrer un tableau noir dans votre décoration intérieure",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "5 façons dont un miroir de courtoisie de salle de bain à LED peut améliorer votre espace",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "6 types de cadres photo : comment choisir celui qui vous convient le mieux",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Un guide de bricolage pour créer un mur de galerie avec vos photos préférées",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Art mural abordable : décorer votre maison sans vous ruiner",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Au-delà de l'ordinaire : rehaussez votre encadrement photo avec des touches uniques",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Égayez votre salle de bain : élégance avec des miroirs LED sûrs, durables et économes en énergie",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Commandes groupées de cadres photo pour les acheteurs en gros : un guide complet",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Art sur toile : un complément parfait à votre décoration d'intérieur.",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Choisir le bon miroir LED : un guide complet",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Idées murales de galerie créative : transformez vos murs avec des cadres, des œuvres d'art et des tableaux mémo",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Cadres personnalisés : divers matériaux et styles pour des besoins de décoration variés",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Découvrez des solutions de stockage avancées pour une armoire à pharmacie moderne",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Découvrez le charme : comment les miroirs LED améliorent la décoration de votre maison",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Découvrez les dernières tendances en matière de miroirs de courtoisie",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Liste de contrôle pour tableau effaçable à sec : conseils essentiels pour une planification efficace",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Aperçu de la durabilité : les cadres de documents en bois sont-ils un choix judicieux ?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Idées faciles de cadres muraux pour rehausser instantanément la décoration de votre maison",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Placement efficace du cadre photo : conseils pour améliorer l'esthétique de votre pièce",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Élevez votre salon : idées d'œuvres d'art murales pour les experts",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Conseils d'entretien essentiels pour la longévité des cadres photo en plastique",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Tout ce que vous devez savoir sur les cadres photo et les solutions de décoration intérieure de haute qualité",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.exploring-the-appeal-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Explorer l'attrait des cadres photo en plastique",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Exquis et respectueux de l'environnement : innovations en matière d'affichage d'art Shadow Box",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Miroirs avec ou sans cadre : choisir l'option parfaite pour votre espace",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Encadrer l'avenir : un guide complet des formats de papier A",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.functional-decor-incorporating-memo-boards-into-your-home-office",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Décor fonctionnel : intégrer des tableaux de notes dans votre bureau à domicile",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Guide de la décoration de la chambre : amélioration avec le placement du miroir",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment un miroir de maquillage LED peut transformer votre routine beauté",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-a-shadow-box-enhances-art-presentation-and-protection",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment une Shadow Box améliore la présentation et la protection des œuvres d’art",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment un miroir LED peut rehausser l’esthétique de votre salle de bain",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment un tableau mémo magnétique améliore-t-il l'efficacité de votre espace de travail ?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment les miroirs encadrés dans les chambres affectent votre humeur et votre bien-être",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment l’épaisseur du miroir affecte l’attrait visuel de la chambre",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-painting-on-landscape-creates-timeless-home-decor",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment la peinture sur un paysage crée une décoration intérieure intemporelle",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment choisir la bonne armoire à miroir pour votre salle de bain",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment choisir les bons matériaux de cadre photo pour votre maison",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment positionner les miroirs de chambre pour un éclairage naturel optimal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment sélectionner des matériaux respectueux de l'environnement pour votre prochain meuble-lavabo",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment utiliser un miroir mural : conseils d'experts pour des intérieurs élégants",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Intco Framing participera à la 135e FOIRE DE CANTON",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Perspectives du marché de la décoration intérieure 2025 : principales tendances et défis",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Maintenir la qualité des œuvres d’art : le rôle des cadres photo en plastique",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.mirror-customization-the-importance-of-excellent-customer-service",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Personnalisation des miroirs : l'importance d'un excellent service client",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Moderne? Rustique? Classique? Le guide d’encadrement personnalisé dont chaque maison a besoin",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.picture-frames-evaluating-plastic-and-metal-options",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Cadres photo : évaluation des options en plastique et en métal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Encadrement photo : une tendance pour l’art de la préservation en 2025",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.poster-frames-vs-picture-frames-understanding-the-difference",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Cadres pour affiches et cadres photo : comprendre la différence",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.practical-ways-a-cork-board-can-enhance-your-home",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Comment un tableau en liège peut améliorer votre maison",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.shadow-box-art-elevating-modern-wall-decor-with-sophisticated-layers",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Shadow Box Art : rehausser la décoration murale moderne avec des couches sophistiquées",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.space-saving-furniture-ideas-for-small-apartments",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Idées de meubles peu encombrants pour les petits appartements",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.styling-floating-shelves-10-innovative-ideas-for-your-living-room",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Étagères flottantes stylées : 10 idées innovantes pour votre salon",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.sustainable-framing-eco-friendly-wholesale-picture-frame-options",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Encadrement durable : options de cadres photo en gros respectueux de l'environnement",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Choix de meubles durables : options écologiques pour la maison moderne",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "La liste 2023 des 50 entreprises à surveiller Bloomberg Green ESG est officiellement publiée - Intco Recycling",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "L'art de l'encadrement : améliorez vos œuvres d'art avec des cadres photo uniques",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.the-clear-difference-picture-frame-vs-photo-frame-explained",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "La différence claire : cadre photo et cadre photo expliqué",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.the-fascinating-process-behind-canvas-wall-art-creation",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Le processus fascinant derrière la création d’art mural sur toile",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.the-major-materials-of-medicine-mirror-cabinet",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Les principaux matériaux de l’armoire à pharmacie",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.the-role-of-mirrors-in-feng-shui-balancing-energy-in-your-home",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Le rôle des miroirs dans le Feng Shui : équilibrer l’énergie dans votre maison",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.tips-for-installing-picture-frames-in-your-home",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Conseils pour installer des cadres photo dans votre maison",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.top-4-vanity-mirror-features-you-should-consider",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Top 4 des caractéristiques des miroirs de courtoisie que vous devriez considérer",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Principales tendances en matière de conception de cadres en 2025 pour les intérieurs et les galeries d'art",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.top-led-mirror-misconceptions-separating-fact-from-fiction",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Principales idées fausses sur les miroirs LED : séparer les faits de la fiction",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.top-trends-in-vanity-mirrors-elevate-your-space",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Principales tendances en matière de miroirs de courtoisie : élevez votre espace",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.transform-any-room-with-creative-framed-wood-wall-decor",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Transformez n'importe quelle pièce avec une décoration murale créative en bois avec cadre",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.transform-your-space-the-benefits-of-a-chalkboard-at-home",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Transformez votre espace : les avantages d'un tableau à la maison",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.transform-your-workspace-cork-board-art-and-photo-ideas",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Transformez votre espace de travail : idées d'art et de photos sur des tableaux en liège",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.update-your-interiors-with-trendy-and-affordable-wall-decor",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Mettez à jour vos intérieurs avec une décoration murale tendance et abordable",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.vanity-mirror-trends-analyzing-modern-designs-and-features",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Tendances des miroirs de courtoisie : analyse des conceptions et des fonctionnalités modernes",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.visit-intco-framing-at-2024-vifa-expo",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Visitez Intco Framing à la VIFA Expo 2024",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.wall-artwork-can-speak",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Les œuvres d’art murales peuvent parler",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.wall-frame-guide-unique-styles-to-brighten-up-your-living-space",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Guide des cadres muraux : des styles uniques pour égayer votre espace de vie",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.whats-the-best-way-to-frame-black-and-white-photos",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Quelle est la meilleure façon de cadrer des photos en noir et blanc ?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.which-one-suits-your-project-a-guide-to-mirror-materials",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Lequel convient à votre projet ? – Un guide des matériaux de miroir",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.why-canvas-wall-art-stands-out",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Pourquoi l'art mural sur toile se démarque",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.why-choose-plastic-picture-frames-for-your-diy-projects",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Pourquoi choisir des cadres photo en plastique pour vos projets de bricolage ?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.why-is-an-affordable-picture-frame-hard-to-find-unveiling-hidden-costs",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Pourquoi est-il difficile de trouver un cadre photo abordable, révélant les coûts cachés",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.fr.blogPost.your-must-knows-before-selecting-a-wholesale-mirror-supplier",
+      "_type": "blogPost",
+      "language": "fr",
+      "title": "Ce qu'il faut savoir avant de sélectionner un fournisseur de miroirs en gros",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "空間の芸術性を高める 28 のオリジナル フレームのアイデア",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "黒板を家の装飾に組み込む4つの理由",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "LED 洗面化粧台ミラーがスペースを改善できる 5 つの方法",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "6種類の額縁：自分にぴったりの額縁の選び方",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "お気に入りの写真でギャラリーウォールを作成する DIY ガイド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "手頃な価格のウォールアート: お金をかけずにご自宅を飾りましょう",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "常識を超えて: ユニークなタッチで写真のフレーミングを向上",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "バスルームを明るく: 安全、耐久性、エネルギー効率の高い LED ミラーで優雅さを演出",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "卸売購入者向けの額縁の一括注文: 完全ガイド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "キャンバスアート: ご自宅の装飾に最適です。",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "適切な LED ミラーの選択: 包括的なガイド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "クリエイティブなギャラリーの壁のアイデア: フレーム、アート、メモボードで壁を変身させましょう",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "カスタムフレーム: さまざまな装飾ニーズに対応する多様な素材とスタイル",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "現代の薬品棚向けの高度なストレージ ソリューションを発見する",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "魅力を発見: LED ミラーが家の装飾をどのように強化するか",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "バニティミラーの最新トレンドを知る",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ホワイトボードボードのチェックリスト: 効率的な計画のための重要なヒント",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "耐久性に関する洞察: 木製ドキュメント フレームは価値のある選択ですか?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "家の装飾を即座に高める簡単な壁フレームのアイデア",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "効果的な額縁の配置: 部屋の美しさを高めるヒント",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "リビング ルームをレベルアップ: 専門家のためのウォール アートワークのアイデア",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "プラスチック製の額縁を長持ちさせるための重要なメンテナンスのヒント",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "高品質のフォトフレームと室内装飾ソリューションについて知っておくべきことすべて",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.exploring-the-appeal-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "プラスチック額縁の魅力に迫る",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "絶妙で環境に優しい: シャドー ボックス アート ディスプレイの革新",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "フレーム付きミラーとフレームレスミラー: スペースに最適なオプションの選択",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "未来の枠組み: A 用紙サイズの包括的なガイド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.functional-decor-incorporating-memo-boards-into-your-home-office",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "機能的な装飾: ホームオフィスにメモボードを取り入れる",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "寝室の装飾ガイド: 鏡の配置で効果を高める",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "LED 化粧鏡があなたの美容習慣をどう変えるか",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-a-shadow-box-enhances-art-presentation-and-protection",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "シャドー ボックスがアートのプレゼンテーションと保護を強化する方法",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "LED ミラーがバスルームの美しさをどのように高めるか",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "磁気メモボードはどのようにワークスペースの効率を高めますか?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "寝室の額縁付き鏡が気分と幸福に与える影響",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ミラーの厚さが寝室の見た目に与える影響",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-painting-on-landscape-creates-timeless-home-decor",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "風景に絵を描くことで時代を超越した室内装飾がどのように生まれるのか",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "あなたのバスルームに最適なミラーキャビネットの選び方",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "あなたの家に適した額縁の素材を選ぶ方法",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "最適な自然光を得るために寝室の鏡を配置する方法",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "次の洗面化粧台に環境に優しい素材を選ぶ方法",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ウォールミラーの使い方：おしゃれなインテリアを作る専門家のヒント",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "Intco Framingは第135回広州交易会に参加します",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "インテリアデコ市場の展望 2025: 主要なトレンドと課題",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "作品の品質を保つ：プラスチック額縁の役割",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.mirror-customization-the-importance-of-excellent-customer-service",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ミラーのカスタマイズ: 優れた顧客サービスの重要性",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "モダンな？素朴？クラシック？すべての住宅に必要なカスタム フレーム ガイド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.picture-frames-evaluating-plastic-and-metal-options",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "額縁: プラスチックと金属のオプションの評価",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "写真のフレーミング: 2025 年の保存技術のトレンド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.poster-frames-vs-picture-frames-understanding-the-difference",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ポスターフレームとフォトフレーム: 違いを理解する",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.practical-ways-a-cork-board-can-enhance-your-home",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "コルクボードで家を素敵にする実際的な方法",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.shadow-box-art-elevating-modern-wall-decor-with-sophisticated-layers",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "シャドー ボックス アート: 洗練されたレイヤーでモダンな壁の装飾を高める",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.space-saving-furniture-ideas-for-small-apartments",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "小さなアパート向けの省スペース家具のアイデア",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.styling-floating-shelves-10-innovative-ideas-for-your-living-room",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "フローティングシェルフのスタイリング: リビングルームのための 10 の革新的なアイデア",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.sustainable-framing-eco-friendly-wholesale-picture-frame-options",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "持続可能な額装: 環境に優しい卸売額縁オプション",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "持続可能な家具の選択: 現代の住宅のための環境に優しいオプション",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "2023年のブルームバーグ・グリーンESG注目企業50社リストが正式に発表 - Intco Recycling",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "額装の芸術: ユニークな額縁でアートワークを引き立てる",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.the-clear-difference-picture-frame-vs-photo-frame-explained",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "明確な違い: フォトフレームとフォトフレームの説明",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.the-fascinating-process-behind-canvas-wall-art-creation",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "キャンバスウォールアート制作の興味深いプロセス",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.the-major-materials-of-medicine-mirror-cabinet",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "医薬品ミラーキャビネットの主な材質",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.the-role-of-mirrors-in-feng-shui-balancing-energy-in-your-home",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "風水における鏡の役割: 家のエネルギーのバランスをとる",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.tips-for-installing-picture-frames-in-your-home",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "自宅に額縁を設置するためのヒント",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.top-4-vanity-mirror-features-you-should-consider",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "検討すべきバニティミラーの機能トップ 4",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "2025 年のインテリアとアート ギャラリーのトップ フレーム デザイン トレンド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.top-led-mirror-misconceptions-separating-fact-from-fiction",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "LED ミラーに関するよくある誤解: 事実とフィクションを区別する",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.top-trends-in-vanity-mirrors-elevate-your-space",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "バニティミラーのトップトレンド: 空間をグレードアップ",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.transform-any-room-with-creative-framed-wood-wall-decor",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "クリエイティブなフレーム付き木製壁装飾でどんな部屋も変身させましょう",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.transform-your-space-the-benefits-of-a-chalkboard-at-home",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "あなたの空間を変える: 自宅の黒板の利点",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.transform-your-workspace-cork-board-art-and-photo-ideas",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ワークスペースを変える: コルクボードアートと写真のアイデア",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.update-your-interiors-with-trendy-and-affordable-wall-decor",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "トレンディで手頃な価格の壁飾りでインテリアをアップデートしましょう",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.vanity-mirror-trends-analyzing-modern-designs-and-features",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "バニティミラーのトレンド: 最新のデザインと機能を分析する",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.visit-intco-framing-at-2024-vifa-expo",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "2024 VIFA Expo で Intco Framing をご覧ください",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.wall-artwork-can-speak",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "壁のアートワークは話せます",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.wall-frame-guide-unique-styles-to-brighten-up-your-living-space",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ウォールフレームガイド: 生活空間を明るくするユニークなスタイル",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.whats-the-best-way-to-frame-black-and-white-photos",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "白黒写真をフレームに収める最良の方法は何ですか?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.which-one-suits-your-project-a-guide-to-mirror-materials",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "あなたのプロジェクトに適したものはどれですか?——ミラー マテリアルのガイド",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.why-canvas-wall-art-stands-out",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "キャンバスウォールアートが目立つ理由",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.why-choose-plastic-picture-frames-for-your-diy-projects",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "DIY プロジェクトにプラスチック製の額縁を選ぶ理由",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.why-is-an-affordable-picture-frame-hard-to-find-unveiling-hidden-costs",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "手頃な価格の額縁を見つけるのが難しい理由 隠れたコストを明らかにする",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.ja.blogPost.your-must-knows-before-selecting-a-wholesale-mirror-supplier",
+      "_type": "blogPost",
+      "language": "ja",
+      "title": "ミラーの卸売業者を選択する前に知っておくべきこと",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "28 ideias originais de molduras para aprimorar a arte do seu espaço",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "4 razões para integrar um quadro negro na decoração da sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "5 maneiras pelas quais um espelho LED para banheiro pode melhorar seu espaço",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "6 tipos de porta-retratos: como escolher o perfeito para você",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Um guia DIY para criar uma parede de galeria com suas fotos favoritas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Arte de parede acessível: decorando sua casa sem gastar muito",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Além do comum: eleve o enquadramento da sua imagem com toques exclusivos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Ilumine seu banheiro: elegância com espelhos LED seguros, duráveis ​​e com baixo consumo de energia",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Pedidos de porta-retratos em massa para compradores no atacado: um guia completo",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Arte em tela: um complemento perfeito para a decoração da sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Escolhendo o espelho LED certo: um guia completo",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Idéias criativas para paredes de galerias: transforme suas paredes com molduras, quadros de arte e memorandos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Molduras personalizadas: diversos materiais e estilos para diversas necessidades de decoração",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Descubra soluções avançadas de armazenamento para um armário de remédios moderno",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Descubra o encanto: como os espelhos LED melhoram a decoração da sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.discover-the-latest-trends-in-vanity-mirrors",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Descubra as últimas tendências em espelhos de vaidade",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Lista de verificação do quadro apagado a seco: dicas essenciais para um planejamento eficiente",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Insights sobre durabilidade: as molduras para documentos de madeira são uma escolha válida?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Ideias fáceis de molduras de parede para elevar instantaneamente a decoração da sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Colocação eficaz de porta-retratos: dicas para melhorar a estética do seu ambiente",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Eleve sua sala de estar: ideias de arte de parede para especialistas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Dicas essenciais de manutenção para a longevidade dos porta-retratos de plástico",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Tudo o que você precisa saber sobre molduras para fotos de alta qualidade e soluções de decoração para casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.exploring-the-appeal-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Explorando o apelo das molduras de plástico",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Requintado e ecológico: inovações em exibição de arte em Shadow Box",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Espelhos com moldura e sem moldura: escolhendo a opção perfeita para o seu espaço",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Enquadrando o futuro: um guia abrangente para tamanhos de papel A",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.functional-decor-incorporating-memo-boards-into-your-home-office",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Decoração funcional: incorporando quadros de memorandos em seu escritório doméstico",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Guia para decoração de quartos: aprimorando com colocação de espelho",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como um espelho de maquiagem LED pode transformar sua rotina de beleza",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-a-shadow-box-enhances-art-presentation-and-protection",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como uma Shadow Box melhora a apresentação e proteção da arte",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como um espelho LED pode elevar a estética do seu banheiro",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como um quadro de notas magnético melhora a eficiência do seu espaço de trabalho?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como os espelhos emoldurados nos quartos afetam seu humor e bem-estar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como a espessura do espelho afeta o apelo visual do quarto",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-painting-on-landscape-creates-timeless-home-decor",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como a pintura em paisagem cria uma decoração atemporal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como escolher o armário com espelho certo para o seu banheiro",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como escolher os materiais certos para molduras de fotos para sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como posicionar os espelhos do quarto para obter uma iluminação natural ideal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como selecionar materiais ecológicos para sua próxima penteadeira",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Como usar um espelho de parede: dicas de especialistas para interiores elegantes",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "A Intco Framing participará da 135ª FEIRA DE CANTON",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Perspectivas do Mercado Interior Deco 2025: Principais Tendências e Desafios",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Mantendo a qualidade da arte: o papel dos porta-retratos de plástico",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.mirror-customization-the-importance-of-excellent-customer-service",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Personalização de espelhos: a importância de um excelente atendimento ao cliente",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Moderno? Rústico? Clássico? O guia de moldura personalizada que toda casa precisa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.picture-frames-evaluating-plastic-and-metal-options",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Molduras: avaliando opções de plástico e metal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Enquadramento de imagens: uma tendência para a arte da preservação em 2025",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.poster-frames-vs-picture-frames-understanding-the-difference",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Molduras de pôster versus molduras de fotos: entendendo a diferença",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.practical-ways-a-cork-board-can-enhance-your-home",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Maneiras práticas de uma placa de cortiça melhorar sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.shadow-box-art-elevating-modern-wall-decor-with-sophisticated-layers",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Shadow Box Art: Elevando a decoração moderna da parede com camadas sofisticadas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.space-saving-furniture-ideas-for-small-apartments",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Ideias de móveis que economizam espaço para apartamentos pequenos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.styling-floating-shelves-10-innovative-ideas-for-your-living-room",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Estilizando prateleiras flutuantes: 10 ideias inovadoras para sua sala de estar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.sustainable-framing-eco-friendly-wholesale-picture-frame-options",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Moldura sustentável: opções de porta-retratos ecologicamente corretas no atacado",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Escolhas de móveis sustentáveis: opções ecológicas para a casa moderna",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "A lista Bloomberg Green ESG 50 Companies to Watch List de 2023 foi lançada oficialmente - Intco Recycling",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "A arte do enquadramento: aprimorando sua arte com molduras exclusivas",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.the-clear-difference-picture-frame-vs-photo-frame-explained",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "A diferença clara: moldura de foto vs moldura de foto explicada",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.the-fascinating-process-behind-canvas-wall-art-creation",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "O processo fascinante por trás da criação de arte em tela",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.the-major-materials-of-medicine-mirror-cabinet",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Os principais materiais do gabinete de espelho medicinal",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.the-role-of-mirrors-in-feng-shui-balancing-energy-in-your-home",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "O papel dos espelhos no Feng Shui: equilibrando a energia em sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.tips-for-installing-picture-frames-in-your-home",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Dicas para instalar molduras em sua casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.top-4-vanity-mirror-features-you-should-consider",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Os 4 principais recursos do espelho de cortesia que você deve considerar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Principais tendências de design de molduras em 2025 para interiores e galerias de arte",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.top-led-mirror-misconceptions-separating-fact-from-fiction",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Principais equívocos sobre espelhos LED: separando o fato da ficção",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.top-trends-in-vanity-mirrors-elevate-your-space",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Principais tendências em espelhos de maquiagem: eleve seu espaço",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.transform-any-room-with-creative-framed-wood-wall-decor",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Transforme qualquer ambiente com decoração criativa de parede de madeira com moldura",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.transform-your-space-the-benefits-of-a-chalkboard-at-home",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Transforme seu espaço: os benefícios de um quadro-negro em casa",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.transform-your-workspace-cork-board-art-and-photo-ideas",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Transforme seu espaço de trabalho: ideias para arte e fotos em quadros de cortiça",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.update-your-interiors-with-trendy-and-affordable-wall-decor",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Atualize seus interiores com decoração de parede moderna e acessível",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.vanity-mirror-trends-analyzing-modern-designs-and-features",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Tendências de espelhos de vaidade: analisando designs e recursos modernos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.visit-intco-framing-at-2024-vifa-expo",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Visite a Intco Framing na VIFA Expo 2024",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.wall-artwork-can-speak",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "A arte da parede pode falar",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.wall-frame-guide-unique-styles-to-brighten-up-your-living-space",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Guia de molduras de parede: estilos exclusivos para iluminar sua sala",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.whats-the-best-way-to-frame-black-and-white-photos",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Qual é a melhor maneira de enquadrar fotos em preto e branco?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.which-one-suits-your-project-a-guide-to-mirror-materials",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Qual deles se adapta ao seu projeto? —— Um guia para materiais espelhados",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.why-canvas-wall-art-stands-out",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Por que a arte da parede em tela se destaca",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.why-choose-plastic-picture-frames-for-your-diy-projects",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Por que escolher molduras de plástico para seus projetos DIY?",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.why-is-an-affordable-picture-frame-hard-to-find-unveiling-hidden-costs",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "Por que é difícil encontrar um porta-retratos acessível, revelando custos ocultos",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    },
+    {
+      "_id": "i18n.pt.blogPost.your-must-knows-before-selecting-a-wholesale-mirror-supplier",
+      "_type": "blogPost",
+      "language": "pt",
+      "title": "O que você deve saber antes de selecionar um fornecedor de espelhos no atacado",
+      "invalidFields": {
+        "publishedAt": ""
+      }
+    }
+  ]
+}

@@ -45,6 +45,34 @@ const intelligenceFields = [
 
 const inquiryField = defineField({ name: "inquiryRouting", title: "Inquiry Routing", type: "inquiryRouting" });
 
+const localizedSlugOptions = {
+  isUnique: isUniqueWithinLanguage,
+};
+
+async function isUniqueWithinLanguage(slug: string, context: any) {
+  const { document, getClient } = context;
+  if (!document?._id || !document?._type) return true;
+
+  const currentId = document._id.replace(/^drafts\./, "");
+  const draftId = `drafts.${currentId}`;
+  const language = document.language || "en";
+
+  const query = /* groq */ `!defined(*[
+    _type == $type &&
+    slug.current == $slug &&
+    coalesce(language, "en") == $language &&
+    !(_id in [$currentId, $draftId])
+  ][0]._id)`;
+
+  return getClient({ apiVersion: "2026-05-20" }).withConfig({ perspective: "raw" }).fetch(query, {
+    type: document._type,
+    slug,
+    language,
+    currentId,
+    draftId,
+  });
+}
+
 export const siteSettings = defineType({
   name: "siteSettings",
   title: "Site Settings",
@@ -96,7 +124,7 @@ export const productCategory = defineType({
   fields: [
     ...localizationFields,
     defineField({ name: "title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "slug", type: "slug", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", type: "slug", options: localizedSlugOptions, validation: (rule) => rule.required() }),
     defineField({ name: "path", type: "string" }),
     defineField({ name: "parentSlug", type: "string" }),
     defineField({ name: "description", type: "text" }),
@@ -125,7 +153,7 @@ export const product = defineType({
   fields: [
     ...localizationFields,
     defineField({ name: "title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "slug", type: "slug", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", type: "slug", options: localizedSlugOptions, validation: (rule) => rule.required() }),
     defineField({ name: "path", type: "string" }),
     defineField({ name: "categorySlugs", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "mainCategorySlug", type: "string" }),
@@ -161,7 +189,7 @@ export const solution = defineType({
   fields: [
     ...localizationFields,
     defineField({ name: "title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "slug", type: "slug", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", type: "slug", options: localizedSlugOptions, validation: (rule) => rule.required() }),
     defineField({ name: "path", type: "string" }),
     defineField({ name: "description", type: "text" }),
     defineField({ name: "bodyText", type: "text" }),
@@ -184,7 +212,7 @@ export const project = defineType({
   fields: [
     ...localizationFields,
     defineField({ name: "title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "slug", type: "slug", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", type: "slug", options: localizedSlugOptions, validation: (rule) => rule.required() }),
     defineField({ name: "path", type: "string" }),
     defineField({ name: "category", type: "string", options: { list: ["Residential", "Commercial"] } }),
     defineField({ name: "description", type: "text" }),
@@ -209,7 +237,7 @@ export const blogPost = defineType({
   fields: [
     ...localizationFields,
     defineField({ name: "title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "slug", type: "slug", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", type: "slug", options: localizedSlugOptions, validation: (rule) => rule.required() }),
     defineField({ name: "path", type: "string" }),
     defineField({ name: "category", type: "string" }),
     defineField({ name: "excerpt", type: "text" }),
@@ -234,7 +262,7 @@ export const contentPage = defineType({
   fields: [
     ...localizationFields,
     defineField({ name: "title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "slug", type: "slug", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", type: "slug", options: localizedSlugOptions, validation: (rule) => rule.required() }),
     defineField({ name: "path", type: "string" }),
     defineField({ name: "description", type: "text" }),
     defineField({ name: "bodyText", type: "text" }),
