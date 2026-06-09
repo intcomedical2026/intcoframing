@@ -10,7 +10,7 @@ const { projectId, dataset, apiVersion } = sanityConfigFromEnv(args);
 const token = process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_TOKEN;
 const locales = normalizeLocales(args.locales || "en,es,pt,fr,de,ja");
 const reportPath = path.resolve(args.report || `reports/launch/aeo-content-audit-${dataset}-${timestamp()}.json`);
-const intelligenceTypes = ["siteSettings", "homePage", "productCategory", "solution", "project", "contentPage"];
+const intelligenceTypes = ["siteSettings", "homePage", "productCategory", "product", "solution", "project", "blogPost", "contentPage"];
 
 const client = createClient({
   projectId,

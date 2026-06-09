@@ -35,6 +35,8 @@ const allowedFieldsByType = {
     "seo",
     "faqs",
     "evidence",
+    "datePublished",
+    "dateModified",
   ]),
   homePage: new Set([
     "language",

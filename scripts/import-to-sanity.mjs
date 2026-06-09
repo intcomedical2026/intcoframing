@@ -63,7 +63,7 @@ const inquiryFormByType = {
   contentPage: "page-inquiry",
 };
 
-const intelligenceDocTypes = new Set(["siteSettings", "homePage", "productCategory", "solution", "project", "contentPage"]);
+const intelligenceDocTypes = new Set(["siteSettings", "homePage", "productCategory", "product", "solution", "project", "blogPost", "contentPage"]);
 const evidenceCollectedAt = "2026-05-28";
 const contentReviewedAt = "2026-05-29T00:00:00.000Z";
 
@@ -554,6 +554,8 @@ const allowedFieldsByType = {
     "seo",
     "faqs",
     "evidence",
+    "datePublished",
+    "dateModified",
   ]),
   homePage: new Set([
     "language",

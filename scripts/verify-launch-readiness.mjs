@@ -77,14 +77,14 @@ const pageSamples = [
     label: "product detail",
     path: "/mirror/wall-mirror/modern-black-iron-bathroom-mirror-with-shelf",
     locale: "en",
-    requiredJsonLd: ["Organization", "WebSite", "WebPage", "BreadcrumbList", "Product"],
+    requiredJsonLd: ["Organization", "WebSite", "WebPage", "BreadcrumbList", "Product", "FAQPage"],
     expectedFormIds: [leadsCloud.formIds.footerNewsletter],
   },
   {
     label: "blog detail",
     path: "/news/canvas-art-a-perfect-addition-to-your-home-decor",
     locale: "en",
-    requiredJsonLd: ["Organization", "WebSite", "WebPage", "BreadcrumbList", "BlogPosting"],
+    requiredJsonLd: ["Organization", "WebSite", "WebPage", "BreadcrumbList", "BlogPosting", "FAQPage"],
     expectedFormIds: [leadsCloud.formIds.footerNewsletter],
   },
   {

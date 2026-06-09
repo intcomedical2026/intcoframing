@@ -92,7 +92,7 @@ export type SiteSettings = {
   sameAs?: string[];
   navigation?: LinkItem[];
   footerColumns?: { title: string; links: LinkItem[] }[];
-} & Pick<SeoContent, "language" | "translationGroup" | "seo" | "faqs" | "evidence">;
+} & Pick<SeoContent, "language" | "translationGroup" | "seo" | "faqs" | "evidence" | "datePublished" | "dateModified">;
 
 export type ProductCategory = ImageLike & SeoContent & {
   title: string;

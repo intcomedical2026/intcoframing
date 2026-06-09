@@ -26,6 +26,7 @@
     "sanity:fix:array-keys": "node scripts/fix-sanity-array-keys.mjs",
     "sanity:fix:invalid-dates": "node scripts/fix-sanity-invalid-dates.mjs",
     "sanity:fix:unknown-fields": "node scripts/fix-sanity-unknown-fields.mjs",
+    "sanity:backfill:aeo": "node scripts/backfill-sanity-aeo-fields.mjs",
     "sanity:verify:import": "node scripts/verify-sanity-import.mjs",
     "sanity:audit:aeo": "node scripts/audit-aeo-content.mjs",
     "launch:verify": "node scripts/verify-launch-readiness.mjs",

@@ -49,7 +49,20 @@ const localizedSlugOptions = {
   isUnique: isUniqueWithinLanguage,
 };
 
-async function isUniqueWithinLanguage(slug: string, context: any) {
+type SlugValidationContext = {
+  document?: {
+    _id?: string;
+    _type?: string;
+    language?: string;
+  };
+  getClient: (options: { apiVersion: string }) => {
+    withConfig: (config: { perspective: "raw" }) => {
+      fetch: <T>(query: string, params: Record<string, string>) => Promise<T>;
+    };
+  };
+};
+
+async function isUniqueWithinLanguage(slug: string, context: SlugValidationContext): Promise<boolean> {
   const { document, getClient } = context;
   if (!document?._id || !document?._type) return true;
 
@@ -64,7 +77,7 @@ async function isUniqueWithinLanguage(slug: string, context: any) {
     !(_id in [$currentId, $draftId])
   ][0]._id)`;
 
-  return getClient({ apiVersion: "2026-05-20" }).withConfig({ perspective: "raw" }).fetch(query, {
+  return getClient({ apiVersion: "2026-05-20" }).withConfig({ perspective: "raw" }).fetch<boolean>(query, {
     type: document._type,
     slug,
     language,
@@ -97,6 +110,8 @@ export const siteSettings = defineType({
     seoField,
     defineField({ name: "faqs", title: "Organization FAQs", type: "array", of: [{ type: "faqItem" }] }),
     defineField({ name: "evidence", title: "Organization Evidence / Claims", type: "array", of: [{ type: "evidenceItem" }] }),
+    defineField({ name: "datePublished", title: "Date Published", type: "datetime" }),
+    defineField({ name: "dateModified", title: "Date Modified", type: "datetime" }),
   ],
 });
 
