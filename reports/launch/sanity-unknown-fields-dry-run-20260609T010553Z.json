@@ -1,0 +1,11 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "production",
+  "apiVersion": "2026-05-20",
+  "dryRun": true,
+  "scannedDocuments": 1452,
+  "affectedDocuments": 0,
+  "unknownFieldOccurrences": 0,
+  "fieldCounts": {},
+  "results": []
+}

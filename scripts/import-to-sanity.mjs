@@ -478,7 +478,7 @@ function valueAfterLabel(bodyText, labels) {
 }
 
 async function withImages(doc) {
-  const copy = withArrayItemKeys(deriveCommonFields(slugifyDoc(doc)));
+  const copy = withArrayItemKeys(removeSchemaUnknownFields(deriveCommonFields(slugifyDoc(doc))));
 
   if (copy.logoUrl) copy.logo = await uploadImage(copy.logoUrl, "logo");
   if (copy.footerLogoUrl) copy.footerLogo = await uploadImage(copy.footerLogoUrl, "footer-logo");
@@ -513,6 +513,151 @@ async function withImages(doc) {
 
   return copy;
 }
+
+function removeSchemaUnknownFields(doc) {
+  const allowed = allowedFieldsByType[doc._type];
+  if (!allowed) return doc;
+  return Object.fromEntries(Object.entries(doc).filter(([field]) => field.startsWith("_") || allowed.has(field)));
+}
+
+const sharedSeoFields = new Set(["language", "translationGroup", "seo", "faqs", "evidence", "datePublished", "dateModified"]);
+const sharedMigrationFields = new Set(["legacyUrls", "sourceUrl", "sourceId"]);
+const sharedInquiryField = "inquiryRouting";
+const allowedFieldsByType = {
+  siteSettings: new Set([
+    "language",
+    "translationGroup",
+    "title",
+    "description",
+    "sourceSite",
+    "logo",
+    "logoUrl",
+    "footerLogo",
+    "footerLogoUrl",
+    "phone",
+    "secondaryPhone",
+    "email",
+    "address",
+    "contactPoints",
+    "sameAs",
+    "navigation",
+    "footerColumns",
+    "seo",
+    "faqs",
+    "evidence",
+  ]),
+  homePage: new Set([
+    "language",
+    "translationGroup",
+    "title",
+    "heroSlides",
+    "companyProfile",
+    "stats",
+    "projectsIntro",
+    "blogIntro",
+    ...sharedSeoFields,
+  ]),
+  productCategory: new Set([
+    "title",
+    "slug",
+    "path",
+    "parentSlug",
+    "description",
+    "imageAlt",
+    "image",
+    "imageUrl",
+    "navImageAlt",
+    "navImage",
+    "navImageUrl",
+    "order",
+    sharedInquiryField,
+    ...sharedSeoFields,
+    ...sharedMigrationFields,
+  ]),
+  product: new Set([
+    "title",
+    "slug",
+    "path",
+    "categorySlugs",
+    "mainCategorySlug",
+    "description",
+    "bodyText",
+    "sku",
+    "brand",
+    "material",
+    "dimensions",
+    "offers",
+    "imageAlt",
+    "image",
+    "imageUrl",
+    "gallery",
+    "galleryUrls",
+    "publishedAt",
+    "updatedAt",
+    sharedInquiryField,
+    ...sharedSeoFields,
+    ...sharedMigrationFields,
+  ]),
+  solution: new Set([
+    "title",
+    "slug",
+    "path",
+    "description",
+    "bodyText",
+    "imageAlt",
+    "image",
+    "imageUrl",
+    "order",
+    sharedInquiryField,
+    ...sharedSeoFields,
+    ...sharedMigrationFields,
+  ]),
+  project: new Set([
+    "title",
+    "slug",
+    "path",
+    "category",
+    "description",
+    "bodyText",
+    "imageAlt",
+    "image",
+    "imageUrl",
+    "gallery",
+    "galleryUrls",
+    sharedInquiryField,
+    ...sharedSeoFields,
+    ...sharedMigrationFields,
+  ]),
+  blogPost: new Set([
+    "title",
+    "slug",
+    "path",
+    "category",
+    "excerpt",
+    "bodyText",
+    "imageAlt",
+    "image",
+    "imageUrl",
+    "gallery",
+    "galleryUrls",
+    "publishedAt",
+    ...sharedSeoFields,
+    ...sharedMigrationFields,
+  ]),
+  contentPage: new Set([
+    "title",
+    "slug",
+    "path",
+    "description",
+    "bodyText",
+    "imageAlt",
+    "image",
+    "imageUrl",
+    sharedInquiryField,
+    ...sharedSeoFields,
+    ...sharedMigrationFields,
+  ]),
+};
 
 function withArrayItemKeys(value, pathSegments = []) {
   if (Array.isArray(value)) {
