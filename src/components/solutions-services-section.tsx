@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
-import { localizePath } from "@/lib/i18n";
+import { localizePath, t } from "@/lib/i18n";
 
 export type SolutionsServiceItem = {
   title: string;
@@ -56,7 +56,7 @@ export function SolutionsServicesSection({ items, locale }: { items: SolutionsSe
                     href={localizePath(locale, item.path)}
                     className="inline-flex h-[58px] w-[254px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-medium text-[#484653] transition duration-700 hover:bg-[#484653] hover:text-white"
                   >
-                    More Information
+                    {t(locale, "exploreMore")}
                     <ArrowRight className="ml-2" size={22} />
                   </Link>
                 </div>
