@@ -110,8 +110,8 @@ function Header({
 
   return (
     <header className="sticky top-0 z-50 bg-white">
-      <div className="hidden h-[53px] bg-[#484652] text-white lg:block">
-        <div className="intco-source-container flex h-full items-center justify-between px-5 text-base font-medium">
+      <div className="hidden h-[53px] bg-[#484652] text-white min-[900px]:block">
+        <div className="intco-source-container flex h-full items-center justify-between px-5 text-sm font-medium xl:text-base">
           <div className="flex items-center">
             <span className="inline-flex items-center gap-2">
               <Phone size={20} />
@@ -124,7 +124,7 @@ function Header({
             </span>
           </div>
           <div className="relative flex items-center pr-[125px]">
-            <div className="flex items-center gap-1">
+            <div className="hidden items-center gap-1 min-[1180px]:flex">
               {footerSocialLinks.map((item) => (
                 <Link
                   key={item.href}
@@ -151,7 +151,7 @@ function Header({
           </div>
         </div>
       </div>
-      <div className="intco-source-container flex h-[57px] items-center justify-between gap-6 px-5 lg:h-[90px]">
+      <div className="intco-source-container flex h-[57px] items-center justify-between gap-6 px-5 min-[900px]:h-[90px]">
         <Link href={href("/")} className="flex items-center gap-3" aria-label="INTCO Framing home">
           {settings.logoUrl ? (
             <Image
@@ -159,14 +159,14 @@ function Header({
               alt={settings.title}
               width={101}
               height={87}
-              className="h-10 w-auto object-contain lg:h-[87px]"
+              className="h-10 w-auto object-contain min-[900px]:h-[87px]"
               preload
             />
           ) : (
             <span className="text-xl font-bold tracking-wide">{settings.title}</span>
           )}
         </Link>
-        <nav className="hidden flex-1 items-center justify-between px-[5%] text-xl font-semibold text-[#484653] lg:flex">
+        <nav className="hidden flex-1 items-center justify-between px-[clamp(18px,4vw,80px)] text-[clamp(16px,1.22vw,20px)] font-semibold text-[#484653] min-[900px]:flex">
           {(settings.navigation || []).map((item) => {
             const isProducts = item.path === "/products";
             const isProjects = item.path === "/projects";
@@ -178,7 +178,7 @@ function Header({
               <div key={item.path} className="group relative flex h-[90px] items-center">
                 <Link
                   href={href(item.path)}
-                  className={`relative mx-5 block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-500 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
+                  className={`relative mx-[clamp(8px,1vw,20px)] block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-500 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
                 >
                   {chromeLabel(locale, item.path, item.label)}
                 </Link>
@@ -190,7 +190,7 @@ function Header({
             );
           })}
         </nav>
-        <form action={href("/index.php")} className="hidden items-center xl:flex">
+        <form action={href("/index.php")} className="hidden items-center min-[1180px]:flex">
           <button type="submit" aria-label={t(locale, "search")} className="text-[#484653]">
             <Search size={24} />
           </button>
@@ -200,7 +200,7 @@ function Header({
             className="sr-only"
           />
         </form>
-        <div className="flex items-center gap-5 text-[#484653] lg:hidden">
+        <div className="flex items-center gap-5 text-[#484653] min-[900px]:hidden">
           <Link href={href("/index.php")} aria-label={t(locale, "search")}>
             <Search size={28} strokeWidth={2.8} />
           </Link>

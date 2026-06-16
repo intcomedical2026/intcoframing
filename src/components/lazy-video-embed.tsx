@@ -3,13 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 
 type LazyVideoEmbedProps = {
-  srcDoc: string;
+  src?: string;
+  srcDoc?: string;
   title: string;
   className?: string;
   rootMargin?: string;
 };
 
 export function LazyVideoEmbed({
+  src,
   srcDoc,
   title,
   className,
@@ -46,7 +48,9 @@ export function LazyVideoEmbed({
     <div ref={ref} className={className}>
       {shouldLoad ? (
         <iframe
+          key={src || srcDoc}
           className="size-full"
+          src={src}
           srcDoc={srcDoc}
           title={title}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

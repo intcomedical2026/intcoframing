@@ -20,7 +20,7 @@ import {
   SolutionDetailView,
   SolutionsListingView,
 } from "@/components/site-views";
-import { getSiteData, type EvidenceItem, type FaqItem, type OfferItem, type Product } from "@/lib/site-data";
+import { getSiteData, type OfferItem, type Product } from "@/lib/site-data";
 import { languageAlternates, localizePath, parseLocalizedSegments, t, type Locale } from "@/lib/i18n";
 import { absoluteUrl, siteOrigin } from "@/lib/site-url";
 import { SOURCE_SEARCH_PAGE_SIZE } from "@/lib/source-search-results";
@@ -75,14 +75,6 @@ const legacyProductAllRedirects: Record<string, string> = {
 };
 
 type JsonLdNode = Record<string, unknown>;
-type AeoContentItem = {
-  title?: string;
-  faqs?: FaqItem[];
-  evidence?: EvidenceItem[];
-  datePublished?: string;
-  dateModified?: string;
-};
-
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { slug = [] } = await params;
   const query = normalizeRouteQuery((await searchParams) || {});
@@ -132,7 +124,6 @@ export default async function SitePage({ params, searchParams }: PageProps) {
   );
   const chromePath = searchRoute && path === "/" ? "/index.php" : path;
   const languagePath = searchRoute ? searchLanguageSwitcherPath(searchRoute) : path;
-  const aeoItem = searchRoute ? undefined : structuredDataItemForPath(path, data);
 
   return (
     <SiteChrome settings={data.siteSettings} categories={data.productCategories} solutions={data.solutions} locale={locale} currentPath={chromePath} languagePath={languagePath}>
@@ -145,89 +136,7 @@ export default async function SitePage({ params, searchParams }: PageProps) {
         />
       ))}
       {renderRoute(path, data, locale, query)}
-      <AeoAnswerSection item={aeoItem} locale={locale} />
     </SiteChrome>
-  );
-}
-
-function AeoAnswerSection({ item, locale }: { item: AeoContentItem | undefined; locale: Locale }) {
-  const faqs = item?.faqs?.filter((entry) => entry.question && entry.answer) || [];
-  const evidence = item?.evidence?.filter((entry) => entry.claim) || [];
-  if (!faqs.length && !evidence.length && !item?.dateModified) return null;
-
-  const labels = aeoLabels[locale] || aeoLabels.en;
-
-  return (
-    <section id="faq" className="intco-aeo-section bg-[#f7f7f7] px-5 py-14 text-[#484653] lg:py-20" aria-labelledby="aeo-section-title">
-      <div className="mx-auto max-w-[1320px]">
-        <div className="mb-8 flex flex-col gap-3 border-b border-[#d8d8dd] pb-5 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.12em] text-[#767682]">{labels.eyebrow}</p>
-            <h2 id="aeo-section-title" className="text-3xl font-semibold leading-tight lg:text-[42px]">
-              {labels.title}
-            </h2>
-          </div>
-          {item?.dateModified ? <p className="text-sm font-medium text-[#767682]">{labels.updated}: {formatAeoDate(item.dateModified, locale)}</p> : null}
-        </div>
-
-        {faqs.length ? (
-          <div className="grid gap-4 lg:grid-cols-3">
-            {faqs.map((faq, index) => {
-              const anchorId = safeAnchorId(faq.anchorId, index);
-              return (
-                <details key={`${anchorId}-${faq.question}`} id={anchorId} className="group bg-white p-6 shadow-sm ring-1 ring-black/5">
-                  <summary className="flex cursor-pointer list-none items-start justify-between gap-4 text-lg font-semibold leading-snug [&::-webkit-details-marker]:hidden">
-                    <span>{faq.question}</span>
-                    <span className="mt-1 inline-flex size-6 shrink-0 items-center justify-center rounded-full border border-[#484653] text-base leading-none transition group-open:rotate-45">+</span>
-                  </summary>
-                  <p className="mt-4 text-base leading-8 text-[#5f5e68]">{faq.answer}</p>
-                </details>
-              );
-            })}
-          </div>
-        ) : null}
-
-        {evidence.length ? (
-          <div className="mt-8 grid gap-4 lg:grid-cols-2">
-            {evidence.map((entry, index) => (
-              <div key={`${entry.claim}-${index}`} className="bg-white p-6 shadow-sm ring-1 ring-black/5">
-                <p className="mb-3 text-sm font-semibold uppercase tracking-[0.12em] text-[#767682]">{labels.evidence}</p>
-                <p className="text-lg font-semibold leading-snug">{entry.claim}</p>
-                {entry.methodology ? <p className="mt-4 text-base leading-8 text-[#5f5e68]">{entry.methodology}</p> : null}
-                <dl className="mt-5 grid gap-3 text-sm text-[#5f5e68]">
-                  {entry.sourceName ? (
-                    <div>
-                      <dt className="font-semibold text-[#484653]">{labels.source}</dt>
-                      <dd>
-                        {entry.sourceUrl ? (
-                          <a className="underline underline-offset-4" href={entry.sourceUrl} target="_blank" rel="noreferrer">
-                            {entry.sourceName}
-                          </a>
-                        ) : (
-                          entry.sourceName
-                        )}
-                      </dd>
-                    </div>
-                  ) : null}
-                  {entry.collectedAt ? (
-                    <div>
-                      <dt className="font-semibold text-[#484653]">{labels.collected}</dt>
-                      <dd>{formatAeoDate(entry.collectedAt, locale)}</dd>
-                    </div>
-                  ) : null}
-                  {entry.limitations ? (
-                    <div>
-                      <dt className="font-semibold text-[#484653]">{labels.limitations}</dt>
-                      <dd>{entry.limitations}</dd>
-                    </div>
-                  ) : null}
-                </dl>
-              </div>
-            ))}
-          </div>
-        ) : null}
-      </div>
-    </section>
   );
 }
 
@@ -1073,84 +982,10 @@ function stringifyJsonLd(value: JsonLdNode) {
   return JSON.stringify(value).replace(/</g, "\\u003c");
 }
 
-const aeoLabels: Record<
-  Locale,
-  {
-    eyebrow: string;
-    title: string;
-    updated: string;
-    evidence: string;
-    source: string;
-    collected: string;
-    limitations: string;
-  }
-> = {
-  en: {
-    eyebrow: "Buyer answers",
-    title: "Frequently Asked Questions",
-    updated: "Last updated",
-    evidence: "Evidence",
-    source: "Source",
-    collected: "Collected",
-    limitations: "Limitations",
-  },
-  es: {
-    eyebrow: "Respuestas para compradores",
-    title: "Preguntas frecuentes",
-    updated: "Última actualización",
-    evidence: "Evidencia",
-    source: "Fuente",
-    collected: "Recopilado",
-    limitations: "Limitaciones",
-  },
-  pt: {
-    eyebrow: "Respostas para compradores",
-    title: "Perguntas frequentes",
-    updated: "Última atualização",
-    evidence: "Evidência",
-    source: "Fonte",
-    collected: "Coletado",
-    limitations: "Limitações",
-  },
-  fr: {
-    eyebrow: "Réponses acheteurs",
-    title: "Questions fréquentes",
-    updated: "Dernière mise à jour",
-    evidence: "Preuve",
-    source: "Source",
-    collected: "Collecté",
-    limitations: "Limites",
-  },
-  de: {
-    eyebrow: "Antworten für Käufer",
-    title: "Häufige Fragen",
-    updated: "Zuletzt aktualisiert",
-    evidence: "Nachweis",
-    source: "Quelle",
-    collected: "Erfasst",
-    limitations: "Einschränkungen",
-  },
-  ja: {
-    eyebrow: "バイヤー向け回答",
-    title: "よくある質問",
-    updated: "最終更新",
-    evidence: "根拠",
-    source: "出典",
-    collected: "収集日",
-    limitations: "注意事項",
-  },
-};
-
 function safeAnchorId(value: string | undefined, index: number) {
   const base = value || `faq-${index + 1}`;
   return base
     .toLowerCase()
     .replace(/[^a-z0-9_-]+/g, "-")
     .replace(/^-+|-+$/g, "") || `faq-${index + 1}`;
-}
-
-function formatAeoDate(value: string, locale: Locale) {
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return new Intl.DateTimeFormat(locale, { year: "numeric", month: "short", day: "numeric" }).format(date);
 }

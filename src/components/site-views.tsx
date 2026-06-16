@@ -518,64 +518,45 @@ function localizedContactFactories(locale: Locale) {
   }));
 }
 
-const HOME_PROFILE_VIDEO_SRC = "https://www.youtube.com/embed/N7I6CgHXCZQ?si=S5SW7QBzqJsOwXMC&autoplay=1&rel=0";
-const HOME_PROFILE_VIDEO_THUMB = "https://i.ytimg.com/vi/N7I6CgHXCZQ/maxresdefault.jpg";
-const HOME_PROFILE_VIDEO_COPY: Record<Locale, { ariaLabel: string; title: string; watch: string; playerTitle: string }> = {
+const HOME_PROFILE_VIDEO_ID = "N7I6CgHXCZQ";
+const HOME_PROFILE_VIDEO_SI = "S5SW7QBzqJsOwXMC";
+const YOUTUBE_PLAYER_LANGUAGE: Record<Locale, string> = {
+  en: "en",
+  es: "es",
+  pt: "pt",
+  fr: "fr",
+  de: "de",
+  ja: "ja",
+};
+const HOME_PROFILE_VIDEO_COPY: Record<Locale, { playerTitle: string }> = {
   en: {
-    ariaLabel: "Play INTCO Framing YouTube video",
-    title: "End-to-end Home Decor Solutions",
-    watch: "Watch on platform",
     playerTitle: "INTCO Framing video player",
   },
   es: {
-    ariaLabel: "Reproducir video de YouTube de INTCO Framing",
-    title: "Soluciones integrales de decoración",
-    watch: "Ver en la plataforma",
     playerTitle: "Reproductor de video de INTCO Framing",
   },
   pt: {
-    ariaLabel: "Reproduzir vídeo do YouTube da INTCO Framing",
-    title: "Soluções completas de decoração",
-    watch: "Ver na plataforma",
     playerTitle: "Reprodutor de vídeo da INTCO Framing",
   },
   fr: {
-    ariaLabel: "Lire la vidéo YouTube de INTCO Framing",
-    title: "Solutions décoration de bout en bout",
-    watch: "Voir sur la plateforme",
     playerTitle: "Lecteur vidéo INTCO Framing",
   },
   de: {
-    ariaLabel: "YouTube-Video von INTCO Framing abspielen",
-    title: "End-to-End-Dekorationslösungen",
-    watch: "Auf der Plattform ansehen",
     playerTitle: "INTCO Framing Videoplayer",
   },
   ja: {
-    ariaLabel: "INTCO Framing の YouTube 動画を再生",
-    title: "総合ホームデコレーションソリューション",
-    watch: "プラットフォームで見る",
     playerTitle: "INTCO Framing 動画プレーヤー",
   },
 };
 
-function homeProfileVideoSrcDoc(locale: Locale) {
-  const copy = HOME_PROFILE_VIDEO_COPY[locale];
-  return `
-<!doctype html>
-<html>
-<head>
-<style>
-*{box-sizing:border-box}body{margin:0;background:#000;font-family:Arial,Helvetica,sans-serif}a{position:absolute;inset:0;display:block;color:#fff;text-decoration:none;overflow:hidden}img{width:100%;height:100%;object-fit:cover;display:block}.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,.05) 32%,rgba(0,0,0,.22))}.title{position:absolute;left:76px;top:18px;font-size:21px;font-weight:700;line-height:1.15;text-shadow:0 1px 2px rgba(0,0,0,.8)}.channel{position:absolute;left:76px;top:47px;font-size:14px;text-shadow:0 1px 2px rgba(0,0,0,.8)}.badge{position:absolute;left:30px;top:18px;width:40px;height:40px;border-radius:50%;background:#fff;color:#0067b1;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}.play{position:absolute;left:50%;top:50%;width:68px;height:48px;border-radius:13px;background:#f00;transform:translate(-50%,-50%)}.play:before{content:"";position:absolute;left:27px;top:14px;border-left:17px solid #fff;border-top:10px solid transparent;border-bottom:10px solid transparent}.watch{position:absolute;right:48px;bottom:28px;font-size:18px;text-shadow:0 1px 2px rgba(0,0,0,.8)}.yt{position:absolute;right:14px;bottom:25px;font-size:17px;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.8)}
-</style>
-</head>
-<body>
-<a href="${HOME_PROFILE_VIDEO_SRC}" aria-label="${copy.ariaLabel}">
-<img src="${HOME_PROFILE_VIDEO_THUMB}" alt="">
-<span class="shade"></span><span class="badge">INTCO</span><span class="title">INTCO Framing | ${copy.title}</span><span class="channel">INTCO Framing</span><span class="play"></span><span class="watch">${copy.watch}</span><span class="yt">YouTube</span>
-</a>
-</body>
-</html>`;
+function homeProfileVideoSrc(locale: Locale) {
+  const params = new URLSearchParams({
+    si: HOME_PROFILE_VIDEO_SI,
+    rel: "0",
+    hl: YOUTUBE_PLAYER_LANGUAGE[locale],
+    cc_lang_pref: YOUTUBE_PLAYER_LANGUAGE[locale],
+  });
+  return `https://www.youtube.com/embed/${HOME_PROFILE_VIDEO_ID}?${params.toString()}`;
 }
 
 const SOURCE_HOME_HERO_SLIDES: NonNullable<SiteData["homePage"]["heroSlides"]> = [
@@ -3655,10 +3636,10 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         </div>
       </section>
 
-      <section className="intco-home-company-profile relative overflow-visible bg-white px-4 pt-16 sm:px-6 lg:pt-[100px]">
+      <section className="intco-home-company-profile relative overflow-visible bg-white px-4 pt-16 sm:px-6 min-[900px]:pt-[100px]">
         <div className="intco-source-container px-5">
-          <div className="lg:flex">
-            <div className="pb-8 lg:w-1/2 lg:pb-[90px]">
+          <div className="intco-home-company-layout">
+            <div className="pb-8 min-[900px]:pb-[70px]">
               <HomeSourceTitle title={(homePage.companyProfile?.title || companyProfileFallback.title).toUpperCase()} align="left" />
               <p className="mt-10 max-w-2xl text-pretty text-lg leading-[30px] text-[#363636] lg:mt-[50px]">
                 {homePage.companyProfile?.description || companyProfileFallback.description}
@@ -3685,14 +3666,14 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
                 </SourcePillLink>
               </div>
             </div>
-            <div className="intco-home-company-video flex items-end lg:w-1/2">
-              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
+            <div className="intco-home-company-video">
+              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" src={homeProfileVideoSrc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
             </div>
           </div>
         </div>
         <div className="aboutus-index-list2 intco-home-company-stats intco-source-container px-5">
           <div className="relative">
-            <div className="intco-home-company-stats-list relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="intco-home-company-stats-list relative grid gap-6 sm:grid-cols-2 min-[900px]:grid-cols-4">
               {localizedHomeStats(locale).map((stat) => (
                 <div key={stat.label} className="intco-home-company-stat flex items-center justify-center pb-10 pt-5 text-[#484653]">
                   <div className="mr-[13px]">
@@ -3712,7 +3693,7 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         </div>
       </section>
 
-      <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-16 pt-16 sm:px-6 lg:pt-[230px]">
+      <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-16 pt-16 sm:px-6 min-[900px]:pt-[110px]">
         <div className="intco-source-container px-5">
           <HomeSourceTitle title={t(locale, "solutions").toUpperCase()} align="left" />
           <p className="mt-10 max-w-[1160px] text-pretty text-lg leading-8 text-[#363636] lg:mt-[68px]">
@@ -5525,7 +5506,7 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
           <p className="mx-auto mb-[58px] mt-[55px] max-w-[1600px] text-center text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[27px] max-lg:mb-10">{t(locale, "sourceManufacturingIntro")}</p>
           <div className="mb-[55px] flex overflow-hidden rounded-md bg-white shadow-[0_2px_27px_0_rgba(114,114,114,0.2)] max-lg:flex-col" data-reveal="fade">
             <div className="w-[58%] overflow-hidden rounded-md max-lg:w-full">
-              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
+              <LazyVideoEmbed className="aspect-video w-full overflow-hidden bg-black" src={homeProfileVideoSrc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
             </div>
             <div className="flex w-[42%] flex-col justify-center px-[5%] py-10 text-base leading-6 text-[#363636] min-[1601px]:text-lg min-[1601px]:leading-[30px] max-lg:w-full">
               <p>{t(locale, "sourceManufacturingDescription")}</p>
@@ -5855,7 +5836,7 @@ function OurManufacturingBlock({ locale, variant = "default" }: { locale: Locale
         </p>
         <div className="intco-design-manufacturing" data-reveal="fade">
           <div className="intco-design-video">
-            <LazyVideoEmbed className="absolute inset-0" srcDoc={homeProfileVideoSrcDoc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
+            <LazyVideoEmbed className="absolute inset-0" src={homeProfileVideoSrc(locale)} title={HOME_PROFILE_VIDEO_COPY[locale].playerTitle} />
           </div>
           <div className="intco-design-manufacturing-copy">
             <p>{t(locale, "sourceManufacturingDescription")}</p>

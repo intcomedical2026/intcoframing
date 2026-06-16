@@ -5455,6 +5455,11 @@ summary::-webkit-details-marker {
   overflow: visible;
 }
 
+.intco-home-company-layout {
+  display: grid;
+  gap: 40px;
+}
+
 .intco-home-company-video {
   position: relative;
   z-index: 33;
@@ -5467,14 +5472,14 @@ summary::-webkit-details-marker {
 
 .intco-home-company-stats-list {
   background: rgba(255, 255, 255, 0.7);
-  margin-bottom: -140px;
+  margin-bottom: 0;
 }
 
 .intco-home-company-stats-list::after {
   background: rgba(72, 70, 83, 0.27);
-  bottom: 70px;
+  bottom: 0;
   content: "";
-  height: 144px;
+  height: 100%;
   pointer-events: none;
   position: absolute;
   right: 0;
@@ -5554,7 +5559,46 @@ summary::-webkit-details-marker {
   }
 }
 
-@media (max-width: 900px) {
+@media (min-width: 900px) {
+  .intco-home-company-layout {
+    align-items: start;
+    grid-template-columns: minmax(0, 0.92fr) minmax(420px, 1.08fr);
+  }
+
+  .intco-home-company-video {
+    align-self: start;
+    padding-top: clamp(128px, 8.8vw, 180px);
+  }
+
+  .intco-home-company-stats {
+    margin-top: 0;
+  }
+
+  .intco-home-company-stats-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    min-height: 142px;
+  }
+}
+
+@media (min-width: 1201px) {
+  .intco-home-company-layout {
+    grid-template-columns: minmax(0, 0.88fr) minmax(520px, 1.12fr);
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1100px) {
+  .intco-home-company-profile .intco-home-source-title {
+    font-size: 31px;
+    line-height: 34px;
+  }
+
+  .intco-home-company-profile .intco-home-source-title::before {
+    font-size: 42px;
+    line-height: 34px;
+  }
+}
+
+@media (max-width: 899px) {
   .intco-home-company-stats-list {
     margin-bottom: 0;
   }
@@ -7950,7 +7994,7 @@ summary::-webkit-details-marker {
   }
 }
 
-@media (max-width: 1440px) {
+@media (max-width: 1439.98px) {
   .intco-source-container {
     max-width: 1200px;
   }
