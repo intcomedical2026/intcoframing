@@ -77,7 +77,7 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
   return (
     <div lang={locale}>
       <RevealRuntime />
-      <Header settings={settings} categories={categories} solutions={solutions} locale={locale} currentPath={currentPath} languagePath={languagePath} />
+      <Header settings={settings} categories={categories} solutions={solutions} locale={locale} languagePath={languagePath} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
@@ -93,14 +93,12 @@ function Header({
   categories,
   solutions,
   locale,
-  currentPath,
   languagePath,
 }: {
   settings: SiteSettings;
   categories: ProductCategory[];
   solutions: Solution[];
   locale: Locale;
-  currentPath: string;
   languagePath: string;
 }) {
   const parents = categories.filter((category) => !category.parentSlug).slice(0, 5);
@@ -172,13 +170,11 @@ function Header({
             const isProjects = item.path === "/projects";
             const isSolutions = item.path === "/solutions";
             const isAbout = item.path === "/who-we-are";
-            const isProductCategory = isProducts && parents.some((category) => currentPath === category.path || currentPath.startsWith(`${category.path}/`));
-            const isActive = currentPath === item.path || (item.path !== "/" && currentPath.startsWith(`${item.path}/`)) || isProductCategory;
             return (
-              <div key={item.path} className="group/nav-item relative flex h-[90px] items-center px-[clamp(12px,1.6vw,36px)]">
+              <div key={item.path} className="intco-nav-item relative flex h-[90px] items-center px-[clamp(12px,1.6vw,36px)]">
                 <Link
                   href={href(item.path)}
-                  className={`relative block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-500 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover/nav-item:after:scale-x-100"}`}
+                  className="intco-nav-link relative block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-[#484653] after:transition-[width] after:duration-500 hover:text-[#484653]"
                 >
                   {chromeLabel(locale, item.path, item.label)}
                 </Link>
@@ -284,7 +280,7 @@ function HeaderMegaDropdown({
   return (
     <div
       data-intco-dropdown={`mega-${name}`}
-      className="pointer-events-none invisible fixed left-0 top-[142px] z-40 hidden w-screen bg-white/60 py-10 pb-[50px] opacity-0 transition-opacity duration-150 group-hover/nav-item:visible group-hover/nav-item:pointer-events-auto group-hover/nav-item:block group-hover/nav-item:opacity-100 lg:block"
+      className="intco-nav-dropdown intco-nav-dropdown-mega pointer-events-none invisible fixed left-0 top-[142px] z-40 hidden w-screen bg-white/60 py-10 pb-[50px] opacity-0 transition-opacity duration-150 lg:block"
     >
       <div className="intco-source-container">
         <ul className="flex">
@@ -330,7 +326,7 @@ function HeaderSecondNav({
   return (
     <div
       data-intco-dropdown={`second-${name}`}
-      className="pointer-events-none absolute left-1/2 top-[68px] z-40 hidden -translate-x-1/2 pt-[19px] group-hover/nav-item:pointer-events-auto group-hover/nav-item:block"
+      className="intco-nav-dropdown pointer-events-none absolute left-1/2 top-[68px] z-40 hidden -translate-x-1/2 pt-[19px]"
     >
       <ul className={`bg-white/80 text-center ${widthClass}`}>
         {items.map((child) => {

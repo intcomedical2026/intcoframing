@@ -9407,3 +9407,29 @@ summary::-webkit-details-marker {
     transform: none;
   }
 }
+
+.intco-nav-item:hover > .intco-nav-link::after,
+.intco-nav-item:focus-within > .intco-nav-link::after {
+  width: 100%;
+}
+
+.intco-nav-item:hover > .intco-nav-dropdown,
+.intco-nav-item:focus-within > .intco-nav-dropdown {
+  display: block;
+  pointer-events: auto;
+}
+
+.intco-nav-item:hover > .intco-nav-dropdown-mega,
+.intco-nav-item:focus-within > .intco-nav-dropdown-mega {
+  visibility: visible;
+  opacity: 1;
+}
+
+.intco-nav-dropdown::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 19px;
+}
