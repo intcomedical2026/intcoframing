@@ -175,10 +175,10 @@ function Header({
             const isProductCategory = isProducts && parents.some((category) => currentPath === category.path || currentPath.startsWith(`${category.path}/`));
             const isActive = currentPath === item.path || (item.path !== "/" && currentPath.startsWith(`${item.path}/`)) || isProductCategory;
             return (
-              <div key={item.path} className="group relative flex h-[90px] items-center">
+              <div key={item.path} className="group/nav-item relative flex h-[90px] items-center px-[clamp(12px,1.6vw,36px)]">
                 <Link
                   href={href(item.path)}
-                  className={`relative mx-[clamp(8px,1vw,20px)] block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-500 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover:after:scale-x-100"}`}
+                  className={`relative block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-full after:origin-left after:bg-[#484653] after:transition-transform after:duration-500 hover:text-[#484653] ${isActive ? "after:scale-x-100" : "after:scale-x-0 group-hover/nav-item:after:scale-x-100"}`}
                 >
                   {chromeLabel(locale, item.path, item.label)}
                 </Link>
@@ -284,7 +284,7 @@ function HeaderMegaDropdown({
   return (
     <div
       data-intco-dropdown={`mega-${name}`}
-      className="pointer-events-none invisible fixed left-0 top-[142px] z-40 hidden w-screen bg-white/60 py-10 pb-[50px] opacity-0 transition-opacity duration-150 group-hover:visible group-hover:pointer-events-auto group-hover:block group-hover:opacity-100 lg:block"
+      className="pointer-events-none invisible fixed left-0 top-[142px] z-40 hidden w-screen bg-white/60 py-10 pb-[50px] opacity-0 transition-opacity duration-150 group-hover/nav-item:visible group-hover/nav-item:pointer-events-auto group-hover/nav-item:block group-hover/nav-item:opacity-100 lg:block"
     >
       <div className="intco-source-container">
         <ul className="flex">
@@ -330,7 +330,7 @@ function HeaderSecondNav({
   return (
     <div
       data-intco-dropdown={`second-${name}`}
-      className="pointer-events-none absolute left-1/2 top-[68px] z-40 hidden -translate-x-1/2 pt-[19px] group-hover:pointer-events-auto group-hover:block"
+      className="pointer-events-none absolute left-1/2 top-[68px] z-40 hidden -translate-x-1/2 pt-[19px] group-hover/nav-item:pointer-events-auto group-hover/nav-item:block"
     >
       <ul className={`bg-white/80 text-center ${widthClass}`}>
         {items.map((child) => {
