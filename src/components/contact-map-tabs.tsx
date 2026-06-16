@@ -13,6 +13,7 @@ export type ContactFactory = {
 export function ContactMapTabs({ factories, locale }: { factories: ContactFactory[]; locale: Locale }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeFactory = factories[activeIndex] || factories[0];
+  const mapUrl = localizeGoogleMapUrl(activeFactory.mapUrl, locale);
 
   return (
     <>
@@ -42,8 +43,8 @@ export function ContactMapTabs({ factories, locale }: { factories: ContactFactor
         <div className="intco-source-container px-5 min-[1601px]:px-0">
           <div className="intco-contact-map-frame" data-reveal="fade">
             <iframe
-              key={activeFactory.title}
-              src={activeFactory.mapUrl}
+              key={`${activeFactory.title}-${locale}`}
+              src={mapUrl}
               title={`${activeFactory.title} map`}
               width="100%"
               height="550"
@@ -57,4 +58,35 @@ export function ContactMapTabs({ factories, locale }: { factories: ContactFactor
       </section>
     </>
   );
+}
+
+const googleMapLanguage: Record<Locale, { language: string; region: string }> = {
+  en: { language: "en", region: "US" },
+  es: { language: "es", region: "ES" },
+  pt: { language: "pt", region: "BR" },
+  fr: { language: "fr", region: "FR" },
+  de: { language: "de", region: "DE" },
+  ja: { language: "ja", region: "JP" },
+};
+
+function localizeGoogleMapUrl(source: string, locale: Locale) {
+  const config = googleMapLanguage[locale] || googleMapLanguage.en;
+
+  try {
+    const url = new URL(source);
+    const pb = url.searchParams.get("pb");
+
+    if (pb) {
+      url.searchParams.set("pb", pb.replace(/!1s[a-z]{2}(?:-[A-Z]{2})?!2s/g, `!1s${config.language}!2s`));
+    }
+
+    url.searchParams.set("hl", config.language);
+    url.searchParams.set("language", config.language);
+    url.searchParams.set("region", config.region);
+
+    return url.toString();
+  } catch {
+    const separator = source.includes("?") ? "&" : "?";
+    return `${source}${separator}hl=${config.language}&language=${config.language}&region=${config.region}`;
+  }
 }
