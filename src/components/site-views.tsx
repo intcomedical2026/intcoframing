@@ -74,18 +74,18 @@ import { SOURCE_CATEGORY_LISTING_SNAPSHOTS } from "@/lib/source-category-listing
 import { SOURCE_EMPTY_SEARCH_RESULTS, SOURCE_SEARCH_PAGE_SIZE, type SourceSearchResultItem } from "@/lib/source-search-results";
 
 const PRODUCT_CATALOG_IMAGES = [
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.png",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/COLLECTION1.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/m-257x300-1.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/gong-257x300-1.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/manual1-257x300-1.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/4bc0e652c785ba585fe5eccee48b4058b96d2950-454x530.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/f5dd336b3e41d282253fd70fbced4d4acca35e66-425x530.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/5c51a4c3594ae05ad9ea8ba92b2bb5a90cc32d87-454x530.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/c23c5f7f54232cc44d01c43fd0e3bdbab82db3e2-454x530.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/9234092f7b021aa0b287e9bd0c8c0d31709be8b5-454x530.jpg",
 ];
 
 const PRODUCT_REPORT_IMAGES = [
-  { title: "FSC", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/FSC.jpg" },
-  { title: "ISO14001", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/ISO14001.jpg" },
-  { title: "GRS", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/GRS.jpg" },
-  { title: "ISO9001", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/ISO9001.jpg" },
+  { title: "FSC", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/642f57b565e401ac471efd3efa5454c4c20391c9-1240x1754.jpg" },
+  { title: "ISO14001", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c91d7e684e95cebfeb0be3953cdfbf82c2fef012-1242x1748.jpg" },
+  { title: "GRS", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8ca3426d219b5024cb61a26b45c1f15aad76ccf3-1241x1754.jpg" },
+  { title: "ISO9001", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/82a14994d92311fd8706331d12f414eb3d403e44-1241x1754.jpg" },
 ];
 const PRODUCT_REPORT_COVERFLOW_IMAGES = [
   PRODUCT_REPORT_IMAGES[1],
@@ -94,16 +94,16 @@ const PRODUCT_REPORT_COVERFLOW_IMAGES = [
   PRODUCT_REPORT_IMAGES[3],
 ].filter(Boolean);
 const WHAT_WE_DO_IMAGES: Record<string, string> = {
-  mirror: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo1.png",
-  "picture frame": "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo2.png",
-  art: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo3.png",
-  furniture: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo5.png",
-  "memo board": "https://www.intcoframing-us.com/wp-content/uploads/2024/01/whatWeDo4.png",
+  mirror: "https://cdn.sanity.io/images/o10sbz2i/production/dbc7073033b5ae16397f4914e0b6b7edcc3a1795-780x400.png",
+  "picture frame": "https://cdn.sanity.io/images/o10sbz2i/production/a167ef9afdeb8e629ab03cadb6190ab9756be1d3-780x400.png",
+  art: "https://cdn.sanity.io/images/o10sbz2i/production/735e5bcaf0d3bfe4421702212caa4ece5babc958-507x400.png",
+  furniture: "https://cdn.sanity.io/images/o10sbz2i/production/121d379a84100bd69e52c184fd40e551dd3f2bcf-517x400.png",
+  "memo board": "https://cdn.sanity.io/images/o10sbz2i/production/a3facdafa5adc642f3207e2c30b87b1c4cfb4b40-507x400.png",
 };
 
-const PRODUCTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/products.png";
-const PRODUCT_TEST_REPORT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/testreportBg.png";
-const PRODUCT_CONTACT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/orderBg.png";
+const PRODUCTS_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/991d03d3894b0110d5612585b3ed49bc3fcd6132-1920x600.png";
+const PRODUCT_TEST_REPORT_BG = "https://cdn.sanity.io/images/o10sbz2i/production/19bc871cefc66c9f2b32cd7fc7dc531a0e144dee-1920x1153.png";
+const PRODUCT_CONTACT_BG = "https://cdn.sanity.io/images/o10sbz2i/production/2d72032762681b2813ab438b348244f0b7712214-1620x926.png";
 
 const PRODUCT_CATEGORY_CARDS = [
   {
@@ -137,27 +137,27 @@ const MIRROR_COLLECTION_CARDS = [
   {
     title: "Wall Mirror",
     path: "/mirror/wall-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/09/2-1-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ea7d1f8e4dda8f6a2f048a5aabce5c62332413cb-1200x1200.jpg",
   },
   {
     title: "Standing Mirror",
     path: "/mirror/standing-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8b5dee8703df8bfa1c9f7df6dcf312434f5d9b2c-488x608.jpg",
   },
   {
     title: "Leaner Mirror",
     path: "/mirror/leaner-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m3.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/aad0dbb336ea6f6165118668c3d4be65ff6aff48-488x608.jpg",
   },
   {
     title: "Door Mirror",
     path: "/mirror/door-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m4.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1c2b109e53fb4557d96cfeb37d232a217a8ad648-488x608.jpg",
   },
   {
     title: "LED Mirror",
     path: "/mirror/led-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/m6.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/22e3bc607d9a7c4cbbd4fe86b4ca61592cb0e468-488x608.jpg",
   },
 ];
 
@@ -165,22 +165,22 @@ const MIRROR_BEST_SELLERS = [
   {
     title: "Aluminum Framed Arched Full Length Standing Mirror",
     path: "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-75.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8cf43b1679a5b07bb0450b9e1bd8e8f1072e70d7-1080x1080.jpg",
   },
   {
     title: "Aluminum Framed Round Wall Mirror with Wood Grain",
     path: "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-40.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8644e87dadf2b904a30bc284e4b812fb6ee7aae0-1080x1080.jpg",
   },
   {
     title: "Decorative Aluminum Framed Gold Wall Mirror",
     path: "/mirror/wall-mirror/decorative-aluminum-framed-gold-wall-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-72.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/0f63578666b66d119db869ab988d480bc29762ca-1080x1080.jpg",
   },
   {
     title: "Arched Alumium Framed LED Bathroom Wall Mounted Mirror",
     path: "/arched-alumium-framed-led-bathroom-wall-mounted-mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-21.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3b44e5899cb0d9e6c02f640c2888536abcaea7c1-1080x1080.jpg",
   },
 ];
 
@@ -211,32 +211,32 @@ const PICTURE_FRAME_COLLECTION_CARDS = [
   {
     title: "Tabletop Frame",
     path: "/picture-frame/tabletop-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f8ba7c363f4cf5afb43d3fdc9f1dc30eeb4f8385-488x608.png",
   },
   {
     title: "Wall Frame",
     path: "/picture-frame/wall-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION2.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ec9a37de70cee2c75520d84beb2883d0b5e165be-488x608.png",
   },
   {
     title: "Poster Frame",
     path: "/picture-frame/poster-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION3.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8d38b81a4e34ffb579a2e6027992bb761e2881fd-488x608.png",
   },
   {
     title: "Document Frame",
     path: "/picture-frame/document-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION4.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1ebac44adfa4ba3ac82147de574a6903ffd38bb6-488x608.png",
   },
   {
     title: "Shadow Box",
     path: "/picture-frame/shadow-box",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION5.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/487eb0674cb4f5b56675170ca144778a6e34c2e0-488x608.png",
   },
   {
     title: "Collage Frame",
     path: "/picture-frame/collage-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/COLLECTION6.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/2db3e3f5842a41b4dd01e2b4950e465ba69d7a6d-488x608.png",
   },
 ];
 
@@ -244,7 +244,7 @@ const PICTURE_FRAME_BEST_SELLERS = [
   {
     title: "Modern Black Aluminum Framed Poster Frame",
     path: "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-2-8.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a343a2ca1f9bf3c46641aa1c401e9f2ba587df3b-1080x1080.jpg",
   },
 ];
 
@@ -279,17 +279,17 @@ const ART_COLLECTION_CARDS = [
   {
     title: "Framed Art",
     path: "/art/framed-art",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/h1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/fbaddb82ec6612fd37198c47ac4515a1b7dd3e40-488x608.jpg",
   },
   {
     title: "Canvas Art",
     path: "/art/canvas-art",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/h2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1c8fa7b8179ca326b22cee6af1332f5b75a083e7-488x608.jpg",
   },
   {
     title: "Alternative Wall Decor",
     path: "/art/alternative-wall-decor",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/h3.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/24b7d6f0bd8c302eeca1959d29ff59d95d395089-488x608.jpg",
   },
 ];
 
@@ -297,17 +297,17 @@ const ART_BEST_SELLERS = [
   {
     title: "Modern Abstract Canvas Wall Art",
     path: "/art/canvas-art/modern-abstract-canvas-wall-art",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-96.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9120ac358e686bd5728f47a28796caeb13550f4a-1080x1080.jpg",
   },
   {
     title: "Large Framed Canvas Wall Art Abstract Neutral",
     path: "/art/canvas-art/large-framed-canvas-wall-art-abstract-neutral",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-103.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6cb84a2de3622c91518a4b10b48253021c967ae8-1080x1080.jpg",
   },
   {
     title: "Framed Landscape Wall Art Room Decor 24x30",
     path: "/art/framed-art/framed-landscape-wall-art-room-decor-24x30",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-1-2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f746ecef522aaff7341514ecc19810571b05d68c-1080x1080.jpg",
   },
 ];
 
@@ -330,12 +330,12 @@ const FURNITURE_COLLECTION_CARDS = [
   {
     title: "Medicine Cabinet",
     path: "/furniture/medicine-cabinet",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/j1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/124a8aa00a5ceb681e46059f8e0b75b45a6eb844-488x608.jpg",
   },
   {
     title: "Shelf",
     path: "/furniture/shelf",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/j2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b2ad72d6f2c68e4ee657a2f0f08b642f3ff02594-488x608.jpg",
   },
 ];
 
@@ -343,17 +343,17 @@ const FURNITURE_BEST_SELLERS = [
   {
     title: "Black Rectangular Medicine Cabinet with Mirror 22x26.8 in",
     path: "/black-rectangular-medicine-cabinet-with-mirror-22x26-8-in",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-33.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/37a215cf76f626f7a04d8d9ebab283a5e0720b85-1080x1080.jpg",
   },
   {
     title: "Rectangular Frameless Mirror Medicine Cabinet 31.4x24.4",
     path: "/rectangular-medicine-cabinet-without-mirror-31-4x24-4",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-32.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/34ae05a8958a03ab3734491c866655fe1996c4b9-1080x1080.jpg",
   },
   {
     title: "Floating Shelves",
     path: "/furniture/shelf/floating-shelves",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/40401a0d63fb47ff88b241dbb69fee241424bc3e-1080x1080.jpg",
   },
 ];
 
@@ -372,22 +372,22 @@ const MEMO_BOARD_COLLECTION_CARDS = [
   {
     title: "Chalkboard",
     path: "/memo-board/chalkboard",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3833cc2ffb3e0229af4932c81caf423418b2b3bb-488x608.jpg",
   },
   {
     title: "Dry Erase Board",
     path: "/memo-board/dry-erase-board",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9c11936d29b6115515d4b08afb905b999d44759b-488x608.jpg",
   },
   {
     title: "Cork Board",
     path: "/memo-board/cork-board",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g3.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/73838581e5a5a336e6145f18fb599b9d5d82550b-488x608.jpg",
   },
   {
     title: "Linen Board",
     path: "/memo-board/linen-board",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/g4.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/7b5baa77481a0038d942d8fe37dbc1600b75dc23-488x608.jpg",
   },
 ];
 
@@ -395,22 +395,22 @@ const MEMO_BOARD_BEST_SELLERS = [
   {
     title: "Chalkboard Style Board Monthly Wall Calendar 18×24 Inch",
     path: "/chalkboard-style-board-monthly-wall-calendar-18x24-inch",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/89b55318b5d02a11b67f710808d0c2418197c9b1-1080x1080.jpg",
   },
   {
     title: "Wall Cork Board for Picture Display 20×20 Inch",
     path: "/wall-cork-board-for-photo-display-20x20-inch",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b9c9f7e70da023ab0a78096cc8ef43917a5b06c7-1080x1080.jpg",
   },
   {
     title: "Gold Framed Weekly Calendar Dry Erase Board 16×16 in",
     path: "/gold-framed-weekly-calendar-dry-erase-board-16x16-in",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b91804ba297fd21f5e08dd74e2c0b53e30ac07d2-1080x1080.jpg",
   },
   {
     title: "Gold Aluminum Framed Linen Bulletin Board 20X28",
     path: "/gold-aluminum-framed-linen-bulletin-board-20x28",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-3.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6ea0600570f656b12b767de33e7a9b27a68796b1-1080x1080.jpg",
   },
 ];
 
@@ -439,41 +439,41 @@ const PRODUCT_MANUALS = [
     imageUrl: PRODUCT_CATALOG_IMAGES[0],
     description:
       "Decorating your wall with a mirror can add depth and fascination into your room. INTCO Framing offers a range ofmirrors suitable for any room in your home. Discover the ideal mirror to elevate your living space!",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Mirror-Intco-Framing.pdf",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/e9504a0c561871fc3bf64977c0cf3422b14d4ac8.pdf",
   },
   {
     title: "Picture Frame",
     imageUrl: PRODUCT_CATALOG_IMAGES[1],
     description:
       "Our picture frames are made of environmentally friendly materials. Explore picture frames in various shapes and styles at INTCO Framing. Display your cherished photos, meaningful moments, and essential documents elegantly.",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Picture-Frame-Intco-Framing.pdf",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/ac5a5dc71999df117a822840396e5316e959fe85.pdf",
   },
   {
     title: "Art",
     imageUrl: PRODUCT_CATALOG_IMAGES[2],
     description:
       "Create your own gallery with wall art from INTCO Framing. Our diverse selection of art ensures your home is as exceptional as your individual taste.",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Art-Intco-Framing.pdf",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/028977eafacb8b680ee14b5fa6e189aaaa896015.pdf",
   },
   {
     title: "Memo Board",
     imageUrl: PRODUCT_CATALOG_IMAGES[3],
     description:
       "Discover a variety of framed chalkboards and cork boards at INTCO Framing. Whether it's a reminder, a note, or a piece of encouragement, add your personal touch to these boards. Explore our selection and find the perfect one that resonates with you!",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Memo-Board-%E2%80%94-Intco-Framing.pdf",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/6d799c22532743367157073fba4e53c7f23f434a.pdf",
   },
   {
     title: "Furniture",
     imageUrl: PRODUCT_CATALOG_IMAGES[4],
     description:
       "INTCO Framing delivers top-quality furniture, ranging from medicine cabinets to shelves, designed to maximize home storage space. INTCO Framing provides innovative storage solutions for a clutter-free living environment.",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Furniture-Intco-Framing.pdf",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/48aef4ec319fa1fafea80f9950e259b3cf5d48c0.pdf",
   },
 ];
 
-const CONTACT_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/lxwm.jpg";
-const CONTACT_FORM_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact_03.png";
-const CONTACT_FORM_BADGE_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact3.png";
+const CONTACT_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/845d15b6ca8b13aea633aec140bb453434d77111-1920x600.jpg";
+const CONTACT_FORM_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/c0c47f087a702a75fe1c217d2a2840c48805ca27-738x754.png";
+const CONTACT_FORM_BADGE_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/3119322a4552b57420e30024f3a679b668e3f1f4-226x226.png";
 
 const CONTACT_FACTORIES: ContactFactory[] = [
   {
@@ -563,42 +563,42 @@ const SOURCE_HOME_HERO_SLIDES: NonNullable<SiteData["homePage"]["heroSlides"]> =
   {
     title: "INTCO FRAMING",
     subtitle: "We are committed to offering you turnkey service and ready to\ncreate retail solutions custom tailored to fulfill all your needs.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20240229-145653.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5d66331f0d3c70250f5caf36a22be525464bbf6b-1920x940.jpg",
     primaryCta: { label: "Latest Products", path: "/products" },
     secondaryCta: { label: "Solutions", path: "/solutions" },
   },
   {
     title: "",
     subtitle: "",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/20240712-150123.gif",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ca3c4efdafa252fe5fa5fb0c8973b8ad40625b8d-1920x940.gif",
     primaryCta: { label: "Explore More", path: "/mirror/led-mirror" },
     secondaryCta: { label: "Contact Us", path: "/contact" },
   },
   {
     title: "Mirror",
     subtitle: "Decorating your wall with a mirror can add depth and fascination into your room.\nlntco Framing offers a range of mirrors suitable for any room in your home.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/59a0c1d393448f0d47ae814715b99daae1faf5e3-1920x940.jpg",
     primaryCta: { label: "Explore More", path: "/mirror" },
     secondaryCta: { label: "Contact Us", path: "/contact" },
   },
   {
     title: "Picture Frame",
     subtitle: "Our picture frames are all made of environmentally friendly materials.\nExplore picture frames in various shapes and styles at Intco Framing.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/image.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/10b32dc50a81865cd7b9541a700b1428d0e62f46-1920x940.jpg",
     primaryCta: { label: "Explore More", path: "/picture-frame" },
     secondaryCta: { label: "Contact Us", path: "/contact" },
   },
   {
     title: "Wall Art",
     subtitle: "Create your own gallery with wall art from Intco Framing.\nOur diverse selection of art ensures your home is as exceptional as your individual taste.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1c1c10a8712275c957d19aa26fb554e28cd8f5ba-1920x940.jpg",
     primaryCta: { label: "Explore More", path: "/art" },
     secondaryCta: { label: "Contact Us", path: "/contact" },
   },
   {
     title: "Flexible Manufacturing",
     subtitle: "With over 20 years of manufacturing experience, lntco Framing stands out for its flexible manufacturing capabilities.",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/111.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f4c03606892e1fcba5c39322ad30f3c6d2bab328-865x424.jpg",
     primaryCta: { label: "Explore More", path: "/solutions/manufacturing-delivery" },
     secondaryCta: { label: "Contact Us", path: "/contact" },
   },
@@ -656,12 +656,12 @@ const HOME_PROFILE_LINKS = [
   {
     label: "Sustainability",
     path: "/who-we-are/sustainability",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/cboe-icon-01.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/82de05797e23e94e04f6ca63942dc064ee923161-108x110.png",
   },
   {
     label: "Certification",
     path: "/solutions/certification",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/cboe-icon-02.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/0b9a89c2bc436c50470232b489a6b7ac7569abed-108x110.png",
   },
 ];
 
@@ -676,12 +676,12 @@ const HOME_PROJECT_CARDS = [
   {
     title: "Residential",
     path: "/projects/residential",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/acce0a49eca755d0ab290d995d5fc2a77dd9b16e-780x400.jpg",
   },
   {
     title: "Commercial",
     path: "/projects/commercial",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/cc52cccd09155ee4b5d5b80e356a8326e0f025dc-780x400.jpg",
   },
 ];
 
@@ -1286,41 +1286,41 @@ function solutionDescriptionFallback(locale: Locale, path: string, fallback: str
   return HOME_SOLUTION_FALLBACK_DESCRIPTIONS[path]?.[locale] || fallback;
 }
 
-const PROJECTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg";
+const PROJECTS_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg";
 
 const PROJECTS_SOURCE_ITEMS = [
   {
     title: "Living Room",
     path: "/projects/living-room",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg",
     description:
       "Transform your living room into a sanctuary of comfort and style with our curated collection. Our carefully selected furniture pieces seamlessly blend aesthetic…",
   },
   {
     title: "Bedroom",
     path: "/projects/bedroom",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg",
     description:
       "Indulge in the serenity of our bedroom collection, where tranquility meets timeless design. Our carefully curated pieces promise a sanctuary of relaxation and r…",
   },
   {
     title: "Bathroom",
     path: "/projects/bathroom",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg",
     description:
       "Step into a realm of tranquility with our exquisite bathroom collection, where luxury meets functionality. Elevate your daily routine in a space designed for se…",
   },
   {
     title: "Dining Room",
     path: "/projects/dining-room",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg",
     description:
       "Transform your dining experience into a visual feast with our dining room collection. Immerse yourself in the perfect blend of contemporary elegance and comfort…",
   },
   {
     title: "Kitchen",
     path: "/projects/kitchen",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-5-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/eb11242f592f8c9114ea829817db66889d728891-1920x600.jpg",
     description:
       "Infuse your kitchen with the warmth of modern aesthetics. Embrace the art of culinary creation in a kitchen that seamlessly blends style and functionality, wher…",
   },
@@ -1329,7 +1329,7 @@ const PROJECTS_SOURCE_ITEMS = [
 const PROJECTS_SOURCE_CHILDRENS_ROOM = {
   title: "Children's Room",
   path: "/projects/childrens-room",
-  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%84%BF%E7%AB%A5.jpg",
+  imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/89b4c59e8ce555489d6be8ce837167c81fb45ef8-1920x600.jpg",
   description:
     "Step into a world of imagination and whimsy with our enchanting children's room collection. Designed to spark creativity and nurture dreams, each piece is craft…",
 };
@@ -1341,28 +1341,28 @@ const PROJECTS_SOURCE_PAGE_ITEMS: Record<number, typeof PROJECTS_SOURCE_ITEMS> =
     {
       title: "Hotel",
       path: "/projects/hotel",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-1.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a7cdcd0667ed9c3001562568060b733f6e1f4695-1920x600.jpg",
       description:
         "Experience the epitome of luxury and sophistication in our hotel collection, where every detail is curated for an unparalleled stay.Our thoughtfully curated spa…",
     },
     {
       title: "Office",
       path: "/projects/office",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%AE%A41.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c38074316781cff5e02748afe546e2d42426307e-1920x600.jpg",
       description:
         "Our exclusive decor collection designed toelevate your office space to new heights of sophistication. From sleek desk accessories to statement wall art, each pi…",
     },
     {
       title: "Gallery",
       path: "/projects/gallery",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg",
       description:
         "Our art collection is a celebration of diverse styles and expressions. Wander through our gallery space, where every brushstroke tells a unique story. Elevate y…",
     },
     {
       title: "Cafes",
       path: "/projects/cafes",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg",
       description:
         "Experience the sophisticated ambiance enhanced by our curated wall decor collection, transforming every corner into a gallery of visual delight. Allow the rich …",
     },
@@ -1371,21 +1371,21 @@ const PROJECTS_SOURCE_PAGE_ITEMS: Record<number, typeof PROJECTS_SOURCE_ITEMS> =
     {
       title: "Restaurant",
       path: "/projects/restaurant",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg",
       description:
         "Our thoughtfully selected collection transforms the dining experience, creating an atmosphere that sparks conversation and enhances the pleasure of every bite. …",
     },
     {
       title: "Large Commercial Space",
       path: "/projects/large-commercial-space",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-6.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b8ae99414189f7642a6b67702a6874e415d41286-1920x600.jpg",
       description:
         "Transform vast expanses into dynamic hubs of innovation and style with our large commercial space solutions. Elevate the ambiance with our curated collection, o…",
     },
     {
       title: "School",
       path: "/projects/school",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-7.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5c7f35f8591a4f5fc05ea7c0a91fd7ee14e28b61-1920x600.jpg",
       description:
         "Create an inspiring and conducive learning environment with our tailored solutions for schools. Our comprehensive approach to educational spaces brings together…",
     },
@@ -1682,73 +1682,73 @@ function localizedProjectsSourceCopy(locale: Locale, path: string) {
 
 const PROJECTS_SOURCE_DETAIL_GALLERIES: Record<string, string[]> = {
   "/projects/living-room": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-8.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-26.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-115.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/1cbe84d71532acac681f9d8088d203a4f4923d56-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/b8ae2a5beaff44c479c1818e6d23aed44dc95670-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/450689083a62361140f79febbf34a486c2044f9d-1080x1080.jpg",
   ],
   "/projects/bedroom": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/3.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/1-1.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/5ecf695529b1974b8ff0bf9bb6fdb95c9fdfe954-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/c6da053408ca4a96633645de532de35f87c89c23-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/ae57ca8e8e9d7a80e8a2142dc585f1e35783a25a-1080x1080.jpg",
   ],
   "/projects/bathroom": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-76.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-77.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-78.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/1d6ec50d7d79c06f1fccb74e20cc9c7d7c5c881f-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/51e0b149cb4f828bd83790d1e07021d8101e4c5e-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/32f1000ae83e5c7e068f5cad7f25980a610cb671-1080x1080.jpg",
   ],
   "/projects/dining-room": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-82.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/c9d3362378d65bc2702d22120f7126f9bce7bbcf-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/7bd642f77e346783c12de768d9ece35c4b141e31-1080x1080.jpg",
   ],
   "/projects/kitchen": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-5-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-83.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-84.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/eb11242f592f8c9114ea829817db66889d728891-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/7fe4dce1b03481e7d0805b0b4ad1fabb11f24291-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/32f1000ae83e5c7e068f5cad7f25980a610cb671-1080x1080.jpg",
   ],
   "/projects/childrens-room": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/01/projectPage11.png",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-2.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-86.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/84f35d091f23a7d55436d1f8fd5c92445df06420-1106x420.png",
+    "https://cdn.sanity.io/images/o10sbz2i/production/e96950b6210073a5da109e27393086a1b0fd216e-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/ba126f52f315d0f70a5e270721d06f8972af682b-1080x1080.jpg",
   ],
   "/projects/hotel": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-6-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-79.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-80.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/22c9049c35b1916f9a83e67079c8ef8d06fa6302-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/7bd642f77e346783c12de768d9ece35c4b141e31-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/1659e8ce9765c82462f658d0960f5198f7e3034d-1080x1080.jpg",
   ],
   "/projects/office": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%AE%A4-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-81.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-77.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/fbc3be12b63747974da2476efab32a3a333b6089-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/871ac86d3f6dfe13832e07b7fedcb6d3c18969e8-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/dccf911c504ba983f163f9246dd4e6e95206cab7-1080x1080.jpg",
   ],
   "/projects/gallery": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-7-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-85.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-87.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-88.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/331d576a78832a4c73cbfad09ca453d4a7fe8377-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/8112dc14764d3e1a12730e9b10c53d7e49872bac-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/9963674620497798ad6e062c493289cdbfd2630d-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/899923a410c83f07d4b22b9460f3c235d21b4938-1080x1080.jpg",
   ],
   "/projects/cafes": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-8-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-89.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/20bf9ec54cc885e74355a4bf9e6c54c400f21460-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/5d3658c9347fb302c6253ebeb9ae248d5717a448-1080x1080.jpg",
   ],
   "/projects/restaurant": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-9-1.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-90.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-91.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/c2d73ebb162dd04c1502ef3d0d135a3aa04a2374-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/aaedd66fe7e0d7e6b6e52762cedf089d689e9c6f-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/5d3658c9347fb302c6253ebeb9ae248d5717a448-1080x1080.jpg",
   ],
   "/projects/large-commercial-space": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-10.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-92.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-93.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/c6104295b6195a624096b89c522338a7ffd4fa2c-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/48526aa3e6163f0bfeec11ceb719bbd00814030f-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/caa2db5555e6ab89793cd5056e6f2abfe1a6bd7c-1080x1080.jpg",
   ],
   "/projects/school": [
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-11.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-94.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-95.jpg",
-    "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-96.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/ef4ee20e434bd7034f80026dc5c5e4b82a813751-1920x600.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/3dc64e00857087d71b8f35ffe3a4b4111963e333-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/6f89b155c01940f5997184eaa71ed381f76c42fe-1080x1080.jpg",
+    "https://cdn.sanity.io/images/o10sbz2i/production/a0208bcb2a777c3b60a77970f8f46ce2249c7f01-1080x1080.jpg",
   ],
 };
 
@@ -1758,7 +1758,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Canvas Art: A Perfect Addition to Your Home Decor",
     path: "/news/canvas-art-a-perfect-addition-to-your-home-decor",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/09/8-1-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/32251e6010c926b0cf75acd3bfc4134d1a40b1e7-1080x1080.jpg",
     date: "Sep 09, 2025",
     description: "",
     category: "All",
@@ -1766,7 +1766,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Creative Gallery Wall Ideas: Transform Your Walls with Frames, Art and Memo Boards",
     path: "/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/09/5416b754-a48c-4209-a071-d16586157fbe.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/456d37a9538525fed7319e95c99986cd54fc7953-1125x750.png",
     date: "Sep 04, 2025",
     description: "Discover creative gallery wall ideas with frames, art, mirrors & memo boards. Tr...",
     category: "All",
@@ -1774,7 +1774,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Top Frame Design Trends in 2025 for Interiors and Art Galleries",
     path: "/news/top-frame-design-trends-in-2025-for-interiors-and-art-galleries",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/premium_photo-1706561252292-a468453e49bb.avif",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8f491690a6ec17bcacfbf240bbe2929a9064790e-387x581.avif",
     date: "Aug 26, 2025",
     description: "",
     category: "All",
@@ -1782,7 +1782,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Which One Suits Your Project?——A Guide to Mirror Materials",
     path: "/news/which-one-suits-your-project-a-guide-to-mirror-materials",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/4904bfc1efd243bd7ba12b96d417c53e2f086a59-2000x2000.jpg",
     date: "Aug 19, 2025",
     description: "",
     category: "All",
@@ -1790,7 +1790,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Modern? Rustic? Classic? The Custom Framing Guide Every Home Needs",
     path: "/news/modern-rustic-classic-the-custom-framing-guide-every-home-needs",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/08/1280X1280-3.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a5b63ab67958f2f8da02885c75ec12dd497bf575-498x487.png",
     date: "Aug 09, 2025",
     description: "Explore Intco Framing's custom picture frames and frame mouldings. Discover mode...",
     category: "Inspiration",
@@ -1798,7 +1798,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Sustainable Furniture Choices: Eco-Friendly Options for the Modern Home",
     path: "/news/sustainable-furniture-choices-eco-friendly-options-for-the-modern-home",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-medium-shot-woman-restoring-furniture-scaled.webp",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/245de63448574dbe9567494a5b8af21bdb43cc80-2560x1707.webp",
     date: "Apr 23, 2025",
     description: "Discover eco-friendly furniture that blend style & sustainability for modern hom...",
     category: "Industry News",
@@ -1806,7 +1806,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Functional Decor: Incorporating Memo Boards into Your Home Office",
     path: "/news/functional-decor-incorporating-memo-boards-into-your-home-office",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-postcard-pictures-rack-against-white-scaled.webp",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/0e2dfb5ca25c2935e9660d5d6ffa55e4a4f7d531-2560x1808.webp",
     date: "Apr 16, 2025",
     description: "Discover how to integrate memo boards into your home office for stylish organiza...",
     category: "Industry News",
@@ -1814,7 +1814,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "The Art of Framing: Enhancing Your Artwork with Unique Picture Frames",
     path: "/news/the-art-of-framing-enhancing-your-artwork-with-unique-picture-frames",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/04/1-top-view-wooden-frames-arrangement-scaled.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3b620182d53b9435938b3164288bdaa71c4f04e5-2560x1707.jpg",
     date: "Apr 09, 2025",
     description: "Discover how unique picture frames enhance your art. Expert tips on styles, mate...",
     category: "Industry News",
@@ -1822,7 +1822,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Intco Framing Will Be Participating in The 135th CANTON FAIR",
     path: "/news/intco-framing-will-be-participating-in-the-135th-canton-fair",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/04/20240410-112017.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6fb876067d7a87144fad81205cf56690fe586e00-510x466.jpg",
     date: "Apr 10, 2024",
     description: "Intco Framing Will Be Participating in The 135th CANTON FAIR",
     category: "Expo",
@@ -1830,7 +1830,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Visit Intco Framing at 2024 VIFA Expo",
     path: "/news/visit-intco-framing-at-2024-vifa-expo",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/20240227-090025-scaled.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/76c68de8cfa6e97d804edd342abb63be5a20de4f-1830x2560.jpg",
     date: "Feb 27, 2024",
     description: "Intco Framing will be showcasing latest innovations in home decor solutions at V...",
     category: "Expo",
@@ -1838,7 +1838,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Tips for Installing Picture Frames in Your Home",
     path: "/news/tips-for-installing-picture-frames-in-your-home",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/03/1-high-angle-beautiful-plants-home-scaled.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6edb5646a90fd14eaffb49c84a27c1c9ba890b9e-1707x2560.jpg",
     date: "Apr 02, 2025",
     description: "Discover expert tips for installing picture frames to enhance your home decor. L...",
     category: "Industry News",
@@ -1846,7 +1846,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Interior Deco Market Outlook 2025: Key Trends and Challenges",
     path: "/news/interior-deco-market-outlook-2025-key-trends-and-challenges",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2025/03/1-home-plant-vase-decoration-arrangement-scaled.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1206c42ea2bd4c336918be1b929f2193c65edc30-1709x2560.jpg",
     date: "Mar 26, 2025",
     description: "Explore the Interior Decor Market Outlook 2025: Key trends, challenges, sustaina...",
     category: "Industry News",
@@ -1854,7 +1854,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "What's the Best Way to Frame Black-and-White Photos?",
     path: "/news/whats-the-best-way-to-frame-black-and-white-photos",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/12/1-picture-framing-scaled.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/412d7d712045d0685371b217c6fa7b319028be8d-2560x1707.jpg",
     date: "Dec 12, 2024",
     description: "In conclusion, framing black-and-white photos requires careful consideration of ...",
     category: "Inspiration",
@@ -1862,7 +1862,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Bulk Picture Frame Orders for Wholesale Buyers: A Complete Guide",
     path: "/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/12/1-INTCO-Framing.webp",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/883a451e7e685e826d22235dee2421b8fe808186-867x877.webp",
     date: "Dec 05, 2024",
     description: "Ordering picture frames in bulk offers substantial benefits for wholesale buyers...",
     category: "Inspiration",
@@ -1870,7 +1870,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Poster Frames vs. Picture Frames: Understanding the Difference",
     path: "/news/poster-frames-vs-picture-frames-understanding-the-difference",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/11/1-Intcos-Poster-Frame.webp",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ea9fcbe4096a6129ab342bd8cee50dcd521c383f-879x879.webp",
     date: "Nov 28, 2024",
     description: "Deciding on the appropriate frame for your posters, art prints, or photos is a c...",
     category: "Inspiration",
@@ -1878,7 +1878,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "Framing the Future: A Comprehensive Guide to A-Paper Sizes",
     path: "/news/framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/11/1-natural-burl-wood-framing.webp",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/4feb5c6d5a90fe424ad0e42e4801b6b07d9a6bd3-641x638.webp",
     date: "Nov 21, 2024",
     description: "A-sizes are a system of paper sizes that are standardized by the International O...",
     category: "Inspiration",
@@ -1886,7 +1886,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released",
     path: "/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Intco-Recycling-has-been-awarded-the-Best-Bloomberg-Green-ESG-Projects.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c0c66a43ed43152ada4d13eafd9d3f7e410a338e-1080x692.jpg",
     date: "Jan 29, 2024",
     description: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released.",
     category: "Press Release",
@@ -1894,7 +1894,7 @@ const HOME_BLOG_CARDS = [
   {
     title: "The Clear Difference: Picture Frame vs Photo Frame Explained",
     path: "/news/the-clear-difference-picture-frame-vs-photo-frame-explained",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/06/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%873_20240611140721.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/825f1651e09f364b64034ef90af2e52c23c7e28a-464x371.jpg",
     date: "Jun 13, 2024",
     description: "A picture frame is a decorative edging designed to encase and protect artwork, p...",
     category: "Tips",
@@ -1902,64 +1902,64 @@ const HOME_BLOG_CARDS = [
   {
     title: "How To Choose The Right Mirror Cabinet for Your Bathroom",
     path: "/news/how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/medicine-cabinet-ideas-for-bathroom.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ed2b8e7503ab75a1707161133e65a486f250bbd4-800x511.jpg",
     date: "Feb 23, 2024",
     description: "It's vital to get the correct mirror cabinet for your purposes since it may trul...",
     category: "Tips",
   },
 ];
 
-const SOLUTIONS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj-1.jpg";
-const SOLUTIONS_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution1.png";
-const SOLUTIONS_PROCESS_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solutionBg.png";
-const SOLUTIONS_RELATED_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/solution9.png";
-const SOLUTIONS_CONTACT_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/projectPage5.png";
-const BUSINESS_INSIGHTS_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights1.png";
-const BUSINESS_INSIGHTS_MARKET_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights2.png";
-const BUSINESS_INSIGHTS_MARKET_ICON = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/BusinessInsights10.jpg";
-const BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights9.png";
-const DESIGN_ENGINEERING_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock3.png";
-const DESIGN_ENGINEERING_MAIN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock4.png";
-const MANUFACTURING_DELIVERY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/ManufacturingBg.png";
-const MANUFACTURING_DELIVERY_DOWN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/down.jpg";
-const GLOBAL_PRODUCTION_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock1.png";
-const GLOBAL_PRODUCTION_BUILDING_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%A4%A7%E6%A5%BC2-1-scaled.jpg";
-const CERTIFICATION_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification1.png";
-const CERTIFICATION_BG_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/CertificationBg.png";
+const SOLUTIONS_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg";
+const SOLUTIONS_INTRO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/5e9bb9fa595bfab693a3b2394cef41f169a63abc-783x504.png";
+const SOLUTIONS_PROCESS_BG = "https://cdn.sanity.io/images/o10sbz2i/production/65ab6e4bc300f519d770cddd197b2dd74ae667f4-1920x1142.png";
+const SOLUTIONS_RELATED_BG = "https://cdn.sanity.io/images/o10sbz2i/production/143ffee4a155c3a173ce736c4b9715d87414e459-1920x800.png";
+const SOLUTIONS_CONTACT_BG = "https://cdn.sanity.io/images/o10sbz2i/production/87780f5172f8855bbe66e56a051b065fb5729b55-1920x600.png";
+const BUSINESS_INSIGHTS_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/84f1bbba0333ecaa3afd99f0db4148b7baefffef-1920x600.png";
+const BUSINESS_INSIGHTS_MARKET_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/1e1e5bff813a778a4443003177d328fead15b24c-980x660.png";
+const BUSINESS_INSIGHTS_MARKET_ICON = "https://cdn.sanity.io/images/o10sbz2i/production/4f5ab080edcb8e1556296f9b4aa5d8ed368c1762-174x170.jpg";
+const BUSINESS_INSIGHTS_RECOMMENDATION_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/174cf78f684c1c8d7dd085e565e4170bd3f30050-905x591.png";
+const DESIGN_ENGINEERING_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/bc4fa5d06204c93cbab4c5975bbe3ed5e9da1dc8-1920x600.png";
+const DESIGN_ENGINEERING_MAIN_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/c4eb2f57e1f48597166d6f676699c54dfa9cc270-1600x468.png";
+const MANUFACTURING_DELIVERY_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/6858db993d1a3b9e16cd35de0eac22fed5f4ba0f-1920x600.png";
+const MANUFACTURING_DELIVERY_DOWN_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/12cd3a42b2528a056ded48c92c7a189cfd041bbf-1920x874.jpg";
+const GLOBAL_PRODUCTION_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/a217c8e3be82e749bfe25334c673b8da0a86c731-1920x600.png";
+const GLOBAL_PRODUCTION_BUILDING_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/8cb95e251cd49e74e98f1b418431235eb028f2c4-2560x1440.jpg";
+const CERTIFICATION_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/a4143fa5e862d832ca8f4cf2b85521022d9e388c-1920x600.png";
+const CERTIFICATION_BG_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/b0a9d6522b72f192e35665fe3b0218dd347acbb6-1920x850.png";
 const CERTIFICATION_GRID_IMAGES = [
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification2.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification3.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification4.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification5.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification6.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification7.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification8.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification9.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/11a3832cdecf679369faafa969b78dc25661d378-366x240.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/f158ba1ffd4e57e76a817b3e48218200151554b6-365x240.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/f364de36fc9b0f315a880c5a4a3f84a8352de8d7-365x240.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/cc204a7d1c409ecb9e0a45c6a234f4f9236d7538-365x240.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/5b99f81835920ffc478aef91c43c910c301b992f-365x240.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/22bbd1a72122900f11b31ed45cda249f9b9c1d06-365x240.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/4fd597c7447e414bc0b20520b02e671b2d7423af-365x240.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/31d36f783e6f23385d5cd271cc6c1a56a60c63e9-365x240.jpg",
 ];
 const CERTIFICATION_SWIPER_IMAGES = [
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification10.png",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification11.png",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification12.png",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Certification13.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/e134261de9d6e9358680700fb9d37e4c8b6f5f2e-273x386.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/b6f0c5e3829659a8de99525303e52464e0abafc6-273x387.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/914d7d649a02697ca8263033b56a7a108de04cdb-275x388.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/2138bfacce25d57771b66d955c14bcf3e6ba12df-275x388.png",
 ];
-const RETAILER_SUPPORT_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E6%9C%AA%E6%A0%87%E9%A2%98-2-3.jpg";
-const RETAILER_SUPPORT_TURN_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSupport11.jpg";
-const RETAILER_SUPPORT_GLOBAL_DECOR = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Global_.png";
+const RETAILER_SUPPORT_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/ad6694cc5319337b7f85dd858edaa4e510fc3d22-1920x600.jpg";
+const RETAILER_SUPPORT_TURN_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/afb9eb36c44a0acfcf2bfb52b533688f4e2b0dac-806x427.jpg";
+const RETAILER_SUPPORT_GLOBAL_DECOR = "https://cdn.sanity.io/images/o10sbz2i/production/79e55e9d00a71bb8aea1dc434611c9a82a02cb56-861x210.png";
 const RETAILER_SUPPORT_GLOBAL_IMAGES = [
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E6%9C%AA%E6%A0%87%E9%A2%98-1-3.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/223.jpg",
-  "https://www.intcoframing-us.com/wp-content/uploads/2024/02/147.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/8db8f6544a4244e1193ef83f052e8367b87a466a-524x350.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/9a81d1397afbecdbae1428bebfd63b43e5cba8ec-524x350.jpg",
+  "https://cdn.sanity.io/images/o10sbz2i/production/25e362976382a8faab9464e83c02a73c2a57abc1-524x350.jpg",
 ];
-const RETAILER_SUPPORT_DISTRIBUTION_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSuppor5-1.png";
-const RETAILER_SUPPORT_MARKETING_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/RetailerSuppor6-1.png";
-const RETAILER_SUPPORT_SERVICE_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/RetailerSuppor7.png";
+const RETAILER_SUPPORT_DISTRIBUTION_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/a54aa9117bb27bdcb3fd9878b1e44afc86afbaa6-760x400.png";
+const RETAILER_SUPPORT_MARKETING_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/9a58818d9f5fea8c7a4fda2e52b07e8b3801a398-760x400.png";
+const RETAILER_SUPPORT_SERVICE_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/832152d21b1bd732fa057eb238f2947d51dc6a85-978x669.png";
 const MANUFACTURING_PACKAGING_IMAGES = [
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing7.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/978eaee449f4c4e1636cd0ca7612d32fddb6af77-765x408.png",
     imageAlt: "Manufacturing7",
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing8.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6da61720a557ef5bdef22e40fde97342a681b1fe-617x613.png",
     imageAlt: "Manufacturing8",
   },
 ];
@@ -1967,15 +1967,15 @@ const MANUFACTURING_PACKAGING_IMAGES = [
 const BUSINESS_INSIGHTS_TREND_SLIDES = [
   {
     path: "/solutions/business-insights-trends/trend",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-131.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/e0167fe949ed12227452065aea070984eee70332-1000x554.jpg",
   },
   {
     path: "/solutions/business-insights-trends/trend-2",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-112.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/068692f4e16d08f7f1d83cf960b85d93c1c91291-1000x554.jpg",
   },
   {
     path: "/solutions/business-insights-trends/trend-2-2",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-96.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/12f81e4baa849c407f78a636b7fd652fa50642a8-1000x554.jpg",
   },
 ];
 
@@ -1983,20 +1983,20 @@ const BUSINESS_INSIGHTS_TREND_REPORTS = [
   {
     title: "Trend",
     path: "/solutions/business-insights-trends/trend",
-    coverUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/INTCOtrendreport062023-1.pdf",
+    coverUrl: "https://cdn.sanity.io/images/o10sbz2i/production/92c4e097b80b075f5e9b5eecb71cc07463820353-690x582.jpg",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/b3cc15000470da4fae35eabd7bffc0fe750ad296.pdf",
   },
   {
     title: "Trend2",
     path: "/solutions/business-insights-trends/trend-2",
-    coverUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/INTCOtrendreport12202023.pdf",
+    coverUrl: "https://cdn.sanity.io/images/o10sbz2i/production/7122bf537a96658f450d8aa4f056967ea6c2d8b8-690x582.png",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/fff4b61c3f82b94bc22a7eccb440c82d2efbc43f.pdf",
   },
   {
     title: "Trend3",
     path: "/solutions/business-insights-trends/trend-2-2",
-    coverUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
-    pdfUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/INTCOTRENDS82023-1.pdf",
+    coverUrl: "https://cdn.sanity.io/images/o10sbz2i/production/77fd52fd1920d88e66321a93c24ddd9bd920b57c-690x582.jpg",
+    pdfUrl: "https://cdn.sanity.io/files/o10sbz2i/production/5f2e633df74c61bd1c940cf0666025936405f18a.pdf",
   },
 ];
 
@@ -2082,17 +2082,17 @@ const BUSINESS_INSIGHTS_BESTSELLER_GROUPS = [
       {
         title: "PS Framed Vintage Wood Grain Tabletop Picture Frame",
         path: "/ps-framed-vintage-wood-grain-tabletop-photo-frame",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg",
       },
       {
         title: "Modern Black Aluminum Framed Poster Frame",
         path: "/picture-frame/poster-frame-2/modern-black-alumium-framed-poster-frame",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-2-8.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a343a2ca1f9bf3c46641aa1c401e9f2ba587df3b-1080x1080.jpg",
       },
       {
         title: "3 Opening 4x6 Collage Picture Frame Natural Plastic Picture Frames Grey Wood Grain",
         path: "/picture-frame/collage-frame/3-opening-4x6-collage-picture-frame-natural-plastic-picture-frames-grey-wood-grain",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-111.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/af868e0960a451524393afe3689cd41a42436cb8-1080x1080.jpg",
       },
     ],
   },
@@ -2102,22 +2102,22 @@ const BUSINESS_INSIGHTS_BESTSELLER_GROUPS = [
       {
         title: "Aluminum Framed Round Wall Mirror with Wood Grain",
         path: "/mirror/wall-mirror/aluminum-framed-round-wall-mirror-with-wood-grain",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-40.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8644e87dadf2b904a30bc284e4b812fb6ee7aae0-1080x1080.jpg",
       },
       {
         title: "Classic Contemporary PS Framed Gold Full Length Leaner Mirror",
         path: "/classic-contemporary-ps-framed-gold-full-length-leaner-mirror",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-27.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a9d8e7dfddd89ef200e57e7ffb8ad52a41c18c8e-1080x1080.jpg",
       },
       {
         title: "Aluminum Framed Arched Full Length Standing Mirror",
         path: "/mirror/standing-mirror/aluminum-framed-arched-full-length-standing-mirror",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-75.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8cf43b1679a5b07bb0450b9e1bd8e8f1072e70d7-1080x1080.jpg",
       },
       {
         title: "Arched Alumium Framed LED Bathroom Wall Mounted Mirror",
         path: "/arched-alumium-framed-led-bathroom-wall-mounted-mirror",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-21.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3b44e5899cb0d9e6c02f640c2888536abcaea7c1-1080x1080.jpg",
       },
     ],
   },
@@ -2127,22 +2127,22 @@ const BUSINESS_INSIGHTS_BESTSELLER_GROUPS = [
       {
         title: "Modern Abstract Canvas Wall Art",
         path: "/art/canvas-art/modern-abstract-canvas-wall-art",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-96.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9120ac358e686bd5728f47a28796caeb13550f4a-1080x1080.jpg",
       },
       {
         title: "Figurative Lady Framed Wall Art 22x24",
         path: "/art/framed-art/figurative-lady-framed-wall-art-22x24",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/5-25.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/352bb32e01d092264b70d66e7fe57f6f29ccfeea-1080x1080.jpg",
       },
       {
         title: "Black Framed Abstract Wall Art Set of 2",
         path: "/art/framed-art/black-framed-abstract-wall-art-set-of-2",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-2-1.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/03f36fa5e9ae35e5d61123385238aa444e2980d1-1080x1080.jpg",
       },
       {
         title: "Neutral Minimalist Framed Abstract Wall Art",
         path: "/neutral-minimalist-framed-abstract-wall-art",
-        imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-3.jpg",
+        imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/95401b4ce58aaf00600ac74972077608f8658c16-1080x1080.jpg",
       },
     ],
   },
@@ -2263,10 +2263,10 @@ function localizedBusinessInsightsBestsellerProductTitle(locale: Locale, product
   return BUSINESS_INSIGHTS_BESTSELLER_PRODUCT_TITLE_TRANSLATIONS[locale]?.[product.path] || product.title;
 }
 
-const WHO_WE_ARE_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20240205105129.jpg";
-const WHO_WE_ARE_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs2.png";
-const WHO_WE_ARE_STATS_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/hc-about-us-page.jpg";
-const WHO_WE_ARE_MAP_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/map-hc-bg-01.png";
+const WHO_WE_ARE_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/1c4d82f7a7171314c190f172c0846063ceaa00ae-1920x601.jpg";
+const WHO_WE_ARE_INTRO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/9066546fcd7e65c8edf8fddf265b74c09b0004bf-883x420.png";
+const WHO_WE_ARE_STATS_BG = "https://cdn.sanity.io/images/o10sbz2i/production/a1668f307b18570dbfb30f7019af1133a11f497d-1920x214.jpg";
+const WHO_WE_ARE_MAP_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/57b757db6fe6e2c149eead826e841ae60b5b8b3c-1595x931.png";
 
 const WHO_WE_ARE_STATS = [
   { value: "3", label: "Business Units", Icon: Layers },
@@ -2312,20 +2312,20 @@ const WHO_WE_ARE_GLOBAL_MARKET_INTRO: Record<Locale, string> = {
 };
 
 const WHO_WE_ARE_HISTORY = [
-  { year: "2002", title: "Shanghai Base", description: "Picture Frame Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2002.jpg" },
-  { year: "2005", title: "Shandong Base", description: "Art / Picture / Mirror Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2005.jpg" },
-  { year: "2009", title: "Shanghai Base", description: "Greenwood Brand Picture Frame Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2009.jpg" },
-  { year: "2010", title: "Lu'an Base", description: "Picture Frame Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2010.jpg" },
-  { year: "2010", title: "Zheniiang Base", description: "GREENMAX Brand Recycling Machines", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2010_2.jpg" },
-  { year: "2015", title: "Domestic Marketing Center", description: "25 Exhibition Offices in China", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2015.jpg" },
-  { year: "2016", title: "Shandong Base ll", description: "MDF Frames Aluminum Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2016.jpg" },
-  { year: "2018", title: "Malaysia Base", description: "100,000 Tons r-PS Pellets", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2018.jpg" },
-  { year: "2019", title: "Integration of two networks", description: "Recycle the Compressed Foam in Shanghai", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2019.jpg" },
-  { year: "2019", title: "Malaysia Base ll", description: "50,000 Tons r-PET Pellets", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2019_2.jpg" },
-  { year: "2021", title: "Shandong Base lll", description: "Aluminum Frames Canvas Art Art Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2021.jpg" },
-  { year: "2021", title: "IPO in Shanghai", description: "STOCK SYMBOL: 688087", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2021_2.jpg" },
-  { year: "2022", title: "Lu'an Basell", description: "Multi-category Decorative Mouldings", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2022.jpg" },
-  { year: "2022", title: "Vietnam Base", description: "Frame / Decorative Mouldings Picture / Mirror Frames", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2022_2.jpg" },
+  { year: "2002", title: "Shanghai Base", description: "Picture Frame Mouldings", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/d90df6ccf1e7992b59047d058cc726671440752e-235x292.jpg" },
+  { year: "2005", title: "Shandong Base", description: "Art / Picture / Mirror Frames", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5df6a135d7d21f806533913fd6b635a35da8d8c1-235x292.jpg" },
+  { year: "2009", title: "Shanghai Base", description: "Greenwood Brand Picture Frame Mouldings", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6ffc3c32206e85c80e57d186e43d9bb49b7309d0-235x292.jpg" },
+  { year: "2010", title: "Lu'an Base", description: "Picture Frame Mouldings", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b6288fbd92bf19161b81d20a17add77666e04d98-235x292.jpg" },
+  { year: "2010", title: "Zheniiang Base", description: "GREENMAX Brand Recycling Machines", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/bff75b93e18c5f97c619e3678161763442589bfc-235x292.jpg" },
+  { year: "2015", title: "Domestic Marketing Center", description: "25 Exhibition Offices in China", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9b5f8d2c6a8822441e3e8c171322891aa42d083c-235x292.jpg" },
+  { year: "2016", title: "Shandong Base ll", description: "MDF Frames Aluminum Frames", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/85f660ed64104f0946b1257257734852ac20db65-235x292.jpg" },
+  { year: "2018", title: "Malaysia Base", description: "100,000 Tons r-PS Pellets", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/75bae5cb2f747680ebc8f472b126b3ca69a74720-235x292.jpg" },
+  { year: "2019", title: "Integration of two networks", description: "Recycle the Compressed Foam in Shanghai", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1cb4ac16c5eb3f393fa84781fcf03049dbe2aef1-235x292.jpg" },
+  { year: "2019", title: "Malaysia Base ll", description: "50,000 Tons r-PET Pellets", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8bf0899a901514dca3092739df01254f399e9203-235x292.jpg" },
+  { year: "2021", title: "Shandong Base lll", description: "Aluminum Frames Canvas Art Art Frames", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3440c9d96a7902952fd79a31c603eb66a24da927-235x292.jpg" },
+  { year: "2021", title: "IPO in Shanghai", description: "STOCK SYMBOL: 688087", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/eadbc265dc81bed03ecf40b91317bb39ab1d24b3-235x292.jpg" },
+  { year: "2022", title: "Lu'an Basell", description: "Multi-category Decorative Mouldings", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8bbb8f06a96c5288cd2ee22e4df7f859ca580f59-235x292.jpg" },
+  { year: "2022", title: "Vietnam Base", description: "Frame / Decorative Mouldings Picture / Mirror Frames", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/bbc07c2e601cf25626ba1c5bbcc41b0d84f295b3-235x292.jpg" },
 ];
 
 const WHO_WE_ARE_HISTORY_TRANSLATIONS: Partial<Record<Locale, Array<{ title: string; description: string }>>> = {
@@ -2463,26 +2463,42 @@ const WHO_WE_ARE_MARKET_TRANSLATIONS: Partial<Record<Locale, Record<string, { co
   },
 };
 
-const WHO_WE_ARE_PARTNER_LOGOS = Array.from({ length: 15 }, (_, index) => `https://www.intcoframing-us.com/wp-content/uploads/2024/01/comP${index + 1}.png`);
-
-const WHO_WE_ARE_PARTNER_CARDS = [
-  { title: "Our Products", path: "/products", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs3.png" },
-  { title: "Solutions", path: "/solutions", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs4.png" },
-  { title: "Projects", path: "/projects", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/aboutUs5.png" },
+const WHO_WE_ARE_PARTNER_LOGOS = [
+  "https://cdn.sanity.io/images/o10sbz2i/production/dfdb51d363d64f77d78e860a4b22c0e7eaa1e83b-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/9eb5f44cfaf190b989729e1c71ae4e33eb2a1d54-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/635141b3494ce0cc410d28daf5abcd8d877cbbc5-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/8736091ea449845662382abda8345601f0408b4b-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/41b13e669e9d64a2eb933db73d1bfa0d396696f4-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/13b9fd929b5f414ce1f18fb3948de4fccc4365fc-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/142327a5cb1a38d0f4aad6cdcac7fcf8aa5a339e-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/ca95736c4b416d3d0d2276671ffdb16d475a15e1-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/991ca0ce6cdb60392e9a86c458238a79d25cb127-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/0b1c47eb28da639adfe4d53e72908db6b6863b7f-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/594e7640b6ec161a07fad741bb6de559eefd5bc7-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/cca0e420f1f7b6c0c1ee74ce052bdfdad31fc784-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/7ad3d413e36d8d043d4de160b1a645f5493a8baa-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/e776cf87b5bb9a74d64e2b379a29dd1e02caf442-240x125.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/af9b716dfe92fb4ff797471f58056363e45d3a5e-240x125.png",
 ];
 
-const SUSTAINABILITY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Sustainability1.jpg";
+const WHO_WE_ARE_PARTNER_CARDS = [
+  { title: "Our Products", path: "/products", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/eda05bd30e3aef069caea06746d3bb65b6bfa5e8-654x697.png" },
+  { title: "Solutions", path: "/solutions", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/94dd32c709ccc96fc486a6f99fc045511d1eb502-926x336.png" },
+  { title: "Projects", path: "/projects", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b23f7166315055b685ace8c0bd3646963eba2f04-926x336.png" },
+];
+
+const SUSTAINABILITY_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/3754da3e3f4a80f769428af8eb127f0b39ae3615-1920x600.jpg";
 const SUSTAINABILITY_VIDEO_SRC = "https://www.youtube.com/embed/uzpr_7MwI_c?si=BM4lcdw_WKcepCph";
-const SUSTAINABILITY_INTRO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability2.png";
-const SUSTAINABILITY_REPORT_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability3.png";
-const SUSTAINABILITY_REPORT_PDF = "https://www.intcoframing-us.com/wp-content/uploads/2024/02/ESG-Report-Intco-Framing.pdf";
-const SUSTAINABILITY_EXTERNAL_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-01.jpg";
+const SUSTAINABILITY_INTRO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/49d37b58a8bd63e1495a37daf1381027313f320e-680x400.png";
+const SUSTAINABILITY_REPORT_IMAGE = "/assets/intco/esg/esg-report-2025-cover.jpg";
+const SUSTAINABILITY_REPORT_PDF = "/assets/intco/esg/esg-report-2025.pdf";
+const SUSTAINABILITY_EXTERNAL_BG = "https://cdn.sanity.io/images/o10sbz2i/production/9c7ce4b16d9a18e477d4c58a270b52e94c729ea3-1920x800.jpg";
 const SUSTAINABILITY_EXTERNAL_IMAGES = [
-  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-02.png",
-  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-03.png",
-  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-04.png",
-  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-05.png",
-  "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/wwa-er-pic-06.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/eb599578ba99d480f7fe787958658713b9821ff3-381x468.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/88b8f363d856bf07f5d2ad35549af7f9200762f6-381x468.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/63f7baad9d49539b17f7029ef8b46dccd8960671-381x468.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/87f7017106ea8d55027d678e2e5e8a2ece38ef37-381x220.png",
+  "https://cdn.sanity.io/images/o10sbz2i/production/e11c11564a9865e4e08ce9934d1b34223e00ac90-381x220.png",
 ];
 
 const SUSTAINABILITY_INTRO_COPY: Record<Locale, string[]> = {
@@ -2573,19 +2589,19 @@ const SUSTAINABILITY_TREE_ITEMS_LOCALIZED: Record<Locale, SustainabilityTreeItem
 const SUSTAINABILITY_ACTION_CARDS = [
   {
     title: "Innovating Circular Economy Models",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability13.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/d3b1582f70e2c324181233d31d148831542b45f8-497x342.png",
     description:
       "Intco emphasizes on the environmental impact of the whole life cycle of products, and with advanced plastic recycling technology and recycled plastic products, it realizes the high-value recycling of plastics and opens up the entire industrial chain of plastic recycling, forming a unique “Circular Economy lntegration” business model.",
   },
   {
     title: "Comprehensive Environmental Initiatives",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability14.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/bfc90d1c0b9593c0313d4e35a680a167fc8e3922-497x342.png",
     description:
       "Recognizing the pressing issue of climate change, we respond by implementing strategies to reduce ourcarbon footprint,emphasizing the judicious use of resources across all operations. Furthermore, we focus on optimizing waste utilization,transforming it into a valuable resource. We conscientiously uphold the highest environmental standards in every aspect of our business.",
   },
   {
     title: "Nurturing A Diverse And Inclusive Work Environment",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability15.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/bb19995517c08ebcddf60535822c805f8b675758-497x342.png",
     description:
       "Our company is committed to fostering a workplace culture that embodies genuine care for our employees.We prioritize diversity and inclusion,actively valuing and respecting individuals of different nationalities,ethnicities,and backgrounds. In our pursuit of an inclusive and equal opportunity environment, we offer positions tailored to recruit employees with disabilities.",
   },
@@ -2609,7 +2625,7 @@ const BLOOMBERG_ESG_ARTICLE_SLUG = "the-2023-bloomberg-green-esg-50-companies-to
 
 const VANITY_MIRROR_ARTICLE_SECTIONS = [
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Round-Black-Aluminum-Picture-Frame-Wall-Mirror-ideas.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/621657bacc11b549c5658ede5bef818a8133d5f8-600x641.jpg",
     imageAlt: "LED Round Black Aluminum Picture Frame Wall Mirror ideas",
     heading: "1) LED Mirrors Simulate Natural Lighting",
     paragraphs: [
@@ -2618,7 +2634,7 @@ const VANITY_MIRROR_ARTICLE_SECTIONS = [
     ],
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Bathroom-Round-Wall-Mirror-with-LED-Lighted.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ca1a6ab93776706989866d10490b7c6720a830db-600x583.jpg",
     imageAlt: "Bathroom Round Wall Mirror with LED Lighted",
     heading: "2) Bathrooms with LED Mirrors Feel Bigger",
     paragraphs: [
@@ -2626,7 +2642,7 @@ const VANITY_MIRROR_ARTICLE_SECTIONS = [
     ],
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Rectangle-Gold-Aluminum-Picture-Frame-Wall-Mirror-ideas-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8e21d9ce80094b8748390161c41b922026bfb6e1-600x641.jpg",
     imageAlt: "LED Rectangle Gold Aluminum Picture Frame Wall Mirror ideas",
     heading: "3) LED Lights Save Energy",
     paragraphs: [
@@ -2635,7 +2651,7 @@ const VANITY_MIRROR_ARTICLE_SECTIONS = [
     ],
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Oval-Gold-Aluminum-Picture-Frame-LED-Bathroom-Mirror-ideas.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/638fd8174e83c8f413858d36734c5b885d3c1b7a-600x641.jpg",
     imageAlt: "Oval Gold Aluminum Picture Frame LED Bathroom Mirror ideas",
     heading: "4) LED Bathroom Mirrors Work Well With Most Designs",
     paragraphs: [
@@ -2644,7 +2660,7 @@ const VANITY_MIRROR_ARTICLE_SECTIONS = [
     ],
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Arch-Gold-Aluminum-Picture-Frame-Wall-Mirror-ideas-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9c562e9104fbd02683db8ecd4b76ec1e1de3286e-600x641.jpg",
     imageAlt: "LED Arch Gold Aluminum Picture Frame Wall Mirror ideas",
     heading: "5) Grooming is Easier With LED Bathroom Mirrors",
     paragraphs: [
@@ -2715,7 +2731,7 @@ const VANITY_MIRROR_POPULAR_POSTS = [
     date: "Jan 29, 2024",
     path: "/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released",
     categoryPath: "/blog?category=Press%20Release",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Intco-Recycling-has-been-awarded-the-Best-Bloomberg-Green-ESG-Projects.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c0c66a43ed43152ada4d13eafd9d3f7e410a338e-1080x692.jpg",
   },
   {
     title: "5 Ways an LED Bathroom Vanit…",
@@ -2723,7 +2739,7 @@ const VANITY_MIRROR_POPULAR_POSTS = [
     date: "Jan 29, 2024",
     path: "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
     categoryPath: "/inspiration",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Bathroom-Round-Wall-Mirror-Ideas.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1806276ee0c14b9b9bd56e338f59a4a9f7c7bb9e-800x533.jpg",
   },
   {
     title: "The Major Materials of Medic…",
@@ -2731,33 +2747,33 @@ const VANITY_MIRROR_POPULAR_POSTS = [
     date: "Jan 29, 2024",
     path: "/news/the-major-materials-of-medicine-mirror-cabinet",
     categoryPath: "/blog?category=Industry%20News",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511.jpg",
   },
 ];
 
 const VANITY_MIRROR_INSTAGRAM_ITEMS = [
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog16-1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/7898a18d52c731d3a24a9ee2e467ad8d845a39f7-120x120.png",
     href: "https://www.instagram.com/p/CkxQ1LqtEGJ/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog19-1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/dd7a8779ddf7cc38d27bc41264af77f39cc497e3-120x120.png",
     href: "https://www.instagram.com/p/CfqZ5_fJnwY/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog17-1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/112f069c24ffb87c80c3f192a2363fc3d7abcc14-120x120.png",
     href: "https://www.instagram.com/p/Ciyv9OIp1PW/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog20-1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/407e87955ba179b66763d92cd6742586ff0a5f3f-120x120.png",
     href: "https://www.instagram.com/p/CdKGZBhPWls/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog18-1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/0acc5cbdd255843d8e0ad225a5b76c63b0e64ae7-123x123.png",
     href: "https://www.instagram.com/p/CdzaQlsvZBq/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog21-1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/15eba394957915918e4a6516bd3c09b7d6487478-120x120.png",
     href: "https://www.instagram.com/p/CkKnOS0LajF/?utm_source=ig_web_copy_link&igshid=MzRlODBiNWFlZA==",
   },
 ];
@@ -2776,7 +2792,7 @@ const SOURCE_NEWS_ARTICLES = {
       "Bathroom medicine cabinets are available in various materials – you can choose from aluminum, wood, plastic, stainless steel, etc. Let’s explore some of them in a little more detail.",
     ],
     leadImage: {
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511.jpg",
       imageAlt: "wood medicine mirror cabinet for bathroom",
     },
     sections: [
@@ -2817,7 +2833,7 @@ const SOURCE_NEWS_ARTICLES = {
       "Bloomberg Green ESG 50 is an annual list compiled and published by Bloomberg Green in China. 2023 marks the first ESG 50 list release. The list includes both public and private companies. Bloomberg’s ESG scoring methodology is characterized by a bottom-up, model-driven method driven primarily by self-reported, publicly available information that results in a fully transparent, parametric, rules-based scoring framework.",
     ],
     leadImage: {
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/The-2023-Bloomberg-Green-ESG-50-Companies-to-Watch-List-is-officially-released.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/03f0cfe73dc2bb89e6d23bd6adeec4dbad47c871-1080x692.jpg",
       imageAlt: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released",
     },
     sections: [
@@ -3315,14 +3331,14 @@ function localizedSustainabilityActionCards(locale: Locale) {
   return SUSTAINABILITY_ACTION_CARDS.map((card, index) => ({ ...card, ...copy[index] }));
 }
 
-const PHILOSOPHY_HERO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy1.png";
-const PHILOSOPHY_CEO_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy2.png";
-const PHILOSOPHY_QUOTE_TOP = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy11.png";
-const PHILOSOPHY_QUOTE_BOTTOM = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy10.png";
-const PHILOSOPHY_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/PhilosophyBg.png";
-const PHILOSOPHY_CENTER_BG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy18.jpg";
-const PHILOSOPHY_TEAM_IMAGE = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy8.png";
-const PHILOSOPHY_CONTACT_IMAGE = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Philosophy9.png";
+const PHILOSOPHY_HERO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/3b68fa7c7b25e9369f475bbf642cf726d608e602-1920x600.png";
+const PHILOSOPHY_CEO_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/837fe8ac45ed4a821a7f640cb0bfd00321db3c43-763x658.png";
+const PHILOSOPHY_QUOTE_TOP = "https://cdn.sanity.io/images/o10sbz2i/production/e9d84177feceffec8aa4827f63d794db39d00082-32x29.png";
+const PHILOSOPHY_QUOTE_BOTTOM = "https://cdn.sanity.io/images/o10sbz2i/production/99c995f2763d83ab2e8cdf415d10ac66267dea05-410x360.png";
+const PHILOSOPHY_BG = "https://cdn.sanity.io/images/o10sbz2i/production/880925b1d4c3c8d9323170b70d0ac5569e2c3fc3-1920x1835.png";
+const PHILOSOPHY_CENTER_BG = "https://cdn.sanity.io/images/o10sbz2i/production/08b83d56001542f057dd3453f64652316df1f56b-1920x966.jpg";
+const PHILOSOPHY_TEAM_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/436cb771086c0db9f0dd6c38b38be168e663a6b4-1262x683.png";
+const PHILOSOPHY_CONTACT_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/e1ada54b21ce23e43637ec0747fd1f99c7b31bb0-428x428.png";
 
 const PHILOSOPHY_QUOTE: Record<Locale, string> = {
   en: "We have a dynamic and hardworking team making concerted efforts on adifficult but worthwhile cause. The recycling industry has a profound impact on the environment and society, leading to sustainable development.",
@@ -3337,33 +3353,33 @@ const PHILOSOPHY_VALUES = [
   {
     title: "Mission",
     body: "Focus on the Recycling of Resources, for the Sustainable Development of the Earth",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3f7fa0481ece77af11444cccea5c1ee8ece62bc5-116x116.png",
   },
   {
     title: "Vision",
     body: "Becoming a Global Leader in High-tech Recycled Resource Manufacturing",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p2.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/37a7e0618c73900adf1b679ff80dbe80c6a3db41-116x116.png",
   },
   {
     title: "Spirit",
     body: "Honesty & Integrity, Diligence & Hardworking, Professionalism,Teamwork, Customer First",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p3.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/261993aa07d10da9061ce1b8f86a4e1f3c2f8907-116x116.png",
   },
   {
     title: "Values",
     body: "Love Goodness Truth",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p4.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6cff20d3f99a7e49913b0018f329b547bf4179ab-116x116.png",
   },
   {
     title: "Objective",
     body: "With Human Wisdom Serving Human Needs",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p5.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5db6954ad19cfcdfb27186a589c30e71b29b81d3-116x116.png",
   },
   {
     title: "lmprovement & Innovation",
     body: "Every Suggestion Will be Cherished, Every lmprovement Will be Awarded",
     details: ["The Duty to Our Enterprise:", "Growing Our Business", "The Duty to Society:", "Practicing Ethical Behavior"],
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/p6.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c95d292cac7ea91f721005cd28a190564988349a-116x116.png",
   },
 ];
 
@@ -3419,80 +3435,83 @@ function localizedPhilosophyValues(locale: Locale): PhilosophyValue[] {
 }
 
 const PHILOSOPHY_GALLERY_TOP = [
-  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy6.png", label: "WORLD CLASS CUSTOMER SERVICE" },
-  { imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy7.png", label: "MEET THE TEAM" },
+  { imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b7dd638d546d21a99980709c12640657a1ca8181-794x371.png", label: "WORLD CLASS CUSTOMER SERVICE" },
+  { imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/68cee9b3b7be3c399ffed342d67c0a97d460a7fb-794x371.png", label: "MEET THE TEAM" },
 ];
 
 const PHILOSOPHY_RESPONSIBILITY_CARDS = [
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy3.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6f614c8ca537aebac5ecc7e0d34e80584a9cadea-954x629.png",
     dutyIndex: 0,
     titleIndex: 1,
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy5.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/90fff62281c718efd3165b915b6c8f1f6cab1c95-633x308.png",
     dutyIndex: 2,
     titleIndex: 3,
   },
   {
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Philosophy4.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5ac64badf2abcf3bbb4eb20bb874e5e5555c59da-633x308.png",
     dutyIndex: 2,
     titleIndex: 3,
   },
 ];
+
+const SOLUTIONS_INTRO_COPY =
+  "We are dedicated to providing innovative and sustainable solutions. Collaborating seamlessly with our clients, we strive for continuous improvement in every aspect of our offerings. From innovative product designs to sustainable manufacturing practices, our solutions are crafted with a focus on the future.";
 
 const SOLUTIONS_SERVICE_ITEMS: SolutionsServiceItem[] = [
   {
     title: "Business Insights & Trends",
     path: "/solutions/business-insights-trends",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3a3ec21ad4ae68fed0ad99c58fc6e9123ade79a8-400x530.jpg",
     description:
       "With extensive relationships with our retail partners, we hold a distinct advantage which includes real time global market analysis. We offer real-time market performance to keep retailers informed about the latest trends, selling cycles and white space opportunities enabling strategic decision-making for expanded product offerings.",
   },
   {
     title: "Design & Engineering",
     path: "/solutions/design-engineering",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/22-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/528d3c4fa7fa432ffe08a1975a8d84e4303ce3df-400x530.jpg",
     description:
       "Collaborate with our skilled design and engineering teams for innovative product design, professional packaging design, cost engineering, captivating display design, extensive product research, and customizable solutions tailored to meet your unique needs. We prioritize innovation and aesthetic appeal, ensuring your products stand out in the competitive market.",
   },
   {
     title: "Manufacturing & Delivery",
     path: "/solutions/manufacturing-delivery",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b7f4b8b21bf7d2f16103b3fa8164b5521db1784a-400x530.jpg",
     description:
       "Intco's vertically integrated supply chain of raw materials, we maintain control over product quality from the source, ensuring consistent excellence for initial orders and reorders. With formidable production capabilities, we have the capacity to manufacture 1.2 million boxes of PS moulding annually. We can meet the demands of large-scale production while consistently upholding rigorous standards of quality.",
   },
   {
     title: "Global Production and Supply",
     path: "/solutions/global-production-and-supply",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/44.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/885c2595d3afbacbe5b64c80f3ca5f12d8e07450-400x530.jpg",
     description:
       "By strategically locating our factories in China, Vietnam and Malaysia, we enhance our resilience to external factors that may impact the supply chain and maximize efficiency and flexibility in meeting your demands. All of our factories ensure advanced production technology and equipment, quality manufacturing and flexible shipping. Operating in strict adherence to international quality standards, each factory has earned high recognition for product quality from our customers.",
   },
   {
     title: "Certification",
     path: "/solutions/certification",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/55.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f8f13954a15413c3470e8af6a4373cfd4973030c-400x530.jpg",
     description:
       "Rest easy with our commitment to quality and compliance. Intco Framing provides outstanding products and quality services to global customers. We actively certify quality systems and cooperate with third-party audit agencies, customers, and suppliers for audit supervision.",
   },
   {
     title: "Retailer Support",
     path: "/solutions/retailer-support",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/66.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1edb806933a8a175dfb189bd58da09f476788734-400x530.jpg",
     description:
       "As the only home décor manufacturer that starts with recycled materials around the world, we truly ensure quality control from the source, and pride ourselves on offering continuous assistance to ensure the prosperity of your retail business.",
   },
 ];
 
 const SOLUTIONS_PROCESS_STEPS = [
-  { label: "Design", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution3.png" },
-  { label: "Frame Extrusion", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution4.png" },
-  { label: "Assemble", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution5.png" },
-  { label: "Warehousing", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution6.png" },
-  { label: "Packing", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution7.png" },
-  { label: "Quality Control", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/solution8.png" },
+  { label: "Design", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/230b7b7bf3e3912b6812bab875a4f69ed6336b21-277x277.png" },
+  { label: "Frame Extrusion", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c9daa2ff601a25e9b55c28a25855dcd93e66f5ea-278x277.png" },
+  { label: "Assemble", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5a6e6f4bbc5ef8d691ee6944e62b970be951c1e2-277x277.png" },
+  { label: "Warehousing", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1f819e2126c489e6f1a955b2b78381d8c9f2048d-278x277.png" },
+  { label: "Packing", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/11c6c560c192430e474eb990329e6544222b71d5-278x277.png" },
+  { label: "Quality Control", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/e1200e8c935f853748e9878914bcbb07d460346c-278x277.png" },
 ];
 
 const SOLUTIONS_PROCESS_LABELS: Record<Locale, string[]> = {
@@ -4395,7 +4414,7 @@ function SourceCategoryArchiveView({
                 </div>
                 <div className="wow fadeInUp ContactUsBox">
                   <div className="topCircle">
-                    <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact.png" alt="" width={70} height={70} />
+                    <Image src="https://cdn.sanity.io/images/o10sbz2i/production/c4d604701c4116717ac6ff1fe7215192e1b4d1b6-130x130.png" alt="" width={70} height={70} />
                   </div>
                   <div className="ContactUs-text">
                     Need Help?
@@ -4684,7 +4703,7 @@ function MirrorCategorySourceView({ locale, category, categories, products }: { 
           <div className="ipd-20">
           <ProductSourceTitle title={t(locale, "collection")} />
           <h1 className="sr-only">{category?.title || "Mirror"}</h1>
-      <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/07/%E6%9C%AA%E6%A0%87%E9%A2%98-3.jpg" alt="" width={1} height={1} className="hidden" />
+      <Image src="https://cdn.sanity.io/images/o10sbz2i/production/5df3e4d8db105ece9affc16ab9aa72d315001279-785x440.jpg" alt="" width={1} height={1} className="hidden" />
           <p className="wow fadeInUp mx-auto mb-[86px] mt-[55px] max-w-[1120px] text-center text-lg leading-[30px] text-[#363636] max-lg:mb-10 max-lg:mt-8 max-lg:text-base" data-reveal="source-up">
             {localizedCategoryIntro(category, "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.", locale)}
           </p>
@@ -5080,19 +5099,19 @@ export function SolutionsListingView({
     <>
       <SolutionsSourceHero title={page?.title || t(locale, "solutions")} locale={locale} />
 
-      <section className="overflow-hidden bg-[#f8f8f8] px-4 py-16 sm:px-6 lg:py-[100px]">
+      <section className="intco-solutions-intro-section overflow-hidden bg-[#f8f8f8] px-4 py-16 sm:px-6 lg:py-[100px]">
         <div className="intco-source-container px-5">
-          <div className="grid gap-12 lg:grid-cols-[1fr_minmax(420px,783px)] lg:gap-[122px]">
-            <div data-reveal="left">
+          <div className="intco-solutions-intro-flex grid gap-12 lg:grid-cols-[1fr_minmax(420px,783px)] lg:gap-[122px]">
+            <div className="intco-solutions-intro-left" data-reveal="left">
               <SolutionsSourceTitle title={t(locale, "endToEndHomeDecor")} align="left" />
-              <p className="mt-[64px] max-w-[690px] text-lg font-normal leading-8 text-[#363636]">{page?.description || t(locale, "sourceHomeSolutionsIntro")}</p>
+              <p className="intco-solutions-intro-copy mt-[64px] max-w-[690px]">{locale === "en" ? SOLUTIONS_INTRO_COPY : t(locale, "sourceHomeSolutionsIntro")}</p>
               <div className="mt-[55px]">
                 <SolutionsOutlineLink href={href("/who-we-are")} width={254}>
                   {t(locale, "aboutIntco")}
                 </SolutionsOutlineLink>
               </div>
             </div>
-            <div className="relative aspect-[783/504] w-full overflow-hidden" data-reveal="right">
+            <div className="intco-solutions-intro-media relative aspect-[783/504] w-full overflow-hidden" data-reveal="right">
               <Image src={SOLUTIONS_INTRO_IMAGE} alt={t(locale, "endToEndHomeDecor")} fill className="object-cover" sizes="(min-width: 1024px) 783px, 100vw" />
             </div>
           </div>
@@ -5188,16 +5207,16 @@ function SolutionsSourceHero({
 function SolutionsSourceTitle({ title, align = "center", wide = false }: { title: string; align?: "left" | "center"; wide?: boolean }) {
   const centered = align === "center";
   return (
-    <div className={`relative uppercase ${centered ? "text-center" : "text-left"}`} data-reveal={centered ? "fade" : "left"}>
+    <div className={`intco-solutions-source-title relative uppercase ${centered ? "text-center" : "intco-solutions-source-title-left text-left"}`} data-reveal={centered ? "fade" : "left"}>
       <div
-        className={`pointer-events-none absolute top-0 text-[70px] font-semibold leading-none text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-[46px] max-[650px]:hidden ${
+        className={`intco-solutions-source-title-backdrop pointer-events-none absolute top-0 text-[70px] font-semibold leading-none text-transparent opacity-20 [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-[46px] max-[650px]:hidden ${
           centered ? "left-1/2 -translate-x-1/2 whitespace-nowrap" : `left-0 ${wide ? "max-w-[1200px]" : "max-w-[760px]"} -translate-x-5 whitespace-normal`
         }`}
       >
         {title}
       </div>
       <h2
-        className={`relative z-10 inline-block border-b border-[#484653] pb-[47px] text-[45px] font-semibold leading-[39px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-4xl max-[650px]:text-[28px] ${
+        className={`intco-solutions-source-title-text relative z-10 inline-block border-b border-[#484653] pb-[47px] text-[45px] font-semibold leading-[39px] text-[#3e3e3e] [-webkit-text-stroke:1px_#3d3d3d] max-[1600px]:text-4xl max-[650px]:text-[28px] ${
           centered ? "" : `${wide ? "max-w-[1200px]" : "max-w-[760px]"} leading-[1.4]`
         }`}
       >
@@ -5404,7 +5423,7 @@ function BusinessInsightsSourceView({ locale }: { locale: Locale }) {
         <BusinessInsightsHero locale={locale} />
         <span className="sr-only">{t(locale, "servicesWeProvide")}</span>
         <span className="sr-only">{t(locale, "youMayAlsoLike")}</span>
-        <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions1.png" alt="" width={1} height={1} className="hidden" />
+        <Image src="https://cdn.sanity.io/images/o10sbz2i/production/e253ed577fa5ced89e9f9692d88344600dd4b669-487x363.png" alt="" width={1} height={1} className="hidden" />
 
         <section className="overflow-hidden bg-[#f3f3f3] px-4 pb-10 pt-10 sm:px-6">
         <div className="mx-auto max-w-[1600px]">
@@ -6535,7 +6554,7 @@ type ProjectSourceDetailSnapshot = {
 
 const PROJECT_SOURCE_BLOG_BLOOMBERG = {
   href: "https://www.intcoframing-us.com/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released/",
-  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Intco-Recycling-has-been-awarded-the-Best-Bloomberg-Green-ESG-Projects.jpg",
+  imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c0c66a43ed43152ada4d13eafd9d3f7e410a338e-1080x692.jpg",
   title: "The 2023 Bloomberg Green ESG…",
   date: "29 Jan 2024",
   description: "The 2023 Bloomberg Green ESG 50 Companies to Watch List is officially released.",
@@ -6543,7 +6562,7 @@ const PROJECT_SOURCE_BLOG_BLOOMBERG = {
 
 const PROJECT_SOURCE_BLOG_MEDICINE_MIRROR = {
   href: "https://www.intcoframing-us.com/news/the-major-materials-of-medicine-mirror-cabinet/",
-  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+  imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511.jpg",
   title: "The Major Materials of Medic…",
   date: "29 Jan 2024",
   description: "Bathroom medicine cabinets are available in various materials - you can choose f…",
@@ -6551,7 +6570,7 @@ const PROJECT_SOURCE_BLOG_MEDICINE_MIRROR = {
 
 const PROJECT_SOURCE_BLOG_LED_BATHROOM = {
   href: "https://www.intcoframing-us.com/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space/",
-  imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Bathroom-Round-Wall-Mirror-Ideas.jpg",
+  imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1806276ee0c14b9b9bd56e338f59a4a9f7c7bb9e-800x533.jpg",
   title: "5 Ways an LED Bathroom Vanit…",
   date: "29 Jan 2024",
   description: "Looking to revitalise your bathroom? Heres how an LED bathroom vanity mirror wit…",
@@ -6563,135 +6582,135 @@ const PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG = [PROJECT_SOURCE_BLOG_LED_BATHROOM,
 const PROJECTS_SOURCE_DETAIL_SNAPSHOTS: Record<string, ProjectSourceDetailSnapshot> = {
   "/projects/living-room": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/neutral-minimalist-framed-abstract-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-3.jpg", title: "Neutral Minimalist Framed Abstract Wall Art" },
-      { href: "https://www.intcoframing-us.com/round-wood-decorative-mirror-for-wall/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-26.jpg", title: "Washed White Round Wood Decorative Mirror for Wall" },
-      { href: "https://www.intcoframing-us.com/art/canvas-art/modern-abstract-canvas-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-96.jpg", title: "Modern Abstract Canvas Wall Art" },
+      { href: "https://www.intcoframing-us.com/neutral-minimalist-framed-abstract-wall-art/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/95401b4ce58aaf00600ac74972077608f8658c16-1080x1080.jpg", title: "Neutral Minimalist Framed Abstract Wall Art" },
+      { href: "https://www.intcoframing-us.com/round-wood-decorative-mirror-for-wall/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/35b38303209b2db4e5cecbe1025fedcef72efea5-1080x1080.jpg", title: "Washed White Round Wood Decorative Mirror for Wall" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/modern-abstract-canvas-wall-art/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9120ac358e686bd5728f47a28796caeb13550f4a-1080x1080.jpg", title: "Modern Abstract Canvas Wall Art" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg", title: "Bedroom" },
-      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg", title: "Dining Room" },
+      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg", title: "Bedroom" },
+      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg", title: "Dining Room" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/bedroom": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/canvas-art/large-framed-canvas-wall-art-abstract-neutral/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-103.jpg", title: "Large Framed Canvas Wall Art Abstract Neutral" },
-      { href: "https://www.intcoframing-us.com/natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-54.jpg", title: "Natural Wood Wall & Tabletop Picture Frame with Plastic Frame" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/large-framed-canvas-wall-art-abstract-neutral/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6cb84a2de3622c91518a4b10b48253021c967ae8-1080x1080.jpg", title: "Large Framed Canvas Wall Art Abstract Neutral" },
+      { href: "https://www.intcoframing-us.com/natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/09ea9413566f0357014f69b31a67004cf2ff4042-1080x1080.jpg", title: "Natural Wood Wall & Tabletop Picture Frame with Plastic Frame" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg", title: "Living Room" },
-      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg", title: "Bathroom" },
+      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
+      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/bathroom": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/black-rectangular-medicine-cabinet-with-mirror-22x26-8-in/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-33.jpg", title: "Black Rectangular Medicine Cabinet with Mirror 22x26.8 in" },
-      { href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-52.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" },
+      { href: "https://www.intcoframing-us.com/black-rectangular-medicine-cabinet-with-mirror-22x26-8-in/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/37a215cf76f626f7a04d8d9ebab283a5e0720b85-1080x1080.jpg", title: "Black Rectangular Medicine Cabinet with Mirror 22x26.8 in" },
+      { href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/4ed7f3effb2c253e623ce143ba1ba593bf997837-1080x1080.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/kitchen/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-5-1.jpg", title: "Kitchen" },
-      { href: "https://www.intcoframing-us.com/projects/childrens-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%84%BF%E7%AB%A5.jpg", title: "Children's Room" },
+      { href: "https://www.intcoframing-us.com/projects/kitchen/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/eb11242f592f8c9114ea829817db66889d728891-1920x600.jpg", title: "Kitchen" },
+      { href: "https://www.intcoframing-us.com/projects/childrens-room/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/89b4c59e8ce555489d6be8ce837167c81fb45ef8-1920x600.jpg", title: "Children's Room" },
     ],
     inspirationItems: [PROJECT_SOURCE_BLOG_LED_BATHROOM],
   },
   "/projects/dining-room": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2-2.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" }],
+    usedItems: [{ href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f20befa5fb75f512a24b25b196c236f0fcee6b84-1080x1080.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg", title: "Bathroom" },
-      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg", title: "Living Room" },
+      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
+      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
   },
   "/projects/kitchen": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-52.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" }],
+    usedItems: [{ href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/4ed7f3effb2c253e623ce143ba1ba593bf997837-1080x1080.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-3-1.jpg", title: "Dining Room" },
-      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1.jpg", title: "Living Room" },
+      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg", title: "Dining Room" },
+      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
   },
   "/projects/childrens-room": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/french-floral-landscapes-illustrations-framed-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-4.jpg", title: "French Floral Landscapes Illustrations Framed Wall Art" },
-      { href: "https://www.intcoframing-us.com/art/framed-art/animal-giraffe-framed-wall-art-decor-piece-of-2/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/3-90.jpg", title: "Animal Giraffe Framed Wall Art Decor Piece of 2" },
+      { href: "https://www.intcoframing-us.com/french-floral-landscapes-illustrations-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/d04057d178f5bd219f7e9f6cb909ad2b88c5f048-1080x1080.jpg", title: "French Floral Landscapes Illustrations Framed Wall Art" },
+      { href: "https://www.intcoframing-us.com/art/framed-art/animal-giraffe-framed-wall-art-decor-piece-of-2/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/e5cb8370f0373446cba58ceff8ff9a09884249c5-1080x1080.jpg", title: "Animal Giraffe Framed Wall Art Decor Piece of 2" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-1-2-1.jpg", title: "Bathroom" },
-      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/%E7%94%BB%E6%9D%BF-1-1-1.jpg", title: "Bedroom" },
+      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
+      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg", title: "Bedroom" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
   },
   "/projects/hotel": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2-2.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" },
-      { href: "https://www.intcoframing-us.com/wood-wall-mounted-picture-frame-11x14-matted-to-8x10/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-64.jpg", title: "Wood Wall Mounted Picture Frame 11x14 Matted to 8x10" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f20befa5fb75f512a24b25b196c236f0fcee6b84-1080x1080.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" },
+      { href: "https://www.intcoframing-us.com/wood-wall-mounted-picture-frame-11x14-matted-to-8x10/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6e34961f3cd6d04ef6f065272f5056c58fcd7a88-1080x1080.jpg", title: "Wood Wall Mounted Picture Frame 11x14 Matted to 8x10" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/office": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/framed-art/black-framed-abstract-wall-art-set-of-2/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-2-1.jpg", title: "Black Framed Abstract Wall Art Set of 2" },
-      { href: "https://www.intcoframing-us.com/ps-framed-vintage-wood-grain-tabletop-photo-frame/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg", title: "PS Framed Vintage Wood Grain Tabletop Picture Frame" },
+      { href: "https://www.intcoframing-us.com/art/framed-art/black-framed-abstract-wall-art-set-of-2/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/03f36fa5e9ae35e5d61123385238aa444e2980d1-1080x1080.jpg", title: "Black Framed Abstract Wall Art Set of 2" },
+      { href: "https://www.intcoframing-us.com/ps-framed-vintage-wood-grain-tabletop-photo-frame/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg", title: "PS Framed Vintage Wood Grain Tabletop Picture Frame" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/school/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-7.jpg", title: "School" },
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/school/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5c7f35f8591a4f5fc05ea7c0a91fd7ee14e28b61-1920x600.jpg", title: "School" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/gallery": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/framed-art/framed-print-coastal-wall-art-2-piece-20x20/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-107.jpg", title: "Framed Print Coastal Wall Art 2 Piece 20x20" },
-      { href: "https://www.intcoframing-us.com/art/canvas-art/white-flowers-floral-canvas-wall-art-print/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-104.jpg", title: "White Flowers Floral Canvas Wall Art Print" },
-      { href: "https://www.intcoframing-us.com/art/canvas-art/sea-star-and-sea-shell-theme-canvas-wall-art-piece-of-2/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-102.jpg", title: "Sea Star and Sea Shell Theme Canvas Wall Art Piece of 2" },
+      { href: "https://www.intcoframing-us.com/art/framed-art/framed-print-coastal-wall-art-2-piece-20x20/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/687d69958b25f5106b78bc06e5160347364ecb8e-1080x1080.jpg", title: "Framed Print Coastal Wall Art 2 Piece 20x20" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/white-flowers-floral-canvas-wall-art-print/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/68f2d06de68cfdd2fa2aa4f9e67f890de9e62146-1080x1080.jpg", title: "White Flowers Floral Canvas Wall Art Print" },
+      { href: "https://www.intcoframing-us.com/art/canvas-art/sea-star-and-sea-shell-theme-canvas-wall-art-piece-of-2/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/19e377c1ffe8f262a8d798e5db344a5f1445867e-1080x1080.jpg", title: "Sea Star and Sea Shell Theme Canvas Wall Art Piece of 2" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/cafes": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-1.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" }],
+    usedItems: [{ href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/23bf3c8fb3f04a0315b6bab940c016e93b3daf26-1080x1080.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
-      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg", title: "Gallery" },
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
+      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/restaurant": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/4-1.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" },
-      { href: "https://www.intcoframing-us.com/botanical-wall-art-wooden-vintage-tropical-leaves-nature-wall-decor/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-19.jpg", title: "Botanical Wall Art Wooden Vintage Tropical Leaves Nature Wall Decor" },
+      { href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/23bf3c8fb3f04a0315b6bab940c016e93b3daf26-1080x1080.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" },
+      { href: "https://www.intcoframing-us.com/botanical-wall-art-wooden-vintage-tropical-leaves-nature-wall-decor/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/d788b85e949f7b5b9d0a616ec93e4471480bd61d-1080x1080.jpg", title: "Botanical Wall Art Wooden Vintage Tropical Leaves Nature Wall Decor" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-4.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/large-commercial-space/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-6.jpg", title: "Large Commercial Space" },
+      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "https://www.intcoframing-us.com/projects/large-commercial-space/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b8ae99414189f7642a6b67702a6874e415d41286-1920x600.jpg", title: "Large Commercial Space" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/large-commercial-space": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/modern-mirror-with-non-rusting-iron-metal-framed-wall-mounted-decorative-mirror/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-28.jpg", title: "Modern Mirror with Non-Rusting Iron Metal Framed Wall Mounted Decorative Mirror" }],
+    usedItems: [{ href: "https://www.intcoframing-us.com/modern-mirror-with-non-rusting-iron-metal-framed-wall-mounted-decorative-mirror/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9f53a5bcf0e275c82030900dd6e680ded8fb73a7-1080x1080.jpg", title: "Modern Mirror with Non-Rusting Iron Metal Framed Wall Mounted Decorative Mirror" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg", title: "Gallery" },
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-5.jpg", title: "Restaurant" },
+      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
+      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/school": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/wall-cork-board-for-photo-display-20x20-inch/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-2.jpg", title: "Wall Cork Board for Picture Display 20x20 Inch" },
-      { href: "https://www.intcoframing-us.com/chalkboard-style-memo-board-50x70cm/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-6.jpg", title: "Chalkboard Style Memo Board 50x70cm" },
-      { href: "https://www.intcoframing-us.com/dry-erase-wall-calendar-with-black-frame-40x40cm/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/2-5.jpg", title: "Dry Erase Wall Calendar with Black Frame 40x40cm" },
+      { href: "https://www.intcoframing-us.com/wall-cork-board-for-photo-display-20x20-inch/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b9c9f7e70da023ab0a78096cc8ef43917a5b06c7-1080x1080.jpg", title: "Wall Cork Board for Picture Display 20x20 Inch" },
+      { href: "https://www.intcoframing-us.com/chalkboard-style-memo-board-50x70cm/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/8c3456fa15507254a18f9c29114b907963c2fd50-1080x1080.jpg", title: "Chalkboard Style Memo Board 50x70cm" },
+      { href: "https://www.intcoframing-us.com/dry-erase-wall-calendar-with-black-frame-40x40cm/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/17993d5c9cc7bb8f62005ac226b212daa537bb3d-1080x1080.jpg", title: "Dry Erase Wall Calendar with Black Frame 40x40cm" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E7%94%BB%E6%9D%BF-11-3.jpg", title: "Gallery" },
-      { href: "https://www.intcoframing-us.com/projects/office/", imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/%E5%8A%9E%E5%85%AC%E5%AE%A41.jpg", title: "Office" },
+      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
+      { href: "https://www.intcoframing-us.com/projects/office/", imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c38074316781cff5e02748afe546e2d42426307e-1920x600.jpg", title: "Office" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
@@ -7687,7 +7706,7 @@ function VanityMirrorArticleSourceView({ post, locale }: { post: BlogPost; local
   return (
     <div className="intco-source-blog-detail">
       <section className="intco-source-blog-hero">
-        <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog1.png" alt={title} fill className="object-cover" sizes="100vw" preload />
+        <Image src="https://cdn.sanity.io/images/o10sbz2i/production/9b078225adf32f44c9ae421de1073b547267e78f-1920x600.png" alt={title} fill className="object-cover" sizes="100vw" preload />
         <div className="intco-source-blog-hero-content">
           <div className="m-width-content">
             <div className="ipd-20">
@@ -7785,7 +7804,7 @@ function SourceNewsArticleSourceView({
   return (
     <div className="intco-source-blog-detail">
       <section className="intco-source-blog-hero">
-        <Image src="https://www.intcoframing-us.com/wp-content/uploads/2024/01/blog1.png" alt={localizedArticle.title} fill className="object-cover" sizes="100vw" preload />
+        <Image src="https://cdn.sanity.io/images/o10sbz2i/production/9b078225adf32f44c9ae421de1073b547267e78f-1920x600.png" alt={localizedArticle.title} fill className="object-cover" sizes="100vw" preload />
         <div className="intco-source-blog-hero-content">
           <div className="m-width-content">
             <div className="ipd-20">
@@ -7972,7 +7991,7 @@ function SourceBlogSidebar({ locale }: { locale: Locale }) {
         })}
       </ul>
       <div className="img-box intco-source-shop-image">
-        <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/blog9.png" alt={labels.shopNow} fill className="object-cover" sizes="360px" />
+        <Image src="https://cdn.sanity.io/images/o10sbz2i/production/de2294ff8cd53e361d8ead4e8b68e4cef370c4f1-400x400.png" alt={labels.shopNow} fill className="object-cover" sizes="360px" />
       </div>
       <div className="View-All-btn">
         <Link href={localizePath(locale, "/products")} className="View-All-btn-item itemBntBlock">
@@ -8601,10 +8620,10 @@ function SustainabilityTreeCard({ item, index }: { item: SustainabilityTreeItem;
         </div>
         <div className="mt-[33px] flex max-w-[89px] flex-1 items-center">
           <div className="relative aspect-[22/19] max-w-[22px] flex-1">
-            <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Sustainability16.png" alt="" fill className="object-contain" sizes="22px" />
+            <Image src="https://cdn.sanity.io/images/o10sbz2i/production/d0e5d645d1ed097e71a568d19049fda29431668b-22x19.png" alt="" fill className="object-contain" sizes="22px" />
           </div>
           <div className="relative mr-[11px] aspect-[89/119] max-w-[89px] flex-1">
-            <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Sustainability12.png" alt="" fill className="object-contain" sizes="89px" />
+            <Image src="https://cdn.sanity.io/images/o10sbz2i/production/6fb71fe9e817ddfde1ef873d72cb66f0c7342012-89x119.png" alt="" fill className="object-contain" sizes="89px" />
           </div>
         </div>
       </div>
@@ -8642,7 +8661,7 @@ function SustainabilitySourceView({ locale }: { locale: Locale }) {
               <Image src={SUSTAINABILITY_REPORT_IMAGE} alt="Sustainability3" fill className="object-cover" sizes="(min-width: 1024px) 50vw, 100vw" />
             </div>
             <div className="flex flex-col items-center justify-center rounded-r-md bg-white px-8 py-16 shadow-[0_11px_12px_1px_rgba(101,101,101,0.08)] max-lg:rounded-b-md max-lg:rounded-r-none">
-              <h2 className="text-center text-[38px] font-semibold leading-[30px] text-[#484653] max-lg:text-3xl">ESG Report 2022</h2>
+              <h2 className="text-center text-[38px] font-semibold leading-[30px] text-[#484653] max-lg:text-3xl">ESG Report 2025</h2>
               <Link
                 href={SUSTAINABILITY_REPORT_PDF}
                 target="_blank"
@@ -8926,6 +8945,111 @@ export function ContentPageView({ page, locale }: { page: ContentPage; locale: L
   }
 
   return <DetailView item={page} label="INTCO" locale={locale} />;
+}
+
+const privacyPolicySections = [
+  {
+    title: "Information We Collect",
+    body: [
+      "We may collect contact details that you choose to provide, such as name, company name, email address, phone number, country or region, product interests, and messages submitted through enquiry, newsletter, chat, catalogue download, or contact forms.",
+      "We may also collect technical information when you use the website, including IP address, device and browser information, pages viewed, referring pages, approximate location, and cookie or similar technology data.",
+    ],
+  },
+  {
+    title: "How We Use Information",
+    body: [
+      "We use information to respond to enquiries, provide product and project information, process sample or quotation requests, improve website performance, measure content effectiveness, protect the website, and communicate with customers and prospects.",
+      "If you subscribe to updates or request marketing information, we may use your contact details to send relevant product, service, or company communications. You can ask us to stop these communications at any time.",
+    ],
+  },
+  {
+    title: "Cookies and Similar Technologies",
+    body: [
+      "The website may use cookies and similar technologies to remember preferences, support website functions, understand traffic, and improve the visitor experience. You can manage cookies through your browser settings. Some website features may not work correctly if cookies are disabled.",
+    ],
+  },
+  {
+    title: "How We Share Information",
+    body: [
+      "We may share information with service providers that help us operate the website, manage enquiries, provide customer support, host data, analyze traffic, send communications, or support business operations.",
+      "We may also disclose information if required by law, to protect our rights, to prevent misuse of the website, or as part of a business transaction involving INTCO Framing.",
+    ],
+  },
+  {
+    title: "Data Retention and Security",
+    body: [
+      "We keep personal information only for as long as needed for the purposes described in this policy, unless a longer retention period is required or permitted by law.",
+      "We use reasonable administrative, technical, and organizational measures to protect information. No website, transmission method, or storage system can be guaranteed to be completely secure.",
+    ],
+  },
+  {
+    title: "International Visitors",
+    body: [
+      "INTCO Framing works with customers and partners in multiple countries and regions. Information submitted through the website may be processed in locations different from where you live, subject to applicable legal requirements.",
+    ],
+  },
+  {
+    title: "Your Choices",
+    body: [
+      "You may contact us to request access, correction, deletion, or other handling of personal information that you have provided to us, subject to applicable law and verification requirements.",
+    ],
+  },
+  {
+    title: "Contact Us",
+    body: [
+      "For privacy questions or requests, contact us at info@intcoframing-us.com or through the contact page on this website.",
+    ],
+  },
+];
+
+export function PrivacyPolicyView({ locale }: { locale: Locale }) {
+  return (
+    <div className="bg-white">
+      <section className="bg-[#f4f4f1] py-16 sm:py-20">
+        <div className="mx-auto max-w-5xl px-5 sm:px-8">
+          <nav className="mb-8 flex items-center gap-3 text-sm font-semibold text-[#484653]" aria-label="Breadcrumb">
+            <Link href={localizePath(locale, "/")}>{t(locale, "home")}</Link>
+            <span aria-hidden="true">/</span>
+            <span>{t(locale, "privacyPolicy")}</span>
+          </nav>
+          <p className="text-sm font-bold uppercase text-[#727272]">INTCO Framing</p>
+          <h1 className="mt-4 max-w-3xl text-4xl font-semibold leading-tight text-[#242331] sm:text-5xl">{t(locale, "privacyPolicy")}</h1>
+          <p className="mt-6 max-w-3xl text-base leading-8 text-[#555] sm:text-lg">
+            This policy explains how INTCO Framing collects, uses, shares, and protects information when you visit this website or contact us through the website.
+          </p>
+          <p className="mt-5 text-sm font-semibold text-[#484653]">Last updated: June 17, 2026</p>
+        </div>
+      </section>
+
+      <section className="py-14 sm:py-20">
+        <div className="mx-auto grid max-w-5xl gap-10 px-5 sm:px-8 lg:grid-cols-[minmax(0,1fr)_260px]">
+          <article className="space-y-10">
+            {privacyPolicySections.map((section) => (
+              <section key={section.title} className="border-b border-neutral-200 pb-9 last:border-b-0 last:pb-0">
+                <h2 className="text-2xl font-semibold leading-tight text-[#242331]">{section.title}</h2>
+                <div className="mt-5 space-y-4 text-base leading-8 text-[#555]">
+                  {section.body.map((paragraph) => (
+                    <p key={paragraph}>{paragraph}</p>
+                  ))}
+                </div>
+              </section>
+            ))}
+          </article>
+
+          <aside className="h-fit border-l-4 border-[#484653] bg-[#f8f8f6] p-6">
+            <h2 className="text-lg font-semibold text-[#242331]">Privacy Contact</h2>
+            <p className="mt-3 text-sm leading-6 text-[#555]">For privacy requests, email us or use the contact page.</p>
+            <a className="mt-5 block text-sm font-semibold text-[#484653] underline underline-offset-4" href="mailto:info@intcoframing-us.com">
+              info@intcoframing-us.com
+            </a>
+            <Link className="mt-3 block text-sm font-semibold text-[#484653] underline underline-offset-4" href={localizePath(locale, "/contact")}>
+              {t(locale, "contact")}
+            </Link>
+          </aside>
+        </div>
+      </section>
+    </div>
+  );
 }
 
 export function ContactView({ locale }: { page: ContentPage; locale: Locale }) {
@@ -9533,8 +9657,8 @@ function looksLikeHeading(line: string) {
 
 // ============ SOURCE-STYLE PRODUCT DETAIL VIEW (1:1 Clone) ============
 
-const SOURCE_PRODUCT_HERO_BG = "https://www.intcoframing-us.com/wp-content/uploads/2024/01/products.png";
-const SOURCE_CONTACT_IMG = "https://www.intcoframing-us.com/wp-content/themes/chengpin/images/contact.png";
+const SOURCE_PRODUCT_HERO_BG = "https://cdn.sanity.io/images/o10sbz2i/production/991d03d3894b0110d5612585b3ed49bc3fcd6132-1920x600.png";
+const SOURCE_CONTACT_IMG = "https://cdn.sanity.io/images/o10sbz2i/production/c4d604701c4116717ac6ff1fe7215192e1b4d1b6-130x130.png";
 const SOURCE_SEARCH_BY_PATH = new Map(SOURCE_EMPTY_SEARCH_RESULTS.map((item) => [item.path, item]));
 const SOURCE_SEARCH_BY_TITLE = new Map(SOURCE_EMPTY_SEARCH_RESULTS.map((item) => [sourceTitleKey(item.title), item]));
 
@@ -9718,12 +9842,12 @@ function sourceProductDetailSnapshot(productPath: string): SourceProductDetailSn
 }
 
 const SOURCE_PRODUCT_SERVICE_ITEMS = [
-  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions1.png", title: "Business Insights & Trends", path: "/solutions/business-insights-trends" },
-  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions2.png", title: "Design & Engineering", path: "/solutions/design-engineering" },
-  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions3.png", title: "Manufacturing & Delivery", path: "/solutions/manufacturing-delivery" },
-  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions4.png", title: "Global Production and Supply", path: "/solutions/global-production-and-supply" },
-  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Solutions5.png", title: "Certification", path: "/solutions/certification" },
-  { icon: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/333-1.jpg", title: "Retailer Support", path: "/solutions/retailer-support" },
+  { icon: "https://cdn.sanity.io/images/o10sbz2i/production/e253ed577fa5ced89e9f9692d88344600dd4b669-487x363.png", title: "Business Insights & Trends", path: "/solutions/business-insights-trends" },
+  { icon: "https://cdn.sanity.io/images/o10sbz2i/production/02faafad6b61c091883dfa0f57c9db53a29c69d6-487x363.png", title: "Design & Engineering", path: "/solutions/design-engineering" },
+  { icon: "https://cdn.sanity.io/images/o10sbz2i/production/a433d36c6ab610824b2cfdbfb562d401c8cfa33b-487x363.png", title: "Manufacturing & Delivery", path: "/solutions/manufacturing-delivery" },
+  { icon: "https://cdn.sanity.io/images/o10sbz2i/production/bfe8aefc5839e723b9e71da577a07d9b0deefb53-487x364.png", title: "Global Production and Supply", path: "/solutions/global-production-and-supply" },
+  { icon: "https://cdn.sanity.io/images/o10sbz2i/production/6ece258656c92afb448216ae11e249045f9e5f54-487x364.png", title: "Certification", path: "/solutions/certification" },
+  { icon: "https://cdn.sanity.io/images/o10sbz2i/production/d5e7f3612839fbb04ef8121c5feb515cfa75c843-487x364.jpg", title: "Retailer Support", path: "/solutions/retailer-support" },
 ];
 
 function sourceServiceTitle(locale: Locale, path: string, fallback: string) {
@@ -10019,7 +10143,15 @@ export function ProductDetailSourceView({
                   
                   {/* Customize Note */}
                   <div className="quoteLineText">
-                    {t(locale, "customizableSizeColor")}
+                    {locale === "en" ? (
+                      <>
+                        Any size, color
+                        <br />
+                        can be customized
+                      </>
+                    ) : (
+                      t(locale, "customizableSizeColor")
+                    )}
                   </div>
                   
                   {/* Contact Section */}
@@ -10034,10 +10166,12 @@ export function ProductDetailSourceView({
                     <div className="flexContentItem">
                       <LeadsCloudChatLink
                         fallbackHref={localizePath(locale, "/contact#chat")}
-                        className="selectBtn"
                       >
-                        <i className="iconfont icon-24gf-phoneLoudspeaker" />
-                        {t(locale, "contactUs")}
+                        <div className="selectBtn">
+                          <i className="iconfont icon-24gf-phoneLoudspeaker" />
+                          {" "}
+                          {t(locale, "contactUs")}
+                        </div>
                       </LeadsCloudChatLink>
                     </div>
                   </div>

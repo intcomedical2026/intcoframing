@@ -19,6 +19,7 @@ export type ImageLike = {
 export type SeoFields = {
   seoTitle?: string;
   seoDescription?: string;
+  keywords?: string[];
   canonicalPath?: string;
   ogImageUrl?: string;
   imageAlt?: string;

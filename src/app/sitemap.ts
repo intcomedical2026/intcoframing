@@ -24,6 +24,7 @@ const staticEntries: SitemapEntry[] = [
   { path: "/projects/commercial", priority: 0.8, changeFrequency: "monthly" },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" },
   { path: "/inspiration", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
 ];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

@@ -1,12 +1,10 @@
 "use client";
 
-import { visionTool } from "@sanity/vision";
 import { defineConfig } from "sanity";
 import { structureTool } from "sanity/structure";
 import { schemaTypes } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-05-20";
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "o10sbz2i";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const languages = ["en", "es", "pt", "fr", "de", "ja"];
@@ -15,11 +13,11 @@ const hiddenCreateTemplateTypes = new Set([...localizedTypes, "siteSettings", "h
 
 export default defineConfig({
   name: "intco-framing-us",
-  title: "INTCO Framing US",
+  title: "INTCO Content Studio",
   basePath: "/studio",
   projectId,
   dataset,
-  plugins: [structureTool({ structure }), visionTool({ defaultApiVersion: apiVersion })],
+  plugins: [structureTool({ structure })],
   schema: {
     types: schemaTypes,
     templates: (prev) => [
@@ -27,7 +25,7 @@ export default defineConfig({
       ...localizedTypes.flatMap((schemaType) =>
         languages.map((language) => ({
           id: `${schemaType}-${language}`,
-          title: `${schemaType} (${language})`,
+          title: templateTitle(schemaType, language),
           schemaType,
           parameters: [{ name: "language", type: "string" }],
           value: ({ language: templateLanguage, category }: { language?: string; category?: string }) => ({
@@ -40,3 +38,17 @@ export default defineConfig({
     ],
   },
 });
+
+function templateTitle(schemaType: string, language: string) {
+  const contentTitle: Record<string, string> = {
+    product: "Product",
+    productCategory: "Product Category",
+    blogPost: "News Post",
+    project: "Project",
+    solution: "Solution",
+    contentPage: "Page",
+  };
+  const title = contentTitle[schemaType] || schemaType;
+  if (language === "en") return `New ${title}`;
+  return `Translation - ${title} (${language.toUpperCase()})`;
+}

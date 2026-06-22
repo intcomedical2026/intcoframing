@@ -129,7 +129,7 @@ export const BUSINESS_INSIGHTS_PAGE = {
         ja: "バスルームのミラーキャビネットには様々な素材があります。お選びいただける素材は...",
       } satisfies LocalizedString,
       path: "/news/the-major-materials-of-medicine-mirror-cabinet",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/wood-medicine-mirror-cabinet-for-bathroom-1.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511.jpg",
     },
     {
       title: {
@@ -150,7 +150,7 @@ export const BUSINESS_INSIGHTS_PAGE = {
         ja: "バスルームをリフレッシュしたい？ LED バニティミラーで空間がどう変わるか...",
       } satisfies LocalizedString,
       path: "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/LED-Bathroom-Round-Wall-Mirror-Ideas.jpg",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1806276ee0c14b9b9bd56e338f59a4a9f7c7bb9e-800x533.jpg",
     },
   ],
 };
@@ -214,7 +214,7 @@ export const DESIGN_ENGINEERING_PAGE = {
         de: "Wir bieten Designlösungen für Bilderrahmen mit maßgeschneiderten Entwürfen für Vorderseite und Rückwand. Unsere Expertise sorgt dafür, dass jedes Detail des Rahmens - von der vorderen Ästhetik bis zur tragenden Rückwand - höchsten Ansprüchen an Design und Funktion gerecht wird.",
         ja: "額縁向けのデザインソリューションを提供し、表紙と裏板の双方にカスタマイズされたデザインを実現します。額の前面の美しさから裏板の機能まで、デザイン性と機能性の最高水準を満たすよう細部まで作り込みます。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock5-e1707114166904.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3189552e24e25f07e182321bcb12bcc9cd5816e6-638x382.png",
       imageAlt: "Picture Frame",
       reverse: false,
     },
@@ -235,7 +235,7 @@ export const DESIGN_ENGINEERING_PAGE = {
         de: "Wir sind innovativem Design verpflichtet, und unsere Spiegel zeigen vielfältige Formen. Von modern bis zeitlos klassisch spiegelt jedes Stück unser kreatives Engagement wider.",
         ja: "革新的なデザインを追求し、ミラーは多彩な形状を取り揃えています。コンテンポラリーから時代を超えたクラシックまで、一つひとつが私たちの創造性への取り組みを映し出します。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock6.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/d05249fb9e221926b69bc4274669a5e16173d53d-660x383.png",
       imageAlt: "Mirror",
       reverse: true,
     },
@@ -256,7 +256,7 @@ export const DESIGN_ENGINEERING_PAGE = {
         de: "Mit einem herausragenden Team versierter Künstler verbinden unsere Kunstdesign-Fähigkeiten traditionelles Handzeichnen und digitale Illustration. Kombiniert mit modernster Drucktechnik werden unsere Werke mit unvergleichlichem Detail und Lebendigkeit zum Leben erweckt.",
         ja: "卓越したアーティストチームにより、伝統的な手描きとデジタルイラストの両方を駆使したアートデザインを実現。先進的な印刷技術と組み合わせることで、比類のないディテールと鮮やかさで作品が息づきます。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock7.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/a63a2bd8e5e3201eb983b69a82fbb694b53f871b-660x383.png",
       imageAlt: "Art",
       reverse: false,
     },
@@ -271,7 +271,7 @@ export const DESIGN_ENGINEERING_PAGE = {
         de: "Verpackungsdesign",
         ja: "パッケージデザイン",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock8.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/48c884fdc91a260ddf9cd2fa625ca728e5e95aed-356x500.png",
       imageAlt: "shutterstock8",
     },
     {
@@ -283,7 +283,7 @@ export const DESIGN_ENGINEERING_PAGE = {
         de: "Warenpräsentation",
         ja: "ディスプレイデザイン",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock9.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b00e4cf5e8c3cb9e8ecc48c74ab9119d75f84480-356x500.png",
       imageAlt: "shutterstock9",
     },
     {
@@ -295,7 +295,7 @@ export const DESIGN_ENGINEERING_PAGE = {
         de: "Produktentwicklungs-Know-how",
         ja: "製品開発スキル",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock10.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f59e4766c2b14045ce70204c98a4035e2aa9cb52-356x500.png",
       imageAlt: "shutterstock10",
     },
     {
@@ -307,7 +307,7 @@ export const DESIGN_ENGINEERING_PAGE = {
         de: "Vielfältige Materialien",
         ja: "多彩な素材",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/shutterstock11.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/27c1d6c6dcba1af4e82c96fd299e97589d9b3faa-356x500.png",
       imageAlt: "shutterstock11",
     },
   ],
@@ -325,7 +325,7 @@ export const LATEST_PRIMARY_CARDS = [
       ja: "ミラー",
     } satisfies LocalizedString,
     path: "/mirror",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/%E6%9C%AA%E6%A0%87%E9%A2%98-3.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5df3e4d8db105ece9affc16ab9aa72d315001279-785x440.jpg",
   },
   {
     title: {
@@ -337,7 +337,7 @@ export const LATEST_PRIMARY_CARDS = [
       ja: "額縁",
     } satisfies LocalizedString,
     path: "/picture-frame",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/09/20240911-093414-1-e1726018748935.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f6b48b62beb7e5670309f7702c9762fe8d148282-1715x1087.jpg",
   },
 ];
 
@@ -352,7 +352,7 @@ export const LATEST_SECONDARY_CARDS = [
       ja: "アート",
     } satisfies LocalizedString,
     path: "/art",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/3-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f4b8a311e4e9e8e72b0ee226b38b4e20f40b00d8-513x442.jpg",
   },
   {
     title: {
@@ -364,7 +364,7 @@ export const LATEST_SECONDARY_CARDS = [
       ja: "家具",
     } satisfies LocalizedString,
     path: "/furniture",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/07/4-1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/9a5a34c44f9c4a33406737fbc30e69f3c1f46e20-513x442.jpg",
   },
   {
     title: {
@@ -376,7 +376,7 @@ export const LATEST_SECONDARY_CARDS = [
       ja: "メモボード",
     } satisfies LocalizedString,
     path: "/memo-board",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/product4.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/caadd1e53eb8f958d3723562a511e222a2042c9f-514x441.png",
   },
 ];
 
@@ -399,7 +399,7 @@ export const PROJECT_CARDS = [
       ja: "住宅プロジェクト",
     } satisfies LocalizedString,
     path: "/projects/residential",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS1.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/acce0a49eca755d0ab290d995d5fc2a77dd9b16e-780x400.jpg",
   },
   {
     eyebrow: {
@@ -419,7 +419,7 @@ export const PROJECT_CARDS = [
       ja: "商業プロジェクト",
     } satisfies LocalizedString,
     path: "/projects/commercial",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/PROJECTS2.jpg",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/cc52cccd09155ee4b5d5b80e356a8326e0f025dc-780x400.jpg",
   },
 ];
 
@@ -473,7 +473,7 @@ export const MANUFACTURING_DELIVERY_PAGE = {
         de: "Dank Intcos vertikal integrierter Rohstoff-Lieferkette steuern wir die Produktqualität ab der Quelle und sichern gleichbleibende Exzellenz bei Erstaufträgen und Nachbestellungen. Mit beeindruckender Produktionskraft fertigen wir jährlich 1,2 Millionen Kartons PS-Profilleisten und erfüllen Großserien-Anforderungen bei konstant hohen Qualitätsstandards.",
         ja: "Intco の原材料を垂直統合したサプライチェーンにより、源流から品質を管理し、初回注文・追加注文を通じて一貫した品質を提供します。卓越した生産能力を有し、年間 120 万箱の PS モールディングを製造可能。厳格な品質基準を維持しながら大規模生産の需要に応えます。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing2.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/d738b3565f1cdce6a382c8ea47b51a56d207c930-954x570.png",
       imageAlt: "Manufacturing2",
     },
     {
@@ -494,7 +494,7 @@ export const MANUFACTURING_DELIVERY_PAGE = {
         de: "Wir nutzen fortschrittliche digitale Managementsysteme, um unsere Abläufe zu optimieren und in allen Prozessen Effizienz und Präzision sicherzustellen. Unser umfassendes Toolset umfasst APS (erweiterte Planung und Terminierung), MRP (Fertigungsressourcenplanung), MES (Fertigungsausführung), SCM (Lieferkettenmanagement), WMS (Lagerverwaltung), TMS (Transportmanagement), SRM (Lieferantenbeziehungen) und CRM (Kundenbeziehungen). Dieser integrierte Ansatz optimiert Planung, Ressourcen, Fertigung, Lieferkette, Lager, Transport sowie Lieferanten- und Kundenbeziehungen für ein reaktionsschnelles und effektives Geschäftsökosystem.",
         ja: "高度なデジタルマネジメントシステムを活用し、業務全体で効率性と精度を確保しています。APS（高度生産計画）、MRP（製造資源計画）、MES（製造実行）、SCM（サプライチェーン管理）、WMS（倉庫管理）、TMS（輸送管理）、SRM（取引先管理）、CRM（顧客管理）を統合し、スケジュール、リソース配分、製造、サプライチェーン、倉庫、輸送、取引先・顧客との関係を最適化。即応性と実効性のあるビジネスエコシステムを実現します。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing3.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/48d0dfb7f2e97c02037ffa8a1f48e98b3b506fac-954x570.png",
       imageAlt: "Manufacturing3",
     },
     {
@@ -515,7 +515,7 @@ export const MANUFACTURING_DELIVERY_PAGE = {
         de: "Unsere Produktionsstätten erreichen einen hohen Automatisierungsgrad und sichern damit Präzision und Konsistenz bei jedem gefertigten Rahmen. Diese strategische Automatisierung steigert nicht nur die Produktivität, sondern schützt auch die Rechte und das Wohlergehen unserer Mitarbeitenden.",
         ja: "生産拠点は高度な自動化を実現し、すべての製品で精度と一貫性を確保しています。戦略的な自動化の導入により、生産性向上だけでなく、従業員の権利と福利の保護にも貢献しています。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing4.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/13ec4fb34b34ce726695b2b5e5c11c03e5964c42-855x590.png",
       imageAlt: "Manufacturing4",
     },
     {
@@ -536,7 +536,7 @@ export const MANUFACTURING_DELIVERY_PAGE = {
         de: "Mit über 20 Jahren Fertigungserfahrung überzeugt Intco Framing durch flexible Produktionskapazitäten. Fortschrittliche Planungssysteme, digitales Management und ausgereifte Technologie machen unsere Linien und Prozesse anpassungsfähig - so erfüllen wir Ihre individuellen Anforderungen präzise und agil.",
         ja: "20 年以上の製造経験を持つ Intco Framing は、柔軟な生産能力で際立っています。高度な生産スケジューリング、デジタル管理、洗練された技術を組み合わせ、生産ラインとプロセスを柔軟に適応。お客様のカスタマイズ要件に対し、精度と俊敏性をもって効率的に応えます。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing5.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/7f00f185dfc946607688eb928a5c9ca407744174-532x957.png",
       imageAlt: "Manufacturing5",
     },
     {
@@ -557,7 +557,7 @@ export const MANUFACTURING_DELIVERY_PAGE = {
         de: "Wir halten die Produktqualität streng intern unter Kontrolle und unterziehen jedes Erzeugnis mehrstufigen, sorgfältigen Prüfungen. So gelangen ausschließlich Produkte höchster Qualität zu unseren Kunden.",
         ja: "製品品質を厳格に内部管理し、すべてのアイテムを多段階で綿密に検査しています。すべての製品は厳しいチェックを経て、最高品質のものだけがお客様のもとへ届きます。",
       } satisfies LocalizedString,
-      imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Manufacturing6.png",
+      imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/0036cc335ca3a7a6297ef881f4472949fbf701bb-532x957.png",
       imageAlt: "Manufacturing6",
     },
   ],
@@ -783,7 +783,7 @@ export const GLOBAL_PRODUCTION_PAGE = {
         de: "Flexible Verschiffung",
         ja: "柔軟な出荷",
       } satisfies LocalizedString,
-      iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-01.png",
+      iconUrl: "https://cdn.sanity.io/images/o10sbz2i/production/2f4e6209a0b455826c8767300df6f437476728fd-68x68.png",
     },
     {
       label: {
@@ -794,7 +794,7 @@ export const GLOBAL_PRODUCTION_PAGE = {
         de: "Handelserleichterung",
         ja: "貿易の円滑化",
       } satisfies LocalizedString,
-      iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-02.png",
+      iconUrl: "https://cdn.sanity.io/images/o10sbz2i/production/6c0ecde8196bb8ef6fd1079e5ab07970fe6c5172-68x68.png",
     },
     {
       label: {
@@ -805,7 +805,7 @@ export const GLOBAL_PRODUCTION_PAGE = {
         de: "Skalierung und Qualität",
         ja: "スケールと品質",
       } satisfies LocalizedString,
-      iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-03.png",
+      iconUrl: "https://cdn.sanity.io/images/o10sbz2i/production/61aece8a1c16c0a64d6c4288bd061b8c77638af6-68x68.png",
     },
     {
       label: {
@@ -816,7 +816,7 @@ export const GLOBAL_PRODUCTION_PAGE = {
         de: "Diversifizierung der Lieferkette",
         ja: "サプライチェーンの多様化",
       } satisfies LocalizedString,
-      iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-04.png",
+      iconUrl: "https://cdn.sanity.io/images/o10sbz2i/production/3d6ea41624baf255507b3ec299d00e906a62671e-68x68.png",
     },
     {
       label: {
@@ -827,7 +827,7 @@ export const GLOBAL_PRODUCTION_PAGE = {
         de: "Ursprungszertifizierung",
         ja: "原産地証明",
       } satisfies LocalizedString,
-      iconUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pfq-pic-05.png",
+      iconUrl: "https://cdn.sanity.io/images/o10sbz2i/production/c1b5747369574d0948c2433e90dd3d4ed27f656f-68x68.png",
     },
   ],
 };

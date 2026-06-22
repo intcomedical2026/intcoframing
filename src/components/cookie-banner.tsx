@@ -1,8 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n";
-import { t } from "@/lib/i18n";
+import { localizePath, t } from "@/lib/i18n";
 
 const COOKIE_BANNER_DELAY_MS = 0;
 
@@ -41,6 +42,9 @@ export function CookieBanner({ locale, currentPath }: { locale: Locale; currentP
         <div className={copyClassName}>
           <h2 className={titleClassName}>{t(locale, "privacyTitle")}</h2>
           <p className={textClassName}>{t(locale, "privacyText")}</p>
+          <Link href={localizePath(locale, "/privacy-policy")} className="mt-2 inline-block text-[13px] font-semibold text-[#22213c] underline underline-offset-4 lg:text-sm">
+            {t(locale, "privacyLearnMore")}
+          </Link>
         </div>
         <div className={actionsClassName}>
           <button

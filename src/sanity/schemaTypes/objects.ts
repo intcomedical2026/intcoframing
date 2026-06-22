@@ -25,10 +25,10 @@ export const heroSlide = defineType({
   title: "Hero Slide",
   type: "object",
   fields: [
-    defineField({ name: "title", type: "string", validation: (rule) => rule.required() }),
-    defineField({ name: "subtitle", type: "text" }),
-    defineField({ name: "image", type: "image", options: { hotspot: true } }),
-    defineField({ name: "imageUrl", title: "Source Image URL", type: "url" }),
+    defineField({ name: "title", title: "Slide Title", type: "string", validation: (rule) => rule.required() }),
+    defineField({ name: "subtitle", title: "Slide Subtitle", type: "text" }),
+    defineField({ name: "image", title: "Slide Image", type: "image", options: { hotspot: true } }),
+    defineField({ name: "imageUrl", title: "Source Image URL", type: "url", hidden: true }),
     defineField({ name: "primaryCta", title: "Primary CTA", type: "link" }),
     defineField({ name: "secondaryCta", title: "Secondary CTA", type: "link" }),
   ],
@@ -53,7 +53,7 @@ export const companyProfile = defineType({
     defineField({ name: "description", type: "text" }),
     defineField({ name: "points", type: "array", of: [{ type: "string" }] }),
     defineField({ name: "image", type: "image", options: { hotspot: true } }),
-    defineField({ name: "imageUrl", title: "Source Image URL", type: "url" }),
+    defineField({ name: "imageUrl", title: "Source Image URL", type: "url", hidden: true }),
   ],
 });
 
@@ -70,16 +70,24 @@ export const introBlock = defineType({
 
 export const seoFields = defineType({
   name: "seoFields",
-  title: "SEO",
+  title: "SEO Settings",
   type: "object",
   fields: [
-    defineField({ name: "seoTitle", title: "SEO Title", type: "string" }),
-    defineField({ name: "seoDescription", title: "Meta Description", type: "text", rows: 3 }),
-    defineField({ name: "canonicalPath", title: "Canonical Path", type: "string" }),
-    defineField({ name: "ogImage", title: "Open Graph Image", type: "image", options: { hotspot: true } }),
-    defineField({ name: "ogImageUrl", title: "Open Graph Source URL", type: "url" }),
+    defineField({ name: "seoTitle", title: "Search Title", type: "string", description: "Optional. Leave blank to use the page/product/news title." }),
+    defineField({ name: "seoDescription", title: "Search Description", type: "text", rows: 3, description: "Optional. Short description for Google and social previews." }),
+    defineField({
+      name: "keywords",
+      title: "SEO Keywords",
+      type: "array",
+      description: "Optional. Imported from the old site when available. Operations can add, remove, or reorder keywords.",
+      of: [{ type: "string" }],
+      options: { layout: "tags" },
+    }),
+    defineField({ name: "canonicalPath", title: "Canonical Path", type: "string", description: "Advanced. Usually leave blank unless a developer gives you an exact path." }),
+    defineField({ name: "ogImage", title: "Social Share Image", type: "image", options: { hotspot: true } }),
+    defineField({ name: "ogImageUrl", title: "Open Graph Source URL", type: "url", hidden: true }),
     defineField({ name: "imageAlt", title: "Social Image Alt Text", type: "string" }),
-    defineField({ name: "noIndex", title: "No Index", type: "boolean", initialValue: false }),
+    defineField({ name: "noIndex", title: "Hide from Search Engines", type: "boolean", initialValue: false, description: "Keep off for normal public pages." }),
   ],
 });
 

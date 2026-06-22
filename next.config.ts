@@ -14,10 +14,6 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "www.intcoframing-us.com",
-      },
-      {
-        protocol: "https",
         hostname: "cdn.sanity.io",
       },
     ],

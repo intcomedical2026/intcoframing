@@ -7,22 +7,22 @@ import type { Locale } from "@/lib/i18n";
 
 const cumulativeSavings = [
   {
-    value: "2.5",
+    value: "3.4",
     unit: "Million",
     label: "Tons Carbon Emissions",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability9.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1e2616d96eec7961ea790740ef65aa111f4cc914-135x101.png",
   },
   {
-    value: "3.75",
+    value: "5.1",
     unit: "Million",
     label: "Tons Crude Oil Resources",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability10.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ac94386805d755afaa66c893405faec80e28bf08-106x116.png",
   },
   {
-    value: "25",
+    value: "33",
     unit: "Million",
     label: "Trees Were Protected",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/Sustainability11.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1a835f2d2cecb10a8a39437a48ecfdd1a4c3fe6d-133x130.png",
   },
 ];
 
@@ -31,31 +31,31 @@ const annualSavings = [
     value: "+150,000 Tons",
     suffix: "/Year",
     label: "r-PS, r-PET",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/save-icon-1.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/e43eda14f3a305b0445b5b8fc95f959b20a9f7cd-268x262.png",
   },
   {
     value: "-300,000 Tons",
     suffix: "/Year",
     label: "CO₂",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/save-icon-2.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f875c48c71a8476933dca8744dee22ed7d726082-272x268.png",
   },
   {
     value: "-450,000 Tons",
     suffix: "/Year",
     label: "Oil",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/save-icon-3.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/fc90e14849210d59ecf48d94583803098e700c21-263x257.png",
   },
   {
-    value: "+1.2 Million Boxes",
+    value: "+1.6 Million Boxes",
     suffix: "/Year",
     label: "PS Mouldings",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/save-icon-4.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1e57647a56c8cef79d5442e0c605ef40b568aa40-263x258.png",
   },
   {
-    value: "+2 Million",
+    value: "+2.7 Million",
     suffix: "/Year",
     label: "Trees Were Protected",
-    imageUrl: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/save-icon-5.png",
+    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b333d343c4379c93c8af31b2f6b0685188951a2e-267x262.png",
   },
 ];
 
@@ -83,8 +83,8 @@ const savingsCopy: Record<Locale, {
       { value: "+150,000 toneladas", suffix: "/año", label: "r-PS, r-PET" },
       { value: "-300,000 toneladas", suffix: "/año", label: "CO₂" },
       { value: "-450,000 toneladas", suffix: "/año", label: "Petróleo" },
-      { value: "+1.2 millones de cajas", suffix: "/año", label: "Molduras de PS" },
-      { value: "+2 millones", suffix: "/año", label: "Árboles protegidos" },
+      { value: "+1.6 millones de cajas", suffix: "/año", label: "Molduras de PS" },
+      { value: "+2.7 millones", suffix: "/año", label: "Árboles protegidos" },
     ],
   },
   pt: {
@@ -99,8 +99,8 @@ const savingsCopy: Record<Locale, {
       { value: "+150.000 toneladas", suffix: "/ano", label: "r-PS, r-PET" },
       { value: "-300.000 toneladas", suffix: "/ano", label: "CO₂" },
       { value: "-450.000 toneladas", suffix: "/ano", label: "Petróleo" },
-      { value: "+1,2 milhão de caixas", suffix: "/ano", label: "Molduras de PS" },
-      { value: "+2 milhões", suffix: "/ano", label: "Árvores protegidas" },
+      { value: "+1,6 milhão de caixas", suffix: "/ano", label: "Molduras de PS" },
+      { value: "+2,7 milhões", suffix: "/ano", label: "Árvores protegidas" },
     ],
   },
   fr: {
@@ -115,8 +115,8 @@ const savingsCopy: Record<Locale, {
       { value: "+150 000 tonnes", suffix: "/an", label: "r-PS, r-PET" },
       { value: "-300 000 tonnes", suffix: "/an", label: "CO₂" },
       { value: "-450 000 tonnes", suffix: "/an", label: "Pétrole" },
-      { value: "+1,2 million de cartons", suffix: "/an", label: "Moulures PS" },
-      { value: "+2 millions", suffix: "/an", label: "Arbres protégés" },
+      { value: "+1,6 million de cartons", suffix: "/an", label: "Moulures PS" },
+      { value: "+2,7 millions", suffix: "/an", label: "Arbres protégés" },
     ],
   },
   de: {
@@ -131,8 +131,8 @@ const savingsCopy: Record<Locale, {
       { value: "+150.000 Tonnen", suffix: "/Jahr", label: "r-PS, r-PET" },
       { value: "-300.000 Tonnen", suffix: "/Jahr", label: "CO₂" },
       { value: "-450.000 Tonnen", suffix: "/Jahr", label: "Öl" },
-      { value: "+1,2 Mio. Kartons", suffix: "/Jahr", label: "PS-Leisten" },
-      { value: "+2 Mio.", suffix: "/Jahr", label: "Geschützte Bäume" },
+      { value: "+1,6 Mio. Kartons", suffix: "/Jahr", label: "PS-Leisten" },
+      { value: "+2,7 Mio.", suffix: "/Jahr", label: "Geschützte Bäume" },
     ],
   },
   ja: {
@@ -147,8 +147,8 @@ const savingsCopy: Record<Locale, {
       { value: "+150,000トン", suffix: "/年", label: "r-PS、r-PET" },
       { value: "-300,000トン", suffix: "/年", label: "CO₂" },
       { value: "-450,000トン", suffix: "/年", label: "石油" },
-      { value: "+120万箱", suffix: "/年", label: "PSモールディング" },
-      { value: "+200万", suffix: "/年", label: "保護された木" },
+      { value: "+160万箱", suffix: "/年", label: "PSモールディング" },
+      { value: "+270万", suffix: "/年", label: "保護された木" },
     ],
   },
 };
@@ -208,7 +208,7 @@ export function SustainabilitySavingsTabs({ locale }: { locale: Locale }) {
 
   return (
     <div className="relative h-[720px] overflow-hidden min-[1600px]:h-[810px] max-lg:h-auto">
-      <Image src="https://www.intcoframing-us.com/wp-content/themes/chengpin/images/Sustainability8.png" alt="" fill className="object-cover" sizes="100vw" />
+      <Image src="https://cdn.sanity.io/images/o10sbz2i/production/b8210b240b66705c21ae254d3de0ccd50cff1c02-1920x810.png" alt="" fill className="object-cover" sizes="100vw" />
       <div className="absolute inset-0 max-lg:relative max-lg:bg-[rgba(0,0,0,0.25)] max-lg:px-5 max-lg:py-10">
         <div className="mx-auto mt-[100px] flex max-w-[943px] justify-center gap-[63px] max-lg:mt-0 max-lg:flex-col max-lg:gap-4">
           <button

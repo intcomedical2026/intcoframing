@@ -13,6 +13,7 @@ import {
   HomeView,
   ProductDetailSourceView,
   ProductListingView,
+  PrivacyPolicyView,
   ProductsLandingView,
   ProjectDetailView,
   ProjectsListingView,
@@ -88,6 +89,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   return {
     title: meta.title,
     description: meta.description,
+    keywords: meta.keywords?.length ? meta.keywords : undefined,
     metadataBase: new URL(siteOrigin),
     alternates: {
       canonical: canonicalPath,
@@ -215,6 +217,7 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
   if (post) return <BlogPostView post={post} posts={data.blogPosts} locale={locale} page={blogPage} />;
 
   if (path === "/enquiry-list") return <EnquiryListView locale={locale} />;
+  if (path === "/privacy-policy") return <PrivacyPolicyView locale={locale} />;
 
   const page = data.pages.find((item) => item.path === path);
   if (page?.path === "/contact") return <ContactView page={page} locale={locale} />;
@@ -252,6 +255,7 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
 type RouteMeta = {
   title: string;
   description: string;
+  keywords?: string[];
   image?: string;
   imageAlt?: string;
   noIndex?: boolean;
@@ -351,41 +355,47 @@ function searchRouteMeta(pageNumber: number): RouteMeta {
 }
 
 const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
+  "/privacy-policy": {
+    en: {
+      title: "Privacy Policy | INTCO Framing",
+      description: "Read how INTCO Framing collects, uses, shares, and protects information submitted through this website.",
+    },
+  },
   "/projects": {
     en: {
       title: "Transforming Residential and Commercial Spaces | Intco Framing Projects",
       description: "Discover our impressive portfolio of Intco Framing Projects for both residential and commercial spaces. Get inspired and start your own project today!",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg",
       imageAlt: "Projects",
     },
     es: {
       title: "Proyectos residenciales y comerciales | INTCO Framing",
       description: "Explore proyectos de INTCO Framing para hogares, comercios y espacios contract, con ideas de decoración listas para inspirar su próximo proyecto.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg",
       imageAlt: "Proyectos de INTCO Framing",
     },
     pt: {
       title: "Projetos residenciais e comerciais | INTCO Framing",
       description: "Conheça projetos da INTCO Framing para residências, varejo e espaços comerciais, com ideias de decoração para inspirar seu próximo ambiente.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg",
       imageAlt: "Projetos da INTCO Framing",
     },
     fr: {
       title: "Projets résidentiels et commerciaux | INTCO Framing",
       description: "Découvrez les projets INTCO Framing pour maisons, commerces et espaces professionnels, avec des idées déco pour inspirer votre prochain aménagement.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg",
       imageAlt: "Projets INTCO Framing",
     },
     de: {
       title: "Wohn- und Gewerbeprojekte | INTCO Framing",
       description: "Entdecken Sie INTCO Framing Projekte für Wohnräume, Handel und gewerbliche Flächen mit Dekorideen für Ihre nächste Raumgestaltung.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg",
       imageAlt: "INTCO Framing Projekte",
     },
     ja: {
       title: "住宅・商業空間プロジェクト | INTCO Framing",
       description: "住宅、店舗、商業空間に向けた INTCO Framing のプロジェクト事例をご覧ください。次の空間づくりに役立つ装飾アイデアを紹介します。",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/pj.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/9b23c10023cc8a909addb8f37416a5b645a3c9d6-1920x600.jpg",
       imageAlt: "INTCO Framing プロジェクト",
     },
   },
@@ -393,7 +403,7 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
     en: {
       title: "Latest Business Insights & Trend Reports | Intco Framing",
       description: "Unlock key business insights and industry trends with Intco Framing. Read our detailed reports to stay competitive and informed.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/01/BusinessInsights1.png",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/84f1bbba0333ecaa3afd99f0db4148b7baefffef-1920x600.png",
       imageAlt: "Business insights and trend reports",
     },
   },
@@ -401,37 +411,37 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
     en: {
       title: "Trend | Intco Framing",
       description: "Download the INTCO Framing trend report and stay informed about the latest consumer, design, and market trends.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/92c4e097b80b075f5e9b5eecb71cc07463820353-690x582.jpg",
       imageAlt: "INTCO trend report",
     },
     es: {
       title: "Tendencias | Intco Framing",
       description: "Descargue el informe de tendencias de INTCO Framing y manténgase al día sobre consumidores, diseño y mercado.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/92c4e097b80b075f5e9b5eecb71cc07463820353-690x582.jpg",
       imageAlt: "Informe de tendencias de INTCO",
     },
     pt: {
       title: "Tendências | Intco Framing",
       description: "Baixe o relatório de tendências da INTCO Framing e acompanhe as novidades de consumo, design e mercado.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/92c4e097b80b075f5e9b5eecb71cc07463820353-690x582.jpg",
       imageAlt: "Relatório de tendências da INTCO",
     },
     fr: {
       title: "Tendances | Intco Framing",
       description: "Téléchargez le rapport de tendances INTCO Framing et suivez les dernières tendances consommateurs, design et marché.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/92c4e097b80b075f5e9b5eecb71cc07463820353-690x582.jpg",
       imageAlt: "Rapport de tendances INTCO",
     },
     de: {
       title: "Trends | Intco Framing",
       description: "Laden Sie den INTCO Framing Trendreport herunter und bleiben Sie über Verbraucher-, Design- und Markttrends informiert.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/92c4e097b80b075f5e9b5eecb71cc07463820353-690x582.jpg",
       imageAlt: "INTCO Trendreport",
     },
     ja: {
       title: "トレンド | Intco Framing",
       description: "INTCO Framing のトレンドレポートをダウンロードし、消費者・デザイン・市場の最新動向を把握できます。",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/11-3.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/92c4e097b80b075f5e9b5eecb71cc07463820353-690x582.jpg",
       imageAlt: "INTCO トレンドレポート",
     },
   },
@@ -439,37 +449,37 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
     en: {
       title: "Trend2 | Intco Framing",
       description: "Download the INTCO Framing trend report and stay informed about the latest consumer, design, and market trends.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/7122bf537a96658f450d8aa4f056967ea6c2d8b8-690x582.png",
       imageAlt: "INTCO trend report",
     },
     es: {
       title: "Tendencias 2 | Intco Framing",
       description: "Descargue el informe de tendencias de INTCO Framing y manténgase al día sobre consumidores, diseño y mercado.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/7122bf537a96658f450d8aa4f056967ea6c2d8b8-690x582.png",
       imageAlt: "Informe de tendencias de INTCO",
     },
     pt: {
       title: "Tendências 2 | Intco Framing",
       description: "Baixe o relatório de tendências da INTCO Framing e acompanhe as novidades de consumo, design e mercado.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/7122bf537a96658f450d8aa4f056967ea6c2d8b8-690x582.png",
       imageAlt: "Relatório de tendências da INTCO",
     },
     fr: {
       title: "Tendances 2 | Intco Framing",
       description: "Téléchargez le rapport de tendances INTCO Framing et suivez les dernières tendances consommateurs, design et marché.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/7122bf537a96658f450d8aa4f056967ea6c2d8b8-690x582.png",
       imageAlt: "Rapport de tendances INTCO",
     },
     de: {
       title: "Trends 2 | Intco Framing",
       description: "Laden Sie den INTCO Framing Trendreport herunter und bleiben Sie über Verbraucher-, Design- und Markttrends informiert.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/7122bf537a96658f450d8aa4f056967ea6c2d8b8-690x582.png",
       imageAlt: "INTCO Trendreport",
     },
     ja: {
       title: "トレンド 2 | Intco Framing",
       description: "INTCO Framing のトレンドレポートをダウンロードし、消費者・デザイン・市場の最新動向を把握できます。",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/Trends1.png",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/7122bf537a96658f450d8aa4f056967ea6c2d8b8-690x582.png",
       imageAlt: "INTCO トレンドレポート",
     },
   },
@@ -477,37 +487,37 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
     en: {
       title: "Trend3 | Intco Framing",
       description: "Download the INTCO Framing trend report and stay informed about the latest consumer, design, and market trends.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/77fd52fd1920d88e66321a93c24ddd9bd920b57c-690x582.jpg",
       imageAlt: "INTCO trend report",
     },
     es: {
       title: "Tendencias 3 | Intco Framing",
       description: "Descargue el informe de tendencias de INTCO Framing y manténgase al día sobre consumidores, diseño y mercado.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/77fd52fd1920d88e66321a93c24ddd9bd920b57c-690x582.jpg",
       imageAlt: "Informe de tendencias de INTCO",
     },
     pt: {
       title: "Tendências 3 | Intco Framing",
       description: "Baixe o relatório de tendências da INTCO Framing e acompanhe as novidades de consumo, design e mercado.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/77fd52fd1920d88e66321a93c24ddd9bd920b57c-690x582.jpg",
       imageAlt: "Relatório de tendências da INTCO",
     },
     fr: {
       title: "Tendances 3 | Intco Framing",
       description: "Téléchargez le rapport de tendances INTCO Framing et suivez les dernières tendances consommateurs, design et marché.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/77fd52fd1920d88e66321a93c24ddd9bd920b57c-690x582.jpg",
       imageAlt: "Rapport de tendances INTCO",
     },
     de: {
       title: "Trends 3 | Intco Framing",
       description: "Laden Sie den INTCO Framing Trendreport herunter und bleiben Sie über Verbraucher-, Design- und Markttrends informiert.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/77fd52fd1920d88e66321a93c24ddd9bd920b57c-690x582.jpg",
       imageAlt: "INTCO Trendreport",
     },
     ja: {
       title: "トレンド 3 | Intco Framing",
       description: "INTCO Framing のトレンドレポートをダウンロードし、消費者・デザイン・市場の最新動向を把握できます。",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/33-2.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/77fd52fd1920d88e66321a93c24ddd9bd920b57c-690x582.jpg",
       imageAlt: "INTCO トレンドレポート",
     },
   },
@@ -515,37 +525,37 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
     en: {
       title: "Bestsellers | Intco Framing",
       description: "Explore INTCO Framing bestseller recommendations across picture frames, mirrors, and wall art.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg",
       imageAlt: "INTCO bestseller recommendations",
     },
     es: {
       title: "Más vendidos | Intco Framing",
       description: "Explore las recomendaciones de productos más vendidos de INTCO Framing en marcos, espejos y arte mural.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg",
       imageAlt: "Recomendaciones de más vendidos de INTCO",
     },
     pt: {
       title: "Mais vendidos | Intco Framing",
       description: "Explore as recomendações de produtos mais vendidos da INTCO Framing em molduras, espelhos e arte de parede.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg",
       imageAlt: "Recomendações de mais vendidos da INTCO",
     },
     fr: {
       title: "Meilleures ventes | Intco Framing",
       description: "Découvrez les recommandations de meilleures ventes INTCO Framing pour les cadres photo, miroirs et arts muraux.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg",
       imageAlt: "Recommandations des meilleures ventes INTCO",
     },
     de: {
       title: "Bestseller | Intco Framing",
       description: "Entdecken Sie INTCO Framing Bestseller-Empfehlungen für Bilderrahmen, Spiegel und Wandkunst.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg",
       imageAlt: "INTCO Bestseller-Empfehlungen",
     },
     ja: {
       title: "ベストセラー | Intco Framing",
       description: "額縁、ミラー、ウォールアートにわたる INTCO Framing のベストセラーおすすめ商品をご覧ください。",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/1-55.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg",
       imageAlt: "INTCO ベストセラーおすすめ",
     },
   },
@@ -553,7 +563,7 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
     en: {
       title: "Connect with Intco Framing: Tel, Email, Live Chat",
       description: "Contact Intco Framing for assistance via telephone, email, or live chat. Our support team is available 24/7 to answer your questions about our overseas factories and services.",
-      image: "https://www.intcoframing-us.com/wp-content/uploads/2024/02/lxwm.jpg",
+      image: "https://cdn.sanity.io/images/o10sbz2i/production/845d15b6ca8b13aea633aec140bb453434d77111-1920x600.jpg",
       imageAlt: "Contact INTCO Framing",
     },
   },
@@ -647,7 +657,7 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
   }
 
   const routeDefaults = routeMetaDefaults[path]?.[locale] || routeMetaDefaults[path]?.en;
-  if (routeDefaults && BUSINESS_INSIGHTS_CHILD_PATHS.has(path)) {
+  if (routeDefaults && (BUSINESS_INSIGHTS_CHILD_PATHS.has(path) || path === "/privacy-policy")) {
     return routeDefaults;
   }
 
@@ -685,6 +695,7 @@ type MetadataItem = {
   seo?: {
     seoTitle?: string;
     seoDescription?: string;
+    keywords?: string[];
     ogImageUrl?: string;
     imageAlt?: string;
     noIndex?: boolean;
@@ -712,6 +723,7 @@ function metadataFromItem(item: MetadataItem | undefined, data: Awaited<ReturnTy
       "",
     image: item.seo?.ogImageUrl || item.imageUrl || defaults?.image,
     imageAlt: item.seo?.imageAlt || item.imageAlt || defaults?.imageAlt || item.title,
+    keywords: item.seo?.keywords?.length ? item.seo.keywords : defaults?.keywords,
     noIndex: item.seo?.noIndex,
   };
 }

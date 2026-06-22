@@ -46,6 +46,15 @@ function localizedList(
     .initialValueTemplates([S.initialValueTemplateItem(`${schemaType}-${language}`, { language })]);
 }
 
+function dailyList(
+  S: StructureBuilder,
+  schemaType: string,
+  title: string,
+  ordering: Array<{ field: string; direction: "asc" | "desc" }> = [{ field: "_updatedAt", direction: "desc" }],
+) {
+  return localizedList(S, schemaType, title, "en", ordering);
+}
+
 function allLanguageList(S: StructureBuilder, schemaType: string, title: string) {
   return S.list()
     .title(title)
@@ -119,34 +128,55 @@ const hiddenDefaultTypes = new Set([
 
 export const structure: StructureResolver = (S) =>
   S.list()
-    .title("INTCO Content")
+    .title("INTCO Studio")
     .items([
       S.listItem()
-        .title("Products")
+        .title("Start Here")
         .child(
           S.list()
-            .title("Products")
+            .title("Start Here")
             .items([
               S.listItem()
-                .title("Products - English")
-                .child(localizedList(S, "product", "Products - English", "en", [{ field: "title", direction: "asc" }])),
+                .title("Add or Edit Products")
+                .child(dailyList(S, "product", "Products", [{ field: "title", direction: "asc" }])),
               S.listItem()
-                .title("Product Categories - English")
-                .child(localizedList(S, "productCategory", "Product Categories - English", "en", [{ field: "order", direction: "asc" }])),
+                .title("Add or Edit News")
+                .child(dailyList(S, "blogPost", "News", [{ field: "publishedAt", direction: "desc" }])),
+              S.listItem()
+                .title("Product Categories")
+                .child(dailyList(S, "productCategory", "Product Categories", [{ field: "order", direction: "asc" }])),
               S.divider(),
-              S.listItem().title("Products by language").child(allLanguageList(S, "product", "Products by language")),
-              S.listItem().title("Categories by language").child(allLanguageList(S, "productCategory", "Categories by language")),
+              S.listItem()
+                .title("Home Page")
+                .child(
+                  S.document()
+                    .schemaType("homePage")
+                    .documentId(singletonIds.homePage.en)
+                    .title("Home Page"),
+                ),
+              S.listItem()
+                .title("Site Settings")
+                .child(
+                  S.document()
+                    .schemaType("siteSettings")
+                    .documentId(singletonIds.siteSettings.en)
+                    .title("Site Settings"),
+                ),
             ]),
         ),
+      S.divider(),
       S.listItem()
-        .title("News & Blog")
+        .title("Products")
+        .child(dailyList(S, "product", "Products", [{ field: "title", direction: "asc" }])),
+      S.listItem()
+        .title("News")
         .child(
           S.list()
-            .title("News & Blog")
+            .title("News")
             .items([
               S.listItem()
-                .title("All English posts")
-                .child(localizedList(S, "blogPost", "All English posts", "en", [{ field: "publishedAt", direction: "desc" }])),
+                .title("All News")
+                .child(dailyList(S, "blogPost", "All News", [{ field: "publishedAt", direction: "desc" }])),
               S.divider(),
               categoryList(S, "Expo", "Expo"),
               categoryList(S, "Industry News", "Industry News"),
@@ -154,32 +184,57 @@ export const structure: StructureResolver = (S) =>
               categoryList(S, "New Products", "New Products"),
               categoryList(S, "Press Release", "Press Release"),
               categoryList(S, "Tips", "Tips"),
-              S.divider(),
-              S.listItem().title("Posts by language").child(allLanguageList(S, "blogPost", "Posts by language")),
             ]),
         ),
       S.listItem()
+        .title("Categories")
+        .child(dailyList(S, "productCategory", "Product Categories", [{ field: "order", direction: "asc" }])),
+      S.listItem()
         .title("Projects")
-        .child(allLanguageList(S, "project", "Projects")),
+        .child(dailyList(S, "project", "Projects", [{ field: "title", direction: "asc" }])),
       S.listItem()
         .title("Solutions")
-        .child(allLanguageList(S, "solution", "Solutions")),
-      S.listItem()
-        .title("Pages")
-        .child(allLanguageList(S, "contentPage", "Pages")),
+        .child(dailyList(S, "solution", "Solutions", [{ field: "order", direction: "asc" }])),
       S.divider(),
       S.listItem()
-        .title("Home Page")
-        .child(singletonLanguageList(S, "homePage", "Home Page")),
-      S.listItem()
-        .title("Site Settings")
-        .child(singletonLanguageList(S, "siteSettings", "Site Settings")),
-      S.divider(),
-      S.listItem()
-        .title("Advanced - all document types")
+        .title("Advanced")
         .child(
           S.list()
             .title("Advanced")
-            .items(S.documentTypeListItems().filter((item) => item.getId() && !hiddenDefaultTypes.has(item.getId()!))),
+            .items([
+              S.listItem()
+                .title("Products by language")
+                .child(allLanguageList(S, "product", "Products by language")),
+              S.listItem()
+                .title("Categories by language")
+                .child(allLanguageList(S, "productCategory", "Categories by language")),
+              S.listItem()
+                .title("News by language")
+                .child(allLanguageList(S, "blogPost", "News by language")),
+              S.listItem()
+                .title("Projects by language")
+                .child(allLanguageList(S, "project", "Projects by language")),
+              S.listItem()
+                .title("Solutions by language")
+                .child(allLanguageList(S, "solution", "Solutions by language")),
+              S.listItem()
+                .title("Pages by language")
+                .child(allLanguageList(S, "contentPage", "Pages by language")),
+              S.divider(),
+              S.listItem()
+                .title("Home Page by language")
+                .child(singletonLanguageList(S, "homePage", "Home Page")),
+              S.listItem()
+                .title("Site Settings by language")
+                .child(singletonLanguageList(S, "siteSettings", "Site Settings")),
+              S.divider(),
+              S.listItem()
+                .title("Developer tools")
+                .child(
+                  S.list()
+                    .title("Developer tools")
+                    .items(S.documentTypeListItems().filter((item) => item.getId() && !hiddenDefaultTypes.has(item.getId()!))),
+                ),
+            ]),
         ),
     ]);
