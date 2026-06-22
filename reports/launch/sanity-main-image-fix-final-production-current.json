@@ -1,0 +1,635 @@
+{
+  "projectId": "o10sbz2i",
+  "dataset": "production",
+  "apiVersion": "2026-05-20",
+  "dryRun": false,
+  "language": "en",
+  "types": [
+    "product",
+    "blogPost",
+    "project"
+  ],
+  "documentsChecked": 201,
+  "plannedPatches": 14,
+  "skipped": 187,
+  "plannedByType": {
+    "blogPost": 1,
+    "product": 13
+  },
+  "skippedByReason": {
+    "current image is already unique": 173,
+    "kept one item from duplicate group": 14
+  },
+  "before": {
+    "product": {
+      "documents": 108,
+      "images": 108,
+      "uniqueImages": 95,
+      "topDuplicateCount": 2
+    },
+    "blogPost": {
+      "documents": 80,
+      "images": 80,
+      "uniqueImages": 79,
+      "topDuplicateCount": 2
+    },
+    "project": {
+      "documents": 13,
+      "images": 13,
+      "uniqueImages": 13,
+      "topDuplicateCount": 1
+    }
+  },
+  "after": {
+    "product": {
+      "documents": 108,
+      "images": 108,
+      "uniqueImages": 108,
+      "topDuplicateCount": 1
+    },
+    "blogPost": {
+      "documents": 80,
+      "images": 80,
+      "uniqueImages": 80,
+      "topDuplicateCount": 1
+    },
+    "project": {
+      "documents": 13,
+      "images": 13,
+      "uniqueImages": 13,
+      "topDuplicateCount": 1
+    }
+  },
+  "plans": [
+    {
+      "id": "blogPost.the-major-materials-of-medicine-mirror-cabinet",
+      "type": "blogPost",
+      "title": "The Major Materials of Medicine Mirror Cabinet",
+      "path": "/news/the-major-materials-of-medicine-mirror-cabinet",
+      "fromRef": "image-1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511.jpg",
+      "toRef": "image-1806276ee0c14b9b9bd56e338f59a4a9f7c7bb9e-800x533-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/1806276ee0c14b9b9bd56e338f59a4a9f7c7bb9e-800x533.jpg",
+      "candidateIndex": 3,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2324",
+      "type": "product",
+      "title": "Classic Beaded Decorative Tabletop Picture Frame",
+      "path": "/picture-frame/tabletop-frame/classic_beaded_decorative_tabletop_picture_frame-2",
+      "fromRef": "image-5670ba553b710a7896bda812c7f53e48caa2fc17-1080x1080-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/5670ba553b710a7896bda812c7f53e48caa2fc17-1080x1080.jpg",
+      "toRef": "image-43871ff91a189c549b41a17d4e2c04d5c9082cae-1080x1080-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/43871ff91a189c549b41a17d4e2c04d5c9082cae-1080x1080.jpg",
+      "candidateIndex": 4,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2327",
+      "type": "product",
+      "title": "Aluminum Collage Picture Frame with 2-4×6 and 2-6×8 Openings",
+      "path": "/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings-2",
+      "fromRef": "image-c7686ebadbd0de657089bbee4b328bbda38dd61f-1080x1080-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/c7686ebadbd0de657089bbee4b328bbda38dd61f-1080x1080.jpg",
+      "toRef": "image-d4df83f9b3fa7e9dc3633a5c0076e12077bd93fb-1080x1080-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/d4df83f9b3fa7e9dc3633a5c0076e12077bd93fb-1080x1080.jpg",
+      "candidateIndex": 4,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2330",
+      "type": "product",
+      "title": "Stone Texture Plastic Picture Frame for Tabletop Display",
+      "path": "/white-modern-plastic-picture-frame-for-tabletop-display-5x7-in-2",
+      "fromRef": "image-f0a93b7b228c533d5e01f6e64b7c9d00774b30b2-1080x1080-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/f0a93b7b228c533d5e01f6e64b7c9d00774b30b2-1080x1080.jpg",
+      "toRef": "image-24accd4e810a05733fd51c85ade7093f18018d5b-1080x1080-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/24accd4e810a05733fd51c85ade7093f18018d5b-1080x1080.jpg",
+      "candidateIndex": 5,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2336",
+      "type": "product",
+      "title": "Natural Style MDF Tabletop Picture Frame",
+      "path": "/tabletop-picture-frame-mdf-natural-oak-5x7-inch-2",
+      "fromRef": "image-25395dc588cc36d3ac5a7be3ec50a7c418272d26-1080x1080-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/25395dc588cc36d3ac5a7be3ec50a7c418272d26-1080x1080.jpg",
+      "toRef": "image-d7bd8d892c3167b119f9baeaf9aa5bc34e27f62c-1080x1080-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/d7bd8d892c3167b119f9baeaf9aa5bc34e27f62c-1080x1080.jpg",
+      "candidateIndex": 3,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2340",
+      "type": "product",
+      "title": "Wood Grain Plastic Picture Frames for Tabletop Display",
+      "path": "/plastic-picture-frames-for-tabletop-display-5x7-inch-wood-grain-2",
+      "fromRef": "image-d4ccb3bfa6cd2ed10c26887797aae62297165c10-1080x1080-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/d4ccb3bfa6cd2ed10c26887797aae62297165c10-1080x1080.jpg",
+      "toRef": "image-9f724f6da3169ec4c2634504f8b66d5b16962378-1080x1080-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/9f724f6da3169ec4c2634504f8b66d5b16962378-1080x1080.jpg",
+      "candidateIndex": 4,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2349",
+      "type": "product",
+      "title": "Natural Wood Wall & Tabletop Picture Frame with Plastic Frame",
+      "path": "/natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in-2",
+      "fromRef": "image-7307d88eabf562f8b767b19fec5e8df928dafa28-1080x1080-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/7307d88eabf562f8b767b19fec5e8df928dafa28-1080x1080.jpg",
+      "toRef": "image-653cf544ed26abeeaf858916e1111257edbfe770-1080x1080-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/653cf544ed26abeeaf858916e1111257edbfe770-1080x1080.jpg",
+      "candidateIndex": 4,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2368",
+      "type": "product",
+      "title": "Contemporary Aluminum Picture Frame for Wall Art",
+      "path": "/contemporary-matte-black-aluminum-picture-frame-for-wall-art-11x14-in-2",
+      "fromRef": "image-979e7eec7b5dfd1d9161ef6b2b91cead28734209-1080x1080-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/979e7eec7b5dfd1d9161ef6b2b91cead28734209-1080x1080.jpg",
+      "toRef": "image-f5bdf9720d1e2dc0506d5fde95c6dd02f0b25156-1080x1080-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/f5bdf9720d1e2dc0506d5fde95c6dd02f0b25156-1080x1080.jpg",
+      "candidateIndex": 3,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2410",
+      "type": "product",
+      "title": "Iron Framed LED Mirror with Shelf",
+      "path": "/mirror/led-mirror/iron-framed-led-mirror-with-shelf",
+      "fromRef": "image-bbd63aa001b10a0f2ae991769ecce391c8c99eb7-1134x1134-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/bbd63aa001b10a0f2ae991769ecce391c8c99eb7-1134x1134.jpg",
+      "toRef": "image-26ed1dea1be21c8273ef1178c93cf0788de55475-1134x1134-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/26ed1dea1be21c8273ef1178c93cf0788de55475-1134x1134.jpg",
+      "candidateIndex": 6,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2450",
+      "type": "product",
+      "title": "Cathedral Window Iron Framed Mirror",
+      "path": "/mirror/wall-mirror/cathedral-window-iron-framed-mirror",
+      "fromRef": "image-335dcb3d5fdfae84ce0d7910807e36b09bb10071-1134x1134-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/335dcb3d5fdfae84ce0d7910807e36b09bb10071-1134x1134.jpg",
+      "toRef": "image-4062a22a4202e06fb2f59ca4d5470ecb05737efd-1134x1134-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/4062a22a4202e06fb2f59ca4d5470ecb05737efd-1134x1134.jpg",
+      "candidateIndex": 6,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2505",
+      "type": "product",
+      "title": "Grooved Elegance Round Wood Mirror",
+      "path": "/mirror/wall-mirror/grooved-elegance-round-wood-mirror",
+      "fromRef": "image-25965bbce2f5ea319f2ad11090b8bbccf1d87e1b-1134x1134-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/25965bbce2f5ea319f2ad11090b8bbccf1d87e1b-1134x1134.jpg",
+      "toRef": "image-92748157d0b4c65d78a23b8cff8759c363f7155c-1200x1200-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/92748157d0b4c65d78a23b8cff8759c363f7155c-1200x1200.jpg",
+      "candidateIndex": 7,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2552",
+      "type": "product",
+      "title": "Glossy Foil Elegance Picture Frame",
+      "path": "/picture-frame/tabletop-frame/glossy-foil-elegance-picture-frame-2",
+      "fromRef": "image-ec3ae1de7c29e3bcaa1e437961b232101ac20d45-1134x1134-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/ec3ae1de7c29e3bcaa1e437961b232101ac20d45-1134x1134.jpg",
+      "toRef": "image-e7e3d644707872cd434edd7bff9627865c76dbc7-1134x1134-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/e7e3d644707872cd434edd7bff9627865c76dbc7-1134x1134.jpg",
+      "candidateIndex": 4,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.2638",
+      "type": "product",
+      "title": "Aluminum Framed Rounded Corners Poster Frame",
+      "path": "/picture-frame/poster-frame/aluminum-framed-rounded-corners-poster-frame-2",
+      "fromRef": "image-fbfbff43beb8a6537c8b167579a51532edd24751-1200x1200-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/fbfbff43beb8a6537c8b167579a51532edd24751-1200x1200.jpg",
+      "toRef": "image-23774bcfdeb2f9d5ddb9f68039de860cd9235562-1200x1200-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/23774bcfdeb2f9d5ddb9f68039de860cd9235562-1200x1200.jpg",
+      "candidateIndex": 6,
+      "currentDuplicateCount": 2
+    },
+    {
+      "id": "product.3212",
+      "type": "product",
+      "title": "Modern Square LED Mirror",
+      "path": "/mirror/led-mirror/modern-square-led-mirror-2",
+      "fromRef": "image-595b7aad543ab033df3532a486cada0ef38f3608-850x850-jpg",
+      "fromUrl": "https://cdn.sanity.io/images/o10sbz2i/production/595b7aad543ab033df3532a486cada0ef38f3608-850x850.jpg",
+      "toRef": "image-744c4c409ee92b474243b5ea0934ea8b54d82fc6-850x850-jpg",
+      "toUrl": "https://cdn.sanity.io/images/o10sbz2i/production/744c4c409ee92b474243b5ea0934ea8b54d82fc6-850x850.jpg",
+      "candidateIndex": 6,
+      "currentDuplicateCount": 2
+    }
+  ],
+  "skippedSamples": [
+    {
+      "id": "blogPost.28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "type": "blogPost",
+      "title": "28 Original Frame Ideas To Enhance The Artistry Of Your Space",
+      "path": "/news/28-original-frame-ideas-to-enhance-the-artistry-of-your-space",
+      "imageRef": "image-7badd633e759ec3b110183f1047cca9ceff11656-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "type": "blogPost",
+      "title": "4 Reasons to Integrate a Blackboard into Your Home Decor",
+      "path": "/news/4-reasons-to-integrate-a-blackboard-into-your-home-decor",
+      "imageRef": "image-7fafe116b14b1b8745e92e283fe874a98fc2cedd-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "type": "blogPost",
+      "title": "5 Ways an LED Bathroom Vanity Mirror Can lmprove Your Space",
+      "path": "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space",
+      "imageRef": "image-621657bacc11b549c5658ede5bef818a8133d5f8-600x641-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "type": "blogPost",
+      "title": "6 Types of Picture Frame: How to Choose the Perfect One for You",
+      "path": "/news/6-types-of-picture-frame-how-to-choose-the-perfect-one-for-you",
+      "imageRef": "image-fb3e60e08752b2ef449c047ccb6f525543f9c44c-1039x1039-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "type": "blogPost",
+      "title": "A DIY Guide to Creating a Gallery Wall with Your Favorite Photos",
+      "path": "/news/a-diy-guide-to-creating-a-gallery-wall-with-your-favorite-photos",
+      "imageRef": "image-16e9a1e8b0bf8980caae1976cc6317a073323232-863x576-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "type": "blogPost",
+      "title": "Affordable Wall Art: Decorating Your Home Without Breaking the Bank",
+      "path": "/news/affordable-wall-art-decorating-your-home-without-breaking-the-bank",
+      "imageRef": "image-615e26de0c00eb6e9c693088f0ea2bb89a80c668-1706x2560-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "type": "blogPost",
+      "title": "Beyond the Ordinary: Elevate Your Picture Framing with Unique Touches",
+      "path": "/news/beyond-the-ordinary-elevate-your-picture-framing-with-unique-touches",
+      "imageRef": "image-979e7eec7b5dfd1d9161ef6b2b91cead28734209-1080x1080-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "type": "blogPost",
+      "title": "Brighten Up Your Bathroom: Elegance with Safe, Durable, and Energy-Efficient LED Mirrors",
+      "path": "/news/brighten-up-your-bathroom-elegance-with-safe-durable-and-energy-efficient-led-mirrors",
+      "imageRef": "image-c150c0050f0270e83726e62ab523d9c7ce9f38e5-1080x1080-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "type": "blogPost",
+      "title": "Bulk Picture Frame Orders for Wholesale Buyers: A Complete Guide",
+      "path": "/news/bulk-picture-frame-orders-for-wholesale-buyers-a-complete-guide",
+      "imageRef": "image-19808a7f6e643660691b6c82722123e56865d787-866x877-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.canvas-art-a-perfect-addition-to-your-home-decor",
+      "type": "blogPost",
+      "title": "Canvas Art: A Perfect Addition to Your Home Decor",
+      "path": "/news/canvas-art-a-perfect-addition-to-your-home-decor",
+      "imageRef": "image-875505e97d4236f77e3742567bde9a97af06a449-300x300-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.choosing-the-right-led-mirror-a-comprehensive-guide",
+      "type": "blogPost",
+      "title": "Choosing the Right LED Mirror: A Comprehensive Guide",
+      "path": "/news/choosing-the-right-led-mirror-a-comprehensive-guide",
+      "imageRef": "image-2a13144a2b2e332c9ca7f426729091c2e10a9e9c-1035x1035-png",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "type": "blogPost",
+      "title": "Creative Gallery Wall Ideas: Transform Your Walls with Frames, Art and Memo Boards",
+      "path": "/news/creative-gallery-wall-ideas-transform-your-walls-with-frames-art-and-memo-boards",
+      "imageRef": "image-10d51e2db785e66693b090ff8f744ce839ce255d-300x200-png",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "type": "blogPost",
+      "title": "Custom Frames: Diverse Materials and Styles for Varied Decor Needs",
+      "path": "/news/custom-frames-diverse-materials-and-styles-for-varied-decor-needs",
+      "imageRef": "image-46e25b9a1688e187458afbf59bfd4835f586333a-865x576-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "type": "blogPost",
+      "title": "Discover Advanced Storage Solutions for a Modern Medicine Cabinet",
+      "path": "/news/discover-advanced-storage-solutions-for-a-modern-medicine-cabinet",
+      "imageRef": "image-6c1f5448d330ca3a7ad8c6ff8045a06d54fefb0d-509x339-png",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "type": "blogPost",
+      "title": "Discover the Charm: How LED Mirrors Enhance Your Home Decor",
+      "path": "/news/discover-the-charm-how-led-mirrors-enhance-your-home-decor",
+      "imageRef": "image-adb1b9d15618605d20bb857875c1969b83457a47-509x339-png",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.discover-the-latest-trends-in-vanity-mirrors",
+      "type": "blogPost",
+      "title": "Discover the Latest Trends in Vanity Mirrors",
+      "path": "/news/discover-the-latest-trends-in-vanity-mirrors",
+      "imageRef": "image-f2d0201bd7d1698a0078654587a5395a121661de-553x311-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "type": "blogPost",
+      "title": "Dry Erase Board Checklist: Essential Tips for Efficient Planning",
+      "path": "/news/dry-erase-board-checklist-essential-tips-for-efficient-planning",
+      "imageRef": "image-5a747fa54af7b99e797d9a7f41743def40daed59-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.durability-insights-are-wood-document-frames-a-worthy-choice",
+      "type": "blogPost",
+      "title": "Durability Insights: Are Wood Document Frames a Worthy Choice?",
+      "path": "/news/durability-insights-are-wood-document-frames-a-worthy-choice",
+      "imageRef": "image-65ae76ba1c71ab934cbb737722078eb33ebb393f-859x861-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "type": "blogPost",
+      "title": "Easy Wall Frame Ideas to Instantly Elevate Your Home Decor",
+      "path": "/news/easy-wall-frame-ideas-to-instantly-elevate-your-home-decor",
+      "imageRef": "image-f62504fc04de7932c22d2a1ebbdd044db4fa7dd1-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "type": "blogPost",
+      "title": "Effective Picture Frame Placement: Tips to Enhance Your Room's Aesthetic",
+      "path": "/news/effective-picture-frame-placement-tips-to-enhance-your-rooms-aesthetic",
+      "imageRef": "image-8bfb30213c7bad9d9aea318d75a7a46d9c76f6a0-1134x1134-png",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "type": "blogPost",
+      "title": "Elevate Your Living Room: Wall Artwork Ideas for Experts",
+      "path": "/news/elevate-your-living-room-wall-artwork-ideas-for-experts",
+      "imageRef": "image-1977d2e3af501ec48cf6ac2605b73effdecec8d3-864x873-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "type": "blogPost",
+      "title": "Essential Maintenance Tips for Plastic Picture Frames' Longevity",
+      "path": "/news/essential-maintenance-tips-for-plastic-picture-frames-longevity",
+      "imageRef": "image-2a9f4a2edd25425870479aebe2659c7d25928282-692x692-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "type": "blogPost",
+      "title": "Everything You Need to Know About High-Quality Photo Frames and Home Decor Solutions",
+      "path": "/news/everything-you-need-to-know-about-high-quality-photo-frames-and-home-decor-solutions",
+      "imageRef": "image-286d6a152d643d79ecdab20b7b9e5282e5924d69-862x612-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.exploring-the-appeal-of-plastic-picture-frames",
+      "type": "blogPost",
+      "title": "Exploring the Appeal of Plastic Picture Frames",
+      "path": "/news/exploring-the-appeal-of-plastic-picture-frames",
+      "imageRef": "image-67df0657d4d7e08973320a9e9f97fc31cbe33f5a-1134x1134-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "type": "blogPost",
+      "title": "Exquisite and Eco-Friendly: Shadow Box Art Display Innovations",
+      "path": "/news/exquisite-and-eco-friendly-shadow-box-art-display-innovations",
+      "imageRef": "image-243ff5228491992e878f35ea22a27c53eb7df761-552x502-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "type": "blogPost",
+      "title": "Framed vs. Frameless Mirrors: Choosing the Perfect Option for Your Space",
+      "path": "/news/framed-vs-frameless-mirrors-choosing-the-perfect-option-for-your-space",
+      "imageRef": "image-1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511-jpg",
+      "reason": "kept one item from duplicate group"
+    },
+    {
+      "id": "blogPost.framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "type": "blogPost",
+      "title": "Framing the Future: A Comprehensive Guide to A-Paper Sizes",
+      "path": "/news/framing-the-future-a-comprehensive-guide-to-a-paper-sizes",
+      "imageRef": "image-431f4fe421e4447a54abea06eebc35e23f7966e7-633x639-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.functional-decor-incorporating-memo-boards-into-your-home-office",
+      "type": "blogPost",
+      "title": "Functional Decor: Incorporating Memo Boards into Your Home Office",
+      "path": "/news/functional-decor-incorporating-memo-boards-into-your-home-office",
+      "imageRef": "image-0e2dfb5ca25c2935e9660d5d6ffa55e4a4f7d531-2560x1808-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "type": "blogPost",
+      "title": "Guide to Bedroom Decor: Enhancing with Mirror Placement",
+      "path": "/news/guide-to-bedroom-decor-enhancing-with-mirror-placement",
+      "imageRef": "image-67f267edf949f17366ea3a5c971eaf542a3ff293-1134x1134-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "type": "blogPost",
+      "title": "How a LED Makeup Mirror Can Transform Your Beauty Routine",
+      "path": "/news/how-a-led-makeup-mirror-can-transform-your-beauty-routine",
+      "imageRef": "image-19a012a11f612f40dcf0a92683e549d02babd71e-1134x1134-png",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-a-shadow-box-enhances-art-presentation-and-protection",
+      "type": "blogPost",
+      "title": "How a Shadow Box Enhances Art Presentation and Protection",
+      "path": "/news/how-a-shadow-box-enhances-art-presentation-and-protection",
+      "imageRef": "image-f0494fc64c87197390a2c5aba85f95b6fa29e79f-992x842-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "type": "blogPost",
+      "title": "How an LED Mirror Can Elevate Your Bathroom Aesthetics",
+      "path": "/news/how-an-led-mirror-can-elevate-your-bathroom-aesthetics",
+      "imageRef": "image-abf5180e375e3816ee506b02d97a1bf924ff9776-1039x1039-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "type": "blogPost",
+      "title": "How Does a magnetic memo board Enhance Your Workspace Efficiency?",
+      "path": "/news/how-does-a-magnetic-memo-board-enhance-your-workspace-efficiency",
+      "imageRef": "image-23c5c5d830da21c1db76201841084fbb5a456440-467x466-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "type": "blogPost",
+      "title": "How Framed Mirrors in Bedrooms Affect Your Mood and Well-being",
+      "path": "/news/how-framed-mirrors-in-bedrooms-affect-your-mood-and-well-being",
+      "imageRef": "image-76236f9f8986156d2dba1d34a84cc3609c9f6a84-360x360-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "type": "blogPost",
+      "title": "How mirror thickness Impacts Bedroom Visual Appeal",
+      "path": "/news/how-mirror-thickness-impacts-bedroom-visual-appeal",
+      "imageRef": "image-d0ec4baff2722c0359d246c087ae9421419b2be9-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-painting-on-landscape-creates-timeless-home-decor",
+      "type": "blogPost",
+      "title": "How Painting on Landscape Creates Timeless Home Decor",
+      "path": "/news/how-painting-on-landscape-creates-timeless-home-decor",
+      "imageRef": "image-17b44eb43d45c25919541ba754fa0fb57d4d422d-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "type": "blogPost",
+      "title": "How To Choose The Right Mirror Cabinet for Your Bathroom",
+      "path": "/news/how-to-choose-the-right-mirror-cabinet-for-your-bathroom",
+      "imageRef": "image-ed2b8e7503ab75a1707161133e65a486f250bbd4-800x511-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "type": "blogPost",
+      "title": "How to Choose the Right Picture Frame Materials for Your Home",
+      "path": "/news/how-to-choose-the-right-picture-frame-materials-for-your-home",
+      "imageRef": "image-b0e1489ecf883daabe47343d35a699788e375092-2127x2560-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "type": "blogPost",
+      "title": "How to Position Bedroom Mirrors for Optimal Natural Lighting",
+      "path": "/news/how-to-position-bedroom-mirrors-for-optimal-natural-lighting",
+      "imageRef": "image-9d005f04a901d2681d43e58834b34123be346524-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "type": "blogPost",
+      "title": "How to Select Eco-Friendly Materials for Your Next Vanity",
+      "path": "/news/how-to-select-eco-friendly-materials-for-your-next-vanity",
+      "imageRef": "image-02554cae407e12cc998ddba3642f23c35429b7a4-1200x1200-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "type": "blogPost",
+      "title": "How to Use a Wall Mirror: Expert Tips for Stylish Interiors",
+      "path": "/news/how-to-use-a-wall-mirror-expert-tips-for-stylish-interiors",
+      "imageRef": "image-8db67e628f2240fb21559ed8643308655b523970-281x238-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "type": "blogPost",
+      "title": "Intco Framing Will Be Participating in The 135th CANTON FAIR",
+      "path": "/news/intco-framing-will-be-participating-in-the-135th-canton-fair",
+      "imageRef": "image-6fb876067d7a87144fad81205cf56690fe586e00-510x466-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "type": "blogPost",
+      "title": "Interior Deco Market Outlook 2025: Key Trends and Challenges",
+      "path": "/news/interior-deco-market-outlook-2025-key-trends-and-challenges",
+      "imageRef": "image-1206c42ea2bd4c336918be1b929f2193c65edc30-1709x2560-jpg",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "type": "blogPost",
+      "title": "Maintaining Artwork Quality: The Role of Plastic Picture Frames",
+      "path": "/news/maintaining-artwork-quality-the-role-of-plastic-picture-frames",
+      "imageRef": "image-64ffc507dbc1eac25c9cfe37f4ec9dea7d3821b8-1080x1080-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.mirror-customization-the-importance-of-excellent-customer-service",
+      "type": "blogPost",
+      "title": "Mirror Customization: The Importance of Excellent Customer Service",
+      "path": "/news/mirror-customization-the-importance-of-excellent-customer-service",
+      "imageRef": "image-9f7f32b469c4ae79ddc240e16db417f3fc16d2ba-1039x1039-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "type": "blogPost",
+      "title": "Modern? Rustic? Classic? The Custom Framing Guide Every Home Needs",
+      "path": "/news/modern-rustic-classic-the-custom-framing-guide-every-home-needs",
+      "imageRef": "image-9dcfa9687250b488fbbdd6a4a48cd5604548fd26-300x293-png",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.picture-frames-evaluating-plastic-and-metal-options",
+      "type": "blogPost",
+      "title": "Picture Frames: Evaluating Plastic and Metal Options",
+      "path": "/news/picture-frames-evaluating-plastic-and-metal-options",
+      "imageRef": "image-e84fa179b3d6232e48de00274afd1bcfd713b7fb-1134x1134-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "type": "blogPost",
+      "title": "Picture Framing: A Trend for the Art of Preservation in 2025",
+      "path": "/news/picture-framing-a-trend-for-the-art-of-preservation-in-2025",
+      "imageRef": "image-f55eaf81abfdf60b33568688af7d85db8b9a5a13-865x576-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.poster-frames-vs-picture-frames-understanding-the-difference",
+      "type": "blogPost",
+      "title": "Poster Frames vs. Picture Frames: Understanding the Difference",
+      "path": "/news/poster-frames-vs-picture-frames-understanding-the-difference",
+      "imageRef": "image-c70160b8803acfb3f9b1949c8d74321f569cbc02-879x879-webp",
+      "reason": "current image is already unique"
+    },
+    {
+      "id": "blogPost.practical-ways-a-cork-board-can-enhance-your-home",
+      "type": "blogPost",
+      "title": "Practical Ways a Cork Board Can Enhance Your Home",
+      "path": "/news/practical-ways-a-cork-board-can-enhance-your-home",
+      "imageRef": "image-8c8cf2a6369aa2e640f483d2a54db97a20f8dd55-1080x1080-webp",
+      "reason": "current image is already unique"
+    }
+  ]
+}
