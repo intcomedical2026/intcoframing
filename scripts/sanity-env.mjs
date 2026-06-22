@@ -38,7 +38,7 @@ export function parseArgs(values) {
 
 export function sanityConfigFromEnv(args = {}) {
   return {
-    projectId: args.projectId || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "o10sbz2i",
+    projectId: args.projectId || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "vzcnnept",
     dataset:
       args.dataset ||
       process.env.SANITY_IMPORT_DATASET ||

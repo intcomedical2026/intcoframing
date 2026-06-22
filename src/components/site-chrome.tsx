@@ -19,9 +19,9 @@ type ChromeProps = {
   children: React.ReactNode;
 };
 
-const HEADER_LANGUAGE_MAP_IMAGE = "https://cdn.sanity.io/images/o10sbz2i/production/3fd5a86cd273e1d41ca1a0a79d66c2749d1204e8-95x53.png";
-const SOURCE_FOOTER_BG = "https://cdn.sanity.io/images/o10sbz2i/production/6e35e273e81fcf67d74811f4cd369e0c3721cfc8-1920x712.png";
-const SOURCE_FOOTER_LOGO = "https://cdn.sanity.io/images/o10sbz2i/production/7de7a130935374483605c677a85bf695b47bd064-178x104.png";
+const HEADER_LANGUAGE_MAP_IMAGE = "https://cdn.sanity.io/images/vzcnnept/production/3fd5a86cd273e1d41ca1a0a79d66c2749d1204e8-95x53.png";
+const SOURCE_FOOTER_BG = "https://cdn.sanity.io/images/vzcnnept/production/6e35e273e81fcf67d74811f4cd369e0c3721cfc8-1920x712.png";
+const SOURCE_FOOTER_LOGO = "https://cdn.sanity.io/images/vzcnnept/production/7de7a130935374483605c677a85bf695b47bd064-178x104.png";
 
 const footerSocialLinks = [
   { label: "Facebook", href: "https://www.facebook.com/IntcoFraming.cn/", iconClass: "icon-facebook" },
@@ -36,12 +36,12 @@ const PROJECT_NAV_ITEMS = [
   {
     label: "Residential",
     path: "/projects/residential",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/5d22cd65a00fc3bfb13c811adaf9f7f3c90dea04-281x238.jpg",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5d22cd65a00fc3bfb13c811adaf9f7f3c90dea04-281x238.jpg",
   },
   {
     label: "Commercial",
     path: "/projects/commercial",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/daf616685ed0cd31bcd6bf452a93936c5ebe945c-281x238.jpg",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/daf616685ed0cd31bcd6bf452a93936c5ebe945c-281x238.jpg",
   },
 ];
 

@@ -7,7 +7,7 @@ await loadEnvFile(".env.local");
 
 const args = parseArgs(process.argv.slice(2));
 const allLocales = ["en", "es", "pt", "fr", "de", "ja"];
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "o10sbz2i";
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "vzcnnept";
 const dataset = args.dataset || process.env.SANITY_IMPORT_DATASET || process.env.SANITY_TARGET_DATASET || process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-05-20";
 const token = process.env.SANITY_API_TOKEN;

@@ -206,7 +206,7 @@ export type SiteData = {
   pages: ContentPage[];
 };
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "o10sbz2i";
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "vzcnnept";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-05-20";
 const readToken = process.env.SANITY_API_READ_TOKEN;

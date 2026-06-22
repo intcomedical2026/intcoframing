@@ -7,7 +7,7 @@ await loadEnvFile(".env.local");
 
 const args = parseArgs(process.argv.slice(2));
 const dryRun = Boolean(args.dryRun);
-const projectId = args.projectId || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "o10sbz2i";
+const projectId = args.projectId || process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "vzcnnept";
 const dataset = args.dataset || process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 const apiVersion = args.apiVersion || process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2026-05-20";
 const token = dryRun ? process.env.SANITY_API_READ_TOKEN || process.env.SANITY_API_TOKEN : requireToken(process.env.SANITY_API_TOKEN, "SANITY_API_TOKEN");

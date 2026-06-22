@@ -664,7 +664,7 @@ def main() -> None:
         "sourceSite": BASE_URL,
         "sanity": {
             "organizationId": "oSsROqrgs",
-            "projectId": "o10sbz2i",
+            "projectId": "vzcnnept",
             "dataset": "production",
         },
         "siteSettings": build_site_settings(),

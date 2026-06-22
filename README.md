@@ -7,7 +7,7 @@ This project rebuilds `https://www.intcoframing-us.com` with Next.js, Tailwind C
 - Next.js App Router
 - Tailwind CSS
 - Sanity Studio mounted at `/studio`
-- Sanity Content Lake project: `o10sbz2i`
+- Sanity Content Lake project: `vzcnnept`
 - Default dataset: `production`
 - Vercel-ready environment variables
 
@@ -84,7 +84,7 @@ http://localhost:3000/studio
 Set these in Vercel:
 
 ```text
-NEXT_PUBLIC_SANITY_PROJECT_ID=o10sbz2i
+NEXT_PUBLIC_SANITY_PROJECT_ID=vzcnnept
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-05-20
 NEXT_PUBLIC_SITE_URL=https://your-production-domain.com

@@ -10,19 +10,19 @@ const cumulativeSavings = [
     value: "3.4",
     unit: "Million",
     label: "Tons Carbon Emissions",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1e2616d96eec7961ea790740ef65aa111f4cc914-135x101.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/1e2616d96eec7961ea790740ef65aa111f4cc914-135x101.png",
   },
   {
     value: "5.1",
     unit: "Million",
     label: "Tons Crude Oil Resources",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/ac94386805d755afaa66c893405faec80e28bf08-106x116.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/ac94386805d755afaa66c893405faec80e28bf08-106x116.png",
   },
   {
     value: "33",
     unit: "Million",
     label: "Trees Were Protected",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1a835f2d2cecb10a8a39437a48ecfdd1a4c3fe6d-133x130.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/1a835f2d2cecb10a8a39437a48ecfdd1a4c3fe6d-133x130.png",
   },
 ];
 
@@ -31,31 +31,31 @@ const annualSavings = [
     value: "+150,000 Tons",
     suffix: "/Year",
     label: "r-PS, r-PET",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/e43eda14f3a305b0445b5b8fc95f959b20a9f7cd-268x262.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/e43eda14f3a305b0445b5b8fc95f959b20a9f7cd-268x262.png",
   },
   {
     value: "-300,000 Tons",
     suffix: "/Year",
     label: "CO₂",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/f875c48c71a8476933dca8744dee22ed7d726082-272x268.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f875c48c71a8476933dca8744dee22ed7d726082-272x268.png",
   },
   {
     value: "-450,000 Tons",
     suffix: "/Year",
     label: "Oil",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/fc90e14849210d59ecf48d94583803098e700c21-263x257.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/fc90e14849210d59ecf48d94583803098e700c21-263x257.png",
   },
   {
     value: "+1.6 Million Boxes",
     suffix: "/Year",
     label: "PS Mouldings",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/1e57647a56c8cef79d5442e0c605ef40b568aa40-263x258.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/1e57647a56c8cef79d5442e0c605ef40b568aa40-263x258.png",
   },
   {
     value: "+2.7 Million",
     suffix: "/Year",
     label: "Trees Were Protected",
-    imageUrl: "https://cdn.sanity.io/images/o10sbz2i/production/b333d343c4379c93c8af31b2f6b0685188951a2e-267x262.png",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/b333d343c4379c93c8af31b2f6b0685188951a2e-267x262.png",
   },
 ];
 
@@ -208,7 +208,7 @@ export function SustainabilitySavingsTabs({ locale }: { locale: Locale }) {
 
   return (
     <div className="relative h-[720px] overflow-hidden min-[1600px]:h-[810px] max-lg:h-auto">
-      <Image src="https://cdn.sanity.io/images/o10sbz2i/production/b8210b240b66705c21ae254d3de0ccd50cff1c02-1920x810.png" alt="" fill className="object-cover" sizes="100vw" />
+      <Image src="https://cdn.sanity.io/images/vzcnnept/production/b8210b240b66705c21ae254d3de0ccd50cff1c02-1920x810.png" alt="" fill className="object-cover" sizes="100vw" />
       <div className="absolute inset-0 max-lg:relative max-lg:bg-[rgba(0,0,0,0.25)] max-lg:px-5 max-lg:py-10">
         <div className="mx-auto mt-[100px] flex max-w-[943px] justify-center gap-[63px] max-lg:mt-0 max-lg:flex-col max-lg:gap-4">
           <button
