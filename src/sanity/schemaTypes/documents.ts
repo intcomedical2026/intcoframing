@@ -36,10 +36,30 @@ const languageOptions = [
 
 const productCategorySlugOptions = [
   { title: "Mirror", value: "mirror" },
+  { title: "Mirror - Wall Mirror", value: "wall-mirror" },
+  { title: "Mirror - Standing Mirror", value: "standing-mirror" },
+  { title: "Mirror - Leaner Mirror", value: "leaner-mirror" },
+  { title: "Mirror - Door Mirror", value: "door-mirror" },
+  { title: "Mirror - LED Mirror", value: "led-mirror" },
   { title: "Picture Frame", value: "picture-frame" },
+  { title: "Picture Frame - Tabletop Frame", value: "tabletop-frame" },
+  { title: "Picture Frame - Wall Frame", value: "wall-frame" },
+  { title: "Picture Frame - Poster Frame", value: "poster-frame" },
+  { title: "Picture Frame - Document Frame", value: "document-frame" },
+  { title: "Picture Frame - Shadow Box", value: "shadow-box" },
+  { title: "Picture Frame - Collage Frame", value: "collage-frame" },
   { title: "Art", value: "art" },
+  { title: "Art - Framed Art", value: "framed-art" },
+  { title: "Art - Canvas Art", value: "canvas-art" },
+  { title: "Art - Alternative Wall Decor", value: "alternative-wall-decor" },
   { title: "Furniture", value: "furniture" },
+  { title: "Furniture - Medicine Cabinet", value: "medicine-cabinet" },
+  { title: "Furniture - Shelf", value: "shelf" },
   { title: "Memo Board", value: "memo-board" },
+  { title: "Memo Board - Chalkboard", value: "chalkboard" },
+  { title: "Memo Board - Dry Erase Board", value: "dry-erase-board" },
+  { title: "Memo Board - Cork Board", value: "cork-board" },
+  { title: "Memo Board - Linen Board", value: "linen-board" },
 ];
 
 const localizationFields = [
@@ -233,7 +253,18 @@ export const product = defineType({
     ...sourceFields,
   ],
   preview: {
-    select: { title: "title", subtitle: "path", media: "image" },
+    select: { title: "title", path: "path", categorySlugs: "categorySlugs", mainCategorySlug: "mainCategorySlug", media: "image" },
+    prepare({ title, path, categorySlugs, mainCategorySlug, media }) {
+      const categories = [mainCategorySlug, ...(categorySlugs || [])].filter(Boolean);
+      const uniqueCategories = Array.from(new Set(categories));
+      const categoryLabel = uniqueCategories.length ? uniqueCategories.join(" / ") : "No category";
+
+      return {
+        title,
+        subtitle: path ? `${categoryLabel} - ${path}` : categoryLabel,
+        media,
+      };
+    },
   },
 });
 

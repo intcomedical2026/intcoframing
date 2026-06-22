@@ -9,6 +9,59 @@ const languages = [
   { id: "ja", title: "Japanese" },
 ];
 
+const productCategoryGroups = [
+  {
+    title: "Mirror",
+    slug: "mirror",
+    children: [
+      { title: "Wall Mirror", slug: "wall-mirror" },
+      { title: "Standing Mirror", slug: "standing-mirror" },
+      { title: "Leaner Mirror", slug: "leaner-mirror" },
+      { title: "Door Mirror", slug: "door-mirror" },
+      { title: "LED Mirror", slug: "led-mirror" },
+    ],
+  },
+  {
+    title: "Picture Frame",
+    slug: "picture-frame",
+    children: [
+      { title: "Tabletop Frame", slug: "tabletop-frame" },
+      { title: "Wall Frame", slug: "wall-frame" },
+      { title: "Poster Frame", slug: "poster-frame" },
+      { title: "Document Frame", slug: "document-frame" },
+      { title: "Shadow Box", slug: "shadow-box" },
+      { title: "Collage Frame", slug: "collage-frame" },
+    ],
+  },
+  {
+    title: "Art",
+    slug: "art",
+    children: [
+      { title: "Framed Art", slug: "framed-art" },
+      { title: "Canvas Art", slug: "canvas-art" },
+      { title: "Alternative Wall Decor", slug: "alternative-wall-decor" },
+    ],
+  },
+  {
+    title: "Furniture",
+    slug: "furniture",
+    children: [
+      { title: "Medicine Cabinet", slug: "medicine-cabinet" },
+      { title: "Shelf", slug: "shelf" },
+    ],
+  },
+  {
+    title: "Memo Board",
+    slug: "memo-board",
+    children: [
+      { title: "Chalkboard", slug: "chalkboard" },
+      { title: "Dry Erase Board", slug: "dry-erase-board" },
+      { title: "Cork Board", slug: "cork-board" },
+      { title: "Linen Board", slug: "linen-board" },
+    ],
+  },
+];
+
 const singletonIds = {
   homePage: {
     en: "homePage",
@@ -53,6 +106,64 @@ function dailyList(
   ordering: Array<{ field: string; direction: "asc" | "desc" }> = [{ field: "_updatedAt", direction: "desc" }],
 ) {
   return localizedList(S, schemaType, title, "en", ordering);
+}
+
+function productCategoryDocumentList(
+  S: StructureBuilder,
+  title: string,
+  categorySlug: string,
+  initialCategorySlugs: string[] = [categorySlug],
+  mainCategorySlug = categorySlug,
+) {
+  return S.documentTypeList("product")
+    .title(title)
+    .schemaType("product")
+    .filter(`_type == "product" && coalesce(language, "en") == "en" && $categorySlug in categorySlugs`)
+    .params({ categorySlug })
+    .defaultOrdering([{ field: "title", direction: "asc" }])
+    .initialValueTemplates([S.initialValueTemplateItem("product-en", { language: "en", categorySlugs: initialCategorySlugs, mainCategorySlug })]);
+}
+
+function productCategoryListItem(S: StructureBuilder, category: (typeof productCategoryGroups)[number]) {
+  return S.listItem()
+    .title(category.title)
+    .child(
+      S.list()
+        .title(category.title)
+        .items([
+          S.listItem()
+            .title(`All ${category.title} Products`)
+            .child(productCategoryDocumentList(S, `All ${category.title} Products`, category.slug)),
+          S.divider(),
+          ...category.children.map((child) =>
+            S.listItem()
+              .title(child.title)
+              .child(productCategoryDocumentList(S, child.title, child.slug, [category.slug, child.slug], category.slug)),
+          ),
+        ]),
+    );
+}
+
+function productsDashboard(S: StructureBuilder) {
+  return S.list()
+    .title("Products")
+    .items([
+      S.listItem()
+        .title("All Products")
+        .child(dailyList(S, "product", "All Products", [{ field: "title", direction: "asc" }])),
+      S.listItem()
+        .title("Uncategorized")
+        .child(
+          S.documentTypeList("product")
+            .title("Uncategorized Products")
+            .schemaType("product")
+            .filter(`_type == "product" && coalesce(language, "en") == "en" && (!defined(categorySlugs) || count(categorySlugs) == 0)`)
+            .defaultOrdering([{ field: "title", direction: "asc" }])
+            .initialValueTemplates([S.initialValueTemplateItem("product-en", { language: "en" })]),
+        ),
+      S.divider(),
+      ...productCategoryGroups.map((category) => productCategoryListItem(S, category)),
+    ]);
 }
 
 function allLanguageList(S: StructureBuilder, schemaType: string, title: string) {
@@ -138,7 +249,7 @@ export const structure: StructureResolver = (S) =>
             .items([
               S.listItem()
                 .title("Add or Edit Products")
-                .child(dailyList(S, "product", "Products", [{ field: "title", direction: "asc" }])),
+                .child(productsDashboard(S)),
               S.listItem()
                 .title("Add or Edit News")
                 .child(dailyList(S, "blogPost", "News", [{ field: "publishedAt", direction: "desc" }])),
@@ -167,7 +278,7 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       S.listItem()
         .title("Products")
-        .child(dailyList(S, "product", "Products", [{ field: "title", direction: "asc" }])),
+        .child(productsDashboard(S)),
       S.listItem()
         .title("News")
         .child(

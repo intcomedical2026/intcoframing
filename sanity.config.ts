@@ -27,10 +27,31 @@ export default defineConfig({
           id: `${schemaType}-${language}`,
           title: templateTitle(schemaType, language),
           schemaType,
-          parameters: [{ name: "language", type: "string" }],
-          value: ({ language: templateLanguage, category }: { language?: string; category?: string }) => ({
+          parameters: [
+            { name: "language", type: "string" },
+            { name: "category", type: "string" },
+            { name: "categorySlugs", type: "array" },
+            { name: "mainCategorySlug", type: "string" },
+          ],
+          value: ({
+            language: templateLanguage,
+            category,
+            categorySlugs,
+            mainCategorySlug,
+          }: {
+            language?: string;
+            category?: string;
+            categorySlugs?: string[];
+            mainCategorySlug?: string;
+          }) => ({
             language: templateLanguage || language,
-            ...(schemaType === "product" ? { brand: "INTCO Framing" } : {}),
+            ...(schemaType === "product"
+              ? {
+                  brand: "INTCO Framing",
+                  ...(categorySlugs?.length ? { categorySlugs } : {}),
+                  ...(mainCategorySlug ? { mainCategorySlug } : {}),
+                }
+              : {}),
             ...(schemaType === "blogPost" && category ? { category } : {}),
           }),
         })),
