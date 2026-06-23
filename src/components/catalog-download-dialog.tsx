@@ -2,50 +2,26 @@
 
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { X } from "lucide-react";
-import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
-
-const CATALOG_DOWNLOAD_EVENT = "intco:catalog-download-complete";
-const LEADSCLOUD_RERENDER_EVENT = "intco:leadscloud-rerender";
+import { HubSpotCatalogDownloadForm } from "@/components/hubspot-forms";
+import type { Locale } from "@/lib/i18n";
 
 type CatalogDownloadButtonProps = {
   pdfUrl: string;
+  catalogName?: string;
+  locale: Locale;
   className?: string;
   children: ReactNode;
 };
 
-function setDownloadHref(pdfUrl: string) {
-  const anchor = document.getElementById("goPdf");
-  if (anchor instanceof HTMLAnchorElement) {
-    anchor.href = pdfUrl;
-  }
-}
-
-function clearDownloadHref() {
-  const anchor = document.getElementById("goPdf");
-  if (anchor instanceof HTMLAnchorElement) {
-    anchor.removeAttribute("href");
-  }
-}
-
-export function CatalogDownloadButton({ pdfUrl, className, children }: CatalogDownloadButtonProps) {
+export function CatalogDownloadButton({ pdfUrl, catalogName, locale, className, children }: CatalogDownloadButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const titleId = useId();
 
   useEffect(() => {
     if (!isOpen) return;
 
-    const closeAfterDownload = () => setIsOpen(false);
-    window.dispatchEvent(new Event(LEADSCLOUD_RERENDER_EVENT));
-    window.addEventListener(CATALOG_DOWNLOAD_EVENT, closeAfterDownload);
-    return () => window.removeEventListener(CATALOG_DOWNLOAD_EVENT, closeAfterDownload);
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) return;
-
     function onKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
-        clearDownloadHref();
         setIsOpen(false);
       }
     }
@@ -60,7 +36,6 @@ export function CatalogDownloadButton({ pdfUrl, className, children }: CatalogDo
         type="button"
         className={className}
         onClick={() => {
-          setDownloadHref(pdfUrl);
           setIsOpen(true);
         }}
       >
@@ -69,7 +44,6 @@ export function CatalogDownloadButton({ pdfUrl, className, children }: CatalogDo
       {isOpen ? (
         <div className="intco-catalog-modal" role="presentation" onMouseDown={(event) => {
           if (event.target === event.currentTarget) {
-            clearDownloadHref();
             setIsOpen(false);
           }
         }}>
@@ -78,10 +52,7 @@ export function CatalogDownloadButton({ pdfUrl, className, children }: CatalogDo
               type="button"
               className="intco-catalog-dialog-close"
               aria-label="Close"
-              onClick={() => {
-                clearDownloadHref();
-                setIsOpen(false);
-              }}
+              onClick={() => setIsOpen(false)}
             >
               <X size={18} aria-hidden="true" />
             </button>
@@ -90,7 +61,7 @@ export function CatalogDownloadButton({ pdfUrl, className, children }: CatalogDo
             </h2>
             <div className="pop-d-from intco-catalog-download-form">
               <div className="pdf-inner">
-                <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.catalogDownload)} />
+                <HubSpotCatalogDownloadForm locale={locale} catalogName={catalogName} catalogUrl={pdfUrl} downloadOnSuccess onSuccess={() => setIsOpen(false)} />
               </div>
             </div>
           </div>

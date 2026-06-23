@@ -3117,6 +3117,42 @@ summary::-webkit-details-marker {
   color: #fff;
 }
 
+.intco-hubspot-honeypot {
+  display: none !important;
+}
+
+.intco-hubspot-privacy,
+.intco-hubspot-form-status {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
+.intco-hubspot-privacy {
+  color: #777777;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.intco-hubspot-form-status {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.intco-hubspot-form-status.is-success {
+  color: #167a52;
+}
+
+.intco-hubspot-form-status.is-error {
+  color: #c0392b;
+}
+
+.xhl-submit:disabled,
+.intco-footer-newsletter-fallback button:disabled {
+  cursor: not-allowed !important;
+  opacity: 0.68;
+}
+
 @media (max-width: 650px) {
   .intco-leadscloud-main-form {
     max-width: 350px;
@@ -5338,7 +5374,7 @@ summary::-webkit-details-marker {
 }
 
 .footerBox .h-search {
-  min-height: 78px;
+  min-height: 106px;
   position: relative;
   width: 388px;
 }
@@ -5387,15 +5423,18 @@ summary::-webkit-details-marker {
 
 .footerBox .h-search #xhlFormSubmit,
 .footerBox .intco-footer-newsletter-fallback button {
+  align-items: center;
   background: #484653;
   border: 0;
   border-radius: 6px;
   box-sizing: border-box;
   color: #ffffff;
   cursor: pointer;
+  display: flex;
   font-size: 18px;
   font-weight: 500;
   height: 78px;
+  justify-content: center;
   line-height: 78px;
   margin-top: 0;
   padding: 0;
@@ -5415,6 +5454,14 @@ summary::-webkit-details-marker {
   margin: 0;
   padding: 0;
   position: relative;
+}
+
+.footerBox .intco-hubspot-newsletter-status {
+  color: #ffffff;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-top: 10px;
+  width: 388px;
 }
 
 .footerBox .h-search:has(.xhl_form) .intco-footer-newsletter-fallback {
@@ -5555,7 +5602,7 @@ summary::-webkit-details-marker {
   }
 
   .footerBox .h-search {
-    min-height: 50px;
+    min-height: 78px;
     width: 100%;
   }
 
@@ -5564,6 +5611,10 @@ summary::-webkit-details-marker {
     height: 50px;
     line-height: 50px;
     width: 50px;
+  }
+
+  .footerBox .intco-hubspot-newsletter-status {
+    width: 100%;
   }
 
   .footerBox .FollowUs {
@@ -6108,7 +6159,8 @@ summary::-webkit-details-marker {
   text-align: center;
 }
 
-.intco-contact-form #xhlFormSubmit {
+.intco-contact-form #xhlFormSubmit,
+.intco-contact-form .xhl-submit {
   background: rgba(152, 119, 84, 0);
   border: 2px solid #484653;
   border-radius: 6px;
@@ -6127,7 +6179,8 @@ summary::-webkit-details-marker {
   width: 100%;
 }
 
-.intco-contact-form #xhlFormSubmit:hover {
+.intco-contact-form #xhlFormSubmit:hover,
+.intco-contact-form .xhl-submit:hover {
   background: #484653;
   color: #ffffff;
 }
@@ -6264,6 +6317,75 @@ summary::-webkit-details-marker {
 
 .intco-catalog-download-form .xhl_form {
   margin: 0 auto;
+}
+
+.intco-catalog-download-form fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.intco-catalog-download-form .xhl-control-group {
+  margin: 0 0 16px;
+}
+
+.intco-catalog-download-form .xhl-control-label {
+  color: #666666;
+  display: block;
+  font-size: 14px;
+  line-height: 24px;
+  margin: 0 0 6px;
+}
+
+.intco-catalog-download-form .xhl-controls {
+  position: relative;
+}
+
+.intco-catalog-download-form .xhl-input-xlarge {
+  background: #ffffff;
+  border: 1px solid #d8d8d8;
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #333333;
+  font-size: 16px;
+  height: 50px;
+  outline: none;
+  padding: 0 18px;
+  width: 100%;
+}
+
+.intco-catalog-download-form .xhl-form-tip {
+  color: #ff0000;
+  position: absolute;
+  right: -10px;
+  top: 0;
+}
+
+.intco-catalog-download-form .intco-hubspot-privacy {
+  margin-top: 4px;
+}
+
+.intco-catalog-download-form .intco-hubspot-form-status {
+  margin-top: 12px;
+}
+
+.intco-catalog-download-form .xhl-footer {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.intco-catalog-download-form .xhl-submit {
+  background: #484653;
+  border: 0;
+  border-radius: 28px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  height: 56px;
+  line-height: 56px;
+  padding: 0 34px;
+  text-align: center;
+  min-width: 180px;
 }
 
 .intco-contact-form-image-wrap {

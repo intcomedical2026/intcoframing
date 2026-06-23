@@ -3,6 +3,7 @@
 import { useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { CatalogDownloadButton } from "@/components/catalog-download-dialog";
+import type { Locale } from "@/lib/i18n";
 
 export type ProductCatalogManual = {
   title: string;
@@ -14,9 +15,10 @@ export type ProductCatalogManual = {
 type ProductCatalogTabsProps = {
   manuals: ProductCatalogManual[];
   exploreMoreLabel: string;
+  locale: Locale;
 };
 
-export function ProductCatalogTabs({ manuals, exploreMoreLabel }: ProductCatalogTabsProps) {
+export function ProductCatalogTabs({ manuals, exploreMoreLabel, locale }: ProductCatalogTabsProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   function selectManual(index: number) {
@@ -69,7 +71,7 @@ export function ProductCatalogTabs({ manuals, exploreMoreLabel }: ProductCatalog
                       <div className="DESC MANUALDESC">{manual.description}</div>
                     </div>
                     <div className="flexContent DownloadBTN">
-                      <CatalogDownloadButton pdfUrl={manual.pdfUrl} className="selectBtn hc-down">
+                      <CatalogDownloadButton pdfUrl={manual.pdfUrl} catalogName={manual.title} locale={locale} className="selectBtn hc-down">
                         {exploreMoreLabel}
                         <i className="iconfont icon-a-xiazai2" aria-hidden="true" />
                       </CatalogDownloadButton>

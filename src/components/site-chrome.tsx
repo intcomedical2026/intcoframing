@@ -3,10 +3,10 @@ import Link from "next/link";
 import { Languages, Mail, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
-import { LeadsCloudChatRuntime, LeadsCloudFormsRuntime } from "@/components/leadscloud-runtime";
+import { HubSpotNewsletterForm } from "@/components/hubspot-forms";
+import { LeadsCloudChatRuntime } from "@/components/leadscloud-runtime";
 import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
-import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
 import type { ProductCategory, SiteSettings, Solution } from "@/lib/site-data";
 
 type ChromeProps = {
@@ -83,7 +83,6 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
       <CookieBanner locale={locale} currentPath={currentPath} />
       <LeadsCloudChatRuntime />
-      <LeadsCloudFormsRuntime />
     </div>
   );
 }
@@ -396,15 +395,8 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
 
               <ul>
                 <div className="topTitle topTitleLast">{t(locale, "newsletter")}</div>
-                <div className="h-search intco-leadscloud-newsletter" aria-label={t(locale, "newsletter")}>
-                  <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.footerNewsletter)} />
-                  <form className="intco-footer-newsletter-fallback" action={href("/contact")} method="get">
-                    <label className="sr-only" htmlFor="footer-newsletter-email">
-                      {t(locale, "email")}
-                    </label>
-                    <input id="footer-newsletter-email" name="email" type="email" placeholder={t(locale, "email")} />
-                    <button type="submit">{t(locale, "submit")}</button>
-                  </form>
+                <div className="h-search intco-hubspot-newsletter" aria-label={t(locale, "newsletter")}>
+                  <HubSpotNewsletterForm locale={locale} />
                 </div>
                 <div className="FollowUs">
                   {t(locale, "followUs")}

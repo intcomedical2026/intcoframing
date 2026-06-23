@@ -61,6 +61,7 @@ import { SolutionsServicesSection, type SolutionsServiceItem } from "@/component
 import { SustainabilitySavingsTabs, SustainabilityVideoButton } from "@/components/sustainability-interactions";
 import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
 import { ContactMapTabs, type ContactFactory } from "@/components/contact-map-tabs";
+import { HubSpotCatalogDownloadForm, HubSpotMainInquiryForm } from "@/components/hubspot-forms";
 import {
   SourceProductAboutTabs,
   SourceProductGallery,
@@ -69,7 +70,6 @@ import {
   type SourceColorChoice,
   type SourceRelatedProductItem,
 } from "@/components/product-detail-source-interactions";
-import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
 import { SOURCE_CATEGORY_LISTING_SNAPSHOTS } from "@/lib/source-category-listing-snapshots";
 import { SOURCE_EMPTY_SEARCH_RESULTS, SOURCE_SEARCH_PAGE_SIZE, type SourceSearchResultItem } from "@/lib/source-search-results";
 
@@ -4141,7 +4141,7 @@ function ProductCatalogSection({ title, description, categories, locale }: { tit
         <div className="ipd-20 margin-project-c">
           <ProductSourceTitle title={t(locale, "catalog")} />
           <ProductSectionDescription first={title} second={description} className="intco-product-catalog-desc" />
-          <ProductCatalogTabs manuals={localizedManuals} exploreMoreLabel={t(locale, "exploreMore")} />
+          <ProductCatalogTabs manuals={localizedManuals} exploreMoreLabel={t(locale, "exploreMore")} locale={locale} />
         </div>
       </div>
     </section>
@@ -4172,7 +4172,7 @@ function ProductContactSection({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-[1600px]">
         <ProductSourceTitle title={t(locale, "getInTouch")} />
         <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1006px] lg:mt-[55px]">
-          <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
+          <HubSpotMainInquiryForm locale={locale} />
         </div>
       </div>
     </section>
@@ -4792,7 +4792,7 @@ function PictureFrameContactSection({ locale }: { locale: Locale }) {
       <div className="intco-source-container px-5">
         <PictureFrameSectionTitle title={t(locale, "getInTouch")} />
         <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1006px] pb-[77px] lg:mt-[55px]">
-          <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
+          <HubSpotMainInquiryForm locale={locale} />
         </div>
       </div>
     </section>
@@ -5557,18 +5557,16 @@ function BusinessInsightsTrendReportView({ locale, report }: { locale: Locale; r
           </p>
           <div className="intco-business-trend-report-message">
             <div className="intco-business-trend-report-grid">
-            <div className="intco-business-trend-report-form intco-leadscloud-localized-form" data-reveal="fade">
-              <div className="BURY_CODE_5d7b74d8ea0b4f4fb26aa05682c8ae4e">
-                <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.catalogDownload)} />
+              <div className="intco-business-trend-report-form intco-hubspot-localized-form" data-reveal="fade">
+                <HubSpotCatalogDownloadForm locale={locale} catalogName={reportTitle} catalogUrl={report.pdfUrl} downloadOnSuccess />
               </div>
-            </div>
-            <div className="intco-business-trend-report-cover" data-reveal="fade">
-              <a href={report.pdfUrl} className="group block" aria-label={`${copy.downloadAria}: ${reportTitle}`}>
-                <span className="relative block aspect-[500/422] overflow-hidden bg-white">
-                  <Image src={report.coverUrl} alt={reportTitle} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 500px, 100vw" />
-                </span>
-              </a>
-            </div>
+              <div className="intco-business-trend-report-cover" data-reveal="fade">
+                <a href={report.pdfUrl} className="group block" aria-label={`${copy.downloadAria}: ${reportTitle}`}>
+                  <span className="relative block aspect-[500/422] overflow-hidden bg-white">
+                    <Image src={report.coverUrl} alt={reportTitle} fill className="object-cover transition duration-700 group-hover:scale-105" sizes="(min-width: 1024px) 500px, 100vw" />
+                  </span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -9188,8 +9186,8 @@ function ContactSampleSection({ locale }: { locale: Locale }) {
           {contactIntro}
         </div>
         <div className="msg-grid intco-contact-message-grid">
-          <div className={`text intco-contact-form ${leadsCloudBuryClass("5d7b74d8ea0b4f4fb26aa05682c8ae4e")}`} data-reveal="source-down">
-            <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.main)} />
+          <div className="text intco-contact-form" data-reveal="source-down">
+            <HubSpotMainInquiryForm locale={locale} />
           </div>
           <div className="imgshow intco-contact-form-image-wrap" data-reveal="source-up">
             <div className="intco-contact-form-image">

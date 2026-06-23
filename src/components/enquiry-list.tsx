@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n";
-import { LEADSCLOUD_FORM_IDS, leadsCloudBuryClass } from "@/lib/leadscloud";
+import { HubSpotEnquiryCartForm } from "@/components/hubspot-forms";
 
 type CartItem = {
   slug: string;
@@ -25,8 +25,7 @@ type LeadsCloudProductItem = {
   newsize: string[];
 };
 
-export function EnquiryList({ locale: _locale }: { locale: Locale }) {
-  void _locale;
+export function EnquiryList({ locale }: { locale: Locale }) {
   const [items, setItems] = useState<LeadsCloudProductItem[]>([]);
   const [notice, setNotice] = useState("");
 
@@ -171,10 +170,15 @@ export function EnquiryList({ locale: _locale }: { locale: Locale }) {
             </div>
             <div className="wow fadeInDown rightBox">
               <div className="from-box wow fadeInDown">
-                <div className={leadsCloudBuryClass("5d7b74d8ea0b4f4fb26aa05682c8ae4e")}>
-                  <div className={leadsCloudBuryClass(LEADSCLOUD_FORM_IDS.enquiryCart)} />
-                </div>
-                <EnquiryListFormFallback />
+                <HubSpotEnquiryCartForm
+                  locale={locale}
+                  items={items}
+                  onSuccess={() => {
+                    clearOriginalProductList();
+                    setItems([]);
+                    showNotice("Successfully Submitted");
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -186,40 +190,6 @@ export function EnquiryList({ locale: _locale }: { locale: Locale }) {
         ) : null}
       </div>
     </section>
-  );
-}
-
-function EnquiryListFormFallback() {
-  const fields = [
-    { id: "xhl00", label: "姓名", placeholder: "Name ", required: true, className: "xhl-input-xlarge xhl-valtype a1009 choose" },
-    { id: "xhl01", label: "邮箱", placeholder: "Email ", required: true, className: "xhl-input-xlarge xhl-valtype a10010 choose" },
-    { id: "xhl02", label: "国家地区", placeholder: "Country ", required: true, className: "xhl-input-xlarge xhl-valtype a1003 choose" },
-    { id: "xhl03", label: "电话", placeholder: "Phone", required: false, className: "xhl-input-xlarge xhl-valtype a10012" },
-    { id: "xhl04", label: "WhatsApp", placeholder: "WhatsApp ", required: false, className: "xhl-input-xlarge xhl-valtype a10052" },
-    { id: "xhl05", label: "公司名称", placeholder: "Company Name ", required: false, className: "xhl-input-xlarge xhl-valtype a1001" },
-  ];
-
-  return (
-    <form className="intco-enquiry-form-fallback" aria-label="Enquiry form">
-      <fieldset>
-        {fields.map((field) => (
-          <div key={field.id} className="usedComp xhl-control-group xhl-form-input component">
-            <label className="xhl-control-label inpt" id={field.id}>
-              {field.label}
-            </label>
-            <div className="xhl-controls">
-              <input className={field.className} placeholder={field.placeholder} aria-labelledby={field.id} />
-              {field.required ? <span className="xhl-form-tip">*</span> : null}
-            </div>
-          </div>
-        ))}
-      </fieldset>
-      <div className="xhl-footer">
-        <button type="button" className="xhl-submit ga_submit_bury_form intco-enquiry-fallback-submit">
-          提交
-        </button>
-      </div>
-    </form>
   );
 }
 
@@ -246,6 +216,12 @@ function readOriginalProductList() {
 function writeOriginalProductList(items: LeadsCloudProductItem[]) {
   localStorage.setItem("productList", JSON.stringify(items));
   document.cookie = "withProduct=true; path=/; max-age=2592000";
+}
+
+function clearOriginalProductList() {
+  localStorage.removeItem("productList");
+  localStorage.removeItem("intco-enquiry-cart");
+  document.cookie = "withProduct=; path=/; max-age=0";
 }
 
 function normalizeOriginalItem(item: LeadsCloudProductItem): LeadsCloudProductItem {
