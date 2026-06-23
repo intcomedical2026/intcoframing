@@ -7,13 +7,15 @@ export type ContactFactory = {
   title: string;
   address: string;
   zip: string;
+  lat: number;
+  lng: number;
   mapUrl: string;
 };
 
 export function ContactMapTabs({ factories, locale }: { factories: ContactFactory[]; locale: Locale }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeFactory = factories[activeIndex] || factories[0];
-  const mapUrl = localizeGoogleMapUrl(activeFactory.mapUrl, locale);
+  const mapTiles = buildMapTiles(activeFactory);
   const mapLink = googleMapSearchUrl(activeFactory.address);
   const mapLinkLabel = googleMapLinkLabel[locale] || googleMapLinkLabel.en;
 
@@ -43,13 +45,20 @@ export function ContactMapTabs({ factories, locale }: { factories: ContactFactor
 
       <section className="intco-contact-index intco-contact-map-section">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="intco-contact-map-frame" data-reveal="fade" data-has-map="false">
-            <div className="intco-contact-map-fallback">
-              <i className="intco-source-iconfont intco-source-icon-location" aria-hidden="true" />
-              <span className="intco-contact-map-label">{activeFactory.title}</span>
-              <strong>{activeFactory.address}</strong>
-              <span>{activeFactory.zip}</span>
-              <a href={mapLink || mapUrl} target="_blank" rel="noopener noreferrer">
+          <div className="intco-contact-map-frame" data-reveal="fade" data-has-map="true">
+            <div className="intco-contact-tile-map" role="img" aria-label={`${activeFactory.title} map`}>
+              <div className="intco-contact-tile-map-inner" style={{ gridTemplateColumns: `repeat(${mapTiles.columns}, 256px)` }}>
+                {mapTiles.tiles.map((tile) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img key={`${tile.x}-${tile.y}`} src={tile.url} alt="" loading="lazy" decoding="async" />
+                ))}
+              </div>
+              <span className="intco-contact-map-marker" aria-hidden="true" />
+              <span className="intco-contact-map-attribution">© OpenStreetMap contributors © CARTO</span>
+            </div>
+            <div className="intco-contact-map-overlay">
+              <span>{activeFactory.title}</span>
+              <a href={mapLink || activeFactory.mapUrl} target="_blank" rel="noopener noreferrer">
                 {mapLinkLabel}
               </a>
             </div>
@@ -58,6 +67,46 @@ export function ContactMapTabs({ factories, locale }: { factories: ContactFactor
       </section>
     </>
   );
+}
+
+type ContactMapTile = {
+  x: number;
+  y: number;
+  url: string;
+};
+
+function buildMapTiles(factory: ContactFactory) {
+  const zoom = 13;
+  const columns = 7;
+  const rows = 5;
+  const center = lngLatToTile(factory.lng, factory.lat, zoom);
+  const tiles: ContactMapTile[] = [];
+
+  for (let row = -Math.floor(rows / 2); row <= Math.floor(rows / 2); row += 1) {
+    for (let column = -Math.floor(columns / 2); column <= Math.floor(columns / 2); column += 1) {
+      const x = center.x + column;
+      const y = center.y + row;
+      tiles.push({ x, y, url: contactMapTileUrl(x, y, zoom) });
+    }
+  }
+
+  return { columns, tiles };
+}
+
+function lngLatToTile(lng: number, lat: number, zoom: number) {
+  const latRadians = (lat * Math.PI) / 180;
+  const scale = 2 ** zoom;
+
+  return {
+    x: Math.floor(((lng + 180) / 360) * scale),
+    y: Math.floor(((1 - Math.log(Math.tan(latRadians) + 1 / Math.cos(latRadians)) / Math.PI) / 2) * scale),
+  };
+}
+
+function contactMapTileUrl(x: number, y: number, zoom: number) {
+  const subdomains = ["a", "b", "c", "d"];
+  const subdomain = subdomains[Math.abs(x + y) % subdomains.length];
+  return `https://${subdomain}.basemaps.cartocdn.com/light_all/${zoom}/${x}/${y}.png`;
 }
 
 function googleMapSearchUrl(address: string) {
@@ -69,15 +118,6 @@ function googleMapSearchUrl(address: string) {
   return url.toString();
 }
 
-const googleMapLanguage: Record<Locale, { language: string; region: string }> = {
-  en: { language: "en", region: "US" },
-  es: { language: "es", region: "ES" },
-  pt: { language: "pt", region: "BR" },
-  fr: { language: "fr", region: "FR" },
-  de: { language: "de", region: "DE" },
-  ja: { language: "ja", region: "JP" },
-};
-
 const googleMapLinkLabel: Record<Locale, string> = {
   en: "Open in Google Maps",
   es: "Abrir en Google Maps",
@@ -86,25 +126,3 @@ const googleMapLinkLabel: Record<Locale, string> = {
   de: "In Google Maps öffnen",
   ja: "Google マップで開く",
 };
-
-function localizeGoogleMapUrl(source: string, locale: Locale) {
-  const config = googleMapLanguage[locale] || googleMapLanguage.en;
-
-  try {
-    const url = new URL(source);
-    const pb = url.searchParams.get("pb");
-
-    if (pb) {
-      url.searchParams.set("pb", pb.replace(/!1s[a-z]{2}(?:-[A-Z]{2})?!2s/g, `!1s${config.language}!2s`));
-    }
-
-    url.searchParams.set("hl", config.language);
-    url.searchParams.set("language", config.language);
-    url.searchParams.set("region", config.region);
-
-    return url.toString();
-  } catch {
-    const separator = source.includes("?") ? "&" : "?";
-    return `${source}${separator}hl=${config.language}&language=${config.language}&region=${config.region}`;
-  }
-}

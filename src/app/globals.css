@@ -5995,6 +5995,108 @@ summary::-webkit-details-marker {
   width: 100%;
 }
 
+.intco-contact-tile-map {
+  height: 550px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.intco-contact-tile-map-inner {
+  display: grid;
+  height: 1280px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1792px;
+}
+
+.intco-contact-tile-map-inner img {
+  display: block;
+  height: 256px;
+  width: 256px;
+}
+
+.intco-contact-map-marker {
+  background: #6fb44e;
+  border: 3px solid #ffffff;
+  border-radius: 50% 50% 50% 0;
+  box-shadow: 0 6px 14px rgba(72, 70, 83, 0.24);
+  display: block;
+  height: 28px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -100%) rotate(-45deg);
+  width: 28px;
+  z-index: 1;
+}
+
+.intco-contact-map-marker::after {
+  background: #ffffff;
+  border-radius: 50%;
+  content: "";
+  height: 8px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+}
+
+.intco-contact-map-attribution {
+  background: rgba(255, 255, 255, 0.86);
+  bottom: 0;
+  color: #484653;
+  font-size: 11px;
+  line-height: 1.2;
+  padding: 4px 8px;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.intco-contact-map-overlay {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.94);
+  bottom: 24px;
+  box-shadow: 0 10px 30px rgba(72, 70, 83, 0.16);
+  color: #484653;
+  display: flex;
+  gap: 18px;
+  padding: 14px 16px 14px 20px;
+  position: absolute;
+  right: 24px;
+  z-index: 1;
+}
+
+.intco-contact-map-overlay span {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.intco-contact-map-overlay a {
+  align-items: center;
+  border: 1px solid #484653;
+  color: #484653;
+  display: inline-flex;
+  font-size: 14px;
+  font-weight: 600;
+  height: 36px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 16px;
+  transition: background 200ms, color 200ms;
+  white-space: nowrap;
+}
+
+.intco-contact-map-overlay a:hover {
+  background: #484653;
+  color: #ffffff;
+}
+
 .intco-contact-map-fallback {
   align-items: center;
   background: linear-gradient(135deg, #ededed 0%, #dcdcdc 100%);
@@ -9126,6 +9228,30 @@ summary::-webkit-details-marker {
   .intco-contact-map-frame,
   .intco-contact-map-fallback {
     min-height: 280px;
+  }
+
+  .intco-contact-tile-map,
+  .intco-contact-map-frame iframe {
+    height: 280px;
+  }
+
+  .intco-contact-tile-map-inner {
+    transform: translate(-50%, -50%) scale(0.72);
+  }
+
+  .intco-contact-map-overlay {
+    align-items: stretch;
+    bottom: 12px;
+    flex-direction: column;
+    gap: 10px;
+    left: 12px;
+    padding: 12px;
+    right: 12px;
+  }
+
+  .intco-contact-map-overlay a {
+    height: 38px;
+    width: 100%;
   }
 
   .intco-contact-map-fallback {

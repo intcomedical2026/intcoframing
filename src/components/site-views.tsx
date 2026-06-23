@@ -480,6 +480,8 @@ const CONTACT_FACTORIES: ContactFactory[] = [
     title: "Zibo Factory",
     address: "Qingtian Road, Qilu Chemical Industrial Park, Zibo, Shandong, China",
     zip: "Zip Code: 255414",
+    lat: 36.80707716313149,
+    lng: 118.2205699495053,
     mapUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.8953210238024!2d118.2205699495053!3d36.80707716313149!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35eaeb718bb68031%3A0x1be93d82102dfb49!2z6Iux56eR5Zu96ZmF!5e0!3m2!1sen!2s!4v1707203861992!5m2!1sen!2s",
   },
@@ -487,6 +489,8 @@ const CONTACT_FACTORIES: ContactFactory[] = [
     title: "Shanghai Factory",
     address: "No. 1299 Hubin Road, Fengxian District. Shanghai 201417, China",
     zip: "Zip Code: 201417",
+    lat: 30.815814515989736,
+    lng: 121.44445908788926,
     mapUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3426.529914858967!2d121.44445908788926!3d30.815814515989736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35b29a062652a48d%3A0x91572df7921c48a1!2sHu%20Bin%20Lu%2C%20Feng%20Xian%20Qu%2C%20Shang%20Hai%20Shi%2C%20China%2C%20201424!5e0!3m2!1sen!2s!4v1707203884177!5m2!1sen!2s",
   },
@@ -494,6 +498,8 @@ const CONTACT_FACTORIES: ContactFactory[] = [
     title: "Vietnam Factory",
     address: "Lot CN - 01/02 And CN - 01/03, South Of Zone A Bim Son Industrial Park, Bac Son Ward, Bim Son Town, Thanh Hoa, Vietnam",
     zip: "Zip Code: 444964",
+    lat: 20.10332201891823,
+    lng: 105.84062237598233,
     mapUrl:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3746.735946325924!2d105.84062237598233!3d20.10332201891823!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31366367ff3917ed%3A0xbfcafdb0c07ecdf7!2sIntco%20Industries%20Vietnam%20Co.%2C%20Ltd!5e0!3m2!1sen!2s!4v1707203919001!5m2!1sen!2s",
   },
