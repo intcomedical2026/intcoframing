@@ -14,6 +14,8 @@ export function ContactMapTabs({ factories, locale }: { factories: ContactFactor
   const [activeIndex, setActiveIndex] = useState(0);
   const activeFactory = factories[activeIndex] || factories[0];
   const mapUrl = localizeGoogleMapUrl(activeFactory.mapUrl, locale);
+  const mapLink = googleMapSearchUrl(activeFactory.address);
+  const mapLinkLabel = googleMapLinkLabel[locale] || googleMapLinkLabel.en;
 
   return (
     <>
@@ -41,23 +43,30 @@ export function ContactMapTabs({ factories, locale }: { factories: ContactFactor
 
       <section className="intco-contact-index intco-contact-map-section">
         <div className="intco-source-container px-5 min-[1601px]:px-0">
-          <div className="intco-contact-map-frame" data-reveal="fade">
-            <iframe
-              key={`${activeFactory.title}-${locale}`}
-              src={mapUrl}
-              title={`${activeFactory.title} map`}
-              width="100%"
-              height="550"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+          <div className="intco-contact-map-frame" data-reveal="fade" data-has-map="false">
+            <div className="intco-contact-map-fallback">
+              <i className="intco-source-iconfont intco-source-icon-location" aria-hidden="true" />
+              <span className="intco-contact-map-label">{activeFactory.title}</span>
+              <strong>{activeFactory.address}</strong>
+              <span>{activeFactory.zip}</span>
+              <a href={mapLink || mapUrl} target="_blank" rel="noopener noreferrer">
+                {mapLinkLabel}
+              </a>
+            </div>
           </div>
         </div>
       </section>
     </>
   );
+}
+
+function googleMapSearchUrl(address: string) {
+  if (!address) return "";
+
+  const url = new URL("https://www.google.com/maps/search/");
+  url.searchParams.set("api", "1");
+  url.searchParams.set("query", address);
+  return url.toString();
 }
 
 const googleMapLanguage: Record<Locale, { language: string; region: string }> = {
@@ -67,6 +76,15 @@ const googleMapLanguage: Record<Locale, { language: string; region: string }> = 
   fr: { language: "fr", region: "FR" },
   de: { language: "de", region: "DE" },
   ja: { language: "ja", region: "JP" },
+};
+
+const googleMapLinkLabel: Record<Locale, string> = {
+  en: "Open in Google Maps",
+  es: "Abrir en Google Maps",
+  pt: "Abrir no Google Maps",
+  fr: "Ouvrir dans Google Maps",
+  de: "In Google Maps öffnen",
+  ja: "Google マップで開く",
 };
 
 function localizeGoogleMapUrl(source: string, locale: Locale) {

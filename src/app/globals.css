@@ -5983,10 +5983,81 @@ summary::-webkit-details-marker {
   padding-top: 90px;
 }
 
+.intco-contact-map-frame {
+  background: #dedede;
+  min-height: 550px;
+  position: relative;
+}
+
 .intco-contact-map-frame iframe {
   display: block;
   height: 550px;
   width: 100%;
+}
+
+.intco-contact-map-fallback {
+  align-items: center;
+  background: linear-gradient(135deg, #ededed 0%, #dcdcdc 100%);
+  box-sizing: border-box;
+  color: #484653;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 550px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.intco-contact-map-fallback .intco-source-iconfont {
+  color: #484653;
+  font-size: 52px;
+  margin-bottom: 24px;
+}
+
+.intco-contact-map-label {
+  color: #484653;
+  display: block;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 18px;
+}
+
+.intco-contact-map-fallback strong {
+  display: block;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.6;
+  max-width: 780px;
+}
+
+.intco-contact-map-fallback span:not(.intco-contact-map-label) {
+  color: #363636;
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-top: 14px;
+}
+
+.intco-contact-map-fallback a {
+  align-items: center;
+  border: 1px solid #484653;
+  color: #484653;
+  display: inline-flex;
+  font-size: 15px;
+  font-weight: 600;
+  height: 44px;
+  justify-content: center;
+  line-height: 1;
+  margin-top: 28px;
+  min-width: 190px;
+  padding: 0 24px;
+  transition: background 200ms, color 200ms;
+}
+
+.intco-contact-map-fallback a:hover {
+  background: #484653;
+  color: #ffffff;
 }
 
 .intco-contact-support-section {
@@ -9050,6 +9121,35 @@ summary::-webkit-details-marker {
 
   .intco-contact-map-frame iframe {
     height: 280px;
+  }
+
+  .intco-contact-map-frame,
+  .intco-contact-map-fallback {
+    min-height: 280px;
+  }
+
+  .intco-contact-map-fallback {
+    padding: 32px 20px;
+  }
+
+  .intco-contact-map-fallback .intco-source-iconfont {
+    font-size: 38px;
+    margin-bottom: 16px;
+  }
+
+  .intco-contact-map-label {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .intco-contact-map-fallback strong {
+    font-size: 15px;
+  }
+
+  .intco-contact-map-fallback a {
+    height: 40px;
+    margin-top: 20px;
+    min-width: 170px;
   }
 
   .intco-contact-form-fields {
