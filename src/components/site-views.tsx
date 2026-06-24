@@ -7933,13 +7933,6 @@ function SourceBlogFooter({
         </div>
       </div>
 
-      <div className="intco-source-blog-warnings" aria-hidden="true">
-        <p><strong>Warning:</strong> Undefined variable $category in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>109</strong></p>
-        <p><strong>Warning:</strong> Attempt to read property &quot;term_id&quot; on null in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>109</strong></p>
-        <p><strong>Warning:</strong> Undefined variable $category in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>110</strong></p>
-        <p><strong>Warning:</strong> Attempt to read property &quot;term_id&quot; on null in <strong>/www/wwwroot/intcoframing-us.com/wp-content/themes/chengpin/single-news.php</strong> on line <strong>110</strong></p>
-      </div>
-
       <div className="flex-pagation">
         <div className="flex-pagation-item">
           {pageLink(previousPath, (
@@ -9441,7 +9434,7 @@ const sourceNoiseFragments = [
   "undefinierter array",
   "未定義の配列キー",
   "attempt to read property",
-  "/wp-content/themes/",
+  "themes/chengpin",
   "services we provide",
   "servicios que ofrecemos",
   "serviços que oferecemos",

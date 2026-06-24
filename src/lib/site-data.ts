@@ -543,26 +543,22 @@ function localizeSiteData(data: SiteData, locale: Locale): SiteData {
 
 function normalizeSiteAssetUrls(data: Partial<SiteData>): SiteData {
   const siteSettings = data.siteSettings || fallbackData.siteSettings;
+  const homePage = data.homePage || fallbackData.homePage;
   return {
-    siteSettings: {
-      ...siteSettings,
-      sourceSite: isOldSiteUrl(siteSettings.sourceSite) ? undefined : siteSettings.sourceSite,
-      logoUrl: encodeRemoteUrl(siteSettings.logoUrl),
-      footerLogoUrl: encodeRemoteUrl(siteSettings.footerLogoUrl),
-    },
-    homePage: {
-      ...(data.homePage || fallbackData.homePage),
-      heroSlides: (data.homePage?.heroSlides || fallbackData.homePage.heroSlides)?.map((slide) => ({
+    siteSettings: normalizeSiteSettings(siteSettings),
+    homePage: normalizeSeoContent({
+      ...homePage,
+      heroSlides: homePage.heroSlides?.map((slide) => ({
         ...slide,
         imageUrl: encodeRemoteUrl(slide.imageUrl),
       })),
-      companyProfile: data.homePage?.companyProfile
+      companyProfile: homePage.companyProfile
         ? {
-            ...data.homePage.companyProfile,
-            imageUrl: encodeRemoteUrl(data.homePage.companyProfile.imageUrl),
+            ...homePage.companyProfile,
+            imageUrl: encodeRemoteUrl(homePage.companyProfile.imageUrl),
           }
-        : data.homePage?.companyProfile,
-    },
+        : homePage.companyProfile,
+    }) as HomePage,
     productCategories: (data.productCategories || fallbackData.productCategories).map(normalizeImageLike),
     products: (data.products || fallbackData.products).map(normalizeImageLike),
     solutions: (data.solutions || fallbackData.solutions).map(normalizeImageLike),
@@ -572,15 +568,49 @@ function normalizeSiteAssetUrls(data: Partial<SiteData>): SiteData {
   };
 }
 
+function normalizeSiteSettings(siteSettings: SiteSettings): SiteSettings {
+  const normalized = normalizeSeoContent({
+    ...siteSettings,
+    logoUrl: encodeRemoteUrl(siteSettings.logoUrl),
+    footerLogoUrl: encodeRemoteUrl(siteSettings.footerLogoUrl),
+    sameAs: siteSettings.sameAs?.filter((url) => !isOldSiteUrl(url)),
+  }) as SiteSettings;
+  if (!normalized.sourceSite || isOldSiteUrl(normalized.sourceSite)) delete normalized.sourceSite;
+  if (!normalized.sameAs?.length) delete normalized.sameAs;
+  return normalized;
+}
+
 function normalizeImageLike<T extends ImageLike & { sourceUrl?: string; legacyUrls?: string[] }>(item: T): T {
-  return {
+  const normalized = normalizeSeoContent({
     ...item,
-    sourceUrl: isOldSiteUrl(item.sourceUrl) ? undefined : item.sourceUrl,
-    legacyUrls: item.legacyUrls?.filter((url) => !isOldSiteUrl(url)),
     imageUrl: encodeRemoteUrl(item.imageUrl),
     navImageUrl: encodeRemoteUrl(item.navImageUrl),
     galleryUrls: item.galleryUrls?.map(encodeRemoteUrl).filter(Boolean) as string[] | undefined,
-  };
+  }) as T & { sourceUrl?: string; legacyUrls?: string[] };
+  delete normalized.sourceUrl;
+  if (!normalized.legacyUrls?.length) delete normalized.legacyUrls;
+  return normalized as T;
+}
+
+function normalizeSeoContent<T extends Partial<SeoContent>>(item: T): T {
+  const normalized = {
+    ...item,
+    legacyUrls: item.legacyUrls?.filter((url) => !isOldSiteUrl(url)),
+    evidence: item.evidence?.map((evidence) => {
+      const cleanEvidence = { ...evidence };
+      if (!cleanEvidence.sourceUrl || isOldSiteUrl(cleanEvidence.sourceUrl)) delete cleanEvidence.sourceUrl;
+      return cleanEvidence;
+    }),
+    seo: item.seo
+      ? {
+          ...item.seo,
+          ogImageUrl: encodeRemoteUrl(item.seo.ogImageUrl),
+        }
+      : item.seo,
+  } as T;
+  if (!normalized.legacyUrls?.length) delete normalized.legacyUrls;
+  if (!normalized.evidence?.length) delete normalized.evidence;
+  return normalized;
 }
 
 function encodeRemoteUrl(value?: string) {
