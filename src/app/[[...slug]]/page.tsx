@@ -607,12 +607,13 @@ const pageNumberLabels: Record<Locale, (page: string) => string> = {
 
 function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale): RouteMeta {
   if (path === "/") {
-    return {
+    const defaults = {
       title: `${data.homePage.title} | INTCO Framing`,
       description: data.siteSettings.description || "",
       image: data.homePage.heroSlides?.[0]?.imageUrl,
       imageAlt: data.homePage.heroSlides?.[0]?.title,
     };
+    return metadataFromItem(data.homePage, data, defaults, locale);
   }
 
   if (path === "/projects" || path === "/projects/page/2" || path === "/projects/page/3" || path === "/projects/residential" || path === "/projects/commercial") {
@@ -713,14 +714,14 @@ function metadataFromItem(item: MetadataItem | undefined, data: Awaited<ReturnTy
   }
   const metaTitle = localizeMetaTitleSuffix(item.metaTitle, locale);
   return {
-    title: item.seo?.seoTitle || metaTitle || defaults?.title || `${item.title} | INTCO Framing`,
+    title: item.seo?.seoTitle ?? metaTitle ?? defaults?.title ?? `${item.title} | INTCO Framing`,
     description:
-      item.seo?.seoDescription ||
-      item.metaDescription ||
-      defaults?.description ||
-      item.description ||
-      item.excerpt ||
-      data.siteSettings.description ||
+      item.seo?.seoDescription ??
+      item.metaDescription ??
+      defaults?.description ??
+      item.description ??
+      item.excerpt ??
+      data.siteSettings.description ??
       "",
     image: item.seo?.ogImageUrl || item.imageUrl || defaults?.image,
     imageAlt: item.seo?.imageAlt || item.imageAlt || defaults?.imageAlt || item.title,
