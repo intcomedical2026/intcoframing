@@ -50,7 +50,7 @@ export function SourceCategoryAddCartButton({ productId, productLink, productNam
         }
         const nextItem: SourceCartItem = {
           productId,
-          productLink,
+          productLink: new URL(productLink, window.location.origin).toString(),
           productName,
           productImg,
           productQuantity: 1,

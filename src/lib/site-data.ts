@@ -219,6 +219,8 @@ const client = createClient({
   useCdn: !readToken,
 });
 
+const OLD_SITE_HOSTS = new Set(["www.intcoframing-us.com", "intcoframing-us.com"]);
+
 const seoListProjection = /* groq */ `
   language,
   translationGroup,
@@ -540,11 +542,13 @@ function localizeSiteData(data: SiteData, locale: Locale): SiteData {
 }
 
 function normalizeSiteAssetUrls(data: Partial<SiteData>): SiteData {
+  const siteSettings = data.siteSettings || fallbackData.siteSettings;
   return {
     siteSettings: {
-      ...(data.siteSettings || fallbackData.siteSettings),
-      logoUrl: encodeRemoteUrl(data.siteSettings?.logoUrl),
-      footerLogoUrl: encodeRemoteUrl(data.siteSettings?.footerLogoUrl),
+      ...siteSettings,
+      sourceSite: isOldSiteUrl(siteSettings.sourceSite) ? undefined : siteSettings.sourceSite,
+      logoUrl: encodeRemoteUrl(siteSettings.logoUrl),
+      footerLogoUrl: encodeRemoteUrl(siteSettings.footerLogoUrl),
     },
     homePage: {
       ...(data.homePage || fallbackData.homePage),
@@ -568,9 +572,11 @@ function normalizeSiteAssetUrls(data: Partial<SiteData>): SiteData {
   };
 }
 
-function normalizeImageLike<T extends ImageLike>(item: T): T {
+function normalizeImageLike<T extends ImageLike & { sourceUrl?: string; legacyUrls?: string[] }>(item: T): T {
   return {
     ...item,
+    sourceUrl: isOldSiteUrl(item.sourceUrl) ? undefined : item.sourceUrl,
+    legacyUrls: item.legacyUrls?.filter((url) => !isOldSiteUrl(url)),
     imageUrl: encodeRemoteUrl(item.imageUrl),
     navImageUrl: encodeRemoteUrl(item.navImageUrl),
     galleryUrls: item.galleryUrls?.map(encodeRemoteUrl).filter(Boolean) as string[] | undefined,
@@ -579,10 +585,20 @@ function normalizeImageLike<T extends ImageLike>(item: T): T {
 
 function encodeRemoteUrl(value?: string) {
   if (!value) return undefined;
+  if (isOldSiteUrl(value)) return undefined;
   try {
     return encodeURI(decodeURI(value));
   } catch {
     return encodeURI(value);
+  }
+}
+
+function isOldSiteUrl(value?: string) {
+  if (!value) return false;
+  try {
+    return OLD_SITE_HOSTS.has(new URL(value).hostname.toLowerCase());
+  } catch {
+    return false;
   }
 }
 

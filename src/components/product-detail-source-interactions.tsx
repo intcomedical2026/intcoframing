@@ -151,6 +151,7 @@ export function SourceProductPurchaseControls({
 
     productList.push({
       ...product,
+      productLink: new URL(product.productLink, window.location.origin).toString(),
       productQuantity: String(quantity),
       productColor: selectedColor,
       productItem: selectedItemNumber,

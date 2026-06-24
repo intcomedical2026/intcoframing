@@ -10,7 +10,6 @@ type CartItem = {
   title: string;
   path: string;
   sourceId?: number;
-  sourceUrl?: string;
   sku?: string;
   imageUrl?: string;
   quantity: number;
@@ -34,7 +33,7 @@ export function ProductQuotePanel({
   product,
 }: {
   locale: Locale;
-  product: { slug: string; title: string; path: string; sourceId?: number; sourceUrl?: string; sku?: string; imageUrl?: string };
+  product: { slug: string; title: string; path: string; sourceId?: number; sku?: string; imageUrl?: string };
 }) {
   const [quantity, setQuantity] = useState(1);
   const [added, setAdded] = useState(false);
@@ -101,7 +100,7 @@ export function ProductQuotePanel({
 function syncLeadsCloudProductList(items: CartItem[]) {
   const productList: LeadsCloudProductItem[] = items.map((item) => ({
     productId: item.sourceId ? String(item.sourceId) : item.slug,
-    productLink: item.sourceUrl || new URL(item.path, window.location.origin).toString(),
+    productLink: new URL(item.path, window.location.origin).toString(),
     productName: item.title,
     productImg: item.imageUrl || "",
     productQuantity: item.quantity,

@@ -4248,15 +4248,17 @@ function sourceCategoryListingSearchImage(path: string) {
 
 function sourceCategoryArchiveProducts(category: ProductCategory, products: Product[]): SourceCategoryArchiveProduct[] {
   const snapshotItems = SOURCE_CATEGORY_LISTING_SNAPSHOTS[category.path] || [];
-  if (snapshotItems.length) {
+  const snapshotByPath = new Map(snapshotItems.map((item) => [item.path, item]));
+  const snapshotBySourceId = new Map(snapshotItems.map((item) => [item.sourceId, item]));
+
+  if (!products.length && snapshotItems.length) {
     return snapshotItems.map((item) => {
-      const product = products.find((candidate) => String(candidate.sourceId || "") === item.sourceId || candidate.path === item.path);
       return {
         key: item.sourceId || item.path,
-        title: product?.title || item.title,
-        path: product?.path || item.path,
+        title: item.title,
+        path: item.path,
         imageUrl: item.imageUrl,
-        imageAlt: product?.imageAlt || item.title,
+        imageAlt: item.title,
         sourceId: item.sourceId,
         colors: item.colors,
       };
@@ -4264,7 +4266,8 @@ function sourceCategoryArchiveProducts(category: ProductCategory, products: Prod
   }
 
   return products.slice(0, 12).map((product) => {
-    const imageUrl = sourceCategoryListingSearchImage(product.path) || preferredImage(product) || PRODUCTS_HERO_IMAGE;
+    const snapshot = snapshotByPath.get(product.path) || snapshotBySourceId.get(String(product.sourceId || ""));
+    const imageUrl = preferredImage(product) || snapshot?.imageUrl || sourceCategoryListingSearchImage(product.path) || PRODUCTS_HERO_IMAGE;
     return {
       key: String(product.sourceId || product.slug),
       title: product.title,
@@ -4272,7 +4275,7 @@ function sourceCategoryArchiveProducts(category: ProductCategory, products: Prod
       imageUrl,
       imageAlt: product.imageAlt || product.title,
       sourceId: product.sourceId ? String(product.sourceId) : undefined,
-      colors: [],
+      colors: snapshot?.colors || [],
     };
   });
 }
@@ -4316,7 +4319,7 @@ function SourceCategoryArchiveCard({ item, locale }: { item: SourceCategoryArchi
     <li className="wow fadeInUp">
       <div className="Products1-right-item">
         <i className="list-love botche">
-          <SourceCategoryAddCartButton productId={item.sourceId || item.key} productLink={`https://www.intcoframing-us.com${item.path}/`} productName={item.title} productImg={item.imageUrl} productColor={item.colors[0]?.color || ""} />
+          <SourceCategoryAddCartButton productId={item.sourceId || item.key} productLink={localizePath(locale, item.path)} productName={item.title} productImg={item.imageUrl} productColor={item.colors[0]?.color || ""} />
         </i>
         <Link href={localizePath(locale, item.path)} className="img-box">
           <Image src={item.imageUrl} alt={item.imageAlt} title={item.title} fill className="object-contain" sizes="(min-width: 1024px) 260px, 50vw" />
@@ -6551,7 +6554,7 @@ type ProjectSourceDetailSnapshot = {
 };
 
 const PROJECT_SOURCE_BLOG_BLOOMBERG = {
-  href: "https://www.intcoframing-us.com/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released/",
+  href: "/news/the-2023-bloomberg-green-esg-50-companies-to-watch-list-is-officially-released/",
   imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/c0c66a43ed43152ada4d13eafd9d3f7e410a338e-1080x692.jpg",
   title: "The 2023 Bloomberg Green ESG…",
   date: "29 Jan 2024",
@@ -6559,7 +6562,7 @@ const PROJECT_SOURCE_BLOG_BLOOMBERG = {
 };
 
 const PROJECT_SOURCE_BLOG_MEDICINE_MIRROR = {
-  href: "https://www.intcoframing-us.com/news/the-major-materials-of-medicine-mirror-cabinet/",
+  href: "/news/the-major-materials-of-medicine-mirror-cabinet/",
   imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/1304805420f6e5ee0ccfa6bdcd180e0a013b47fe-800x511.jpg",
   title: "The Major Materials of Medic…",
   date: "29 Jan 2024",
@@ -6567,7 +6570,7 @@ const PROJECT_SOURCE_BLOG_MEDICINE_MIRROR = {
 };
 
 const PROJECT_SOURCE_BLOG_LED_BATHROOM = {
-  href: "https://www.intcoframing-us.com/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space/",
+  href: "/news/5-ways-an-led-bathroom-vanity-mirror-can-lmprove-your-space/",
   imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/1806276ee0c14b9b9bd56e338f59a4a9f7c7bb9e-800x533.jpg",
   title: "5 Ways an LED Bathroom Vanit…",
   date: "29 Jan 2024",
@@ -6580,135 +6583,135 @@ const PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG = [PROJECT_SOURCE_BLOG_LED_BATHROOM,
 const PROJECTS_SOURCE_DETAIL_SNAPSHOTS: Record<string, ProjectSourceDetailSnapshot> = {
   "/projects/living-room": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/neutral-minimalist-framed-abstract-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/95401b4ce58aaf00600ac74972077608f8658c16-1080x1080.jpg", title: "Neutral Minimalist Framed Abstract Wall Art" },
-      { href: "https://www.intcoframing-us.com/round-wood-decorative-mirror-for-wall/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/35b38303209b2db4e5cecbe1025fedcef72efea5-1080x1080.jpg", title: "Washed White Round Wood Decorative Mirror for Wall" },
-      { href: "https://www.intcoframing-us.com/art/canvas-art/modern-abstract-canvas-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/9120ac358e686bd5728f47a28796caeb13550f4a-1080x1080.jpg", title: "Modern Abstract Canvas Wall Art" },
+      { href: "/neutral-minimalist-framed-abstract-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/95401b4ce58aaf00600ac74972077608f8658c16-1080x1080.jpg", title: "Neutral Minimalist Framed Abstract Wall Art" },
+      { href: "/round-wood-decorative-mirror-for-wall/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/35b38303209b2db4e5cecbe1025fedcef72efea5-1080x1080.jpg", title: "Washed White Round Wood Decorative Mirror for Wall" },
+      { href: "/art/canvas-art/modern-abstract-canvas-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/9120ac358e686bd5728f47a28796caeb13550f4a-1080x1080.jpg", title: "Modern Abstract Canvas Wall Art" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg", title: "Bedroom" },
-      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg", title: "Dining Room" },
+      { href: "/projects/bedroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg", title: "Bedroom" },
+      { href: "/projects/dining-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg", title: "Dining Room" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/bedroom": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/canvas-art/large-framed-canvas-wall-art-abstract-neutral/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/6cb84a2de3622c91518a4b10b48253021c967ae8-1080x1080.jpg", title: "Large Framed Canvas Wall Art Abstract Neutral" },
-      { href: "https://www.intcoframing-us.com/natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/09ea9413566f0357014f69b31a67004cf2ff4042-1080x1080.jpg", title: "Natural Wood Wall & Tabletop Picture Frame with Plastic Frame" },
+      { href: "/art/canvas-art/large-framed-canvas-wall-art-abstract-neutral/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/6cb84a2de3622c91518a4b10b48253021c967ae8-1080x1080.jpg", title: "Large Framed Canvas Wall Art Abstract Neutral" },
+      { href: "/natural-wood-wall-tabletop-picture-frame-with-plastic-frame-11x14-in/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/09ea9413566f0357014f69b31a67004cf2ff4042-1080x1080.jpg", title: "Natural Wood Wall & Tabletop Picture Frame with Plastic Frame" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
-      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
+      { href: "/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
+      { href: "/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/bathroom": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/black-rectangular-medicine-cabinet-with-mirror-22x26-8-in/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/37a215cf76f626f7a04d8d9ebab283a5e0720b85-1080x1080.jpg", title: "Black Rectangular Medicine Cabinet with Mirror 22x26.8 in" },
-      { href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/4ed7f3effb2c253e623ce143ba1ba593bf997837-1080x1080.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" },
+      { href: "/black-rectangular-medicine-cabinet-with-mirror-22x26-8-in/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/37a215cf76f626f7a04d8d9ebab283a5e0720b85-1080x1080.jpg", title: "Black Rectangular Medicine Cabinet with Mirror 22x26.8 in" },
+      { href: "/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/4ed7f3effb2c253e623ce143ba1ba593bf997837-1080x1080.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/kitchen/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/eb11242f592f8c9114ea829817db66889d728891-1920x600.jpg", title: "Kitchen" },
-      { href: "https://www.intcoframing-us.com/projects/childrens-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/89b4c59e8ce555489d6be8ce837167c81fb45ef8-1920x600.jpg", title: "Children's Room" },
+      { href: "/projects/kitchen/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/eb11242f592f8c9114ea829817db66889d728891-1920x600.jpg", title: "Kitchen" },
+      { href: "/projects/childrens-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/89b4c59e8ce555489d6be8ce837167c81fb45ef8-1920x600.jpg", title: "Children's Room" },
     ],
     inspirationItems: [PROJECT_SOURCE_BLOG_LED_BATHROOM],
   },
   "/projects/dining-room": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f20befa5fb75f512a24b25b196c236f0fcee6b84-1080x1080.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" }],
+    usedItems: [{ href: "/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f20befa5fb75f512a24b25b196c236f0fcee6b84-1080x1080.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
-      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
+      { href: "/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
+      { href: "/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
   },
   "/projects/kitchen": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/4ed7f3effb2c253e623ce143ba1ba593bf997837-1080x1080.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" }],
+    usedItems: [{ href: "/aluminum-black-collage-picture-frame-with-2-4x6-and-2-6x8-openings/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/4ed7f3effb2c253e623ce143ba1ba593bf997837-1080x1080.jpg", title: "Aluminum Collage Picture Frame with 2-4x6 and 2-6x8 Openings" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/dining-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg", title: "Dining Room" },
-      { href: "https://www.intcoframing-us.com/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
+      { href: "/projects/dining-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/89acde9c8166abb67d259d867bd216b627f8e747-1920x600.jpg", title: "Dining Room" },
+      { href: "/projects/living-room/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5ce16cd5091a3670547c1fba432b74c29f8e1d30-1920x600.jpg", title: "Living Room" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
   },
   "/projects/childrens-room": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/french-floral-landscapes-illustrations-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/d04057d178f5bd219f7e9f6cb909ad2b88c5f048-1080x1080.jpg", title: "French Floral Landscapes Illustrations Framed Wall Art" },
-      { href: "https://www.intcoframing-us.com/art/framed-art/animal-giraffe-framed-wall-art-decor-piece-of-2/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/e5cb8370f0373446cba58ceff8ff9a09884249c5-1080x1080.jpg", title: "Animal Giraffe Framed Wall Art Decor Piece of 2" },
+      { href: "/french-floral-landscapes-illustrations-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/d04057d178f5bd219f7e9f6cb909ad2b88c5f048-1080x1080.jpg", title: "French Floral Landscapes Illustrations Framed Wall Art" },
+      { href: "/art/framed-art/animal-giraffe-framed-wall-art-decor-piece-of-2/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/e5cb8370f0373446cba58ceff8ff9a09884249c5-1080x1080.jpg", title: "Animal Giraffe Framed Wall Art Decor Piece of 2" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
-      { href: "https://www.intcoframing-us.com/projects/bedroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg", title: "Bedroom" },
+      { href: "/projects/bathroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/a01b0f5bbc659deccd2fa1b9d6aa90e9bcbb998d-1920x600.jpg", title: "Bathroom" },
+      { href: "/projects/bedroom/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5dbce0690de3ee1cad5c101630d2a7836acdfd9f-1920x600.jpg", title: "Bedroom" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_LED_AND_BLOOMBERG,
   },
   "/projects/hotel": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f20befa5fb75f512a24b25b196c236f0fcee6b84-1080x1080.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" },
-      { href: "https://www.intcoframing-us.com/wood-wall-mounted-picture-frame-11x14-matted-to-8x10/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/6e34961f3cd6d04ef6f065272f5056c58fcd7a88-1080x1080.jpg", title: "Wood Wall Mounted Picture Frame 11x14 Matted to 8x10" },
+      { href: "/art/canvas-art/uttermost-mystic-forest-hand-painted-art-with-frame/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f20befa5fb75f512a24b25b196c236f0fcee6b84-1080x1080.jpg", title: "Uttermost Mystic Forest Hand Painted Art with Frame" },
+      { href: "/wood-wall-mounted-picture-frame-11x14-matted-to-8x10/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/6e34961f3cd6d04ef6f065272f5056c58fcd7a88-1080x1080.jpg", title: "Wood Wall Mounted Picture Frame 11x14 Matted to 8x10" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
+      { href: "/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/office": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/framed-art/black-framed-abstract-wall-art-set-of-2/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/03f36fa5e9ae35e5d61123385238aa444e2980d1-1080x1080.jpg", title: "Black Framed Abstract Wall Art Set of 2" },
-      { href: "https://www.intcoframing-us.com/ps-framed-vintage-wood-grain-tabletop-photo-frame/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg", title: "PS Framed Vintage Wood Grain Tabletop Picture Frame" },
+      { href: "/art/framed-art/black-framed-abstract-wall-art-set-of-2/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/03f36fa5e9ae35e5d61123385238aa444e2980d1-1080x1080.jpg", title: "Black Framed Abstract Wall Art Set of 2" },
+      { href: "/ps-framed-vintage-wood-grain-tabletop-photo-frame/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/dff42f59e1e337d978fd8e58ddde7a4e468e62fb-1080x1080.jpg", title: "PS Framed Vintage Wood Grain Tabletop Picture Frame" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/school/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5c7f35f8591a4f5fc05ea7c0a91fd7ee14e28b61-1920x600.jpg", title: "School" },
+      { href: "/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "/projects/school/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/5c7f35f8591a4f5fc05ea7c0a91fd7ee14e28b61-1920x600.jpg", title: "School" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/gallery": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/art/framed-art/framed-print-coastal-wall-art-2-piece-20x20/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/687d69958b25f5106b78bc06e5160347364ecb8e-1080x1080.jpg", title: "Framed Print Coastal Wall Art 2 Piece 20x20" },
-      { href: "https://www.intcoframing-us.com/art/canvas-art/white-flowers-floral-canvas-wall-art-print/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/68f2d06de68cfdd2fa2aa4f9e67f890de9e62146-1080x1080.jpg", title: "White Flowers Floral Canvas Wall Art Print" },
-      { href: "https://www.intcoframing-us.com/art/canvas-art/sea-star-and-sea-shell-theme-canvas-wall-art-piece-of-2/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/19e377c1ffe8f262a8d798e5db344a5f1445867e-1080x1080.jpg", title: "Sea Star and Sea Shell Theme Canvas Wall Art Piece of 2" },
+      { href: "/art/framed-art/framed-print-coastal-wall-art-2-piece-20x20/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/687d69958b25f5106b78bc06e5160347364ecb8e-1080x1080.jpg", title: "Framed Print Coastal Wall Art 2 Piece 20x20" },
+      { href: "/art/canvas-art/white-flowers-floral-canvas-wall-art-print/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/68f2d06de68cfdd2fa2aa4f9e67f890de9e62146-1080x1080.jpg", title: "White Flowers Floral Canvas Wall Art Print" },
+      { href: "/art/canvas-art/sea-star-and-sea-shell-theme-canvas-wall-art-piece-of-2/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/19e377c1ffe8f262a8d798e5db344a5f1445867e-1080x1080.jpg", title: "Sea Star and Sea Shell Theme Canvas Wall Art Piece of 2" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
+      { href: "/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/cafes": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/23bf3c8fb3f04a0315b6bab940c016e93b3daf26-1080x1080.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" }],
+    usedItems: [{ href: "/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/23bf3c8fb3f04a0315b6bab940c016e93b3daf26-1080x1080.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
-      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
+      { href: "/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
+      { href: "/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/restaurant": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/23bf3c8fb3f04a0315b6bab940c016e93b3daf26-1080x1080.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" },
-      { href: "https://www.intcoframing-us.com/botanical-wall-art-wooden-vintage-tropical-leaves-nature-wall-decor/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/d788b85e949f7b5b9d0a616ec93e4471480bd61d-1080x1080.jpg", title: "Botanical Wall Art Wooden Vintage Tropical Leaves Nature Wall Decor" },
+      { href: "/minimalist-botanical-leaf-framed-wall-art/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/23bf3c8fb3f04a0315b6bab940c016e93b3daf26-1080x1080.jpg", title: "Minimalist Botanical Leaf Framed Wall Art" },
+      { href: "/botanical-wall-art-wooden-vintage-tropical-leaves-nature-wall-decor/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/d788b85e949f7b5b9d0a616ec93e4471480bd61d-1080x1080.jpg", title: "Botanical Wall Art Wooden Vintage Tropical Leaves Nature Wall Decor" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
-      { href: "https://www.intcoframing-us.com/projects/large-commercial-space/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/b8ae99414189f7642a6b67702a6874e415d41286-1920x600.jpg", title: "Large Commercial Space" },
+      { href: "/projects/cafes/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/504b428e70e599afa0726bb0609a6a7071fc940b-1920x600.jpg", title: "Cafes" },
+      { href: "/projects/large-commercial-space/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/b8ae99414189f7642a6b67702a6874e415d41286-1920x600.jpg", title: "Large Commercial Space" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/large-commercial-space": {
-    usedItems: [{ href: "https://www.intcoframing-us.com/modern-mirror-with-non-rusting-iron-metal-framed-wall-mounted-decorative-mirror/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/9f53a5bcf0e275c82030900dd6e680ded8fb73a7-1080x1080.jpg", title: "Modern Mirror with Non-Rusting Iron Metal Framed Wall Mounted Decorative Mirror" }],
+    usedItems: [{ href: "/modern-mirror-with-non-rusting-iron-metal-framed-wall-mounted-decorative-mirror/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/9f53a5bcf0e275c82030900dd6e680ded8fb73a7-1080x1080.jpg", title: "Modern Mirror with Non-Rusting Iron Metal Framed Wall Mounted Decorative Mirror" }],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
-      { href: "https://www.intcoframing-us.com/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
+      { href: "/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
+      { href: "/projects/restaurant/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f5ebdca06555a9bd8d8a3b14f34d1b8b905fa8b2-1920x600.jpg", title: "Restaurant" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
   "/projects/school": {
     usedItems: [
-      { href: "https://www.intcoframing-us.com/wall-cork-board-for-photo-display-20x20-inch/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/b9c9f7e70da023ab0a78096cc8ef43917a5b06c7-1080x1080.jpg", title: "Wall Cork Board for Picture Display 20x20 Inch" },
-      { href: "https://www.intcoframing-us.com/chalkboard-style-memo-board-50x70cm/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/8c3456fa15507254a18f9c29114b907963c2fd50-1080x1080.jpg", title: "Chalkboard Style Memo Board 50x70cm" },
-      { href: "https://www.intcoframing-us.com/dry-erase-wall-calendar-with-black-frame-40x40cm/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/17993d5c9cc7bb8f62005ac226b212daa537bb3d-1080x1080.jpg", title: "Dry Erase Wall Calendar with Black Frame 40x40cm" },
+      { href: "/wall-cork-board-for-photo-display-20x20-inch/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/b9c9f7e70da023ab0a78096cc8ef43917a5b06c7-1080x1080.jpg", title: "Wall Cork Board for Picture Display 20x20 Inch" },
+      { href: "/chalkboard-style-memo-board-50x70cm/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/8c3456fa15507254a18f9c29114b907963c2fd50-1080x1080.jpg", title: "Chalkboard Style Memo Board 50x70cm" },
+      { href: "/dry-erase-wall-calendar-with-black-frame-40x40cm/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/17993d5c9cc7bb8f62005ac226b212daa537bb3d-1080x1080.jpg", title: "Dry Erase Wall Calendar with Black Frame 40x40cm" },
     ],
     relatedProjects: [
-      { href: "https://www.intcoframing-us.com/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
-      { href: "https://www.intcoframing-us.com/projects/office/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/c38074316781cff5e02748afe546e2d42426307e-1920x600.jpg", title: "Office" },
+      { href: "/projects/gallery/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/f2ad1f3996fbc651c928fd0f65631e6e821df111-1920x600.jpg", title: "Gallery" },
+      { href: "/projects/office/", imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/c38074316781cff5e02748afe546e2d42426307e-1920x600.jpg", title: "Office" },
     ],
     inspirationItems: PROJECT_SOURCE_BLOG_COMMON,
   },
@@ -7313,7 +7316,7 @@ export function ProductDetailView({
                 </div>
               ))}
             </dl>
-            <ProductQuotePanel locale={locale} product={{ slug: product.slug, title: displayTitle, path: product.path, sourceId: product.sourceId, sourceUrl: product.sourceUrl, sku: product.sku, imageUrl: primary }} />
+            <ProductQuotePanel locale={locale} product={{ slug: product.slug, title: displayTitle, path: product.path, sourceId: product.sourceId, sku: product.sku, imageUrl: primary }} />
           </article>
         </div>
       </section>
@@ -7464,29 +7467,30 @@ export function ProjectDetailView({
   const inspirationPosts = sourceProjectInspirationPosts(posts, inspirationLines).slice(0, 4);
   const categoryPath = (project.categoryKey || project.category) === "Commercial" ? "/projects/commercial" : "/projects/residential";
   const sourceSnapshot = PROJECTS_SOURCE_DETAIL_SNAPSHOTS[project.path];
-  const sourceUsedItems = sourceSnapshot?.usedItems.length
-    ? sourceSnapshot.usedItems
-    : usedProducts.map((product) => ({
+  const sourceUsedItems = usedProducts.length
+    ? usedProducts.map((product) => ({
         href: product.path,
         imageUrl: preferredImage(product),
         title: product.title,
-      }));
-  const sourceRelatedProjects = sourceSnapshot?.relatedProjects.length
-    ? sourceSnapshot.relatedProjects
-    : relatedProjects.slice(0, 2).map((item) => ({
+      }))
+    : sourceSnapshot?.usedItems || [];
+  const sourceRelatedProjects = relatedProjects.length
+    ? relatedProjects.slice(0, 2).map((item) => ({
         href: item.path,
         imageUrl: PROJECTS_SOURCE_ITEM_BY_PATH.get(item.path)?.imageUrl || preferredImage(item),
         title: item.title,
-      }));
-  const sourceInspirationItems = sourceSnapshot?.inspirationItems.length
-    ? sourceSnapshot.inspirationItems
-    : (inspirationPosts.length ? inspirationPosts : posts.slice(0, 3)).map((post) => ({
+      }))
+    : sourceSnapshot?.relatedProjects || [];
+  const fallbackInspirationPosts = inspirationPosts.length ? inspirationPosts : posts.slice(0, 3);
+  const sourceInspirationItems = fallbackInspirationPosts.length
+    ? fallbackInspirationPosts.map((post) => ({
         href: post.path,
         imageUrl: post.imageUrl || "",
         title: post.title,
         date: formatDate(post.publishedAt),
         description: post.excerpt || "",
-      }));
+      }))
+    : sourceSnapshot?.inspirationItems || [];
 
   return (
     <div className="intco-project-detail-source-page intco-project-source-exact">
@@ -7646,10 +7650,12 @@ function localizeSourceHref(href: string, locale: Locale) {
 }
 
 function projectSourceDetailGallery(project: Project) {
+  const gallery = itemGallery(project);
+  if (gallery.length) return gallery;
   const sourceGallery = PROJECTS_SOURCE_DETAIL_GALLERIES[project.path] || [];
   if (sourceGallery.length) return sourceGallery;
   const fallback = PROJECTS_SOURCE_ITEM_BY_PATH.get(project.path)?.imageUrl;
-  return Array.from(new Set([...itemGallery(project), fallback || ""].filter(Boolean)));
+  return Array.from(new Set([fallback || ""].filter(Boolean)));
 }
 
 function projectSourceMainDescription(project: Project, lines: string[]) {
@@ -8071,12 +8077,12 @@ export function BlogPostView({
   const relatedPosts = relatedBlogSourceItems(posts, post.slug, page, currentCategory, 3);
   const supplementalLines = locale === "en" ? blogSourceSupplementLines(post.slug).filter((line) => !containsRenderedLine(lines, line)) : [];
 
-  if (sourcePost.slug === VANITY_MIRROR_ARTICLE_SLUG) {
+  if (sourcePost.slug === VANITY_MIRROR_ARTICLE_SLUG && !lines.length) {
     return <VanityMirrorArticleSourceView post={sourcePost} locale={locale} />;
   }
 
   const sourceNewsArticle = SOURCE_NEWS_ARTICLES[sourcePost.slug as keyof typeof SOURCE_NEWS_ARTICLES];
-  if (sourceNewsArticle) {
+  if (sourceNewsArticle && !lines.length) {
     return <SourceNewsArticleSourceView article={sourceNewsArticle} post={sourcePost} locale={locale} />;
   }
 
@@ -8219,7 +8225,6 @@ export function DetailView({
                   title: detailProduct.title,
                   path: detailProduct.path,
                   sourceId: detailProduct.sourceId,
-                  sourceUrl: detailProduct.sourceUrl,
                   sku: detailProduct.sku,
                   imageUrl: detailProduct.imageUrl,
                 }}
@@ -9744,7 +9749,7 @@ function sourceAttr(block: string, name: string) {
 
 function sourcePathFromHref(href: string) {
   try {
-    const url = new URL(href, "https://www.intcoframing-us.com");
+    const url = new URL(href, "https://intcoframing.local");
     const pathname = url.pathname.trim().replace(/^\/+|\/+$/g, "");
     return pathname ? `/${pathname}` : "/";
   } catch {
@@ -9754,9 +9759,8 @@ function sourcePathFromHref(href: string) {
 }
 
 function sourceProductCartLink(product: Product) {
-  if (product.sourceUrl) return product.sourceUrl;
   const normalizedPath = product.path.startsWith("/") ? product.path : `/${product.path}`;
-  return `https://www.intcoframing-us.com${normalizedPath.replace(/\/?$/, "/")}`;
+  return normalizedPath;
 }
 
 function sourceSnapshotMediaImages(html: string) {
@@ -9957,17 +9961,17 @@ export function ProductDetailSourceView({
   const sourceDetailSnapshot = sourceProductDetailSnapshot(product.path);
   const displayTitle = product.title || details.displayTitle || sourceSearchItem?.title || "";
   const gallery = itemGallery(product).filter((image) => isProductCdnImage(image) && !looksGenericImage(image));
-  const primary = [sourceSearchItem?.imageUrl, gallery[0], preferredImage(product)].find(
+  const primary = [gallery[0], preferredImage(product), sourceSearchItem?.imageUrl].find(
     (image): image is string => isProductCdnImage(image) && !looksGenericImage(image),
   );
   const sourceSnapshotImages = sourceDetailSnapshot.mediaImages.filter((image) => isProductCdnImage(image) && !looksGenericImage(image));
-  const galleryImages = sourceSnapshotImages.length
-    ? sourceSnapshotImages
-    : Array.from(new Set([primary, ...gallery].filter((image): image is string => Boolean(image))));
+  const galleryImages = gallery.length
+    ? Array.from(new Set([primary, ...gallery].filter((image): image is string => Boolean(image))))
+    : sourceSnapshotImages.length
+      ? sourceSnapshotImages
+      : [primary].filter((image): image is string => Boolean(image));
   const bodyBestSellerItems = sourceBestSellerCardsFromBody(details);
-  const bestSellerItems = sourceDetailSnapshot.bestSellerItems.length
-    ? sourceDetailSnapshot.bestSellerItems.map(sanitizeSourceProductCard)
-    : bodyBestSellerItems.length
+  const bestSellerItems = bodyBestSellerItems.length
       ? bodyBestSellerItems.map(sanitizeSourceProductCard)
     : relatedProducts.length
       ? relatedProducts.slice(0, 4).map((item) => ({
@@ -9977,18 +9981,19 @@ export function ProductDetailSourceView({
         imageAlt: SOURCE_SEARCH_BY_PATH.get(item.path)?.imageAlt || item.imageAlt || item.title,
         sku: item.sku,
       }))
-      : [];
+      : sourceDetailSnapshot.bestSellerItems.map(sanitizeSourceProductCard);
   const bodyRelatedCards = sourceRelatedCardsFromBody(product);
-  const sourceRelatedCards = sourceDetailSnapshot.relatedItems.length
-    ? sourceDetailSnapshot.relatedItems.map(sanitizeSourceProductCard)
-    : bodyRelatedCards.length
+  const relatedProductCards = relatedProducts.slice(0, 6).map((item) => ({
+    title: item.title,
+    path: item.path,
+    imageUrl: sourceProductCardImage(item),
+    imageAlt: SOURCE_SEARCH_BY_PATH.get(item.path)?.imageAlt || item.imageAlt || item.title,
+  }));
+  const sourceRelatedCards = bodyRelatedCards.length
       ? bodyRelatedCards.map(sanitizeSourceProductCard)
-    : relatedProducts.slice(0, 6).map((item) => ({
-        title: item.title,
-        path: item.path,
-        imageUrl: sourceProductCardImage(item),
-        imageAlt: SOURCE_SEARCH_BY_PATH.get(item.path)?.imageAlt || item.imageAlt || item.title,
-      }));
+    : relatedProductCards.length
+      ? relatedProductCards
+      : sourceDetailSnapshot.relatedItems.map(sanitizeSourceProductCard);
   const sourceRelatedItems: SourceRelatedProductItem[] = sourceRelatedCards.map((item) => ({
     title: item.title,
     href: localizePath(locale, item.path),
@@ -10005,17 +10010,13 @@ export function ProductDetailSourceView({
   const servicesTitle = t(locale, "servicesWeProvide").toUpperCase();
   const relatedProductsTitle = t(locale, "relatedProducts");
   const detailImages = galleryImages.length ? galleryImages : [primary].filter((image): image is string => Boolean(image));
-  const colorChoices = sourceDetailSnapshot.colorChoices.length
-    ? sourceDetailSnapshot.colorChoices
-    : ["#000000"].map((color) => ({
+  const colorChoices = ["#000000"].map((color) => ({
         color,
         itemNumber,
       }));
-  const sizeOptions = sourceDetailSnapshot.sizeOptions.length
-    ? sourceDetailSnapshot.sizeOptions
-    : size
+  const sizeOptions = size
       ? size.split(/\s+\/\s+/).filter(Boolean)
-      : [];
+      : sourceDetailSnapshot.sizeOptions;
   const aboutDescriptionLines = details.descriptionLines.length ? details.descriptionLines : product.description ? [product.description] : [];
   const aboutHighlightLines = details.highlightLines.length ? details.highlightLines : linesFromBody(product.bodyText, 6);
   const sourceProductLink = sourceProductCartLink(product);

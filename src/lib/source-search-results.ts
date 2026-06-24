@@ -1,4 +1,4 @@
-// Generated from https://www.intcoframing-us.com/index.php?keyword= pagination on 2026-06-01.
+// Generated from the original site search pagination on 2026-06-01.
 // Keep this source snapshot route-scoped; do not use it as global product data.
 
 export type SourceSearchResultItem = {

@@ -1,4 +1,4 @@
-const DEFAULT_SITE_ORIGIN = "https://www.intcoframing-us.com";
+const DEFAULT_SITE_ORIGIN = "https://intcoframing-ten.vercel.app";
 
 function normalizeOrigin(value?: string) {
   if (!value) return undefined;
