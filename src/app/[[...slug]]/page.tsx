@@ -26,7 +26,8 @@ import { languageAlternates, localizePath, parseLocalizedSegments, t, type Local
 import { absoluteUrl, siteOrigin } from "@/lib/site-url";
 import { SOURCE_SEARCH_PAGE_SIZE } from "@/lib/source-search-results";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type PageProps = {
   params: Promise<{ slug?: string[] }>;

@@ -464,7 +464,7 @@ export async function getSiteData(locale: Locale = "en", currentPath = ""): Prom
     const path = cleanPath(currentPath || "");
     const slug = pathSlug(path);
     const newsPath = slug ? `/news/${slug}` : "";
-    const data = await client.fetch<RemoteSiteData>(siteQuery, { locale, path, slug, newsPath }, { next: { revalidate: 60 } });
+    const data = await client.fetch<RemoteSiteData>(siteQuery, { locale, path, slug, newsPath }, { cache: "no-store" });
     if (!data?.siteSettings || !data?.homePage) {
       return localizeSiteData(fallbackData, locale);
     }
