@@ -9522,7 +9522,16 @@ function itemGallery(item: ImageLike) {
 }
 
 function looksGenericImage(url?: string) {
-  return !url || /\/products\.png($|\?)/.test(url);
+  return !url || /\/products\.png($|\?)/.test(url) || url === PRODUCTS_HERO_IMAGE;
+}
+
+function isProductCdnImage(url?: string) {
+  if (!url) return false;
+  try {
+    return new URL(url).hostname === "cdn.sanity.io";
+  } catch {
+    return false;
+  }
 }
 
 function parseProductDetails(product: Product, locale: Locale) {
@@ -9870,9 +9879,21 @@ function sourceServiceTitle(locale: Locale, path: string, fallback: string) {
 function sourceProductCardImage(item: Product) {
   const sourceSearchImage = SOURCE_SEARCH_BY_PATH.get(item.path)?.imageUrl;
   const firstSpecificImage = [sourceSearchImage, ...itemGallery(item), preferredImage(item)].find(
-    (image): image is string => Boolean(image) && !looksGenericImage(image),
+    (image): image is string => isProductCdnImage(image) && !looksGenericImage(image),
   );
-  return firstSpecificImage || sourceSearchImage || preferredImage(item);
+  return firstSpecificImage || "";
+}
+
+function sanitizeSourceProductCard(item: SourceProductCard): SourceProductCard {
+  const sourceSearchItem = SOURCE_SEARCH_BY_PATH.get(item.path);
+  const imageUrl = [sourceSearchItem?.imageUrl, item.imageUrl].find(
+    (image): image is string => isProductCdnImage(image) && !looksGenericImage(image),
+  );
+  return {
+    ...item,
+    imageUrl,
+    imageAlt: sourceSearchItem?.imageAlt || item.imageAlt || item.title,
+  };
 }
 
 function sourceRelatedCardsFromBody(product: Product) {
@@ -9935,17 +9956,19 @@ export function ProductDetailSourceView({
   const sourceSearchItem = SOURCE_SEARCH_BY_PATH.get(product.path);
   const sourceDetailSnapshot = sourceProductDetailSnapshot(product.path);
   const displayTitle = sourceSearchItem?.title || product.title || details.displayTitle;
-  const gallery = itemGallery(product);
-  const primary = sourceSearchItem?.imageUrl || gallery[0] || preferredImage(product);
-  const sourceSnapshotImages = sourceDetailSnapshot.mediaImages;
+  const gallery = itemGallery(product).filter((image) => isProductCdnImage(image) && !looksGenericImage(image));
+  const primary = [sourceSearchItem?.imageUrl, gallery[0], preferredImage(product)].find(
+    (image): image is string => isProductCdnImage(image) && !looksGenericImage(image),
+  );
+  const sourceSnapshotImages = sourceDetailSnapshot.mediaImages.filter((image) => isProductCdnImage(image) && !looksGenericImage(image));
   const galleryImages = sourceSnapshotImages.length
     ? sourceSnapshotImages
-    : Array.from(new Set([primary, ...gallery].filter(Boolean)));
+    : Array.from(new Set([primary, ...gallery].filter((image): image is string => Boolean(image))));
   const bodyBestSellerItems = sourceBestSellerCardsFromBody(details);
   const bestSellerItems = sourceDetailSnapshot.bestSellerItems.length
-    ? sourceDetailSnapshot.bestSellerItems
+    ? sourceDetailSnapshot.bestSellerItems.map(sanitizeSourceProductCard)
     : bodyBestSellerItems.length
-      ? bodyBestSellerItems
+      ? bodyBestSellerItems.map(sanitizeSourceProductCard)
     : relatedProducts.length
       ? relatedProducts.slice(0, 4).map((item) => ({
         title: item.title.length > 30 ? `${item.title.substring(0, 30)}...` : item.title,
@@ -9957,9 +9980,9 @@ export function ProductDetailSourceView({
       : [];
   const bodyRelatedCards = sourceRelatedCardsFromBody(product);
   const sourceRelatedCards = sourceDetailSnapshot.relatedItems.length
-    ? sourceDetailSnapshot.relatedItems
+    ? sourceDetailSnapshot.relatedItems.map(sanitizeSourceProductCard)
     : bodyRelatedCards.length
-      ? bodyRelatedCards
+      ? bodyRelatedCards.map(sanitizeSourceProductCard)
     : relatedProducts.slice(0, 6).map((item) => ({
         title: item.title,
         path: item.path,
@@ -9981,7 +10004,7 @@ export function ProductDetailSourceView({
   const aboutThisItemTitle = t(locale, "aboutThisItem").toUpperCase();
   const servicesTitle = t(locale, "servicesWeProvide").toUpperCase();
   const relatedProductsTitle = t(locale, "relatedProducts");
-  const detailImages = galleryImages.length ? galleryImages : [primary].filter(Boolean);
+  const detailImages = galleryImages.length ? galleryImages : [primary].filter((image): image is string => Boolean(image));
   const colorChoices = sourceDetailSnapshot.colorChoices.length
     ? sourceDetailSnapshot.colorChoices
     : ["#000000"].map((color) => ({
@@ -10135,7 +10158,7 @@ export function ProductDetailSourceView({
                       productId: product.sourceId ? String(product.sourceId) : product.slug,
                       productLink: sourceProductLink,
                       productName: displayTitle,
-                      productImg: detailImages[0] || product.imageUrl || "",
+                      productImg: detailImages[0] || "",
                     }}
                   />
                   
