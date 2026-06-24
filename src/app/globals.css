@@ -6274,12 +6274,13 @@ summary::-webkit-details-marker {
 }
 
 .intco-catalog-modal {
-  align-items: center;
+  align-items: flex-start;
   background: rgba(0, 0, 0, 0.1);
   display: flex;
   inset: 0;
   justify-content: center;
-  padding: 24px;
+  overflow-y: auto;
+  padding: max(18px, env(safe-area-inset-top)) 24px max(18px, env(safe-area-inset-bottom));
   position: fixed;
   z-index: 9999;
 }
@@ -6288,10 +6289,13 @@ summary::-webkit-details-marker {
   background: #ffffff;
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   max-height: calc(100vh - 48px);
   max-width: 560px;
-  overflow: auto;
-  padding: 42px 42px 36px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 38px 42px 32px;
   position: relative;
   width: min(100%, 560px);
 }
@@ -6313,12 +6317,20 @@ summary::-webkit-details-marker {
 }
 
 .intco-catalog-dialog-title {
+  flex: 0 0 auto;
   color: #333333;
   font-size: 20px;
   font-weight: 500;
   line-height: 1.4;
-  margin: 0 0 24px;
+  margin: 0 0 18px;
   text-align: center;
+}
+
+.intco-catalog-download-form {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 4px 2px;
 }
 
 .intco-catalog-download-form .xhl_form {
@@ -6332,7 +6344,7 @@ summary::-webkit-details-marker {
 }
 
 .intco-catalog-download-form .xhl-control-group {
-  margin: 0 0 16px;
+  margin: 0 0 12px;
 }
 
 .intco-catalog-download-form .xhl-control-label {
@@ -6354,7 +6366,7 @@ summary::-webkit-details-marker {
   box-sizing: border-box;
   color: #333333;
   font-size: 16px;
-  height: 50px;
+  height: 48px;
   outline: none;
   padding: 0 18px;
   width: 100%;
@@ -6363,7 +6375,7 @@ summary::-webkit-details-marker {
 .intco-catalog-download-form .xhl-form-tip {
   color: #ff0000;
   position: absolute;
-  right: -10px;
+  right: 10px;
   top: 0;
 }
 
@@ -6376,7 +6388,11 @@ summary::-webkit-details-marker {
 }
 
 .intco-catalog-download-form .xhl-footer {
-  margin-top: 22px;
+  background: #ffffff;
+  margin-top: 18px;
+  padding-top: 10px;
+  position: sticky;
+  bottom: 0;
   text-align: center;
 }
 
@@ -6392,6 +6408,75 @@ summary::-webkit-details-marker {
   padding: 0 34px;
   text-align: center;
   min-width: 180px;
+}
+
+@media (max-height: 760px) {
+  .intco-catalog-dialog {
+    padding-bottom: 24px;
+    padding-top: 34px;
+  }
+
+  .intco-catalog-dialog-title {
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+
+  .intco-catalog-download-form .xhl-control-label {
+    line-height: 20px;
+    margin-bottom: 4px;
+  }
+
+  .intco-catalog-download-form .xhl-control-group {
+    margin-bottom: 10px;
+  }
+
+  .intco-catalog-download-form .xhl-input-xlarge {
+    height: 44px;
+  }
+
+  .intco-catalog-download-form .xhl-footer {
+    margin-top: 14px;
+  }
+
+  .intco-catalog-download-form .xhl-submit {
+    height: 50px;
+    line-height: 50px;
+  }
+}
+
+@media (max-width: 640px) {
+  .intco-catalog-modal {
+    padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+  }
+
+  .intco-catalog-dialog {
+    max-height: calc(100vh - 24px);
+    padding: 36px 18px 22px;
+    width: 100%;
+  }
+
+  .intco-catalog-dialog-close {
+    right: 8px;
+    top: 8px;
+  }
+
+  .intco-catalog-dialog-title {
+    font-size: 17px;
+  }
+
+  .intco-catalog-download-form {
+    padding-inline: 0;
+  }
+
+  .intco-catalog-download-form .xhl-input-xlarge {
+    font-size: 15px;
+    padding-inline: 14px;
+  }
+
+  .intco-catalog-download-form .xhl-submit {
+    min-width: 0;
+    width: 100%;
+  }
 }
 
 .intco-contact-form-image-wrap {
