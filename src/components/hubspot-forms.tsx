@@ -4,6 +4,7 @@ import { useId, useMemo, useState, type FormEvent } from "react";
 import { Send } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
 import type { HubSpotFormType } from "@/lib/hubspot";
+import { COUNTRY_OPTIONS } from "@/lib/country-options";
 
 type FieldKey = "name" | "email" | "country" | "phone" | "whatsapp" | "companyName" | "message";
 
@@ -418,6 +419,17 @@ function HubSpotField({
       <div className="xhl-controls">
         {field === "message" ? (
           <textarea id={id} name={field} className={inputClass} placeholder={copy.placeholders[field]} required={required} />
+        ) : field === "country" ? (
+          <select id={id} name={field} className={inputClass} required={required} defaultValue="">
+            <option value="" disabled>
+              {copy.placeholders.country}
+            </option>
+            {COUNTRY_OPTIONS.map((country) => (
+              <option key={`${country.code}-${country.name}`} value={country.code}>
+                {country.name}
+              </option>
+            ))}
+          </select>
         ) : (
           <input id={id} name={field} className={inputClass} placeholder={copy.placeholders[field]} type={field === "email" ? "email" : field === "phone" || field === "whatsapp" ? "tel" : "text"} required={required} />
         )}

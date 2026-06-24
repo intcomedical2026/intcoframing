@@ -7,6 +7,7 @@ import {
   isHubSpotFormType,
   type HubSpotFormType,
 } from "@/lib/hubspot";
+import { COUNTRY_OPTIONS } from "@/lib/country-options";
 
 type HubSpotSubmitPayload = {
   formType?: unknown;
@@ -36,6 +37,7 @@ type HubSpotContext = {
 
 const HUBSPOT_SUBMIT_ENDPOINT = "https://api.hsforms.com/submissions/v3/integration/submit";
 const MAX_FIELD_LENGTH = 12000;
+const VALID_COUNTRY_CODES: ReadonlySet<string> = new Set(COUNTRY_OPTIONS.map((country) => country.code));
 
 const REQUIRED_FIELDS: Record<HubSpotFormType, Array<keyof HubSpotInputFields>> = {
   mainInquiry: ["name", "email", "country"],
@@ -62,6 +64,10 @@ export async function POST(request: NextRequest) {
 
   if (missingField) {
     return Response.json({ ok: false, message: `Missing required field: ${missingField}.` }, { status: 400 });
+  }
+
+  if (inputFields.country && !VALID_COUNTRY_CODES.has(inputFields.country)) {
+    return Response.json({ ok: false, message: "Invalid country code." }, { status: 400 });
   }
 
   const context = normalizeContext(payload.context, request);
