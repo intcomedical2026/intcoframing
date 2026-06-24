@@ -90,7 +90,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   return {
     title: meta.title,
     description: meta.description,
-    keywords: meta.keywords?.length ? meta.keywords : undefined,
+    keywords: meta.keywords?.length ? meta.keywords.join(", ") : undefined,
     metadataBase: new URL(siteOrigin),
     alternates: {
       canonical: canonicalPath,
