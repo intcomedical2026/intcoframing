@@ -9537,7 +9537,7 @@ function isProductCdnImage(url?: string) {
 function parseProductDetails(product: Product, locale: Locale) {
   const lines = contentLines(product.bodyText, 140);
   const specLabels = productSpecLabels(locale);
-  const displayTitle = lines[0] || product.title;
+  const displayTitle = product.title || lines[0] || "";
   const itemNumber = valueAfterLabel(lines, ["Item#:", "Item #:", "Item#:"]);
   const color = valueAfterLabel(lines, ["Color:"]);
   const sizes = valuesAfterLabel(lines, ["Size:"]);
@@ -9955,7 +9955,7 @@ export function ProductDetailSourceView({
   const details = parseProductDetails(product, locale);
   const sourceSearchItem = SOURCE_SEARCH_BY_PATH.get(product.path);
   const sourceDetailSnapshot = sourceProductDetailSnapshot(product.path);
-  const displayTitle = sourceSearchItem?.title || product.title || details.displayTitle;
+  const displayTitle = product.title || details.displayTitle || sourceSearchItem?.title || "";
   const gallery = itemGallery(product).filter((image) => isProductCdnImage(image) && !looksGenericImage(image));
   const primary = [sourceSearchItem?.imageUrl, gallery[0], preferredImage(product)].find(
     (image): image is string => isProductCdnImage(image) && !looksGenericImage(image),
