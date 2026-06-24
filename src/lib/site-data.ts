@@ -20,6 +20,8 @@ export type SeoFields = {
   seoTitle?: string;
   seoDescription?: string;
   keywords?: string[];
+  keywordsRaw?: string;
+  keywordsRawSource?: string[];
   canonicalPath?: string;
   ogImageUrl?: string;
   imageAlt?: string;

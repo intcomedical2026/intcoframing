@@ -68,11 +68,15 @@ for (const row of audit.audited || []) {
     seoDescription: decodeHtml(oldSeo.desc || ""),
     keywords: normalizeKeywords(oldSeo.keywords || ""),
   };
+  nextSeo.keywordsRaw = decodeHtml(oldSeo.keywords || "");
+  nextSeo.keywordsRawSource = nextSeo.keywords;
   const currentSeo = doc.seo || {};
   const changed =
     currentSeo.seoTitle !== nextSeo.seoTitle ||
     currentSeo.seoDescription !== nextSeo.seoDescription ||
-    JSON.stringify(currentSeo.keywords || []) !== JSON.stringify(nextSeo.keywords);
+    JSON.stringify(currentSeo.keywords || []) !== JSON.stringify(nextSeo.keywords) ||
+    currentSeo.keywordsRaw !== nextSeo.keywordsRaw ||
+    JSON.stringify(currentSeo.keywordsRawSource || []) !== JSON.stringify(nextSeo.keywordsRawSource);
 
   if (!changed) {
     skipped.push({ path: row.path, _id: doc._id, reason: "already-in-sync" });
@@ -88,11 +92,15 @@ for (const row of audit.audited || []) {
       seoTitle: currentSeo.seoTitle,
       seoDescription: currentSeo.seoDescription,
       keywords: currentSeo.keywords || [],
+      keywordsRaw: currentSeo.keywordsRaw,
+      keywordsRawSource: currentSeo.keywordsRawSource || [],
     },
     nextSeo: {
       seoTitle: nextSeo.seoTitle,
       seoDescription: nextSeo.seoDescription,
       keywords: nextSeo.keywords,
+      keywordsRaw: nextSeo.keywordsRaw,
+      keywordsRawSource: nextSeo.keywordsRawSource,
     },
   });
 }
@@ -106,6 +114,8 @@ if (!dryRun) {
           "seo.seoTitle": patch.nextSeo.seoTitle,
           "seo.seoDescription": patch.nextSeo.seoDescription,
           "seo.keywords": patch.nextSeo.keywords,
+          "seo.keywordsRaw": patch.nextSeo.keywordsRaw,
+          "seo.keywordsRawSource": patch.nextSeo.keywordsRawSource,
         }),
       );
     }

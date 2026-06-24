@@ -90,7 +90,7 @@ export async function generateMetadata({ params, searchParams }: PageProps): Pro
   return {
     title: meta.title,
     description: meta.description,
-    keywords: meta.keywords?.length ? meta.keywords.join(", ") : undefined,
+    keywords: keywordsForMetadata(meta),
     metadataBase: new URL(siteOrigin),
     alternates: {
       canonical: canonicalPath,
@@ -257,6 +257,8 @@ type RouteMeta = {
   title: string;
   description: string;
   keywords?: string[];
+  keywordsRaw?: string;
+  keywordsRawSource?: string[];
   image?: string;
   imageAlt?: string;
   noIndex?: boolean;
@@ -698,6 +700,8 @@ type MetadataItem = {
     seoTitle?: string;
     seoDescription?: string;
     keywords?: string[];
+    keywordsRaw?: string;
+    keywordsRawSource?: string[];
     ogImageUrl?: string;
     imageAlt?: string;
     noIndex?: boolean;
@@ -726,8 +730,23 @@ function metadataFromItem(item: MetadataItem | undefined, data: Awaited<ReturnTy
     image: item.seo?.ogImageUrl || item.imageUrl || defaults?.image,
     imageAlt: item.seo?.imageAlt || item.imageAlt || defaults?.imageAlt || item.title,
     keywords: item.seo?.keywords?.length ? item.seo.keywords : defaults?.keywords,
+    keywordsRaw: item.seo?.keywordsRaw,
+    keywordsRawSource: item.seo?.keywordsRawSource,
     noIndex: item.seo?.noIndex,
   };
+}
+
+function keywordsForMetadata(meta: RouteMeta) {
+  if (!meta.keywords?.length) return undefined;
+  if (meta.keywordsRaw && stringArraysEqual(meta.keywords, meta.keywordsRawSource)) {
+    return meta.keywordsRaw;
+  }
+  return meta.keywords.join(", ");
+}
+
+function stringArraysEqual(left: string[] | undefined, right: string[] | undefined) {
+  if (!left || !right || left.length !== right.length) return false;
+  return left.every((item, index) => item === right[index]);
 }
 
 function localizeMetaTitleSuffix(title: string | undefined, locale: Locale) {

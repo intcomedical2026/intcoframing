@@ -83,6 +83,8 @@ export const seoFields = defineType({
       of: [{ type: "string" }],
       options: { layout: "tags" },
     }),
+    defineField({ name: "keywordsRaw", title: "Original Keywords String", type: "string", hidden: true }),
+    defineField({ name: "keywordsRawSource", title: "Original Keywords Source", type: "array", of: [{ type: "string" }], hidden: true }),
     defineField({ name: "canonicalPath", title: "Canonical Path", type: "string", description: "Advanced. Usually leave blank unless a developer gives you an exact path." }),
     defineField({ name: "ogImage", title: "Social Share Image", type: "image", options: { hotspot: true } }),
     defineField({ name: "ogImageUrl", title: "Open Graph Source URL", type: "url", hidden: true }),
