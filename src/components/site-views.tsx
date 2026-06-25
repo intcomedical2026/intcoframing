@@ -983,7 +983,74 @@ const PRODUCT_ALL_ARCHIVE_PATH_BY_TOP_SLUG: Record<string, string> = {
 };
 
 const SOURCE_TOP_CATEGORY_ARCHIVE_ORDER_BY_PATH: Record<string, string[]> = {
-  "/picture-frame": ["2638", "2206", "2616", "2330", "1120", "2559", "2533", "2526", "2519", "2484", "2540", "2552"],
+  "/picture-frame": [
+    "2638",
+    "2206",
+    "2616",
+    "2330",
+    "1120",
+    "2559",
+    "2533",
+    "2526",
+    "2519",
+    "2484",
+    "2540",
+    "2552",
+    "2219",
+    "1452",
+    "1440",
+    "1434",
+    "2324",
+    "2303",
+    "1295",
+    "2327",
+    "1282",
+    "1248",
+    "2349",
+    "1254",
+    "1305",
+    "1293",
+    "2368",
+    "1276",
+    "1236",
+    "1172",
+    "2336",
+    "1108",
+    "2340",
+  ],
+};
+
+const SOURCE_TOP_CATEGORY_ARCHIVE_FALLBACK_ITEMS: Record<string, SourceCategoryListingItem> = {
+  "2336": {
+    sourceId: "2336",
+    path: "/tabletop-picture-frame-mdf-natural-oak-5x7-inch-2",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/4059ae2e63129e28157f11b42b2f49f968403149-1080x1080.jpg",
+    title: "Natural Style MDF Tabletop Picture Frame",
+    colors: [
+      { imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/4059ae2e63129e28157f11b42b2f49f968403149-1080x1080.jpg", color: "#f2f2f2" },
+      { imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/299826c5ffc80106a39a06129c6ddfdae0133a98-1080x1080.jpg", color: "#ce9a40" },
+    ],
+  },
+  "1108": {
+    sourceId: "1108",
+    path: "/plastic-picture-frames-for-tabletop-display-5x7-inch-wood-grain",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/18ea46374758823a8562985d0008c0ad219ee9f4-1080x1080.jpg",
+    title: "Wood Grain Plastic Picture Frames for Tabletop Display",
+    colors: [
+      { imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/18ea46374758823a8562985d0008c0ad219ee9f4-1080x1080.jpg", color: "#ede7d3" },
+      { imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/8a4548d560f9ad27387c8c79d8e8346084659c10-1080x1080.jpg", color: "#ddba85" },
+    ],
+  },
+  "2340": {
+    sourceId: "2340",
+    path: "/plastic-picture-frames-for-tabletop-display-5x7-inch-wood-grain-2",
+    imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/8a4548d560f9ad27387c8c79d8e8346084659c10-1080x1080.jpg",
+    title: "Wood Grain Plastic Picture Frames for Tabletop Display",
+    colors: [
+      { imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/8a4548d560f9ad27387c8c79d8e8346084659c10-1080x1080.jpg", color: "#ddba85" },
+      { imageUrl: "https://cdn.sanity.io/images/vzcnnept/production/18ea46374758823a8562985d0008c0ad219ee9f4-1080x1080.jpg", color: "#ede7d3" },
+    ],
+  },
 };
 
 function sourceCategoryViewAllHref(topCategorySlug: string, fallbackPath: string, locale: Locale) {
@@ -4269,11 +4336,11 @@ function sourceTopCategoryArchiveSnapshotItems(category: ProductCategory): Sourc
   const childSnapshots = Object.entries(SOURCE_CATEGORY_LISTING_SNAPSHOTS)
     .filter(([path]) => path.startsWith(`${category.path}/`))
     .flatMap(([, items]) => items);
-  const snapshotBySourceId = new Map(childSnapshots.map((item) => [item.sourceId, item]));
+  const snapshotBySourceId = new Map([...childSnapshots, ...Object.values(SOURCE_TOP_CATEGORY_ARCHIVE_FALLBACK_ITEMS)].map((item) => [item.sourceId, item]));
   return sourceOrder.map((sourceId) => snapshotBySourceId.get(sourceId)).filter((item): item is SourceCategoryListingItem => Boolean(item));
 }
 
-function sourceCategoryArchiveProducts(category: ProductCategory, products: Product[]): SourceCategoryArchiveProduct[] {
+function sourceCategoryArchiveAllProducts(category: ProductCategory, products: Product[]): SourceCategoryArchiveProduct[] {
   const topCategorySnapshotItems = sourceTopCategoryArchiveSnapshotItems(category);
   if (topCategorySnapshotItems.length) {
     return topCategorySnapshotItems.map((item) => ({
@@ -4305,7 +4372,7 @@ function sourceCategoryArchiveProducts(category: ProductCategory, products: Prod
     });
   }
 
-  return products.slice(0, 12).map((product) => {
+  return products.map((product) => {
     const snapshot = snapshotByPath.get(product.path) || snapshotBySourceId.get(String(product.sourceId || ""));
     const imageUrl = preferredImage(product) || snapshot?.imageUrl || sourceCategoryListingSearchImage(product.path) || PRODUCTS_HERO_IMAGE;
     return {
@@ -4318,6 +4385,11 @@ function sourceCategoryArchiveProducts(category: ProductCategory, products: Prod
       colors: snapshot?.colors || [],
     };
   });
+}
+
+function sourceCategoryArchiveProducts(category: ProductCategory, products: Product[], pageNumber: number): SourceCategoryArchiveProduct[] {
+  const start = (pageNumber - 1) * SOURCE_SEARCH_PAGE_SIZE;
+  return sourceCategoryArchiveAllProducts(category, products).slice(start, start + SOURCE_SEARCH_PAGE_SIZE);
 }
 
 function sourceCategoryFilterGroups(topCategory: ProductCategory) {
@@ -4385,6 +4457,7 @@ function SourceCategoryArchiveView({
   products,
   archivePath,
   viewAllHref,
+  pageNumber = 1,
 }: {
   locale: Locale;
   category: ProductCategory;
@@ -4393,10 +4466,14 @@ function SourceCategoryArchiveView({
   products: Product[];
   archivePath?: string;
   viewAllHref?: string;
+  pageNumber?: number;
 }) {
-  const archiveProducts = sourceCategoryArchiveProducts(category, products);
+  const allArchiveProducts = sourceCategoryArchiveAllProducts(category, products);
+  const archiveProducts = sourceCategoryArchiveProducts(category, products, pageNumber);
+  const totalPages = Math.max(1, Math.ceil(allArchiveProducts.length / SOURCE_SEARCH_PAGE_SIZE));
   const archiveBasePath = archivePath || category.path;
   const allProductsHref = viewAllHref || sourceCategoryViewAllHref(topCategory.slug, topCategory.path, locale);
+  const archivePageHref = (page: number) => localizePath(locale, page === 1 ? archiveBasePath : `${archiveBasePath}/page/${page}`);
   const filterGroups = sourceCategoryFilterGroups(topCategory);
   const bestSellerItems = products.slice(0, 4).map((product) => ({
     title: product.title,
@@ -4487,16 +4564,30 @@ function SourceCategoryArchiveView({
               <div className="Products1-right">
                 <div className="Products1-right-list pright">
                   <ul>{archiveProducts.map((item) => <SourceCategoryArchiveCard key={item.key} item={item} locale={locale} />)}</ul>
-                  {archiveProducts.length >= SOURCE_SEARCH_PAGE_SIZE ? (
+                  {totalPages > 1 ? (
                     <div className="page-box">
                       <div className="page-inner">
-                        <span className="current">1</span>
-                        <a className="page larger" href={localizePath(locale, `${archiveBasePath}/page/2`)}>
-                          2
-                        </a>
-                        <a className="nextpostslink" rel="next" aria-label="Next page" href={localizePath(locale, `${archiveBasePath}/page/2`)}>
-                          &gt;
-                        </a>
+                        {pageNumber > 1 ? (
+                          <a className="previouspostslink" rel="prev" aria-label="Previous page" href={archivePageHref(pageNumber - 1)}>
+                            &lt;
+                          </a>
+                        ) : null}
+                        {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) =>
+                          page === pageNumber ? (
+                            <span key={page} className="current">
+                              {page}
+                            </span>
+                          ) : (
+                            <a key={page} className={page < pageNumber ? "page smaller" : "page larger"} href={archivePageHref(page)}>
+                              {page}
+                            </a>
+                          ),
+                        )}
+                        {pageNumber < totalPages ? (
+                          <a className="nextpostslink" rel="next" aria-label="Next page" href={archivePageHref(pageNumber + 1)}>
+                            &gt;
+                          </a>
+                        ) : null}
                       </div>
                     </div>
                   ) : null}
@@ -4745,12 +4836,14 @@ export function ProductAllArchiveView({
   allCategories,
   products,
   archivePath,
+  pageNumber = 1,
 }: {
   locale: Locale;
   topCategory: ProductCategory;
   allCategories: ProductCategory[];
   products: Product[];
   archivePath: string;
+  pageNumber?: number;
 }) {
   const siblingCategories = allCategories.filter((item) => item.parentSlug === topCategory.slug);
   return (
@@ -4762,6 +4855,7 @@ export function ProductAllArchiveView({
       products={products}
       archivePath={archivePath}
       viewAllHref={localizePath(locale, archivePath)}
+      pageNumber={pageNumber}
     />
   );
 }

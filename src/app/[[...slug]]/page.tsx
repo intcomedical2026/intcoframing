@@ -77,6 +77,10 @@ const productAllArchiveRoutes: Record<string, string> = {
   "/products/memo-board-all": "memo-board",
 };
 
+const productAllArchiveSourceCounts: Record<string, number> = {
+  "/picture-frame-all": 33,
+};
+
 type JsonLdNode = Record<string, unknown>;
 export async function generateMetadata({ params, searchParams }: PageProps): Promise<Metadata> {
   const { slug = [] } = await params;
@@ -152,17 +156,22 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
 
   if (path === "/") return <HomeView data={data} locale={locale} />;
 
-  const productAllArchiveSlug = productAllArchiveRoutes[path];
-  if (productAllArchiveSlug) {
-    const topCategory = data.productCategories.find((item) => item.slug === productAllArchiveSlug);
+  const productAllArchiveRoute = productAllArchiveRouteForPath(path);
+  if (productAllArchiveRoute) {
+    const topCategory = data.productCategories.find((item) => item.slug === productAllArchiveRoute.topCategorySlug);
     if (!topCategory) notFound();
+    const products = productsForTopCategory(data.products, data.productCategories, topCategory.slug);
+    const productCount = productAllArchiveSourceCounts[productAllArchiveRoute.archivePath] || products.length;
+    const totalPages = Math.max(1, Math.ceil(productCount / SOURCE_SEARCH_PAGE_SIZE));
+    if (productAllArchiveRoute.pageNumber > totalPages) notFound();
     return (
       <ProductAllArchiveView
         locale={locale}
         topCategory={topCategory}
         allCategories={data.productCategories}
-        products={productsForTopCategory(data.products, data.productCategories, topCategory.slug)}
-        archivePath={path}
+        products={products}
+        archivePath={productAllArchiveRoute.archivePath}
+        pageNumber={productAllArchiveRoute.pageNumber}
       />
     );
   }
@@ -273,6 +282,23 @@ function productsForTopCategory(products: Product[], categories: ProductCategory
     if (product.mainCategorySlug && allowedSlugs.has(product.mainCategorySlug)) return true;
     return product.categorySlugs?.some((slug) => allowedSlugs.has(slug));
   });
+}
+
+function productAllArchiveRouteForPath(path: string) {
+  const directTopCategorySlug = productAllArchiveRoutes[path];
+  if (directTopCategorySlug) {
+    return { archivePath: path, pageNumber: 1, topCategorySlug: directTopCategorySlug };
+  }
+
+  const pageMatch = path.match(/^(.*)\/page\/(\d+)$/);
+  if (!pageMatch) return null;
+
+  const archivePath = pageMatch[1];
+  const topCategorySlug = productAllArchiveRoutes[archivePath];
+  const pageNumber = Number(pageMatch[2]);
+  if (!topCategorySlug || !Number.isInteger(pageNumber) || pageNumber < 2) return null;
+
+  return { archivePath, pageNumber, topCategorySlug };
 }
 
 type RouteMeta = {
@@ -714,8 +740,10 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
     return defaults;
   }
 
-  const routeDefaults = routeMetaDefaults[path]?.[locale] || routeMetaDefaults[path]?.en;
-  if (routeDefaults && (BUSINESS_INSIGHTS_CHILD_PATHS.has(path) || path === "/privacy-policy" || productAllArchiveRoutes[path])) {
+  const productAllArchiveRoute = productAllArchiveRouteForPath(path);
+  const routeDefaultsPath = productAllArchiveRoute?.archivePath || path;
+  const routeDefaults = routeMetaDefaults[routeDefaultsPath]?.[locale] || routeMetaDefaults[routeDefaultsPath]?.en;
+  if (routeDefaults && (BUSINESS_INSIGHTS_CHILD_PATHS.has(path) || path === "/privacy-policy" || productAllArchiveRoute)) {
     return routeDefaults;
   }
 
