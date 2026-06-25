@@ -11,6 +11,7 @@ import {
   ContentPageView,
   EnquiryListView,
   HomeView,
+  ProductAllArchiveView,
   ProductDetailSourceView,
   ProductListingView,
   PrivacyPolicyView,
@@ -21,7 +22,7 @@ import {
   SolutionDetailView,
   SolutionsListingView,
 } from "@/components/site-views";
-import { getSiteData, type OfferItem, type Product } from "@/lib/site-data";
+import { getSiteData, type OfferItem, type Product, type ProductCategory } from "@/lib/site-data";
 import { languageAlternates, localizePath, parseLocalizedSegments, t, type Locale } from "@/lib/i18n";
 import { absoluteUrl, siteOrigin } from "@/lib/site-url";
 import { SOURCE_SEARCH_PAGE_SIZE } from "@/lib/source-search-results";
@@ -68,12 +69,12 @@ const BUSINESS_INSIGHTS_CHILD_PATHS = new Set([
   "/solutions/business-insights-trends/bestsellers",
 ]);
 
-const legacyProductAllRedirects: Record<string, string> = {
-  "/products/mirror-all": "/mirror",
-  "/products/picture-frame-all": "/picture-frame",
-  "/products/art-all": "/art",
-  "/products/furniture-all": "/furniture",
-  "/products/memo-board-all": "/memo-board",
+const productAllArchiveRoutes: Record<string, string> = {
+  "/products/mirror-all": "mirror",
+  "/picture-frame-all": "picture-frame",
+  "/products/art-all": "art",
+  "/products/furniture-all": "furniture",
+  "/products/memo-board-all": "memo-board",
 };
 
 type JsonLdNode = Record<string, unknown>;
@@ -151,8 +152,20 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
 
   if (path === "/") return <HomeView data={data} locale={locale} />;
 
-  const legacyProductAllTarget = legacyProductAllRedirects[path];
-  if (legacyProductAllTarget) permanentRedirect(localizePath(locale, legacyProductAllTarget));
+  const productAllArchiveSlug = productAllArchiveRoutes[path];
+  if (productAllArchiveSlug) {
+    const topCategory = data.productCategories.find((item) => item.slug === productAllArchiveSlug);
+    if (!topCategory) notFound();
+    return (
+      <ProductAllArchiveView
+        locale={locale}
+        topCategory={topCategory}
+        allCategories={data.productCategories}
+        products={productsForTopCategory(data.products, data.productCategories, topCategory.slug)}
+        archivePath={path}
+      />
+    );
+  }
   if (path === "/news") permanentRedirect(localizePath(locale, "/blog"));
   if (path.startsWith("/solutions/business-insights-trends/")) {
     if (BUSINESS_INSIGHTS_CHILD_PATHS.has(path)) {
@@ -251,6 +264,15 @@ function renderRoute(path: string, data: Awaited<ReturnType<typeof getSiteData>>
     />;
 
   notFound();
+}
+
+function productsForTopCategory(products: Product[], categories: ProductCategory[], topCategorySlug: string) {
+  const childSlugs = categories.filter((item) => item.parentSlug === topCategorySlug).map((item) => item.slug);
+  const allowedSlugs = new Set([topCategorySlug, ...childSlugs]);
+  return products.filter((product) => {
+    if (product.mainCategorySlug && allowedSlugs.has(product.mainCategorySlug)) return true;
+    return product.categorySlugs?.some((slug) => allowedSlugs.has(slug));
+  });
 }
 
 type RouteMeta = {
@@ -358,6 +380,38 @@ function searchRouteMeta(pageNumber: number): RouteMeta {
 }
 
 const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
+  "/products/mirror-all": {
+    en: {
+      title: "Mirror",
+      description: "",
+    },
+  },
+  "/picture-frame-all": {
+    en: {
+      title: "Picture Frames in Any Material, Size and Color | Intco Framing",
+      description: "Enhance your space with our diverse selection of picture frames. Choose from plastic, metal, wood picture frames in different sizes and colors. Find your ideal picture Frames today!",
+      keywordsRaw: "Intco Framing Picture Frame, Plastic Picture Frame, Metal Picture Frame, Wood Picture Frame, White Picture Frame, Picture Frame with different size",
+    },
+  },
+  "/products/art-all": {
+    en: {
+      title: "Art",
+      description: "",
+    },
+  },
+  "/products/furniture-all": {
+    en: {
+      title: "Furniture",
+      description: "",
+    },
+  },
+  "/products/memo-board-all": {
+    en: {
+      title: "Intco Framing Memo Boards Wholesale: Chalkboard, Whiteboard, Cork Board",
+      description: "Explore Intco Framing premium memo boards. From chalkboards and dry erase boards to cork boards, discover our best sellers to suit your needs. Shop now!",
+      keywordsRaw: "Intco Framing Memo Board, Chalkboard, Dry Erase Board, Cork Board, Linen Board Wholesale",
+    },
+  },
   "/privacy-policy": {
     en: {
       title: "Privacy Policy | INTCO Framing",
@@ -661,7 +715,7 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
   }
 
   const routeDefaults = routeMetaDefaults[path]?.[locale] || routeMetaDefaults[path]?.en;
-  if (routeDefaults && (BUSINESS_INSIGHTS_CHILD_PATHS.has(path) || path === "/privacy-policy")) {
+  if (routeDefaults && (BUSINESS_INSIGHTS_CHILD_PATHS.has(path) || path === "/privacy-policy" || productAllArchiveRoutes[path])) {
     return routeDefaults;
   }
 

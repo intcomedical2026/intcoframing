@@ -3,12 +3,6 @@ import { NextResponse, type NextRequest } from "next/server";
 const prefixedLocales = new Set(["es", "pt", "fr", "de", "ja"]);
 
 const legacyRedirects: Record<string, string> = {
-  "/picture-frame-all": "/picture-frame",
-  "/products/art-all": "/art",
-  "/products/furniture-all": "/furniture",
-  "/products/memo-board-all": "/memo-board",
-  "/products/mirror-all": "/mirror",
-  "/products/picture-frame-all": "/picture-frame",
   "/sample-page": "/",
   "/solutions-center/design-engineering": "/solutions/design-engineering",
   "/blog/expo": "/blog?category=Expo",

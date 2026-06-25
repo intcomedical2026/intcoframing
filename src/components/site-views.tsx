@@ -974,8 +974,16 @@ function localizeSourceCategoryCard<T extends { title: string; path: string; ima
   return category ? { ...card, title: category.title } : card;
 }
 
-function sourceCategoryViewAllHref(cards: Array<{ path: string }>, fallbackPath: string, locale: Locale) {
-  return localizePath(locale, cards[0]?.path || fallbackPath);
+const PRODUCT_ALL_ARCHIVE_PATH_BY_TOP_SLUG: Record<string, string> = {
+  mirror: "/products/mirror-all",
+  "picture-frame": "/picture-frame-all",
+  art: "/products/art-all",
+  furniture: "/products/furniture-all",
+  "memo-board": "/products/memo-board-all",
+};
+
+function sourceCategoryViewAllHref(topCategorySlug: string, fallbackPath: string, locale: Locale) {
+  return localizePath(locale, PRODUCT_ALL_ARCHIVE_PATH_BY_TOP_SLUG[topCategorySlug] || fallbackPath);
 }
 
 function localizeSourceProductCard<T extends { title: string; path: string; imageUrl: string }>(card: T, products: Product[], locale: Locale): T {
@@ -4347,14 +4355,20 @@ function SourceCategoryArchiveView({
   topCategory,
   siblingCategories,
   products,
+  archivePath,
+  viewAllHref,
 }: {
   locale: Locale;
   category: ProductCategory;
   topCategory: ProductCategory;
   siblingCategories: ProductCategory[];
   products: Product[];
+  archivePath?: string;
+  viewAllHref?: string;
 }) {
   const archiveProducts = sourceCategoryArchiveProducts(category, products);
+  const archiveBasePath = archivePath || category.path;
+  const allProductsHref = viewAllHref || sourceCategoryViewAllHref(topCategory.slug, topCategory.path, locale);
   const filterGroups = sourceCategoryFilterGroups(topCategory);
   const bestSellerItems = products.slice(0, 4).map((product) => ({
     title: product.title,
@@ -4391,7 +4405,7 @@ function SourceCategoryArchiveView({
                       </li>
                     ))}
                   </ul>
-                  <Link href={localizePath(locale, topCategory.path)} className="selectBtn">
+                  <Link href={allProductsHref} className="selectBtn">
                     View All Products <i className="iconfont icon-jiantou_xiangyou" aria-hidden="true" />
                   </Link>
                 </div>
@@ -4449,10 +4463,10 @@ function SourceCategoryArchiveView({
                     <div className="page-box">
                       <div className="page-inner">
                         <span className="current">1</span>
-                        <a className="page larger" href={localizePath(locale, `${category.path}/page/2`)}>
+                        <a className="page larger" href={localizePath(locale, `${archiveBasePath}/page/2`)}>
                           2
                         </a>
-                        <a className="nextpostslink" rel="next" aria-label="Next page" href={localizePath(locale, `${category.path}/page/2`)}>
+                        <a className="nextpostslink" rel="next" aria-label="Next page" href={localizePath(locale, `${archiveBasePath}/page/2`)}>
                           &gt;
                         </a>
                       </div>
@@ -4697,6 +4711,33 @@ function ProductCategorySourceDynamicView({
   );
 }
 
+export function ProductAllArchiveView({
+  locale,
+  topCategory,
+  allCategories,
+  products,
+  archivePath,
+}: {
+  locale: Locale;
+  topCategory: ProductCategory;
+  allCategories: ProductCategory[];
+  products: Product[];
+  archivePath: string;
+}) {
+  const siblingCategories = allCategories.filter((item) => item.parentSlug === topCategory.slug);
+  return (
+    <SourceCategoryArchiveView
+      locale={locale}
+      category={topCategory}
+      topCategory={topCategory}
+      siblingCategories={siblingCategories}
+      products={products}
+      archivePath={archivePath}
+      viewAllHref={localizePath(locale, archivePath)}
+    />
+  );
+}
+
 function MirrorCategorySourceView({ locale, category, categories, products }: { locale: Locale; category?: ProductCategory; categories: ProductCategory[]; products: Product[] }) {
   const collectionCards = MIRROR_COLLECTION_CARDS.map((card) => localizeSourceCategoryCard(card, categories, locale));
   const bestSellers = MIRROR_BEST_SELLERS.map((item) => localizeSourceProductCard(item, products, locale));
@@ -4726,7 +4767,7 @@ function MirrorCategorySourceView({ locale, category, categories, products }: { 
             </div>
           </div>
           <div className="mt-[68px] flex justify-center max-lg:mt-10">
-            <Link href={sourceCategoryViewAllHref(collectionCards, "/mirror", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
+            <Link href={sourceCategoryViewAllHref("mirror", "/mirror", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4768,7 +4809,7 @@ function PictureFrameCategorySourceView({ locale, category, categories, products
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={sourceCategoryViewAllHref(collectionCards, "/picture-frame", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref("picture-frame", "/picture-frame", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4846,7 +4887,7 @@ function ArtCategorySourceView({ locale, category, categories, products }: { loc
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={sourceCategoryViewAllHref(collectionCards, "/art", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref("art", "/art", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4901,7 +4942,7 @@ function FurnitureCategorySourceView({ locale, category, categories, products }:
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={sourceCategoryViewAllHref(collectionCards, "/furniture", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref("furniture", "/furniture", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4955,7 +4996,7 @@ function MemoBoardCategorySourceView({ locale, category, categories, products }:
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-0">
-            <Link href={sourceCategoryViewAllHref(collectionCards, "/memo-board", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref("memo-board", "/memo-board", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
