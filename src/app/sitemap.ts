@@ -22,6 +22,8 @@ const staticEntries: SitemapEntry[] = [
   { path: "/projects/page/3", priority: 0.7, changeFrequency: "monthly" },
   { path: "/projects/residential", priority: 0.8, changeFrequency: "monthly" },
   { path: "/projects/commercial", priority: 0.8, changeFrequency: "monthly" },
+  { path: "/picture-frame-all/page/2", priority: 0.7, changeFrequency: "weekly" },
+  { path: "/picture-frame-all/page/3", priority: 0.7, changeFrequency: "weekly" },
   { path: "/blog", priority: 0.8, changeFrequency: "weekly" },
   { path: "/inspiration", priority: 0.7, changeFrequency: "monthly" },
   { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" },
