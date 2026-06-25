@@ -70,7 +70,7 @@ import {
   type SourceColorChoice,
   type SourceRelatedProductItem,
 } from "@/components/product-detail-source-interactions";
-import { SOURCE_CATEGORY_LISTING_SNAPSHOTS } from "@/lib/source-category-listing-snapshots";
+import { SOURCE_CATEGORY_LISTING_SNAPSHOTS, type SourceCategoryListingItem } from "@/lib/source-category-listing-snapshots";
 import { SOURCE_EMPTY_SEARCH_RESULTS, SOURCE_SEARCH_PAGE_SIZE, type SourceSearchResultItem } from "@/lib/source-search-results";
 
 const PRODUCT_CATALOG_IMAGES = [
@@ -980,6 +980,10 @@ const PRODUCT_ALL_ARCHIVE_PATH_BY_TOP_SLUG: Record<string, string> = {
   art: "/products/art-all",
   furniture: "/products/furniture-all",
   "memo-board": "/products/memo-board-all",
+};
+
+const SOURCE_TOP_CATEGORY_ARCHIVE_ORDER_BY_PATH: Record<string, string[]> = {
+  "/picture-frame": ["2638", "2206", "2616", "2330", "1120", "2559", "2533", "2526", "2519", "2484", "2540", "2552"],
 };
 
 function sourceCategoryViewAllHref(topCategorySlug: string, fallbackPath: string, locale: Locale) {
@@ -4258,7 +4262,31 @@ function sourceCategoryListingSearchImage(path: string) {
   return SOURCE_EMPTY_SEARCH_RESULTS.find((item) => item.path === path)?.imageUrl;
 }
 
+function sourceTopCategoryArchiveSnapshotItems(category: ProductCategory): SourceCategoryListingItem[] {
+  const sourceOrder = SOURCE_TOP_CATEGORY_ARCHIVE_ORDER_BY_PATH[category.path];
+  if (!sourceOrder) return [];
+
+  const childSnapshots = Object.entries(SOURCE_CATEGORY_LISTING_SNAPSHOTS)
+    .filter(([path]) => path.startsWith(`${category.path}/`))
+    .flatMap(([, items]) => items);
+  const snapshotBySourceId = new Map(childSnapshots.map((item) => [item.sourceId, item]));
+  return sourceOrder.map((sourceId) => snapshotBySourceId.get(sourceId)).filter((item): item is SourceCategoryListingItem => Boolean(item));
+}
+
 function sourceCategoryArchiveProducts(category: ProductCategory, products: Product[]): SourceCategoryArchiveProduct[] {
+  const topCategorySnapshotItems = sourceTopCategoryArchiveSnapshotItems(category);
+  if (topCategorySnapshotItems.length) {
+    return topCategorySnapshotItems.map((item) => ({
+      key: item.sourceId || item.path,
+      title: item.title,
+      path: item.path,
+      imageUrl: item.imageUrl,
+      imageAlt: item.title,
+      sourceId: item.sourceId,
+      colors: item.colors,
+    }));
+  }
+
   const snapshotItems = SOURCE_CATEGORY_LISTING_SNAPSHOTS[category.path] || [];
   const snapshotByPath = new Map(snapshotItems.map((item) => [item.path, item]));
   const snapshotBySourceId = new Map(snapshotItems.map((item) => [item.sourceId, item]));
