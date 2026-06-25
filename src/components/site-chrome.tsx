@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Languages, Mail, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
-import { HubSpotNewsletterForm } from "@/components/hubspot-forms";
+import { HubSpotFloatingInquiryForm, HubSpotNewsletterForm } from "@/components/hubspot-forms";
 import { LeadsCloudChatRuntime } from "@/components/leadscloud-runtime";
 import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
@@ -80,6 +80,7 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
       <Header settings={settings} categories={categories} solutions={solutions} locale={locale} languagePath={languagePath} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
+      <HubSpotFloatingInquiryForm locale={locale} />
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
       <CookieBanner locale={locale} currentPath={currentPath} />
       <LeadsCloudChatRuntime />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useId, useMemo, useState, type FormEvent } from "react";
-import { Send } from "lucide-react";
+import { ChevronDown, MessageCircle, Send } from "lucide-react";
 import type { Locale } from "@/lib/i18n";
 import type { HubSpotFormType } from "@/lib/hubspot";
 import { COUNTRY_OPTIONS } from "@/lib/country-options";
@@ -202,6 +202,128 @@ export function HubSpotMainInquiryForm({ locale }: { locale: Locale }) {
       fields={["name", "email", "country", "phone", "whatsapp", "companyName", "message"]}
       requiredFields={REQUIRED_INQUIRY_FIELDS}
     />
+  );
+}
+
+export function HubSpotFloatingInquiryForm({ locale }: { locale: Locale }) {
+  const copy = FORM_COPY[locale];
+  const [isOpen, setIsOpen] = useState(true);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [message, setMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const formId = useId();
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+
+    const formData = new FormData(form);
+    if (String(formData.get("website") || "").trim()) {
+      setStatus("success");
+      setMessage(copy.success);
+      form.reset();
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatus("idle");
+    setMessage("");
+
+    try {
+      await submitHubSpotForm("mainInquiry", {
+        name: String(formData.get("name") || "").trim(),
+        companyName: String(formData.get("companyName") || "").trim(),
+        country: String(formData.get("country") || "").trim(),
+        email: String(formData.get("email") || "").trim(),
+        sourcePage: window.location.href,
+      });
+      setStatus("success");
+      setMessage(copy.success);
+      form.reset();
+    } catch {
+      setStatus("error");
+      setMessage(copy.error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
+  return (
+    <aside className="intco-floating-inquiry" data-open={isOpen} aria-label="Leave info for details">
+      <button
+        type="button"
+        className="intco-floating-inquiry-toggle"
+        aria-expanded={isOpen}
+        aria-controls={`${formId}-panel`}
+        onClick={() => setIsOpen((current) => !current)}
+      >
+        <span>Leave info for details</span>
+        <ChevronDown size={22} aria-hidden="true" />
+      </button>
+      <div id={`${formId}-panel`} className="intco-floating-inquiry-panel" hidden={!isOpen}>
+        <div className="intco-floating-inquiry-note">
+          <p>Please leave your message here! We will send detailed technical info and quotation to you!</p>
+          <a
+            href="https://api.whatsapp.com/send?phone=8613371591392&text=Hello"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="WhatsApp"
+            className="intco-floating-inquiry-whatsapp"
+          >
+            <MessageCircle size={22} aria-hidden="true" />
+          </a>
+        </div>
+        <form className="intco-floating-inquiry-form" onSubmit={onSubmit}>
+          <FloatingInquiryField id={`${formId}-name`} name="name" placeholder="姓名" required />
+          <FloatingInquiryField id={`${formId}-company`} name="companyName" placeholder="公司名称" required />
+          <div className="intco-floating-inquiry-field">
+            <select id={`${formId}-country`} name="country" required defaultValue="" aria-label="国家地区">
+              <option value="" disabled>
+                国家地区
+              </option>
+              {COUNTRY_OPTIONS.map((country) => (
+                <option key={`${country.code}-${country.name}`} value={country.code}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
+            <span aria-hidden="true">*</span>
+          </div>
+          <FloatingInquiryField id={`${formId}-email`} name="email" placeholder="邮箱" type="email" required />
+          <input name="website" type="text" tabIndex={-1} autoComplete="off" className="intco-hubspot-honeypot" aria-hidden="true" />
+          {message ? (
+            <p className={`intco-floating-inquiry-status intco-hubspot-form-status is-${status}`} role="status" aria-live="polite">
+              {message}
+            </p>
+          ) : null}
+          <button type="submit" className="intco-floating-inquiry-submit" disabled={isSubmitting}>
+            {isSubmitting ? copy.submitting : "Contact Us"}
+          </button>
+        </form>
+      </div>
+    </aside>
+  );
+}
+
+function FloatingInquiryField({
+  id,
+  name,
+  placeholder,
+  type = "text",
+  required,
+}: {
+  id: string;
+  name: FieldKey;
+  placeholder: string;
+  type?: "email" | "text";
+  required?: boolean;
+}) {
+  return (
+    <div className="intco-floating-inquiry-field">
+      <input id={id} name={name} type={type} placeholder={placeholder} required={required} aria-label={placeholder} />
+      {required ? <span aria-hidden="true">*</span> : null}
+    </div>
   );
 }
 
