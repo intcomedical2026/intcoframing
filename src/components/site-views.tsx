@@ -974,6 +974,10 @@ function localizeSourceCategoryCard<T extends { title: string; path: string; ima
   return category ? { ...card, title: category.title } : card;
 }
 
+function sourceCategoryViewAllHref(cards: Array<{ path: string }>, fallbackPath: string, locale: Locale) {
+  return localizePath(locale, cards[0]?.path || fallbackPath);
+}
+
 function localizeSourceProductCard<T extends { title: string; path: string; imageUrl: string }>(card: T, products: Product[], locale: Locale): T {
   if (locale === "en") return card;
   const product = products.find((item) => item.path === card.path);
@@ -4722,7 +4726,7 @@ function MirrorCategorySourceView({ locale, category, categories, products }: { 
             </div>
           </div>
           <div className="mt-[68px] flex justify-center max-lg:mt-10">
-            <Link href={localizePath(locale, "/mirror")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
+            <Link href={sourceCategoryViewAllHref(collectionCards, "/mirror", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-lg font-semibold text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4764,7 +4768,7 @@ function PictureFrameCategorySourceView({ locale, category, categories, products
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={localizePath(locale, "/picture-frame")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref(collectionCards, "/picture-frame", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4842,7 +4846,7 @@ function ArtCategorySourceView({ locale, category, categories, products }: { loc
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={localizePath(locale, "/art")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref(collectionCards, "/art", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4897,7 +4901,7 @@ function FurnitureCategorySourceView({ locale, category, categories, products }:
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-[68px]">
-            <Link href={localizePath(locale, "/furniture")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref(collectionCards, "/furniture", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
@@ -4951,7 +4955,7 @@ function MemoBoardCategorySourceView({ locale, category, categories, products }:
             </div>
           </div>
           <div className="mt-10 flex justify-center lg:mt-0">
-            <Link href={localizePath(locale, "/memo-board")} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
+            <Link href={sourceCategoryViewAllHref(collectionCards, "/memo-board", locale)} className="inline-flex h-[58px] w-[306px] items-center justify-center rounded-[29px] border-2 border-[#484653] text-base font-normal text-[#484653] transition duration-700 hover:scale-105 hover:bg-[#484653] hover:text-white lg:text-lg">
               {t(locale, "viewAllProducts")} <ArrowRight className="ml-2" size={22} />
             </Link>
           </div>
