@@ -7,13 +7,14 @@ import { structure } from "./src/sanity/structure";
 
 const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "vzcnnept";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+const datasetLabel = dataset === "production" ? "" : ` (${dataset})`;
 const languages = ["en", "es", "pt", "fr", "de", "ja"];
 const localizedTypes = ["product", "productCategory", "blogPost", "project", "solution", "contentPage"];
 const hiddenCreateTemplateTypes = new Set([...localizedTypes, "siteSettings", "homePage"]);
 
 export default defineConfig({
   name: "intco-framing-us",
-  title: "INTCO Content Studio",
+  title: `INTCO Content Studio${datasetLabel}`,
   basePath: "/studio",
   projectId,
   dataset,
