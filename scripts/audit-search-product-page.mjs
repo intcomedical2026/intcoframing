@@ -43,7 +43,7 @@ function inspectHtml(html) {
     headings,
     textLength: text.length,
     imgTagCount: (html.match(/<img\b/gi) || []).length,
-    formMarkerCount: (html.match(/<form\b|BURY_CODE_|leadscloud|XHLFORM/gi) || []).length,
+    legacyThirdPartyFormMarkerCount: (html.match(/<form\b|BURY_CODE_|leadscloud|XHLFORM/gi) || []).length,
     hasCategories: /Categories|Wall Mirror|LED Mirror|Products1-title/i.test(text),
     hasBestSellers: /BEST SELLERS|Best Sellers/i.test(text),
     hasSpecs: /Item#|Item No|Color|Size|Material|Description/i.test(text),

@@ -2,17 +2,16 @@
 
 import { useState } from "react";
 import { Phone } from "lucide-react";
-import { LeadsCloudChatLink } from "./leadscloud-chat-link";
 
 type ProjectSourceGallerySwitcherProps = {
   contactLabel: string;
   description: string;
-  fallbackHref: string;
   gallery: string[];
+  href: string;
   title: string;
 };
 
-export function ProjectSourceGallerySwitcher({ contactLabel, description, fallbackHref, gallery, title }: ProjectSourceGallerySwitcherProps) {
+export function ProjectSourceGallerySwitcher({ contactLabel, description, gallery, href, title }: ProjectSourceGallerySwitcherProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeImage = gallery[activeIndex] || gallery[0] || "";
   const slideWidth = 172.5;
@@ -35,10 +34,10 @@ export function ProjectSourceGallerySwitcher({ contactLabel, description, fallba
                     <div className="fixedRight-top">{title}</div>
                     <div className="DESC">{description}</div>
                     <div className="View-All-btn">
-                      <LeadsCloudChatLink fallbackHref={fallbackHref} className="View-All-btn-item">
+                      <a href={href} className="View-All-btn-item">
                         <Phone size={20} />
                         {contactLabel}
-                      </LeadsCloudChatLink>
+                      </a>
                     </div>
                   </div>
                 </div>

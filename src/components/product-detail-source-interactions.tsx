@@ -22,7 +22,7 @@ type SourceProductCartData = {
   productImg: string;
 };
 
-type LeadsCloudProductItem = {
+type EnquiryCartProductItem = {
   productId: string;
   productLink: string;
   productName: string;
@@ -141,7 +141,7 @@ export function SourceProductPurchaseControls({
   const selectedSize = sizeOptions[selectedSizeIndex] || null;
 
   function addToCart() {
-    const productList = readLeadsCloudProductList();
+    const productList = readEnquiryCartProductList();
     const exists = productList.some((item) => String(item.productId) === product.productId);
 
     if (exists) {
@@ -242,10 +242,10 @@ export function SourceProductPurchaseControls({
   );
 }
 
-function readLeadsCloudProductList() {
+function readEnquiryCartProductList() {
   try {
     const parsed = JSON.parse(localStorage.getItem("productList") || "[]");
-    return Array.isArray(parsed) ? (parsed as LeadsCloudProductItem[]) : [];
+    return Array.isArray(parsed) ? (parsed as EnquiryCartProductItem[]) : [];
   } catch {
     return [];
   }

@@ -15,7 +15,7 @@ type CartItem = {
   quantity: number;
 };
 
-type LeadsCloudProductItem = {
+type EnquiryCartProductItem = {
   productId: string;
   productLink: string;
   productName: string;
@@ -47,7 +47,7 @@ export function ProductQuotePanel({
       current.push({ ...product, quantity });
     }
     localStorage.setItem("intco-enquiry-cart", JSON.stringify(current));
-    syncLeadsCloudProductList(current);
+    syncEnquiryCartProductList(current);
     setAdded(true);
   }
 
@@ -97,8 +97,8 @@ export function ProductQuotePanel({
   );
 }
 
-function syncLeadsCloudProductList(items: CartItem[]) {
-  const productList: LeadsCloudProductItem[] = items.map((item) => ({
+function syncEnquiryCartProductList(items: CartItem[]) {
+  const productList: EnquiryCartProductItem[] = items.map((item) => ({
     productId: item.sourceId ? String(item.sourceId) : item.slug,
     productLink: new URL(item.path, window.location.origin).toString(),
     productName: item.title,

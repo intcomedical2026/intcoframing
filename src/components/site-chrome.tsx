@@ -4,7 +4,6 @@ import { Languages, Mail, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
 import { FloatingActions } from "@/components/floating-actions";
 import { HubSpotFloatingInquiryForm, HubSpotNewsletterForm } from "@/components/hubspot-forms";
-import { LeadsCloudChatRuntime } from "@/components/leadscloud-runtime";
 import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
 import type { ProductCategory, SiteSettings, Solution } from "@/lib/site-data";
@@ -83,7 +82,6 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
       <HubSpotFloatingInquiryForm locale={locale} />
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
       <CookieBanner locale={locale} currentPath={currentPath} />
-      <LeadsCloudChatRuntime />
     </div>
   );
 }

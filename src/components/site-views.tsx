@@ -52,7 +52,6 @@ import { SourceCategoryAddCartButton } from "@/components/source-category-add-ca
 import { ProductTestReportCoverflow } from "@/components/product-test-report-coverflow";
 import { ProductCatalogTabs } from "@/components/product-catalog-tabs";
 import { EnquiryList } from "@/components/enquiry-list";
-import { LeadsCloudChatLink } from "@/components/leadscloud-chat-link";
 import { CountUpStat } from "@/components/count-up-stat";
 import { HeroCarousel } from "@/components/hero-carousel";
 import { HomeBlogSection } from "@/components/home-blog-section";
@@ -3978,13 +3977,13 @@ function HomeBottomContactBand({ locale }: { locale: Locale }) {
           {t(locale, "contactToday")}
         </p>
         <div className="wow fadeInUp" data-reveal="source-up" style={{ "--reveal-delay": "180ms" } as React.CSSProperties}>
-          <LeadsCloudChatLink
-            fallbackHref={localizePath(locale, "/contact#chat")}
+          <a
+            href={localizePath(locale, "/contact#chat")}
             className="mx-auto box-content flex h-[58px] w-[200px] items-center justify-center rounded-[33px] border-2 border-white bg-white p-0 text-lg font-medium leading-[54px] text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
           >
             <i className="intco-source-iconfont intco-source-icon-phone-loudspeaker mr-[9px]" aria-hidden="true" style={{ fontSize: 24 }} />
             {t(locale, "contactUs")}
-          </LeadsCloudChatLink>
+          </a>
         </div>
       </div>
     </section>
@@ -4111,9 +4110,9 @@ function ProductHeroSourceFrame({ title, locale, variant, categoryPath }: { titl
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
+              <a href={localizePath(locale, "/contact#chat")} data-source-hero-cta>
                 {t(locale, "chatWithUs")}
-              </LeadsCloudChatLink>
+              </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
                 {t(locale, "leaveMessage")}
               </a>
@@ -4254,7 +4253,7 @@ function ProductContactSection({ locale }: { locale: Locale }) {
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center px-5 pb-16 pt-[50px] sm:px-6 lg:pb-[77px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="mx-auto max-w-[1600px]">
         <ProductSourceTitle title={t(locale, "getInTouch")} />
-        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1006px] lg:mt-[55px]">
+        <div className="ORDERASAMPLEFlex intco-hubspot-main-form mx-auto mt-12 max-w-[1006px] lg:mt-[55px]">
           <HubSpotMainInquiryForm locale={locale} />
         </div>
       </div>
@@ -4548,12 +4547,12 @@ function SourceCategoryArchiveView({
                     Talk to experts
                   </div>
                   <div className="flexContentItem">
-                    <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")}>
+                    <a href={localizePath(locale, "/contact#chat")}>
                       <div className="selectBtn">
                         <i className="iconfont icon-24gf-phoneLoudspeaker" aria-hidden="true" />
                         Contact Us
                       </div>
-                    </LeadsCloudChatLink>
+                    </a>
                   </div>
                   <div className="point point1" />
                   <div className="point point2" />
@@ -4961,7 +4960,7 @@ function PictureFrameContactSection({ locale }: { locale: Locale }) {
     <section id="goinput" className="overflow-hidden bg-[#f3f3f3] bg-cover bg-center pb-0 pt-[50px] lg:pt-[100px]" style={{ backgroundImage: `url(${PRODUCT_CONTACT_BG})` }}>
       <div className="intco-source-container px-5">
         <PictureFrameSectionTitle title={t(locale, "getInTouch")} />
-        <div className="ORDERASAMPLEFlex intco-leadscloud-main-form mx-auto mt-12 max-w-[1006px] pb-[77px] lg:mt-[55px]">
+        <div className="ORDERASAMPLEFlex intco-hubspot-main-form mx-auto mt-12 max-w-[1006px] pb-[77px] lg:mt-[55px]">
           <HubSpotMainInquiryForm locale={locale} />
         </div>
       </div>
@@ -5355,12 +5354,12 @@ function SolutionsSourceHero({
             <span>{title}</span>
           </div>
           <div className="mt-4 flex flex-wrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <LeadsCloudChatLink
-              fallbackHref={localizePath(locale, "/contact#chat")}
+            <a
+              href={localizePath(locale, "/contact#chat")}
               className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
               {t(locale, "chatWithUs")}
-            </LeadsCloudChatLink>
+            </a>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
@@ -5487,13 +5486,13 @@ function SolutionsContactBand({ locale }: { locale: Locale }) {
       <div className="intco-source-container rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:py-[8vh]" data-reveal="fade">
         <h2 className="text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">{t(locale, "perfectSolution")}</h2>
         <p className="my-8 text-2xl font-normal">{t(locale, "contactToday")}</p>
-        <LeadsCloudChatLink
-          fallbackHref={localizePath(locale, "/contact#chat")}
+        <a
+          href={localizePath(locale, "/contact#chat")}
           className="mx-auto inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
         >
           <Phone className="mr-[9px]" size={22} />
           {t(locale, "contactUs")}
-        </LeadsCloudChatLink>
+        </a>
       </div>
     </section>
   );
@@ -5523,12 +5522,12 @@ function BusinessInsightsHero({ locale, title: customTitle, parentCrumb = false 
             <span>{title}</span>
           </nav>
           <div className="flex flex-wrap justify-center max-lg:justify-start">
-            <LeadsCloudChatLink
-              fallbackHref={localizePath(locale, "/contact#chat")}
+            <a
+              href={localizePath(locale, "/contact#chat")}
               className="m-[15px] box-content inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold leading-[48px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
             >
               {t(locale, "chatWithUs")}
-            </LeadsCloudChatLink>
+            </a>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="m-[15px] box-content inline-flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold leading-[48px] text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white max-lg:w-[142px] max-lg:text-base"
@@ -5862,9 +5861,9 @@ function DesignEngineeringHero({ locale }: { locale: Locale }) {
             <span>{title}</span>
           </nav>
           <div className="mt-[17px] flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} className="intco-design-hero-button">
+            <a href={localizePath(locale, "/contact#chat")} className="intco-design-hero-button">
               {t(locale, "chatWithUs")}
-            </LeadsCloudChatLink>
+            </a>
             <Link href={localizePath(locale, "/products/#goinput")} className="intco-design-hero-button">
               {t(locale, "leaveMessage")}
             </Link>
@@ -6137,9 +6136,9 @@ function ManufacturingDeliveryHero({ locale }: { locale: Locale }) {
             <span>{title}</span>
           </nav>
           <div className="mt-[17px] flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} className="intco-design-hero-button">
+            <a href={localizePath(locale, "/contact#chat")} className="intco-design-hero-button">
               {t(locale, "chatWithUs")}
-            </LeadsCloudChatLink>
+            </a>
             <Link href={localizePath(locale, "/products/#goinput")} className="intco-design-hero-button">
               {t(locale, "leaveMessage")}
             </Link>
@@ -6315,7 +6314,7 @@ function RetailerSupportSourceView({ locale }: { locale: Locale }) {
                         <Headphones size={36} strokeWidth={1.8} />
                       </span>
                       <p>{t(locale, "liveChat")}</p>
-                      <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")}>{t(locale, "contactNow")}</LeadsCloudChatLink>
+                      <a href={localizePath(locale, "/contact#chat")}>{t(locale, "contactNow")}</a>
                     </li>
                     <li data-reveal="up">
                       <span className="intco-retailer-contact-icon">
@@ -6414,9 +6413,9 @@ function RetailerSupportHero({ locale }: { locale: Locale }) {
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
+              <a href={localizePath(locale, "/contact#chat")} data-source-hero-cta>
                 {t(locale, "chatWithUs")}
-              </LeadsCloudChatLink>
+              </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
                 {t(locale, "leaveMessage")}
               </a>
@@ -6502,9 +6501,9 @@ function CertificationHero({ locale }: { locale: Locale }) {
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
+              <a href={localizePath(locale, "/contact#chat")} data-source-hero-cta>
                 {t(locale, "chatWithUs")}
-              </LeadsCloudChatLink>
+              </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
                 {t(locale, "leaveMessage")}
               </a>
@@ -6589,9 +6588,9 @@ function GlobalProductionHero({ locale }: { locale: Locale }) {
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")} data-source-hero-cta>
+              <a href={localizePath(locale, "/contact#chat")} data-source-hero-cta>
                 {t(locale, "chatWithUs")}
-              </LeadsCloudChatLink>
+              </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
                 {t(locale, "leaveMessage")}
               </a>
@@ -7009,12 +7008,12 @@ function ProjectsSourceHero({ locale, title, showProjectsCrumb = false }: { loca
             )}
           </nav>
           <div className="mt-4 flex flex-nowrap justify-center gap-[30px] max-lg:justify-start max-lg:gap-3">
-            <LeadsCloudChatLink
-              fallbackHref={localizePath(locale, "/contact#chat")}
+            <a
+              href={localizePath(locale, "/contact#chat")}
               className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
             >
               {t(locale, "chatWithUs")}
-            </LeadsCloudChatLink>
+            </a>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="box-content inline-flex h-12 w-[142px] items-center justify-center whitespace-nowrap rounded-[29px] border-2 border-[#484653] bg-white text-base font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white lg:w-[232px] lg:text-lg"
@@ -7082,13 +7081,13 @@ function ProjectsSourceContactBand({ locale }: { locale: Locale }) {
       <div className="intco-source-container flex flex-col items-center justify-center rounded-md bg-[rgba(72,70,83,0.8)] px-6 py-12 text-center text-white lg:min-h-[321px] lg:px-0 lg:py-[8vh]" data-reveal="fade">
         <h2 className="w-full text-[32px] font-semibold leading-tight lg:text-[38px] lg:leading-[15px]">{t(locale, "perfectSolution")}</h2>
         <p className="my-8 w-full text-lg font-normal lg:text-2xl lg:leading-9">{t(locale, "contactToday")}</p>
-        <LeadsCloudChatLink
-          fallbackHref={localizePath(locale, "/contact#chat")}
+        <a
+          href={localizePath(locale, "/contact#chat")}
           className="mx-auto box-content inline-flex h-[58px] w-[200px] items-center justify-center rounded-[29px] border-2 border-white bg-white text-lg font-medium leading-[54px] text-[#484653] transition duration-700 hover:border-[#484653] hover:bg-[#484653] hover:text-white"
         >
           <Phone className="mr-[9px]" size={22} />
           {t(locale, "contactUs")}
-        </LeadsCloudChatLink>
+        </a>
       </div>
     </section>
   );
@@ -7669,7 +7668,7 @@ export function ProjectDetailView({
             <ProjectSourceGallerySwitcher
               contactLabel={t(locale, "contactUs")}
               description={mainDescription}
-              fallbackHref={localizePath(locale, "/contact#chat")}
+              href={localizePath(locale, "/contact#chat")}
               gallery={gallery}
               title={project.title}
             />
@@ -8446,9 +8445,9 @@ function EnquiryListSourceHero({ locale }: { locale: Locale }) {
                     </div>
                   </div>
                   <div className="banner-a">
-                    <LeadsCloudChatLink fallbackHref={localizePath(locale, "/contact#chat")}>
+                    <a href={localizePath(locale, "/contact#chat")}>
                       {t(locale, "chatWithUs")}
-                    </LeadsCloudChatLink>
+                    </a>
                     <a href={localizePath(locale, "/products/#goinput")}>{t(locale, "leaveMessage")}</a>
                   </div>
                 </div>
@@ -8703,12 +8702,12 @@ function SustainabilitySourceHero({ locale }: { locale: Locale }) {
             <SustainabilityVideoButton src={SUSTAINABILITY_VIDEO_SRC} label={labels.watchVideo} title={labels.videoTitle} closeLabel={labels.closeVideo} />
           </div>
           <div className="mt-6 flex justify-center gap-[30px] max-sm:flex-col max-sm:items-center max-sm:gap-3">
-            <LeadsCloudChatLink
-              fallbackHref={localizePath(locale, "/contact#chat")}
+            <a
+              href={localizePath(locale, "/contact#chat")}
               className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
             >
               {t(locale, "chatWithUs")}
-            </LeadsCloudChatLink>
+            </a>
             <Link
               href={localizePath(locale, "/products/#goinput")}
               className="flex h-12 w-[232px] items-center justify-center rounded-[29px] border-2 border-[#484653] bg-white text-lg font-semibold text-[#484653] transition duration-500 hover:bg-[#484653] hover:text-white"
@@ -9246,9 +9245,9 @@ function ContactSourceHero({ locale }: { locale: Locale }) {
               </nav>
             </div>
             <div className="intco-source-hero-actions" data-source-hero-actions>
-              <LeadsCloudChatLink fallbackHref="#chat" data-source-hero-cta>
+              <a href="#chat" data-source-hero-cta>
                 {t(locale, "chatWithUs")}
-              </LeadsCloudChatLink>
+              </a>
               <a href={localizePath(locale, "/products/#goinput")} data-source-hero-cta>
                 {t(locale, "leaveMessage")}
               </a>
@@ -9310,9 +9309,9 @@ function ContactSupportSection({ locale }: { locale: Locale }) {
                 <div className="intco-contact-item-desc">{contact.description}</div>
               </div>
               {contact.href === "#chat" ? (
-                <LeadsCloudChatLink fallbackHref="#chat" className="intco-contact-view-button">
+                <a href="#chat" className="intco-contact-view-button">
                   <span>{contact.action}</span>
-                </LeadsCloudChatLink>
+                </a>
               ) : (
                 <a href={contact.href} target={contact.href.startsWith("http") ? "_blank" : undefined} rel={contact.href.startsWith("http") ? "noopener noreferrer" : undefined} className="intco-contact-view-button">
                   <span>{contact.action}</span>
@@ -10221,12 +10220,12 @@ export function ProductDetailSourceView({
                     </div>
                     {/* CTA Buttons */}
                     <div className="banner-a">
-                      <LeadsCloudChatLink
-                        fallbackHref={localizePath(locale, "/contact#chat")}
+                      <a
+                        href={localizePath(locale, "/contact#chat")}
                         className="banner-btn"
                       >
                         {t(locale, "chatWithUs")}
-                      </LeadsCloudChatLink>
+                      </a>
                       <a href={localizePath(locale, "/products/#goinput")}>{t(locale, "leaveMessage")}</a>
                     </div>
                   </div>
@@ -10299,12 +10298,12 @@ export function ProductDetailSourceView({
                   <h1 className="Products1-right-title">{displayTitle}</h1>
                   
                   {/* Get a Quote Button */}
-                  <LeadsCloudChatLink
-                    fallbackHref={localizePath(locale, "/contact#chat")}
+                  <a
+                    href={localizePath(locale, "/contact#chat")}
                     className="Quote"
                   >
                     {t(locale, "quote")}
-                  </LeadsCloudChatLink>
+                  </a>
                   
                   <SourceProductPurchaseControls
                     itemLabel={specLabels.itemNumber}
@@ -10346,15 +10345,15 @@ export function ProductDetailSourceView({
                     <div className="point point3" />
                     <div className="point point4" />
                     <div className="flexContentItem">
-                      <LeadsCloudChatLink
-                        fallbackHref={localizePath(locale, "/contact#chat")}
+                      <a
+                        href={localizePath(locale, "/contact#chat")}
                       >
                         <div className="selectBtn">
                           <i className="iconfont icon-24gf-phoneLoudspeaker" />
                           {" "}
                           {t(locale, "contactUs")}
                         </div>
-                      </LeadsCloudChatLink>
+                      </a>
                     </div>
                   </div>
               </div>

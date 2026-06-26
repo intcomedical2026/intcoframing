@@ -20,7 +20,6 @@ const report = {
   expectedSitemapCount,
   dns: await checkDns(domain),
   http: {},
-  leadsCloud: await checkLeadsCloud(domain),
   conclusions: [],
   ok: false,
 };
@@ -44,6 +43,7 @@ report.fingerprint = {
   hasNextFlight: /self\.__next_f|__nextjs|next-route/i.test(homeHtml),
   hasWordPressAssets: /\/wp-content\/|\/wp-includes\//i.test(homeHtml),
   hasWordPressGenerator: /wordpress/i.test(homeHtml),
+  hasLeadsCloudAssets: /libtx\.leadscloud\.com|fetchip\.leadscloud\.com/i.test(homeHtml),
   robotsStatus: report.http.robots.status,
   robotsHasExpectedSitemap: robotsText.includes(`${expectedOrigin}/sitemap.xml`),
   robotsHasWordPressSitemap: /wp-sitemap\.xml/i.test(robotsText),
@@ -130,42 +130,6 @@ async function fetchText(url) {
   }
 }
 
-async function checkLeadsCloud(host) {
-  const enterpriseId = "200365";
-  const website = host.startsWith("www.") ? host.slice(4) : host;
-  const body = new URLSearchParams({ orgId: enterpriseId, website });
-  try {
-    const response = await fetch("https://fetchip.leadscloud.com/visitor-chat/track/getStatus", {
-      method: "POST",
-      headers: { "content-type": "application/x-www-form-urlencoded" },
-      body,
-    });
-    const text = await response.text();
-    const json = JSON.parse(text);
-    const statusList = Array.isArray(json?.data?.statusList) ? json.data.statusList : [];
-    return {
-      ok: response.status === 200 && json.code === 1 && statusList.some((item) => Number(item.useStatus) === 1),
-      enterpriseId,
-      website,
-      status: response.status,
-      statusListLength: statusList.length,
-      statusList: statusList.map((item) => ({
-        orgId: item.orgId,
-        useStatus: item.useStatus,
-        matomoSiteId: item.matomoSiteId,
-        container: item.container,
-      })),
-    };
-  } catch (error) {
-    return {
-      ok: false,
-      enterpriseId,
-      website,
-      error: error.message,
-    };
-  }
-}
-
 function buildConclusions(data) {
   const fingerprint = data.fingerprint;
   return [
@@ -198,9 +162,9 @@ function buildConclusions(data) {
       detail: `sitemapStatus=${fingerprint.sitemapStatus}, locCount=${fingerprint.sitemapLocCount}, expected=${expectedSitemapCount}`,
     },
     {
-      id: "leadscloud_final_domain_enabled",
-      ok: data.leadsCloud.ok,
-      detail: `website=${data.leadsCloud.website}, statusListLength=${data.leadsCloud.statusListLength || 0}`,
+      id: "no_leadscloud_assets",
+      ok: !fingerprint.hasLeadsCloudAssets,
+      detail: `hasLeadsCloudAssets=${fingerprint.hasLeadsCloudAssets}`,
     },
   ];
 }

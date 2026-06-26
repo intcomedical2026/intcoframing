@@ -12,7 +12,7 @@ type CartItem = {
   quantity: number;
 };
 
-type LeadsCloudProductItem = {
+type EnquiryCartProductItem = {
   productId: string;
   productLink: string;
   productName: string;
@@ -26,24 +26,24 @@ type LeadsCloudProductItem = {
 };
 
 export function EnquiryList({ locale }: { locale: Locale }) {
-  const [items, setItems] = useState<LeadsCloudProductItem[]>([]);
+  const [items, setItems] = useState<EnquiryCartProductItem[]>([]);
   const [notice, setNotice] = useState("");
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
-      setItems(readOriginalProductList());
+      setItems(readEnquiryCartProductList());
     }, 0);
     return () => window.clearTimeout(timer);
   }, []);
 
   function removeItem(productId: string) {
     const nextItems = items.filter((item) => item.productId !== productId);
-    writeOriginalProductList(nextItems);
+    writeEnquiryCartProductList(nextItems);
     setItems(nextItems);
     showNotice("successfully deleted");
   }
 
-  function updateItem(index: number, patch: Partial<LeadsCloudProductItem>) {
+  function updateItem(index: number, patch: Partial<EnquiryCartProductItem>) {
     setItems((current) =>
       current.map((item, itemIndex) => (itemIndex === index ? { ...item, ...patch } : item)),
     );
@@ -55,7 +55,7 @@ export function EnquiryList({ locale }: { locale: Locale }) {
       productQuantity: Math.max(1, Number(item.productQuantity) || 1),
       productItem: item.productItem || item.newcolor[0]?.item || item.productName,
     }));
-    writeOriginalProductList(normalized);
+    writeEnquiryCartProductList(normalized);
     setItems(normalized);
     showNotice("Successfully Updated");
   }
@@ -174,7 +174,7 @@ export function EnquiryList({ locale }: { locale: Locale }) {
                   locale={locale}
                   items={items}
                   onSuccess={() => {
-                    clearOriginalProductList();
+                    clearEnquiryCartProductList();
                     setItems([]);
                     showNotice("Successfully Submitted");
                   }}
@@ -193,12 +193,12 @@ export function EnquiryList({ locale }: { locale: Locale }) {
   );
 }
 
-function readOriginalProductList() {
-  const sourceItems = parseJsonArray<LeadsCloudProductItem>(localStorage.getItem("productList"));
-  if (sourceItems.length) return sourceItems.map(normalizeOriginalItem);
+function readEnquiryCartProductList() {
+  const sourceItems = parseJsonArray<EnquiryCartProductItem>(localStorage.getItem("productList"));
+  if (sourceItems.length) return sourceItems.map(normalizeEnquiryCartItem);
 
   return parseJsonArray<CartItem>(localStorage.getItem("intco-enquiry-cart")).map((item) =>
-    normalizeOriginalItem({
+    normalizeEnquiryCartItem({
       productId: item.slug,
       productLink: item.path,
       productName: item.title,
@@ -213,18 +213,18 @@ function readOriginalProductList() {
   );
 }
 
-function writeOriginalProductList(items: LeadsCloudProductItem[]) {
+function writeEnquiryCartProductList(items: EnquiryCartProductItem[]) {
   localStorage.setItem("productList", JSON.stringify(items));
   document.cookie = "withProduct=true; path=/; max-age=2592000";
 }
 
-function clearOriginalProductList() {
+function clearEnquiryCartProductList() {
   localStorage.removeItem("productList");
   localStorage.removeItem("intco-enquiry-cart");
   document.cookie = "withProduct=; path=/; max-age=0";
 }
 
-function normalizeOriginalItem(item: LeadsCloudProductItem): LeadsCloudProductItem {
+function normalizeEnquiryCartItem(item: EnquiryCartProductItem): EnquiryCartProductItem {
   const newcolor = Array.isArray(item.newcolor) ? item.newcolor : [];
   const newsize = Array.isArray(item.newsize) ? item.newsize : [];
   const firstColor = newcolor[0];
