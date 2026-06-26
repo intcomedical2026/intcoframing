@@ -116,7 +116,7 @@ async function fetchText(url) {
       status: response.status,
       url: response.url,
       headers: Object.fromEntries(response.headers.entries()),
-      body: body.slice(0, 500000),
+      body: body.slice(0, 5000000),
     };
   } catch (error) {
     return {
