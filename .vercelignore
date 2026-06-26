@@ -1,0 +1,7 @@
+backups/
+reports/
+output/
+.playwright-cli/
+.next/
+node_modules/
+*.tar.gz
