@@ -408,8 +408,9 @@ function searchRouteMeta(pageNumber: number): RouteMeta {
 const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
   "/products/mirror-all": {
     en: {
-      title: "Mirror",
-      description: "",
+      title: "Top Mirrors & LED Mirrors Supplier | Shop Intco Framing",
+      description: "Find the perfect mirror at Intco Framing. Explore the latest bathroom solutions at INTCO Framing with our wall mirrors, standing mirrors, and LED mirrors.",
+      keywordsRaw: "Intco Framing Mirror, Wall Mirror, Standing Mirror, LED Mirror Wholesale, Best Sellers for Mirror, Mirror Supplier",
     },
   },
   "/picture-frame-all": {
@@ -421,14 +422,23 @@ const routeMetaDefaults: Record<string, Partial<Record<Locale, RouteMeta>>> = {
   },
   "/products/art-all": {
     en: {
-      title: "Art",
-      description: "",
+      title: "Unique Framed Art & Canvas Art | Intco Framing Wall Art",
+      description: "Explore Intco Framing unique art collection. From framed art and canvas art to alternative wall decor, discover our best sellers to suit your style. Shop now!",
+      keywordsRaw: "Intco Framing Art, Framed Art, Canvas Art, Alternative Wall Décor",
     },
   },
   "/products/furniture-all": {
     en: {
-      title: "Furniture",
-      description: "",
+      title: "Intco Framing Furniture: Medicine Cabinets with Mirror & Shelves",
+      description: "Explore Intco Framing premium furniture collection. From medicine cabinets to shelves, discover our latest home storage solutions. Shop now!",
+      keywordsRaw: "Intco Framing Furniture, Medicine Cabinet, Shelf, Home Storage Solutions",
+    },
+  },
+  "/memo-board": {
+    en: {
+      title: "Intco Framing Memo Boards Wholesale: Chalkboard, Whiteboard, Cork Board",
+      description: "Explore Intco Framing premium memo boards. From chalkboards and dry erase boards to cork boards, discover our best sellers to suit your needs. Shop now!",
+      keywordsRaw: "Intco Framing Memo Board, Chalkboard, Dry Erase Board, Cork Board, Linen Board Wholesale",
     },
   },
   "/products/memo-board-all": {
@@ -743,7 +753,7 @@ function resolveRouteMeta(path: string, data: Awaited<ReturnType<typeof getSiteD
   const productAllArchiveRoute = productAllArchiveRouteForPath(path);
   const routeDefaultsPath = productAllArchiveRoute?.archivePath || path;
   const routeDefaults = routeMetaDefaults[routeDefaultsPath]?.[locale] || routeMetaDefaults[routeDefaultsPath]?.en;
-  if (routeDefaults && (BUSINESS_INSIGHTS_CHILD_PATHS.has(path) || path === "/privacy-policy" || productAllArchiveRoute)) {
+  if (routeDefaults && (BUSINESS_INSIGHTS_CHILD_PATHS.has(path) || path === "/privacy-policy" || productAllArchiveRoute || path === "/memo-board")) {
     return routeDefaults;
   }
 

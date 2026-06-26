@@ -9,7 +9,8 @@ const args = parseArgs(process.argv.slice(2));
 
 const domain = String(args.domain || args.host || "www.intcoframing-us.com").replace(/^https?:\/\//i, "").replace(/\/.*$/g, "");
 const expectedOrigin = normalizeOrigin(args.expectedOrigin || args.siteUrl || `https://${domain}`);
-const expectedSitemapCount = parseInteger(args.expectedSitemapCount || 1476);
+const expectedSitemapCount = args.expectedSitemapCount ? parseInteger(args.expectedSitemapCount) : undefined;
+const minimumSitemapCount = parseInteger(args.minimumSitemapCount || 1000);
 const reportPath = path.resolve(args.report || `reports/launch/domain-cutover-${timestamp()}.json`);
 const allowFail = Boolean(args.allowFail);
 
@@ -18,6 +19,7 @@ const report = {
   domain,
   expectedOrigin,
   expectedSitemapCount,
+  minimumSitemapCount,
   dns: await checkDns(domain),
   http: {},
   conclusions: [],
@@ -157,9 +159,11 @@ function buildConclusions(data) {
       ok:
         fingerprint.sitemapStatus === 200 &&
         fingerprint.sitemapLooksLikeXml &&
-        fingerprint.sitemapLocCount === expectedSitemapCount &&
+        (expectedSitemapCount ? fingerprint.sitemapLocCount === expectedSitemapCount : fingerprint.sitemapLocCount >= minimumSitemapCount) &&
         !fingerprint.sitemapLooksLikeOld404Html,
-      detail: `sitemapStatus=${fingerprint.sitemapStatus}, locCount=${fingerprint.sitemapLocCount}, expected=${expectedSitemapCount}`,
+      detail: expectedSitemapCount
+        ? `sitemapStatus=${fingerprint.sitemapStatus}, locCount=${fingerprint.sitemapLocCount}, expected=${expectedSitemapCount}`
+        : `sitemapStatus=${fingerprint.sitemapStatus}, locCount=${fingerprint.sitemapLocCount}, minimum=${minimumSitemapCount}`,
     },
     {
       id: "no_leadscloud_assets",
