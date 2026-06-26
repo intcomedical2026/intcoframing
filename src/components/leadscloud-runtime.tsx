@@ -25,7 +25,6 @@ const CHAT_SCRIPT_ID = "intco-leadscloud-chat-script";
 const CATALOG_DOWNLOAD_EVENT = "intco:catalog-download-complete";
 const FORM_IDLE_FALLBACK_MS = 12000;
 const FORM_VIEWPORT_MARGIN = "700px 0px";
-const CHAT_IDLE_FALLBACK_MS = 12000;
 
 type LeadsCloudLocale = "en" | "es" | "pt" | "fr" | "de" | "ja";
 
@@ -375,25 +374,14 @@ function loadLeadsCloudChat() {
 export function LeadsCloudChatRuntime() {
   useEffect(() => {
     const runtimeWindow = window as ChatRuntimeWindow;
-    let loaded = false;
 
     const loadOnce = () => {
-      if (loaded) return;
-      loaded = true;
       loadLeadsCloudChat();
     };
 
     runtimeWindow.__intcoLoadLeadsCloudChat = loadOnce;
 
-    const timer = window.setTimeout(loadOnce, CHAT_IDLE_FALLBACK_MS);
-    const intentEvents: Array<keyof WindowEventMap> = ["pointerdown", "keydown", "touchstart"];
-    intentEvents.forEach((eventName) => {
-      window.addEventListener(eventName, loadOnce, { once: true, passive: true });
-    });
-
     return () => {
-      window.clearTimeout(timer);
-      intentEvents.forEach((eventName) => window.removeEventListener(eventName, loadOnce));
       if (runtimeWindow.__intcoLoadLeadsCloudChat === loadOnce) {
         delete runtimeWindow.__intcoLoadLeadsCloudChat;
       }
