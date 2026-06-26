@@ -3036,6 +3036,127 @@ summary::-webkit-details-marker {
   color: #c0392b;
 }
 
+.intco-hubspot-main-form .xhl_form {
+  box-sizing: border-box;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+  width: 100%;
+}
+
+.intco-hubspot-main-form fieldset {
+  border: 0 !important;
+  column-gap: 40px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  row-gap: 20px;
+}
+
+.intco-hubspot-main-form .xhl-control-group {
+  box-sizing: border-box;
+  margin: 0 !important;
+  min-width: 0;
+}
+
+.intco-hubspot-main-form .xhl-form-text {
+  grid-column: 1 / -1;
+}
+
+.intco-hubspot-main-form .xhl-control-label {
+  color: #868686;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 36px;
+  margin: 0;
+}
+
+.intco-hubspot-main-form .xhl-controls {
+  position: relative;
+}
+
+.intco-hubspot-main-form .xhl-input-xlarge {
+  appearance: none;
+  background: #ffffff;
+  border: 1px solid #717171;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #727272;
+  display: block;
+  font-size: 24px;
+  height: 80px;
+  line-height: 80px;
+  outline: 0;
+  padding: 0 24px 0 20px;
+  width: 100%;
+}
+
+.intco-hubspot-main-form select.xhl-input-xlarge {
+  cursor: pointer;
+}
+
+.intco-hubspot-main-form .xhl-textarea {
+  background: #ffffff;
+  border: 1px solid #717171;
+  border-radius: 0;
+  box-sizing: border-box;
+  color: #777777;
+  display: block;
+  font-size: 16px;
+  height: 272px;
+  line-height: normal;
+  outline: 0;
+  padding: 20px;
+  resize: vertical;
+  width: 100%;
+}
+
+.intco-hubspot-main-form .xhl-form-tip {
+  color: #ff0000;
+  line-height: 1;
+  position: absolute;
+  right: -10px;
+  top: 3px;
+}
+
+.intco-hubspot-main-form .intco-hubspot-privacy,
+.intco-hubspot-main-form .intco-hubspot-form-status {
+  grid-column: 1 / -1;
+}
+
+.intco-hubspot-main-form .xhl-footer {
+  grid-column: 1 / -1;
+  margin: 0 !important;
+  padding: 0;
+  text-align: center;
+}
+
+.intco-hubspot-main-form .xhl-submit {
+  background: transparent;
+  border: 2px solid #484653;
+  box-sizing: border-box;
+  color: #484653;
+  cursor: pointer;
+  display: block;
+  font-size: 24px;
+  height: 84px;
+  line-height: 80px;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+  width: 304px;
+}
+
+.intco-hubspot-main-form .xhl-submit:hover {
+  background: #484653;
+  color: #ffffff;
+}
+
 .intco-floating-inquiry {
   box-sizing: border-box;
   color: #666666;
@@ -3288,6 +3409,31 @@ summary::-webkit-details-marker {
 
   .intco-floating-inquiry-note p {
     font-size: 15px;
+  }
+
+  .intco-hubspot-main-form {
+    max-width: 350px;
+  }
+
+  .intco-hubspot-main-form fieldset {
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+  }
+
+  .intco-hubspot-main-form .xhl-input-xlarge {
+    font-size: 16px;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 18px 0 20px;
+  }
+
+  .intco-hubspot-main-form .xhl-textarea {
+    height: 272px;
+  }
+
+  .intco-hubspot-main-form .xhl-submit {
+    max-width: 100%;
+    width: 304px;
   }
 }
 
