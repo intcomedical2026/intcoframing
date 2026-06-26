@@ -207,7 +207,7 @@ export function HubSpotMainInquiryForm({ locale }: { locale: Locale }) {
 
 export function HubSpotFloatingInquiryForm({ locale }: { locale: Locale }) {
   const copy = FORM_COPY[locale];
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -251,17 +251,29 @@ export function HubSpotFloatingInquiryForm({ locale }: { locale: Locale }) {
 
   return (
     <aside className="intco-floating-inquiry" data-open={isOpen} aria-label="Leave info for details">
-      <button
-        type="button"
-        className="intco-floating-inquiry-toggle"
-        aria-expanded={isOpen}
-        aria-controls={`${formId}-panel`}
-        onClick={() => setIsOpen((current) => !current)}
-      >
-        <span>Leave info for details</span>
-        <ChevronDown size={22} aria-hidden="true" />
-      </button>
+      {!isOpen ? (
+        <button
+          type="button"
+          className="intco-floating-inquiry-launcher"
+          aria-expanded={isOpen}
+          aria-controls={`${formId}-panel`}
+          onClick={() => setIsOpen(true)}
+        >
+          <MessageCircle size={24} aria-hidden="true" />
+          <span>Chat with us</span>
+        </button>
+      ) : null}
       <div id={`${formId}-panel`} className="intco-floating-inquiry-panel" hidden={!isOpen}>
+        <button
+          type="button"
+          className="intco-floating-inquiry-toggle"
+          aria-expanded={isOpen}
+          aria-controls={`${formId}-panel`}
+          onClick={() => setIsOpen(false)}
+        >
+          <span>Leave info for details</span>
+          <ChevronDown size={22} aria-hidden="true" />
+        </button>
         <div className="intco-floating-inquiry-note">
           <p>Please leave your message here! We will send detailed technical info and quotation to you!</p>
           <a
