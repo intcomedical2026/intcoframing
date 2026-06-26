@@ -48,6 +48,7 @@ export function HeroCarousel({
           const hasActions = Boolean(slide.primaryCta || slide.secondaryCta);
           const isAnimatedSlide = Boolean(slide.imageUrl?.toLowerCase().endsWith(".gif"));
           const shouldRenderImage = !isAnimatedSlide || index === activeIndex;
+          const usesLightCopy = slide.textTone === "light";
           return (
             <div key={`${slide.title || slide.imageUrl || fallbackTitle}-${index}`} className="intco-hero-slide relative h-full w-full shrink-0" data-active={index === activeIndex}>
               {slide.imageUrl && shouldRenderImage ? (
@@ -62,21 +63,39 @@ export function HeroCarousel({
                   sizes="100vw"
                 />
               ) : null}
+              {usesLightCopy ? <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent" aria-hidden="true" /> : null}
               {hasText || hasActions ? (
                 <div className="absolute inset-0 hidden lg:block">
                   <div className="intco-source-container h-full px-5">
                     <div className={`flex h-full ${hasText ? "items-center" : "items-start"}`}>
-                      <div className={`intco-hero-copy max-w-5xl ${hasText ? "" : "pt-[548px]"}`} aria-live={index === activeIndex ? "polite" : undefined}>
+                      <div
+                        className={`intco-hero-copy max-w-5xl ${hasText ? "" : "pt-[548px]"} ${usesLightCopy ? "drop-shadow-[0_3px_18px_rgba(0,0,0,0.45)]" : ""}`}
+                        aria-live={index === activeIndex ? "polite" : undefined}
+                      >
                         {hasText ? (
                           <>
-                            <h1 className="text-balance text-[112px] font-bold leading-none text-[#484653] max-[1600px]:text-[85px] max-[1466px]:text-[40px]">{slide.title || fallbackTitle}</h1>
-                            {slide.subtitle ? <p className="mt-5 max-w-[1160px] whitespace-pre-line text-pretty text-[28px] font-semibold leading-[1.45] text-[#484653] max-[1200px]:text-lg">{slide.subtitle}</p> : null}
+                            <h1 className={`text-balance text-[112px] font-bold leading-none max-[1600px]:text-[85px] max-[1466px]:text-[40px] ${usesLightCopy ? "text-white" : "text-[#484653]"}`}>
+                              {slide.title || fallbackTitle}
+                            </h1>
+                            {slide.subtitle ? (
+                              <p className={`mt-5 max-w-[1160px] whitespace-pre-line text-pretty text-[28px] font-semibold leading-[1.45] max-[1200px]:text-lg ${usesLightCopy ? "text-white" : "text-[#484653]"}`}>
+                                {slide.subtitle}
+                              </p>
+                            ) : null}
                           </>
                         ) : null}
                         {hasActions ? (
                           <div className={`flex flex-wrap gap-[29px] ${hasText ? "mt-12" : ""}`}>
-                            {slide.primaryCta ? <HeroPillLink href={localizePath(locale, slide.primaryCta.path)}>{slide.primaryCta.label}</HeroPillLink> : null}
-                            {slide.secondaryCta ? <HeroPillLink href={localizePath(locale, slide.secondaryCta.path)}>{slide.secondaryCta.label}</HeroPillLink> : null}
+                            {slide.primaryCta ? (
+                              <HeroPillLink href={localizePath(locale, slide.primaryCta.path)} tone={slide.textTone}>
+                                {slide.primaryCta.label}
+                              </HeroPillLink>
+                            ) : null}
+                            {slide.secondaryCta ? (
+                              <HeroPillLink href={localizePath(locale, slide.secondaryCta.path)} tone={slide.textTone}>
+                                {slide.secondaryCta.label}
+                              </HeroPillLink>
+                            ) : null}
                           </div>
                         ) : null}
                       </div>
@@ -106,9 +125,11 @@ export function HeroCarousel({
   );
 }
 
-function HeroPillLink({ href, children }: { href: string; children: React.ReactNode }) {
+function HeroPillLink({ href, tone, children }: { href: string; tone?: HeroSlide["textTone"]; children: React.ReactNode }) {
+  const lightClasses = "border-white text-white hover:bg-white hover:text-[#484653]";
+  const darkClasses = "border-[#484653] text-[#484653] hover:bg-[#484653] hover:text-white";
   return (
-    <Link href={href} className="inline-flex h-[66px] items-center rounded-full border-2 border-[#484653] px-10 text-lg font-medium text-[#484653] transition duration-200 hover:bg-[#484653] hover:text-white">
+    <Link href={href} className={`inline-flex h-[66px] items-center rounded-full border-2 px-10 text-lg font-medium transition duration-200 ${tone === "light" ? lightClasses : darkClasses}`}>
       {children}
     </Link>
   );

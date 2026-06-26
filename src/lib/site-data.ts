@@ -183,6 +183,7 @@ export type HomePage = SeoContent & {
     title: string;
     subtitle?: string;
     imageUrl?: string;
+    textTone?: "dark" | "light";
     primaryCta?: LinkItem;
     secondaryCta?: LinkItem;
   }>;
