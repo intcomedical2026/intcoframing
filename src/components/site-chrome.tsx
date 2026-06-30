@@ -147,15 +147,15 @@ function Header({
           </div>
         </div>
       </div>
-      <div className="intco-source-container flex h-[57px] items-center justify-between gap-6 px-5 min-[900px]:h-[90px]">
-        <Link href={href("/")} className="flex items-center gap-3" aria-label="INTCO Framing home">
+      <div className="intco-source-container flex h-[62px] items-center justify-between gap-6 px-5 min-[900px]:h-[106px]">
+        <Link href={href("/")} className="flex shrink-0 items-center gap-3" aria-label="INTCO Framing home">
           {settings.logoUrl ? (
             <Image
               src={settings.logoUrl}
               alt={settings.title}
               width={101}
               height={87}
-              className="h-10 w-auto object-contain min-[900px]:h-[87px]"
+              className="h-12 w-auto object-contain min-[900px]:h-[104px]"
               preload
             />
           ) : (
@@ -169,7 +169,7 @@ function Header({
             const isSolutions = item.path === "/solutions";
             const isAbout = item.path === "/who-we-are";
             return (
-              <div key={item.path} className="intco-nav-item relative flex h-[90px] items-center px-[clamp(12px,1.6vw,36px)]">
+              <div key={item.path} className="intco-nav-item relative flex h-[106px] items-center px-[clamp(12px,1.6vw,36px)]">
                 <Link
                   href={href(item.path)}
                   className="intco-nav-link relative block whitespace-nowrap leading-[45px] transition-colors duration-200 after:absolute after:left-0 after:bottom-0 after:h-0.5 after:w-0 after:bg-[#484653] after:transition-[width] after:duration-500 hover:text-[#484653]"
