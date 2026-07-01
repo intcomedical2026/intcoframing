@@ -243,7 +243,7 @@ function LanguageSwitcher({ locale, currentPath, compact = false }: { locale: Lo
             ? "h-9 border border-[#484653]/25 px-3 text-sm text-[#484653] hover:bg-[#f3f3f3]"
             : "h-[34px] border border-white/80 px-3 text-sm text-white hover:bg-white hover:text-[#484653]"
         }`}
-        aria-label={t(locale, "language")}
+        aria-label={`${t(locale, "language")} ${currentCode}`}
       >
         <Languages size={compact ? 17 : 16} strokeWidth={2.4} />
         <span>{currentCode}</span>
@@ -370,11 +370,11 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
           <div className="flexColum minDlexNone paddingTop">
             <div className="footerFlex">
               <ul>
-                <div className="topTitle f-logo">
+                <li className="topTitle f-logo">
                   <div className="img-box">
                     <img src={footerLogoUrl} alt={settings.title} loading="lazy" decoding="async" />
                   </div>
-                </div>
+                </li>
                 <FooterContactItem href={settings.phone ? `https://api.whatsapp.com/send?phone=${settings.phone.replace(/[^\d]/g, "")}&text=Hello` : href("/contact")} iconClass="icon-24gf-telephone">
                   {settings.phone}
                 </FooterContactItem>
@@ -396,11 +396,11 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
               <FooterColumn title={t(locale, "quickLinks")} links={quickLinks.map((link) => ({ label: chromeLabel(locale, link.path, link.label), path: href(link.path) }))} />
 
               <ul>
-                <div className="topTitle topTitleLast">{t(locale, "newsletter")}</div>
-                <div className="h-search intco-hubspot-newsletter" aria-label={t(locale, "newsletter")}>
+                <li className="topTitle topTitleLast">{t(locale, "newsletter")}</li>
+                <li className="h-search intco-hubspot-newsletter">
                   <LazyNewsletterForm locale={locale} />
-                </div>
-                <div className="FollowUs">
+                </li>
+                <li className="FollowUs">
                   {t(locale, "followUs")}
                   <div className="webshare">
                     {footerSocialLinks.map((item) => (
@@ -409,7 +409,7 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
                       </Link>
                     ))}
                   </div>
-                </div>
+                </li>
               </ul>
             </div>
             <div className="copRight">
@@ -459,7 +459,7 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
 function FooterColumn({ title, links }: { title: string; links: Array<{ label: string; path: string }> }) {
   return (
     <ul>
-      <div className="topTitle">{title}</div>
+      <li className="topTitle">{title}</li>
       {links.map((link) => (
         <li key={`${title}-${link.path}`}>
           <Link href={link.path}>

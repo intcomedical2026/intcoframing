@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import { localizePath, t } from "@/lib/i18n";
 
-const COOKIE_BANNER_DELAY_MS = 0;
+const COOKIE_BANNER_DELAY_MS = 2200;
+const COOKIE_CHOICE_EVENT = "intco-cookie-choice";
 
 export function CookieBanner({ locale, currentPath }: { locale: Locale; currentPath?: string }) {
   const isSearchPage = currentPath === "/index.php" || /^\/page\/\d+$/.test(currentPath || "");
@@ -24,6 +25,7 @@ export function CookieBanner({ locale, currentPath }: { locale: Locale; currentP
 
   function choose(value: string) {
     localStorage.setItem("intco-cookie-choice", value);
+    window.dispatchEvent(new CustomEvent(COOKIE_CHOICE_EVENT, { detail: value }));
     setVisible(false);
   }
 
@@ -33,7 +35,7 @@ export function CookieBanner({ locale, currentPath }: { locale: Locale; currentP
   const titleClassName = "text-[20px] font-semibold leading-8 text-[#363636] lg:text-lg lg:leading-[30px]";
   const textClassName = "mt-1 text-[13px] leading-[18px] text-[#555] lg:text-sm lg:leading-[22px]";
   const actionsClassName = "flex gap-3 lg:w-[300px] lg:justify-between";
-  const rejectClassName = "h-[30px] flex-1 rounded-full bg-neutral-200 text-sm text-neutral-500 transition-colors duration-200 hover:bg-neutral-300 lg:h-auto lg:rounded-[10px] lg:px-0 lg:py-2.5 lg:text-base lg:leading-[26px]";
+  const rejectClassName = "h-[30px] flex-1 rounded-full bg-neutral-200 text-sm text-neutral-700 transition-colors duration-200 hover:bg-neutral-300 lg:h-auto lg:rounded-[10px] lg:px-0 lg:py-2.5 lg:text-base lg:leading-[26px]";
   const acceptClassName = "h-[30px] flex-1 rounded-full bg-[#22213c] text-sm text-white transition-colors duration-200 hover:bg-[#484653] lg:h-auto lg:rounded-[10px] lg:px-0 lg:py-2.5 lg:text-base lg:leading-[26px]";
 
   return (

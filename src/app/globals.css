@@ -843,9 +843,9 @@ summary::-webkit-details-marker {
 }
 
 .BLOG .titleBottom {
-  color: #999;
+  color: #707070;
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 39px;
 }
 
@@ -3182,10 +3182,10 @@ summary::-webkit-details-marker {
 
 .intco-floating-inquiry-launcher {
   align-items: center;
-  background: #20b2bb;
+  background: #0f747b;
   border: 0;
   border-radius: 999px;
-  box-shadow: 0 16px 32px rgba(32, 178, 187, 0.28);
+  box-shadow: 0 16px 32px rgba(15, 116, 123, 0.26);
   color: #ffffff;
   cursor: pointer;
   display: inline-flex;
@@ -3201,8 +3201,8 @@ summary::-webkit-details-marker {
 }
 
 .intco-floating-inquiry-launcher:hover {
-  background: #189fa7;
-  box-shadow: 0 18px 36px rgba(32, 178, 187, 0.34);
+  background: #0c666d;
+  box-shadow: 0 18px 36px rgba(15, 116, 123, 0.34);
   transform: translateY(-1px);
 }
 
@@ -5583,6 +5583,16 @@ summary::-webkit-details-marker {
   font-weight: 500;
   line-height: 1.5;
   margin-top: 24px;
+  max-width: 388px;
+}
+
+.footerFlex li.topTitle,
+.footerFlex li.h-search,
+.footerFlex li.FollowUs {
+  cursor: default;
+  display: block;
+  flex: initial;
+  margin-top: 0;
   max-width: 388px;
 }
 
