@@ -205,13 +205,19 @@ export function HubSpotMainInquiryForm({ locale }: { locale: Locale }) {
   );
 }
 
-export function HubSpotFloatingInquiryForm({ locale }: { locale: Locale }) {
+export function HubSpotFloatingInquiryPanel({
+  locale,
+  formId,
+  onClose,
+}: {
+  locale: Locale;
+  formId: string;
+  onClose: () => void;
+}) {
   const copy = FORM_COPY[locale];
-  const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const formId = useId();
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -250,26 +256,13 @@ export function HubSpotFloatingInquiryForm({ locale }: { locale: Locale }) {
   }
 
   return (
-    <aside className="intco-floating-inquiry" data-open={isOpen} aria-label="Leave info for details">
-      {!isOpen ? (
-        <button
-          type="button"
-          className="intco-floating-inquiry-launcher"
-          aria-expanded={isOpen}
-          aria-controls={`${formId}-panel`}
-          onClick={() => setIsOpen(true)}
-        >
-          <MessageCircle size={24} aria-hidden="true" />
-          <span>Chat with us</span>
-        </button>
-      ) : null}
-      <div id={`${formId}-panel`} className="intco-floating-inquiry-panel" hidden={!isOpen}>
+      <div id={`${formId}-panel`} className="intco-floating-inquiry-panel">
         <button
           type="button"
           className="intco-floating-inquiry-toggle"
-          aria-expanded={isOpen}
+          aria-expanded="true"
           aria-controls={`${formId}-panel`}
-          onClick={() => setIsOpen(false)}
+          onClick={onClose}
         >
           <span>Leave info for details</span>
           <ChevronDown size={22} aria-hidden="true" />
@@ -314,7 +307,6 @@ export function HubSpotFloatingInquiryForm({ locale }: { locale: Locale }) {
           </button>
         </form>
       </div>
-    </aside>
   );
 }
 

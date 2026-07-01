@@ -75,7 +75,7 @@ function HomeBlogTile({ post, locale }: { post: HomeBlogPost; locale: Locale }) 
       <div className="relativeBox2-content">
         <div className="pic-box">
           <Link href={localizePath(locale, post.path)} aria-label={post.title}>
-            <img src={post.imageUrl} alt={post.title} loading="eager" decoding="async" />
+            <img src={post.imageUrl} alt={post.title} loading="lazy" decoding="async" />
           </Link>
         </div>
         <div className="liBox">

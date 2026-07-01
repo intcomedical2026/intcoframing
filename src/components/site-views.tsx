@@ -60,7 +60,7 @@ import { SolutionsServicesSection, type SolutionsServiceItem } from "@/component
 import { SustainabilitySavingsTabs, SustainabilityVideoButton } from "@/components/sustainability-interactions";
 import { WhoWeAreHistoryCarousel } from "@/components/who-we-are-history-carousel";
 import { ContactMapTabs, type ContactFactory } from "@/components/contact-map-tabs";
-import { HubSpotCatalogDownloadForm, HubSpotMainInquiryForm } from "@/components/hubspot-forms";
+import { LazyHubSpotCatalogDownloadForm, LazyHubSpotMainInquiryForm } from "@/components/lazy-hubspot-forms";
 import {
   SourceProductAboutTabs,
   SourceProductGallery,
@@ -3717,14 +3717,12 @@ export function HomeView({ data, locale }: { data: SiteData; locale: Locale }) {
         <HomeSourceTitle title={t(locale, "featuredProducts").toUpperCase()} />
         <div className="intco-source-container mt-8 px-5 lg:mt-[65px]">
           <div className="grid gap-5 lg:grid-cols-2 lg:gap-[30px]">
-            {parentCategories.slice(0, 2).map((category, index) => (
+            {parentCategories.slice(0, 2).map((category) => (
               <HomeProductTile
                 key={category.slug}
                 category={category}
                 locale={locale}
                 wide
-                eager
-                fetchPriority={index === 0 ? "high" : "auto"}
               />
             ))}
           </div>
@@ -4256,7 +4254,7 @@ function ProductContactSection({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-[1600px]">
         <ProductSourceTitle title={t(locale, "getInTouch")} />
         <div className="ORDERASAMPLEFlex intco-hubspot-main-form mx-auto mt-12 max-w-[1006px] lg:mt-[55px]">
-          <HubSpotMainInquiryForm locale={locale} />
+          <LazyHubSpotMainInquiryForm locale={locale} />
         </div>
       </div>
     </section>
@@ -4963,7 +4961,7 @@ function PictureFrameContactSection({ locale }: { locale: Locale }) {
       <div className="intco-source-container px-5">
         <PictureFrameSectionTitle title={t(locale, "getInTouch")} />
         <div className="ORDERASAMPLEFlex intco-hubspot-main-form mx-auto mt-12 max-w-[1006px] pb-[77px] lg:mt-[55px]">
-          <HubSpotMainInquiryForm locale={locale} />
+          <LazyHubSpotMainInquiryForm locale={locale} />
         </div>
       </div>
     </section>
@@ -5729,7 +5727,7 @@ function BusinessInsightsTrendReportView({ locale, report }: { locale: Locale; r
           <div className="intco-business-trend-report-message">
             <div className="intco-business-trend-report-grid">
               <div className="intco-business-trend-report-form intco-hubspot-localized-form" data-reveal="fade">
-                <HubSpotCatalogDownloadForm locale={locale} catalogName={reportTitle} catalogUrl={report.pdfUrl} downloadOnSuccess />
+                <LazyHubSpotCatalogDownloadForm locale={locale} catalogName={reportTitle} catalogUrl={report.pdfUrl} downloadOnSuccess />
               </div>
               <div className="intco-business-trend-report-cover" data-reveal="fade">
                 <a href={report.pdfUrl} className="group block" aria-label={`${copy.downloadAria}: ${reportTitle}`}>
@@ -9353,7 +9351,7 @@ function ContactSampleSection({ locale }: { locale: Locale }) {
         </div>
         <div className="msg-grid intco-contact-message-grid">
           <div className="text intco-contact-form" data-reveal="source-down">
-            <HubSpotMainInquiryForm locale={locale} />
+            <LazyHubSpotMainInquiryForm locale={locale} />
           </div>
           <div className="imgshow intco-contact-form-image-wrap" data-reveal="source-up">
             <div className="intco-contact-form-image">

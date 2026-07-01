@@ -2,8 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Languages, Mail, Menu, Phone, Search } from "lucide-react";
 import { CookieBanner } from "@/components/cookie-banner";
+import { DeferredFooterBackground } from "@/components/deferred-footer-background";
 import { FloatingActions } from "@/components/floating-actions";
-import { HubSpotFloatingInquiryForm, HubSpotNewsletterForm } from "@/components/hubspot-forms";
+import { FloatingInquiry } from "@/components/floating-inquiry";
+import { LazyNewsletterForm } from "@/components/lazy-newsletter-form";
 import { RevealRuntime } from "@/components/reveal-runtime";
 import { Locale, localeLabels, locales, localizePath, t } from "@/lib/i18n";
 import type { ProductCategory, SiteSettings, Solution } from "@/lib/site-data";
@@ -79,7 +81,7 @@ export function SiteChrome({ settings, categories, solutions, locale, currentPat
       <Header settings={settings} categories={categories} solutions={solutions} locale={locale} languagePath={languagePath} />
       <main className="flex-1">{children}</main>
       <Footer settings={settings} categories={categories} locale={locale} />
-      <HubSpotFloatingInquiryForm locale={locale} />
+      <FloatingInquiry locale={locale} />
       {currentPath === "/" ? null : <FloatingActions settings={settings} locale={locale} />}
       <CookieBanner locale={locale} currentPath={currentPath} />
     </div>
@@ -361,7 +363,8 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
   const footerLogoUrl = settings.footerLogoUrl || SOURCE_FOOTER_LOGO;
 
   return (
-    <footer className="footerBox" style={{ backgroundImage: `url(${SOURCE_FOOTER_BG})` }}>
+    <footer id="intco-site-footer" className="footerBox">
+      <DeferredFooterBackground imageUrl={SOURCE_FOOTER_BG} targetId="intco-site-footer" />
       <div className="m-width-content">
         <div className="ipd-20">
           <div className="flexColum minDlexNone paddingTop">
@@ -369,7 +372,7 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
               <ul>
                 <div className="topTitle f-logo">
                   <div className="img-box">
-                    <img src={footerLogoUrl} alt={settings.title} />
+                    <img src={footerLogoUrl} alt={settings.title} loading="lazy" decoding="async" />
                   </div>
                 </div>
                 <FooterContactItem href={settings.phone ? `https://api.whatsapp.com/send?phone=${settings.phone.replace(/[^\d]/g, "")}&text=Hello` : href("/contact")} iconClass="icon-24gf-telephone">
@@ -395,7 +398,7 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
               <ul>
                 <div className="topTitle topTitleLast">{t(locale, "newsletter")}</div>
                 <div className="h-search intco-hubspot-newsletter" aria-label={t(locale, "newsletter")}>
-                  <HubSpotNewsletterForm locale={locale} />
+                  <LazyNewsletterForm locale={locale} />
                 </div>
                 <div className="FollowUs">
                   {t(locale, "followUs")}
@@ -418,7 +421,7 @@ function Footer({ settings, categories, locale }: { settings: SiteSettings; cate
           <div className="phOneShow">
             <div className="footerFlex">
               <div className="topTitle">
-                <img src={footerLogoUrl} alt={settings.title} />
+                <img src={footerLogoUrl} alt={settings.title} loading="lazy" decoding="async" />
               </div>
               <div className="hc-share">
                 <div className="webshare">

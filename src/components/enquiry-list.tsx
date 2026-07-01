@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/i18n";
-import { HubSpotEnquiryCartForm } from "@/components/hubspot-forms";
+import { LazyHubSpotEnquiryCartForm } from "@/components/lazy-hubspot-forms";
 
 type CartItem = {
   slug: string;
@@ -170,7 +170,7 @@ export function EnquiryList({ locale }: { locale: Locale }) {
             </div>
             <div className="wow fadeInDown rightBox">
               <div className="from-box wow fadeInDown">
-                <HubSpotEnquiryCartForm
+                <LazyHubSpotEnquiryCartForm
                   locale={locale}
                   items={items}
                   onSuccess={() => {

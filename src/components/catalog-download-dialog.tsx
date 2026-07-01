@@ -3,7 +3,7 @@
 import { useEffect, useId, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
-import { HubSpotCatalogDownloadForm } from "@/components/hubspot-forms";
+import { LazyHubSpotCatalogDownloadForm } from "@/components/lazy-hubspot-forms";
 import type { Locale } from "@/lib/i18n";
 
 type CatalogDownloadButtonProps = {
@@ -60,7 +60,7 @@ export function CatalogDownloadButton({ pdfUrl, catalogName, locale, className, 
         </h2>
         <div className="pop-d-from intco-catalog-download-form">
           <div className="pdf-inner">
-            <HubSpotCatalogDownloadForm locale={locale} catalogName={catalogName} catalogUrl={pdfUrl} downloadOnSuccess onSuccess={() => setIsOpen(false)} />
+            <LazyHubSpotCatalogDownloadForm locale={locale} catalogName={catalogName} catalogUrl={pdfUrl} downloadOnSuccess onSuccess={() => setIsOpen(false)} />
           </div>
         </div>
       </div>

@@ -23,7 +23,16 @@ export function HeroCarousel({
   const items = useMemo(() => (slides?.length ? slides : [{ title: fallbackTitle }]), [fallbackTitle, slides]);
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [canLoadInactiveSlides, setCanLoadInactiveSlides] = useState(false);
   const activeIndex = active % items.length;
+
+  useEffect(() => {
+    if (items.length < 2) return;
+    const timer = window.setTimeout(() => {
+      setCanLoadInactiveSlides(true);
+    }, 5000);
+    return () => window.clearTimeout(timer);
+  }, [items.length]);
 
   useEffect(() => {
     if (items.length < 2 || paused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -47,7 +56,7 @@ export function HeroCarousel({
           const hasText = Boolean(slide.title || slide.subtitle);
           const hasActions = Boolean(slide.primaryCta || slide.secondaryCta);
           const isAnimatedSlide = Boolean(slide.imageUrl?.toLowerCase().endsWith(".gif"));
-          const shouldRenderImage = !isAnimatedSlide || index === activeIndex;
+          const shouldRenderImage = index === activeIndex || (!isAnimatedSlide && canLoadInactiveSlides);
           const usesLightCopy = slide.textTone === "light";
           return (
             <div key={`${slide.title || slide.imageUrl || fallbackTitle}-${index}`} className="intco-hero-slide relative h-full w-full shrink-0" data-active={index === activeIndex}>
@@ -56,11 +65,12 @@ export function HeroCarousel({
                   src={slide.imageUrl}
                   alt={slide.title || fallbackTitle}
                   fill
+                  preload={index === 0}
                   loading={index === 0 ? "eager" : "lazy"}
                   fetchPriority={index === 0 ? "high" : "auto"}
                   unoptimized={slide.imageUrl?.endsWith(".gif")}
                   className="object-cover"
-                  sizes="100vw"
+                  sizes="(max-width: 899px) 100vw, 100vw"
                 />
               ) : null}
               {usesLightCopy ? <div className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/15 to-transparent" aria-hidden="true" /> : null}
