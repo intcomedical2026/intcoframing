@@ -60,6 +60,18 @@ const socialProfiles = [
   "https://www.pinterest.com/intco_framing/",
 ];
 
+const AEO_LAST_REVIEWED = "2026-07-01";
+const organizationKnowsAbout = [
+  "interior decoration manufacturing",
+  "mirror manufacturing",
+  "picture frame manufacturing",
+  "wall art manufacturing",
+  "memo board manufacturing",
+  "retail packaging",
+  "retail display design",
+  "global production and supply",
+];
+
 const PROJECTS_SOURCE_PAGE_SIZE = 5;
 const BUSINESS_INSIGHTS_CHILD_PATHS = new Set([
   "/solutions/business-insights-trends/trend",
@@ -883,6 +895,14 @@ function buildStructuredData(
       description: data.siteSettings.description,
       email: data.siteSettings.email,
       telephone: data.siteSettings.phone,
+      foundingDate: "2002",
+      numberOfEmployees: {
+        "@type": "QuantitativeValue",
+        minValue: 4000,
+        unitText: "employees",
+      },
+      areaServed: "Global",
+      knowsAbout: organizationKnowsAbout,
       contactPoint: data.siteSettings.contactPoints?.length
         ? data.siteSettings.contactPoints.map((point) => ({
             "@type": "ContactPoint",
@@ -940,6 +960,38 @@ function buildStructuredData(
   const breadcrumb = options?.includeBreadcrumb === false ? undefined : buildBreadcrumbList(structuredPath, data, locale);
   if (breadcrumb) nodes.push(breadcrumb);
 
+  const currentCategory = data.productCategories.find((item) => item.path === structuredPath);
+  if (currentCategory) {
+    const categoryProducts = productsForStructuredCategory(currentCategory, data);
+    nodes.push({
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "@id": `${currentUrl}#collection`,
+      url: currentUrl,
+      name: currentCategory.title,
+      description: currentCategory.description || meta.description,
+      isPartOf: { "@id": websiteId },
+      inLanguage: locale,
+      datePublished: validIsoDate(currentCategory.datePublished),
+      dateModified: validIsoDate(currentCategory.dateModified) || `${AEO_LAST_REVIEWED}T00:00:00.000Z`,
+      about: {
+        "@type": "Thing",
+        name: currentCategory.title,
+      },
+      mainEntity: categoryProducts.length
+        ? {
+            "@type": "ItemList",
+            itemListElement: categoryProducts.slice(0, 24).map((item, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: absoluteUrl(localizePath(locale, item.path)),
+              name: item.title,
+            })),
+          }
+        : undefined,
+    });
+  }
+
   const product = data.products.find((item) => item.path === structuredPath || structuredPath.endsWith(`/${item.slug}`));
   if (product) {
     nodes.push({
@@ -951,6 +1003,7 @@ function buildStructuredData(
       image: absoluteOptionalUrl(product.imageUrl),
       description: product.metaDescription || product.description || product.bodyText,
       sku: product.sku,
+      manufacturer: { "@id": organizationId },
       brand: {
         "@type": "Brand",
         name: product.brand || "INTCO Framing",
@@ -958,6 +1011,14 @@ function buildStructuredData(
       category: resolveProductCategory(product, data),
       material: product.material,
       size: product.dimensions,
+      audience: {
+        "@type": "BusinessAudience",
+        audienceType: "Retail buyers, wholesalers, distributors, and home decor sourcing teams",
+      },
+      additionalProperty: productAdditionalProperties(product, data),
+      isRelatedTo: productRelatedCategoryNodes(product, data, locale),
+      datePublished: validIsoDate(product.datePublished),
+      dateModified: validIsoDate(product.dateModified) || `${AEO_LAST_REVIEWED}T00:00:00.000Z`,
       offers: productOffers(product.offers, currentUrl),
     });
   }
@@ -1090,6 +1151,54 @@ function resolveBreadcrumbName(path: string, fallback: string, data: Awaited<Ret
 function resolveProductCategory(product: Product, data: Awaited<ReturnType<typeof getSiteData>>) {
   const slug = product.mainCategorySlug || product.categorySlugs?.[0];
   return data.productCategories.find((category) => category.slug === slug)?.title;
+}
+
+function productAdditionalProperties(product: Product, data: Awaited<ReturnType<typeof getSiteData>>) {
+  const category = resolveProductCategory(product, data);
+  const values = [
+    propertyValue("SKU", product.sku),
+    propertyValue("Brand", product.brand || "INTCO Framing"),
+    propertyValue("Product category", category),
+    propertyValue("Material", product.material),
+    propertyValue("Dimensions", product.dimensions),
+  ].filter(Boolean);
+
+  return values.length ? values : undefined;
+}
+
+function propertyValue(name: string, value?: string): JsonLdNode | undefined {
+  const normalized = value?.trim();
+  if (!normalized) return undefined;
+  return {
+    "@type": "PropertyValue",
+    name,
+    value: normalized,
+  };
+}
+
+function productRelatedCategoryNodes(product: Product, data: Awaited<ReturnType<typeof getSiteData>>, locale: Locale) {
+  const categorySlugs = new Set([product.mainCategorySlug, ...(product.categorySlugs || [])].filter(Boolean));
+  const categories = data.productCategories.filter((category) => categorySlugs.has(category.slug));
+
+  return categories.length
+    ? categories.map((category) => ({
+        "@type": "CollectionPage",
+        name: category.title,
+        url: absoluteUrl(localizePath(locale, category.path)),
+      }))
+    : undefined;
+}
+
+function productsForStructuredCategory(category: ProductCategory, data: Awaited<ReturnType<typeof getSiteData>>) {
+  const relevantSlugs = new Set([
+    category.slug,
+    ...data.productCategories.filter((item) => item.parentSlug === category.slug).map((item) => item.slug),
+  ]);
+
+  return data.products.filter((product) => {
+    if (product.mainCategorySlug && relevantSlugs.has(product.mainCategorySlug)) return true;
+    return product.categorySlugs?.some((slug) => relevantSlugs.has(slug));
+  });
 }
 
 function absoluteOptionalUrl(value?: string) {

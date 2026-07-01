@@ -11,7 +11,10 @@ type SitemapEntry = {
   changeFrequency: NonNullable<MetadataRoute.Sitemap[number]["changeFrequency"]>;
   imageUrl?: string;
   publishedAt?: string;
+  dateModified?: string;
 };
+
+const FALLBACK_LAST_MODIFIED = "2026-07-01";
 
 const staticEntries: SitemapEntry[] = [
   { path: "/", priority: 1, changeFrequency: "weekly" },
@@ -46,17 +49,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   };
 
   staticEntries.forEach(addEntry);
-  data.pages.forEach((page) => addEntry({ path: page.path, priority: page.path === "/contact" ? 0.85 : 0.75, changeFrequency: "monthly", imageUrl: page.imageUrl }));
-  data.productCategories.forEach((category) => addEntry({ path: category.path, priority: category.parentSlug ? 0.75 : 0.85, changeFrequency: "weekly", imageUrl: category.imageUrl || category.navImageUrl }));
-  data.products.forEach((product) => addEntry({ path: product.path, priority: 0.65, changeFrequency: "monthly", imageUrl: product.imageUrl }));
-  data.solutions.forEach((solution) => addEntry({ path: solution.path, priority: 0.8, changeFrequency: "monthly", imageUrl: solution.imageUrl }));
-  data.projects.forEach((project) => addEntry({ path: project.path, priority: 0.75, changeFrequency: "monthly", imageUrl: project.imageUrl }));
-  data.blogPosts.forEach((post) => addEntry({ path: post.path, priority: 0.65, changeFrequency: "monthly", imageUrl: post.imageUrl, publishedAt: post.publishedAt }));
+  data.pages.forEach((page) => addEntry({ path: page.path, priority: page.path === "/contact" ? 0.85 : 0.75, changeFrequency: "monthly", imageUrl: page.imageUrl, dateModified: page.dateModified, publishedAt: page.datePublished }));
+  data.productCategories.forEach((category) => addEntry({ path: category.path, priority: category.parentSlug ? 0.75 : 0.85, changeFrequency: "weekly", imageUrl: category.imageUrl || category.navImageUrl, dateModified: category.dateModified, publishedAt: category.datePublished }));
+  data.products.forEach((product) => addEntry({ path: product.path, priority: 0.65, changeFrequency: "monthly", imageUrl: product.imageUrl, dateModified: product.dateModified, publishedAt: product.datePublished }));
+  data.solutions.forEach((solution) => addEntry({ path: solution.path, priority: 0.8, changeFrequency: "monthly", imageUrl: solution.imageUrl, dateModified: solution.dateModified, publishedAt: solution.datePublished }));
+  data.projects.forEach((project) => addEntry({ path: project.path, priority: 0.75, changeFrequency: "monthly", imageUrl: project.imageUrl, dateModified: project.dateModified, publishedAt: project.datePublished }));
+  data.blogPosts.forEach((post) => addEntry({ path: post.path, priority: 0.65, changeFrequency: "monthly", imageUrl: post.imageUrl, publishedAt: post.publishedAt, dateModified: post.dateModified }));
 
   return [...entries.values()].flatMap((entry) =>
     locales.map((locale) => ({
       url: absoluteUrl(localizePath(locale, entry.path)),
-      lastModified: validDate(entry.publishedAt),
+      lastModified: validDate(entry.dateModified || entry.publishedAt || FALLBACK_LAST_MODIFIED),
       changeFrequency: entry.changeFrequency,
       priority: entry.priority,
       images: absoluteImages(entry),
@@ -75,6 +78,7 @@ function mergeEntry(existing: SitemapEntry, next: SitemapEntry): SitemapEntry {
     changeFrequency: existing.priority >= next.priority ? existing.changeFrequency : next.changeFrequency,
     imageUrl: next.imageUrl || existing.imageUrl,
     publishedAt: next.publishedAt || existing.publishedAt,
+    dateModified: next.dateModified || existing.dateModified,
   };
 }
 
